@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Matt's Website - 404</title>
+		<link rel="stylesheet" href="css/foundation.css" />
+    	<script src="js/vendor/modernizr.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/myCss.css">
+		<!--http://stackoverflow.com/questions/59309/how-to-vertically-center-content-with-variable-height-within-a-div/13075912#13075912-->
+		<style type="text/css">
+		img {
+			max-width: 300px;
+		}
+		.block {
+		  height: 100%;
+		  text-align: center;
+		}
+
+		.block:before {
+		  content: '';
+		  display: inline-block;
+		  height: 100%; 
+		  vertical-align: middle;
+		  margin-right: -0.25em; /* Adjusts for spacing */
+
+		  /* For visualization 
+		  background: #808080; width: 5px;
+		  */
+		}
+
+		.centered {
+		  display: inline-block;
+		  vertical-align: middle;
+		  padding: 10px 15px;
+		  /*border: #a0a0a0 solid 1px;
+		  background: #f5f5f5;*/
+		}
+		a{
+			transition: background 300ms ease 0s;
+		}
+		a:hover{
+			background: #008CBA;
+		}
+		</style>
+	</head>
+
+	<body>
+		<div class="block">
+		    <div class="centered">
+		    	<h2 id="trollQuestion"></h2>
+		    	<img src="assets/404.png"/>
+		        <h2 id="trollAnswer"></h2>
+		        <br/>
+		        <h4>Sorry for the hiccup. How about we go back for a nice cup of coffee?</h4>
+				<h2><a href="index.html">RETURN TO CIVILIZATION</a></h2>
+		    </div>
+		</div>
+	</body>
+	<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+  	<script src="js/foundation/foundation.clearing.js"></script>
+    <script>
+      	$(document).foundation();
+      	///lol
+      	var pageURL = document.URL;
+      	pageURL = pageURL.substr(pageURL.lastIndexOf('/')+1);
+      	document.getElementById('trollQuestion').innerHTML = "Were you looking for "+pageURL+"?";
+
+      	var answer = "You've found it!";
+      	if(pageURL !== "404.html")
+      	{
+      		var randomNum = Math.floor((Math.random() * 10));
+	      	switch(randomNum)
+	      	{
+	      		case 1:
+	      			answer = "It doesn't exist.";
+	      		break;
+	      		case 2:
+	      			answer = "Nope, not here.";
+	      		break;
+	      		case 3:
+	      			answer = "Wait, it's not here?! Thanks, Obama.";
+	      		break;
+	      		case 4:
+	      			answer = "You do not have enough mana to summon this page.";
+	      		break;
+	      		case 5:
+	      			answer = "It's probably in here. Somewhere.";
+	      		break;
+	      		case 6:
+	      			answer = "PAGE IS UNDEFINED";
+	      		break;
+	      		case 7:
+	      			answer = "Me too. Tell me when you find it.";
+	      		break;
+	      		case 8:
+	      			answer = "...I don't have that page.";
+	      		break;
+	      		default:
+	      			answer = "I can't find it.";
+	      		break;
+	      	}
+      	}
+      	document.getElementById('trollAnswer').innerHTML = answer;
+    </script>
+	<div id="footer">Matthew Lee / Crazoter 2014</div>
+</html>
