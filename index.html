@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Matt's Website - Home</title>
+		<link rel="stylesheet" href="css/foundation.css" />
+    	<script src="js/vendor/modernizr.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/myCss.css">
+		<style type="text/css">
+			ul.links
+			{
+				text-align: center;
+			}
+			span.links
+			{
+				width:250px;
+				display: inline-block;
+				box-shadow: 0 0 10px rgba(0, 0, 255, 1);
+			    -webkit-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+			    -moz-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+				border-radius: 0.2em 0.2em 0.2em 0.2em;
+				background-color: #F0F0F0;
+				transition:opacity 300ms, text-shadow 300ms;
+				overflow: hidden;
+			}
+			span:hover
+			{
+				opacity: 0.85;
+				text-shadow:
+			    -1px -1px 0 #000,
+			    1px -1px 0 #000,
+			    -1px 1px 0 #000,
+			    1px 1px 0 #000;  
+			}
+			img.links
+			{
+				display: block;
+				bottom: 0;
+				border: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div class="header">WELCOME</div>
+	<div class="nav">
+	<ul id="navbar">
+		<li class="nav"><a class="header navSelected" href="index.html">Home</a></li>
+		<li class="nav"><a class="header" href="aboutme.html">About Me</a></li>
+		<li class="nav"><a class="header" href="work.html">My Work</a></li>
+		<li class="nav"><a class="header" href="mailto:lightningrodbombom@gmail.com">Contact Me</a></li>
+	</ul>
+	<div class="navImg">
+		<img class="navImg" src="assets/mainpagepic.png"/>
+	</div>
+	</div>
+	<br/>
+	<div class='row'>
+		<div class="content large-12 columns">
+			Hi! I'm Matthew (call me Matt) and this is my website. Come on in and take a look!
+		</div>
+	</div>
+	<div class='row'>
+		<div class="content large-12 columns">
+			<ul class="links">
+				<span class='links' style="float:left;">
+					<a class='links' href="aboutme.html"><b>All about me.</b>
+					<p>Birthdate not included.</p>
+					<img class='links' src='assets/aboutmepic.png'/></a>
+				</span>
+				<span class='links' style="width:250px;margin-left:auto;margin-right:auto;"style="float:right;">
+					<a class='links' href="work.html"><b>My work.</b>
+					<p>Stuff made by me.</p>
+					<img class='links' src='assets/achievementspic.png'/></a>
+				</span>
+				<span class='links' style="float:right;">
+					<a class='links' href="mailto:lightningrodbombom@gmail.com"><b>Talk to me.</b>
+					<p>I'll listen.</p>
+					<img class='links' src='assets/contactmepic.png' width=250px; height=200px;/></a>
+				</span>
+			</ul>
+		</div>
+	</div>
+	</body>
+	<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+	<div id="footer">Matthew Lee / Crazoter 2014</div>
+</html>

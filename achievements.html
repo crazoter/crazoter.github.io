@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/myCss.css">
+		<title>Matt's Website - Achievements</title>
+		<style type="text/css">
+		span
+		{
+			display:inline-block;
+			vertical-align: text-top;
+			margin: auto;
+			left: 0;
+			cursor:hand;
+			cursor:pointer;
+			transition:opacity 300ms, text-shadow 300ms;
+		}
+		img.obj
+		{
+			width: 400px;
+			height: 400px;
+			box-shadow: 0 0 10px rgba(0, 0, 255, 1);
+		    -webkit-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+		    -moz-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+		}
+		span:hover
+		{
+			opacity: 0.85;
+			text-shadow:
+		    -1px -1px 0 #000,
+		    1px -1px 0 #000,
+		    -1px 1px 0 #000,
+		    1px 1px 0 #000; 
+		    color:rgb(255,255,255); 
+		}
+
+		h1,h2,h3,h4,h5,h6
+		{
+			text-align: center;
+		}
+		#commentator
+		{
+			clear: both;
+		    padding: 0;
+		    vertical-align: bottom;
+		    line-height: normal;
+		    margin: 0;
+		    position: fixed;
+		    bottom: 0px;
+		    width: 100%;
+		    font: 40px helvetica,arial,sans-serif;
+		    z-index: 2;
+		}
+		p.commentator
+		{
+			padding: 5px 180px 20px 5px;
+			position: relative;
+			width:350px;
+			height:90px;
+			margin-bottom: 0;
+			color: white;
+			font-size: 16px;
+			vertical-align: middle;
+			float:right;
+			background-color: rgba(0,0,0,0.8);
+			-moz-border-radius: 25px 1px / 10px 25px;
+			border-radius: 25px 1px / 10px 25px;
+			-webkit-box-shadow: 0 0 10px #FFF;
+			-moz-box-shadow: 0 0 10px #FFF;
+			box-shadow: 0 0 10px #FFF;
+		}
+		img.commentator
+		{
+			position: absolute;
+			height:175px;
+			bottom: 0;
+			right:0;
+		}
+		</style>
+		<script src="js/achievementsScript.js"></script>
+	</head>
+
+	<body>
+	<div class="header">ACHIEVEMENTS</div>
+	<div class="nav">
+	<ul id="navbar">
+		<li class="nav"><a class="header" href="home.html">Home</a></li>
+		<li class="nav"><a class="header" href="aboutme.html">About Me</a></li>
+		<li class="nav"><a class="header" href="mailto:justkidding@haha.com">Contact Me</a></li>
+		<li class="nav"><a class="header" href="achievements.html"><b>Achievements</b></a></li>
+	</ul>
+	<div class="navImg">
+		<img id="navImg" src="assets/navbarImage.jpg"/>
+	</div>
+	</div>
+	<br/>
+		<div class="content">
+			<span onclick='commentOnThis(1)'>
+				<h3>Created a RPG</h3>
+				<img class="obj" src='assets/rpg.png'/>
+			</span>
+			<span onclick='commentOnThis(2)'>
+				<h3>Created Tanks</h3>
+				<img class="obj" src='assets/tanks.png'/>
+			</span>
+			<span onclick='commentOnThis(3)'>
+				<h3>Splash Awards 2nd Runner up</h3>
+				<img class="obj" src='http://www.np.edu.sg/ict/news/PublishingImages/IMG_2580.jpg'/>
+			</span>
+			<span onclick='commentOnThis(4)'>
+				<h3>Took a photo with director</h3>
+				<img class="obj" src='https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-frc3/550858_10151157382183772_956604583_n.jpg'/>
+			</span>
+			<span onclick='commentOnThis(5)'>
+				<h3>Gave speech to more than 30 people</h3>
+				<img class="obj" src='https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-prn1/59031_3908293875567_401872712_n.jpg'/>
+			</span>
+			<span onclick='commentOnThis(6)'>
+				<h6>Stood in whatever-that-vapour-is for more than a minute</h6>
+				<img class="obj" src='https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash4/247751_10151467830129226_153661740_n.jpg'/>
+			</span>
+			<span onclick='commentOnThis(7)'>
+				<h4>Showed a lecturer how to use something</h4>
+				<img class="obj" src='https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-ash4/480862_3908282195275_856145446_n.jpg'/>
+			</span>
+		</div>
+	</body>
+	<div id="commentator">
+		<p class="commentator" id="whatIwantToSay">Initializing...</p>
+		<img class="commentator" id="meExpression" src='assets/mespeak.png'/>
+	</div>
+	<div id="footer">Matthew Lee 2013</div>
+</html>
