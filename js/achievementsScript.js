@@ -36,7 +36,13 @@ image2.src = "assets/mespeak2.png";
 window.onload = function () 
 {
 	$('img[data-speech]').click(function() {//whenever something is clicked comment, foundation 5 will handle the rest
-		commentOnThis($(this).data().speech,$(this).data().imgsrc);
+		var jThisData = $(this).data();
+		commentOnThis(jThisData.speech,jThisData.imgsrc);
+		//setup details
+		document.getElementById("details_name").innerHTML = jThisData.caption;
+		document.getElementById("details_manpower").innerHTML = jThisData.manpower + " man team";
+		document.getElementById("details_time").innerHTML = jThisData.time;
+		document.getElementById("details_tools").innerHTML = jThisData.tools;
 		//commentOnThis(jQuery.data(this,"data-speech"
 	});
 	//setup
@@ -45,7 +51,7 @@ window.onload = function ()
 	if(textbox != null)
 	{
 		textbox.innerHTML = "";
-		text = "Click an achievement to see what I have to say about it!";
+		text = "Click an image to see what I have to say about it!";
 		typerTimer = setInterval(function(){typingTime()},20);
 	}
 }
@@ -54,30 +60,6 @@ function commentOnThis (speech, imgsrc) {
 	{
 		if(text !== speech)
 		{
-			/*
-			lazyNum = num;
-			switch(num)
-			{
-				case 1:text = "A personal challenge. It was my first time with Java Swing before I understood OOP and it was tough.#Comprises of 50 stages, at least 20 items, dialogue and periodic bosses.";
-					break;
-				case 2:text = "A personal challenge.Terribly difficult to make but also terribly fun and terribly satisfying.#Includes 6 kinds of weapons and of course destructible terrain.";
-					break;
-				case 3:text = "It wasn't easy programming in foreign language-I have to admit getting 3rd place was a pleasant surprise.";
-					break;
-				case 4:text = "The director is elusive. Taking a photo together with her is like catching a rare Pokemon.##OF COURSE THIS WARRANTS AN ACHIEVEMENT";
-					break;
-				case 5:text = "Okay, I'll admit this is a stupid achievement, but since this is sort of a sample website... Why not?#Aha.Aha.Ahahaha.#NEXT";
-					break;
-				case 6:text = "Trust me, whatever that gas is, it's even worse than the 300 PSI haze.##Okay, maybe not, but smiling didn't help.";
-					break;
-				case 7:text = "Showing an IT lecturer how to use something IT related is definitely an achievement in my book.##Even if it's just a little gimmick.";
-					break;
-			}
-			if(num === 6)
-				avatar.src = "assets/mespeak2.png";
-			else
-				avatar.src = "assets/mespeak.png";
-			*/
 			text = speech;
 			avatar.src = imgsrc;
 			textbox.innerHTML = "";
@@ -86,7 +68,7 @@ function commentOnThis (speech, imgsrc) {
 			typerTimer = setInterval(function(){typingTime()},20);
 		}
 		else
-		{//Immediately stop animating if double click
+		{//Immediately stop animating if double click and set text
 			clearInterval(typerTimer);
 			textbox.innerHTML = text;
 		}
