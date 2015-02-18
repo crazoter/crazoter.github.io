@@ -26,6 +26,7 @@ var avatar;
 var text;
 var lazymanCounter=0;
 var typerTimer;
+var escapeNext = false;
 
 //Using CSS should work also
 var image1 = new Image();
@@ -35,16 +36,14 @@ image2.src = "assets/mespeak2.png";
 
 window.onload = function () 
 {
-	$('img[data-speech]').click(function() {//whenever something is clicked comment, foundation 5 will handle the rest
-		var jThisData = $(this).data();
-		commentOnThis(jThisData.speech,jThisData.imgsrc);
-		//setup details
-		document.getElementById("details_name").innerHTML = jThisData.caption;
-		document.getElementById("details_manpower").innerHTML = jThisData.manpower + " man team";
-		document.getElementById("details_time").innerHTML = jThisData.time;
-		document.getElementById("details_tools").innerHTML = jThisData.tools;
-		//commentOnThis(jQuery.data(this,"data-speech"
+	$('li.interactable').click(function () {//border is clicked
+		var jThisData = $(this.children[0].children[0]).data();
+		workClicked(jThisData);
 	});
+	//$('img[data-speech]').click(function() {//whenever something is clicked comment, foundation 5 will handle the rest
+		//var jThisData = $(this).data();//image itself is clicked
+		//workClicked(jThisData);
+	//});
 	//setup
 	textbox = document.getElementById("whatIwantToSay");
 	avatar = document.getElementById("meExpression");
@@ -55,6 +54,18 @@ window.onload = function ()
 		typerTimer = setInterval(function(){typingTime()},20);
 	}
 }
+
+function workClicked(jThisData)
+{
+	commentOnThis(jThisData.speech,jThisData.imgsrc);
+	//setup details
+	document.getElementById("details_name").innerHTML = jThisData.caption;
+	document.getElementById("details_manpower").innerHTML = jThisData.manpower + " man team";
+	document.getElementById("details_time").innerHTML = jThisData.time;
+	document.getElementById("details_tools").innerHTML = jThisData.tools;
+	//commentOnThis(jQuery.data(this,"data-speech"
+}
+
 function commentOnThis (speech, imgsrc) {
 	if(textbox != null)
 	{
@@ -70,28 +81,49 @@ function commentOnThis (speech, imgsrc) {
 		else
 		{//Immediately stop animating if double click and set text
 			clearInterval(typerTimer);
-			textbox.innerHTML = text;
+			typingTime(true);
+			//textbox.innerHTML = text;
 		}
 	}
 }
 
-function typingTime()
+function typingTime(looping)
 {
 	if(textbox != null)
 	{
-		switch(text.charAt(lazymanCounter))
+		if(!escapeNext)
 		{
-			case '#':textbox.innerHTML += "<br/>";
-				break;
-			default:textbox.innerHTML += text.charAt(lazymanCounter);
-				break;
+			switch(text.charAt(lazymanCounter))
+			{
+				case '\\':escapeNext = true;
+					break;
+				case '#':textbox.innerHTML += "<br/>";
+					break;
+				case '^'://this automatically assumes it's followed by a $
+				var start = lazymanCounter+1;
+				lazymanCounter = text.indexOf('$');//immediately skip entire area
+				textbox.innerHTML += text.substring(start,lazymanCounter);
+					break;
+				default:textbox.innerHTML += text.charAt(lazymanCounter);
+					break;
+			}
+		}
+		else
+		{//just escape the next one and don't run logic
+			textbox.innerHTML += text.charAt(lazymanCounter);
+			escapeNext = false;
 		}
 		lazymanCounter++;
 		if(lazymanCounter >= text.length)
+		{
 			clearInterval(typerTimer);
+		}
+		else if(looping)//keep going
+			typingTime(true);
 	}
 	else
-	{
+	{//error
+		console.log('ERROR:cannot find textbox to print to');
 		clearInterval(typerTimer);
 	}
 }
