@@ -318,6 +318,14 @@
 		{
 			window.open('http://www.windowsphone.com/en-SG/apps/24b4c0a0-1f2a-45d8-9c5c-09330fcd7603');
 		}
+		//pre-loading of big images
+		var preLoadArr = [];
+		$.each($('a.th'),function( index, value ){
+			var img = new Image();
+			debugger;
+			img.src = value.href;
+			preLoadArr.push(img);
+		});
     </script>
 	<div id="footer">Matthew Lee / Crazoter 2014<br/>Icon(s) designed by <a href="http://www.freepik.com/" title="freepik">freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> </div>
 </html>
