@@ -53,6 +53,10 @@ window.onload = function ()
 		text = "Click an image to see what I have to say about it!";
 		typerTimer = setInterval(function(){typingTime()},20);
 	}
+
+	//end preloader
+	$('#preloader').fadeOut('slow',function(){$(this).remove();
+});
 }
 
 function workClicked(jThisData)
