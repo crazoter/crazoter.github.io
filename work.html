@@ -141,12 +141,17 @@
 			overflow: visible; 
 			background: #fff url('assets/preloader.gif') no-repeat center center; 
 		}
+		h1.preloader {/*vertical center*/
+			position: relative;
+			top: 70%;
+			transform: translateY(-70%);
+		}
 		</style>
 		<script src="js/achievementsScript.js"></script>
 	</head>
 
 	<body>
-	<div id="preloader">Loading</div>
+	<div id="preloader"><h1 class="preloader">Loading</h1></div>
 
 	<div class="header">MY WORK</div>
 	<div class="nav">
