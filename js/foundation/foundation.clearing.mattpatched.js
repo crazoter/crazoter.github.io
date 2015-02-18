@@ -73,17 +73,18 @@
             }
 
             // if clearing is open and the current image is
-            // clicked, go to the next image in sequence
+            // clicked, DO NOT go to the next image in sequence
             if (target.hasClass('visible') &&
               current[0] === target[0] &&
               next.length > 0 && self.is_open(current)) {
-              target = next;
-              image = S('img', target);
+              //target = next;
+              //image = S('img', target);
+            }else
+            {
+              // set current and target to the clicked li if not changed
+              self.open(image, current, target);
+              self.update_paddles(target);
             }
-
-            // set current and target to the clicked li if not otherwise defined.
-            self.open(image, current, target);
-            self.update_paddles(target);
           })
 
         .on('click.fndtn.clearing', '.clearing-main-next',
