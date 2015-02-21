@@ -1,71 +1,14 @@
 		body
 		{
 			margin: 0px;
-			/*background-image: url(http://wallpoper.com/images/00/31/99/05/white-wave_00319905.jpg);
-			background-repeat:no-repeat;
+			background-color: #F0F0F0;
+			line-height: 1.6;
+			font-size: 18px;
+			background-image: url(../assets/bgs/halftone.png);
+			/*background-repeat:no-repeat;
 			background-attachment: fixed;*/
 		}
 
-		ul#navbar
-		{
-			/*	<img id="navImg" src="http://www.tasteofcinema.com/wp-content/uploads/2013/01/Les-Mis-poster.jpg"/>*/
-			position: fixed;
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			font: 22px helvetica,arial,sans-serif;
-			color:rgb(0,0,0);
-			z-index: 3;			
-		}
-		li.nav
-		{
-			/*float:left;*/
-			background-color: black;
-			/*box-shadow: 2px 2px 2px #181818;*/
-			box-shadow: 2px 2px 2px #000033;
-			/*border-radius: 2em 1em 4em / 0.5em 3em;*/
-			border-radius: 1em 1em 2em / 0.1em 2em;
-			display:inline-block;
-			padding-left: 20px;
-			padding-right: 20px;
-		}
-		div.header
-		{
-			position:absolute;
-			top:200px;
-			left:0;
-			float:left;
-			z-index: 2;
-			font-family: myFirstFont;
-			color: #62a5e8;
-			font-size: 46px;
-			text-shadow: 2px 2px #000033;
-			/*clip: rect(0px,700px,400px,0px)*/
-		}
-		a
-		{
-			text-decoration: none;
-			transition:color 300ms;
-		}
-		a.links
-		{
-			display: block;
-			font-size: 20px;
-			color: black;
-		}
-		a.header
-		{
-			color: #FFCC33;
-		}
-		a:hover
-		{
-			color:rgb(255,255,255);
-		}
-		a.navSelected
-		{
-			font-weight: bold;
-			color: #FFEBAD;
-		}
 		div.nav
 		{
 			width:100%;
@@ -74,7 +17,8 @@
 			top:0;
 			left:0;
 			margin: 0;
-			background-color: #000;
+			background-color: #181818;
+			background-image: url(../assets/bgs/binding_dark.png);
 			/*background-image: url('http://www.tasteofcinema.com/wp-content/uploads/2013/01/Les-Mis-poster.jpg');*/
 			/*background-image: url('navbarImage.jpg');*/
 			box-shadow: 5px 5px 5px #888888;
@@ -90,6 +34,79 @@
 			right: 0;
 			/*background-image: url('http://www.tasteofcinema.com/wp-content/uploads/2013/01/Les-Mis-poster.jpg');*/
 			/*background-image: url('navbarImage.jpg');*/
+		}
+		div#navbardiv
+		{/*http://stackoverflow.com/questions/1695175/how-to-horizontally-center-an-unordered-list-of-unknown-width*/
+			width: 100%; 
+			overflow: hidden;
+			position: fixed;
+			padding-bottom: 10px;
+		}
+		ul#navbar
+		{
+			/*	<img id="navImg" src="http://www.tasteofcinema.com/wp-content/uploads/2013/01/Les-Mis-poster.jpg"/>*/
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			font: 22px helvetica,arial,sans-serif;
+			color:#444;
+			z-index: 3;		
+			position: relative; 
+			float: left; 
+			display: block; 
+			left: 50%;	
+		}
+		li.nav
+		{
+			background-color: black;
+			-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+			-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+			box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+			display:inline-block;
+			padding-left: 20px;
+			padding-right: 20px;
+			margin: 10px;
+			position: relative;
+			float:left;
+			right: 50%;
+		}
+		div.header
+		{
+			position:absolute;
+			top:180px;
+			left:0;
+			float:left;
+			z-index: 2;
+			font-family: Share;
+			color: #EEEEEE;
+			font-size: 46px;
+			/*text-shadow: 2px 2px #000033;
+			clip: rect(0px,700px,400px,0px)*/
+		}
+		a
+		{
+			text-decoration: none;
+			transition:color 300ms;
+		}
+		a.links
+		{
+			display: block;
+			font-size: 20px;
+			color: black;
+		}
+		a.header
+		{
+			font-family: Share;
+			color: #FFCC33;
+		}
+		a:hover
+		{
+			color:rgb(255,255,255);
+		}
+		a.navSelected
+		{
+			font-weight: bold;
+			color: #FFEBAD;
 		}
 		img.navImg
 		{
@@ -130,8 +147,7 @@
 
 		@font-face
 		{
-		font-family: myFirstFont;
-		src: url(../fonts/Moire-Regular.ttf) format("truetype");
+			font-family: 'Share', cursive;
 		}
 		/*div
 		{
@@ -146,3 +162,28 @@
 			-ms-transform:rotate(30deg);
 			-webkit-transform:rotate(30deg);
 		}*/
+
+		.block {
+		  height: 100%;
+		  text-align: center;
+		}
+
+		.block:before {
+		  content: '';
+		  display: inline-block;
+		  height: 100%; 
+		  vertical-align: middle;
+		  margin-right: -0.25em; /* Adjusts for spacing */
+
+		  /* For visualization 
+		  background: #808080; width: 5px;
+		  */
+		}
+
+		.centered {
+		  display: inline-block;
+		  vertical-align: middle;
+		  padding: 10px 15px;
+		  /*border: #a0a0a0 solid 1px;
+		  background: #f5f5f5;*/
+		}
