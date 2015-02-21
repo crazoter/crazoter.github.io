@@ -51,11 +51,12 @@
 			/*background-image: url('navbarImage.jpg');*/
 		}
 		div#navbardiv
-		{/*http://stackoverflow.com/questions/1695175/how-to-horizontally-center-an-unordered-list-of-unknown-width*/
+		{
 			width: 100%; 
 			overflow: hidden;
 			position: fixed;
 			padding-bottom: 10px;
+			z-index: 990;
 		}
 		ul#navbar
 		{
@@ -64,8 +65,7 @@
 			margin: 0;
 			padding: 0;
 			font: 22px helvetica,arial,sans-serif;
-			color:#444;
-			z-index: 3;		
+			color:#444;		
 			position: relative; 
 			float: left; 
 			display: block; 
