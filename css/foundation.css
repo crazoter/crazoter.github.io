@@ -4179,6 +4179,7 @@ dialog {
 
 .clearing-blackout {
   background: #333333;
+  background-image: url(../assets/bgs/binding_dark.png);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -4221,6 +4222,7 @@ dialog {
   text-align: center;
   bottom: 0;
   background: #333333;
+  background-image: url(../assets/bgs/binding_dark.png);
   width: 100%;
   padding: 10px 30px 20px;
   position: absolute;
@@ -4322,6 +4324,7 @@ dialog {
           opacity: 0.8; }
   .clearing-assembled .clearing-container .visible-img {
     background: #333333;
+    background-image: url(../assets/bgs/binding_dark.png);
     overflow: hidden;
     height: 85%; }
 

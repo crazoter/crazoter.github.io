@@ -16,28 +16,30 @@
 			{
 				width:250px;
 				display: inline-block;
-				box-shadow: 0 0 10px rgba(0, 0, 255, 1);
-			    -webkit-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
-			    -moz-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+				-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+				-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+				box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+				border-style: solid;
+   				border-width: 1px;
 				border-radius: 0.2em 0.2em 0.2em 0.2em;
-				background-color: #F0F0F0;
-				transition:opacity 300ms, text-shadow 300ms;
+				transition: background-color 300ms opacity 300ms text-shadow 300ms ease 0s;
 				overflow: hidden;
+				background-color:rgba(240,240,240,0.05);
 			}
 			span:hover
 			{
 				opacity: 0.85;
-				text-shadow:
-			    -1px -1px 0 #000,
-			    1px -1px 0 #000,
-			    -1px 1px 0 #000,
-			    1px 1px 0 #000;  
+				background-color:rgba(240,240,240,0.1);
 			}
 			img.links
 			{
 				display: block;
 				bottom: 0;
 				border: 0px;
+			}
+			#middiv
+			{
+				padding-bottom: 10px;
 			}
 		</style>
 	</head>
@@ -59,39 +61,62 @@
 	</div>
 	</div>
 	<br/>-->
-	<div class="block">
-		<div class="centered">
-	<!--<div class='row'>
-		<div class="content large-12 columns">-->
-			<div class='content'>
-				<!--<div class="content large-12 columns">-->
-					<h3 style="text-align:center;">Hi! I'm Matthew and this is my website. Come on in and take a look!</h3>
-				<!--</div>-->
+	<div class="outer-centered">
+		<div class="middle-centered">
+			<div id="middiv" class="inner-centered blackbg">
+		<!--<div class='row'>
+			<div class="content large-12 columns">-->
+				<div id="content" class='content'>
+					<!--<div class="content large-12 columns">-->
+						<h3 style="text-align:center;color: #EEEEEE;">Hi! I'm Matthew and this is my website. Come in and take a look!</h3>
+					<!--</div>-->
+				</div>
+				<ul class="links">
+					<span class='links'>
+						<a class='links' href="aboutme.html">
+							<b>All about me.</b>
+							<p>Birthdate not included.</p>
+							<img class='links' src='assets/aboutmepic.png'/>
+						</a>
+					</span>
+					<span class='links' style="margin-left:20px;margin-right:20px;">
+						<a class='links' href="work.html">
+							<b>My work.</b>
+							<p>"Woah..." (lol)</p>
+							<img class='links' src='assets/achievementspicalt.png'/>
+						</a>
+					</span>
+					<span class='links'>
+						<a class='links' href="mailto:lightningrodbombom@gmail.com">
+							<b>Talk to me.</b>
+							<p>I'll listen.</p>
+							<img class='links' src='assets/contactmepic.png' width=250px; height=200px;/>
+						</a>
+					</span>
+				</ul>
 			</div>
-			<ul class="links">
-				<span class='links'>
-					<a class='links' href="aboutme.html"><b>All about me.</b>
-					<p>Birthdate not included.</p>
-					<img class='links' src='assets/aboutmepic.png'/></a>
-				</span>
-				<span class='links' style="margin-left:20px;margin-right:20px;">
-					<a class='links' href="work.html"><b>My work.</b>
-					<p>"Woah..." (lol)</p>
-					<img class='links' src='assets/achievementspicalt.png'/></a>
-				</span>
-				<span class='links'>
-					<a class='links' href="mailto:lightningrodbombom@gmail.com"><b>Talk to me.</b>
-					<p>I'll listen.</p>
-					<img class='links' src='assets/contactmepic.png' width=250px; height=200px;/></a>
-				</span>
-			</ul>
 		</div>
 	</div>
 	</body>
 	<script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
     <script>
-      $(document).foundation();
+    	var topPaddingAmt = 0;
+	  	$(document).foundation();
+	  	var jNavbardiv = $(document.getElementById('navbardiv'));
+	  	var jContentdiv = $(document.getElementById('content'));
+	    function paddingResize(){//when it's too small, nav bar will squeeze, so i want to bring my text lower so the navbar won't block the text
+	    	jContentdiv.removeAttr( 'style' );
+	    	var height = jNavbardiv.height();
+	    	if(jContentdiv.offset().top + topPaddingAmt < height)
+	    	{
+	    		jContentdiv.css("margin-top",(height + topPaddingAmt) + "px");
+	    	}
+	  	}
+	 	$(window).resize(function() {
+			paddingResize();
+		});
+		paddingResize();
     </script>
 	<div id="footer">Matthew Lee / Crazoter 2015<br/>Background(s) from <a href="http://www.subtlepatterns.com">subtlepatterns.com</a></div>
 </html>
