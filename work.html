@@ -122,6 +122,10 @@
 		{/*when it's too small, i want to be able to see all the text*/
 			width:100%;
 		}
+		p.clickable
+		{/*when can click to fast forward*/
+			cursor: pointer;
+		}
 		img.commentator
 		{
 			position: absolute;
@@ -130,7 +134,7 @@
 			right:0;
 		}
 
-		div#preloader { 
+		div.preloader { 
 			position: fixed; 
 			left: 0; 
 			top: 0; 
@@ -138,9 +142,11 @@
 			width: 100%; 
 			height: 100%; 
 			overflow: visible; 
-			background: #F0F0F0 url('assets/preloader.gif') no-repeat center center;
-			background-image: url(../assets/bgs/halftone.png); 
 		}
+		div.preloader.fg {
+			background: #F0F0F0 url('assets/preloader.gif') no-repeat center center;
+		}
+
 		h1.preloader {/*vertical center*/
 			position: relative;
 			top: 70%;
@@ -151,9 +157,10 @@
 	</head>
 
 	<body>
-	<div id="preloader">
+	<div id="preloader" class="preloader fg">
 		<img src="assets/preloader.gif" style="display:none;"/><!--load preloader first-->
-		<h1 class="preloader">Loading</h1></div>
+		<h1 class="preloader">Loading</h1>
+	</div>
 
 	<div class="header">MY WORK</div>
 	<div class="nav">

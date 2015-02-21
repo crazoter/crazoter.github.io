@@ -72,6 +72,8 @@ function workClicked(jThisData)
 	document.getElementById("details_time").innerHTML = jThisData.time;
 	document.getElementById("details_tools").innerHTML = jThisData.tools;
 	//commentOnThis(jQuery.data(this,"data-speech"
+	//setup clickable
+	$(textbox).addClass("clickable");
 }
 
 function commentOnThis (speech, imgsrc) {
@@ -125,6 +127,7 @@ function typingTime(looping)
 		if(lazymanCounter >= text.length)
 		{
 			clearInterval(typerTimer);
+			$(textbox).removeClass("clickable");
 		}
 		else if(looping)//keep going
 			typingTime(true);
