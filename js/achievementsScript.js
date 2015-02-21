@@ -44,6 +44,10 @@ window.onload = function ()
 		//var jThisData = $(this).data();//image itself is clicked
 		//workClicked(jThisData);
 	//});
+	$('#whatIwantToSay').click(function () {//textbox clicked, finish speaking
+		clearInterval(typerTimer);
+		typingTime(true);
+	});
 	//setup
 	textbox = document.getElementById("whatIwantToSay");
 	avatar = document.getElementById("meExpression");

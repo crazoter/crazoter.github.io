@@ -72,6 +72,7 @@
               settings = current.closest('[' + self.attr_name() + ']').data(self.attr_name(true) + '-init');
             }
 
+            //matt fixed
             // if clearing is open and the current image is
             // clicked, DO NOT go to the next image in sequence
             if (target.hasClass('visible') &&
