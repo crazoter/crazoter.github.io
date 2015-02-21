@@ -95,8 +95,8 @@
 			font-family: Share;
 			color: #EEEEEE;
 			font-size: 46px;
-			/*text-shadow: 2px 2px #000033;
-			clip: rect(0px,700px,400px,0px)*/
+			text-shadow: 2px 2px #000000;
+			clip: rect(0px,700px,400px,0px)
 		}
 		a
 		{
