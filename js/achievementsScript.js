@@ -54,7 +54,7 @@ window.onload = function ()
 	if(textbox != null)
 	{
 		textbox.innerHTML = "";
-		text = "Click an image to see what I have to say about it!";
+		text = "Click a thumbnail to see what I have to say about it!";
 		typerTimer = setInterval(function(){typingTime()},20);
 	}
 

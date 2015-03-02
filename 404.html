@@ -2,26 +2,14 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Matthew Lee wonders how you got lost in his website."></meta>
 		<title>Matthew's Website - 404</title>
 		<link rel="stylesheet" href="css/foundation.css" />
     	<script src="js/vendor/modernizr.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/myCss.css">
-		<!--http://stackoverflow.com/questions/59309/how-to-vertically-center-content-with-variable-height-within-a-div/13075912#13075912-->
-		<style type="text/css">
-		img {
-			max-width: 300px;
-			width: 100%;
-		}
-		a{
-			transition: background 300ms ease 0s;
-		}
-		a:hover{
-			background: #008CBA;
-		}
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/404.css">
 	</head>
-
 	<body>
 		<div class="outer-centered">
 			<div class="middle-centered">
@@ -41,47 +29,7 @@
   	<script src="js/foundation/foundation.clearing.js"></script>
     <script>
       	$(document).foundation();
-      	///lol
-      	var pageURL = document.URL;
-      	pageURL = pageURL.substr(pageURL.lastIndexOf('/')+1);
-      	document.getElementById('trollQuestion').innerHTML = "Were you looking for "+pageURL+"?";
-
-      	var answer = "You've found it!";
-      	if(pageURL !== "404.html")
-      	{
-      		var randomNum = Math.floor((Math.random() * 10));
-	      	switch(randomNum)
-	      	{
-	      		case 1:
-	      			answer = "It doesn't exist.";
-	      		break;
-	      		case 2:
-	      			answer = "Nope, not here.";
-	      		break;
-	      		case 3:
-	      			answer = "Wait, it's not here?! Thanks, Obama.";
-	      		break;
-	      		case 4:
-	      			answer = "You do not have enough mana to summon that page.";
-	      		break;
-	      		case 5:
-	      			answer = "It's probably in here. Somewhere.";
-	      		break;
-	      		case 6:
-	      			answer = "PAGE IS UNDEFINED";
-	      		break;
-	      		case 7:
-	      			answer = "Me too. Tell me when you find it.";
-	      		break;
-	      		case 8:
-	      			answer = "...I don't have that page.";
-	      		break;
-	      		default:
-	      			answer = "I can't find it.";
-	      		break;
-	      	}
-      	}
-      	document.getElementById('trollAnswer').innerHTML = answer;
     </script>
+      <script src="js/404.js"></script>
 	<div id="footer">Matthew Lee / Crazoter 2015<br/>Background(s) from <a href="http://www.subtlepatterns.com">subtlepatterns.com</a></div>
 </html>
