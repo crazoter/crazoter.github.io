@@ -189,7 +189,10 @@
 	      		disableVirtualMatt = true;
 	      		$('.mobile').show();
 	      		$('.not-mobile').hide();
-	      		$('.th').addClass('has-tip').attr('title','Working').attr('data-tooltip','').attr('aria-haspopup','true');
+	      		//$('.th').addClass('has-tip').attr('title','Working').attr('data-tooltip','').attr('aria-haspopup','true');
+	      		//disable clearing
+	      		$('.clearing-thumbs').removeAttr('data-clearing');
+	      		$('.th').removeAttr('href');
       		}
       	}
      	$(window).resize(function() {
@@ -208,6 +211,7 @@
 			}
 			else
 			{//prevent the big clearing container from opening lol i can't really do much else
+				/*
 				console.log('handled');
 				$('.carousel').removeClass('carousel');
 				//1.$('.clearing-assembled.clearing-blackout') remove clearing-blackout class
@@ -217,7 +221,7 @@
 				//3.remove body style
 				$('body').attr('style','');
 				//4.remove $('.clearing-thumbs') style
-				$('.clearing-thumbs').attr('style','');
+				$('.clearing-thumbs').attr('style','');*/
 			}
 		});
 		$(document.body).on("closed.fndtn.clearing", function(event) {
