@@ -1,0 +1,144 @@
+div.content/*add some padding to the bottom so the head talking thing won't block stuff*/
+		{
+			padding-bottom: 120px;
+		}
+		span
+		{
+			display:inline-block;
+			vertical-align: text-top;
+			margin: auto;
+			left: 0;
+			cursor:hand;
+			cursor:pointer;
+			transition:opacity 300ms, text-shadow 300ms;
+		}
+		img.obj
+		{
+			width: 400px;
+			height: 400px;
+			box-shadow: 0 0 10px rgba(0, 0, 255, 1);
+		    -webkit-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+		    -moz-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
+		}
+		img.icon
+		{
+			max-width:30px;
+			max-height:30px;
+			background-color: rgba(0,0,0,0.5);
+			margin: 3px;
+			padding: 3px;
+		}
+		span:hover
+		{
+			opacity: 0.85;
+			text-shadow:
+		    -1px -1px 0 #000,
+		    1px -1px 0 #000,
+		    -1px 1px 0 #000,
+		    1px 1px 0 #000; 
+		    color:rgb(255,255,255); 
+		}
+		div#detailscontainer
+		{
+			position: absolute;
+			height:300px;
+			bottom: 0;
+			right:0;
+		}
+		div.details
+		{
+			right:0px;
+			font-size: 16px;
+		    float: right;
+		    clear: both;
+		}
+		div.out
+		{
+			color: black;
+		}
+		div.in
+		{
+			color: white;
+			text-shadow:
+			    -1px -1px 0 #000,
+			    1px -1px 0 #000,
+			    -1px 1px 0 #000,
+			    1px 1px 0 #000; 
+		}
+
+		h1,h2,h3,h4,h5,h6
+		{
+			text-align: center;
+		}
+		#commentator
+		{
+			clear: both;
+		    padding: 0;
+		    vertical-align: bottom;
+		    line-height: normal;
+		    margin: 0;
+		    position: fixed;
+		    bottom: 0px;
+		    width: 100%;
+		    font: 40px helvetica,arial,sans-serif;
+		    z-index: 2;
+		    pointer-events: none;
+		    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='your_transparent.png', sizingMethod='scale');
+		}
+		p.commentator
+		{
+			padding: 5px 140px 20px 5px;
+			position: fixed;
+			height:115px;
+			width:600px;
+			margin-bottom: 0;
+		    bottom: 0px;
+		    right:0px;
+			color: white;
+			font-size: 16px;
+			vertical-align: middle;
+			background-color: rgba(0,0,0,0.8);
+			-webkit-box-shadow: 0 0 10px #000;
+			-moz-box-shadow: 0 0 10px #000;
+			box-shadow: 0 0 10px #000;
+			overflow: auto;
+    		overflow-y: scroll;
+		}
+		p.commentator.free
+		{/*when width of screen > 600px*/
+			width:600px;
+		}
+		p.commentator.locked
+		{/*when it's too small, i want to be able to see all the text*/
+			width:100%;
+		}
+		p.clickable
+		{/*when can click to fast forward*/
+			cursor: pointer;
+		}
+		img.commentator
+		{
+			position: absolute;
+			height:150px;
+			bottom: 0;
+			right:0;
+		}
+
+		div.preloader { 
+			position: fixed; 
+			left: 0; 
+			top: 0; 
+			z-index: 1000; 
+			width: 100%; 
+			height: 100%; 
+			overflow: visible; 
+		}
+		div.preloader.fg {
+			background: #F0F0F0 url('assets/preloader.gif') no-repeat center center;
+		}
+
+		h1.preloader {/*vertical center*/
+			position: relative;
+			top: 70%;
+			transform: translateY(-70%);
+		}

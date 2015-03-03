@@ -1,169 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8"></meta>
+		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=yes"/>
-		<meta name="description" content="Matthew Lee, a Singaporean IT student passionate about software & games development."></meta>
+		<meta name="description" content="Matthew Lee, a Singaporean IT student passionate about software & games development."/>
 		<title>Matthew's Website - My Work</title>
 		<link rel="stylesheet" href="css/foundation.css" />
     	<script src="js/vendor/modernizr.js"></script>
     	<link href='http://fonts.googleapis.com/css?family=Share' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="css/myCss.css">
-		<style type="text/css">/*lel that's an awesome way to define a stylesheet way to go lazy matt*/
-		div.content/*add some padding to the bottom so the head talking thing won't block stuff*/
-		{
-			padding-bottom: 120px;
-		}
-		span
-		{
-			display:inline-block;
-			vertical-align: text-top;
-			margin: auto;
-			left: 0;
-			cursor:hand;
-			cursor:pointer;
-			transition:opacity 300ms, text-shadow 300ms;
-		}
-		img.obj
-		{
-			width: 400px;
-			height: 400px;
-			box-shadow: 0 0 10px rgba(0, 0, 255, 1);
-		    -webkit-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
-		    -moz-box-shadow: 0 0 10px rgba(0, 0, 255, 1); 
-		}
-		img.icon
-		{
-			max-width:30px;
-			max-height:30px;
-			background-color: rgba(0,0,0,0.5);
-			margin: 3px;
-			padding: 3px;
-		}
-		span:hover
-		{
-			opacity: 0.85;
-			text-shadow:
-		    -1px -1px 0 #000,
-		    1px -1px 0 #000,
-		    -1px 1px 0 #000,
-		    1px 1px 0 #000; 
-		    color:rgb(255,255,255); 
-		}
-		div#detailscontainer
-		{
-			position: absolute;
-			height:300px;
-			bottom: 0;
-			right:0;
-		}
-		div.details
-		{
-			right:0px;
-			font-size: 16px;
-		    float: right;
-		    clear: both;
-		}
-		div.out
-		{
-			color: black;
-		}
-		div.in
-		{
-			color: white;
-			text-shadow:
-			    -1px -1px 0 #000,
-			    1px -1px 0 #000,
-			    -1px 1px 0 #000,
-			    1px 1px 0 #000; 
-		}
-
-		h1,h2,h3,h4,h5,h6
-		{
-			text-align: center;
-		}
-		#commentator
-		{
-			clear: both;
-		    padding: 0;
-		    vertical-align: bottom;
-		    line-height: normal;
-		    margin: 0;
-		    position: fixed;
-		    bottom: 0px;
-		    width: 100%;
-		    font: 40px helvetica,arial,sans-serif;
-		    z-index: 2;
-		    pointer-events: none;
-		    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='your_transparent.png', sizingMethod='scale');
-		}
-		p.commentator
-		{
-			padding: 5px 140px 20px 5px;
-			position: fixed;
-			height:115px;
-			width:600px;
-			margin-bottom: 0;
-		    bottom: 0px;
-		    right:0px;
-			color: white;
-			font-size: 16px;
-			vertical-align: middle;
-			background-color: rgba(0,0,0,0.8);
-			-webkit-box-shadow: 0 0 10px #000;
-			-moz-box-shadow: 0 0 10px #000;
-			box-shadow: 0 0 10px #000;
-			overflow: auto;
-    		overflow-y: scroll;
-		}
-		p.commentator.free
-		{/*when width of screen > 600px*/
-			width:600px;
-		}
-		p.commentator.locked
-		{/*when it's too small, i want to be able to see all the text*/
-			width:100%;
-		}
-		p.clickable
-		{/*when can click to fast forward*/
-			cursor: pointer;
-		}
-		img.commentator
-		{
-			position: absolute;
-			height:150px;
-			bottom: 0;
-			right:0;
-		}
-
-		div.preloader { 
-			position: fixed; 
-			left: 0; 
-			top: 0; 
-			z-index: 1000; 
-			width: 100%; 
-			height: 100%; 
-			overflow: visible; 
-		}
-		div.preloader.fg {
-			background: #F0F0F0 url('assets/preloader.gif') no-repeat center center;
-		}
-
-		h1.preloader {/*vertical center*/
-			position: relative;
-			top: 70%;
-			transform: translateY(-70%);
-		}
-		</style>
+		<link rel="stylesheet" type="text/css" href="css/work.css">
 		<script src="js/achievementsScript.js"></script>
 	</head>
 
 	<body>
+	<div data-alert class="mobile alert-box info radius" style="display:none;">
+		This webpage is best viewed on a computer.
+		<a href="#" class="close">&times;</a>
+	</div>
 	<div id="preloader" class="preloader fg">
 		<img src="assets/preloader.gif" style="display:none;"/><!--load preloader first-->
 		<h1 class="preloader">Loading</h1>
 	</div>
-
 	<div class="header">MY WORK</div>
 	<div class="nav">
 	<div id="navbardiv">
@@ -179,6 +37,7 @@
 	</div>
 	</div>
 	<br/>
+		<h4 class="mobile" style="display:none;">MOBILE IS CURRENTLY A WORK IN PROGRESS.Tap on a thumbnail for more details!</h4>
 		<div class="content">
 			<h3>Notable Work</h3>
 			<h6>Projects that I'm particularly proud of</h6>
@@ -253,7 +112,7 @@
 			<h6>Projects purely for personal use for various reasons</h6>
 			<ul class="clearing-thumbs" data-clearing>
 			  	<li class="interactable">
-					<a class="th" href="assets/th/speakmenot.png"><img 
+					<a class="th"><img 
 					data-speech="Allows me to 'speak' (using external API) into a microphone by just typing. GUI and shortcuts also implemented." 
 					data-caption="Speak Me Not"
 					data-manpower = "1"
@@ -299,23 +158,25 @@
 			  		data-imgsrc="assets/mespeak.png" src="assets/th/adventurebeyond.png"></a></li>
 			</ul>
 		</div>
-	</body>
-	<div id="commentator" style="z-index:999;">
-		<div id="detailscontainer" class="in" hidden>
-			<div class="details"><span id="details_name">-</span><img class="icon" src="assets/icons/text.png"/></div>
-			<div class="details"><span id="details_manpower">-</span><img class="icon" src="assets/icons/people.png"/></div>
-			<div class="details"><span id="details_time">-</span><img class="icon" src="assets/icons/time.png"/></div>
-			<div class="details"><span id="details_tools">-</span><img class="icon" src="assets/icons/technical.png"/></div>
-			<!--<div class="details"><img class="icon" src="assets/icons/hand.png"/></div></div>-->
+		<div id="commentator" class="not-mobile" style="z-index:999;">
+			<div id="detailscontainer" class="in" style="display:none;">
+				<div class="details"><span id="details_name">-</span><img class="icon" src="assets/icons/text.png"/></div>
+				<div class="details"><span id="details_manpower">-</span><img class="icon" src="assets/icons/people.png"/></div>
+				<div class="details"><span id="details_time">-</span><img class="icon" src="assets/icons/time.png"/></div>
+				<div class="details"><span id="details_tools">-</span><img class="icon" src="assets/icons/technical.png"/></div>
+				<!--<div class="details"><img class="icon" src="assets/icons/hand.png"/></div></div>-->
+			</div>
+			<img class="commentator" id="meExpression" src='assets/mespeak.png'/>
 		</div>
-		<img class="commentator" id="meExpression" src='assets/mespeak.png'/>
-	</div>
-	<p class="commentator free" style="z-index:998;" id="whatIwantToSay">Initializing...</p>
+		<p class="not-mobile commentator free" style="z-index:998;" id="whatIwantToSay">Initializing...</p>
+		<div id="footer" style="text-align: left;">Matthew Lee / Crazoter 2015<br/>Icon(s) designed by <a href="http://www.freepik.com/" title="freepik">freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>, Background(s) from <a href="http://www.subtlepatterns.com">subtlepatterns.com</a></div>
 	<script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    <script src="js/foundation/foundation.js"></script>
   	<script src="js/foundation/foundation.clearing.mattpatched.js"></script>
+  	<script src="js/foundation/foundation.alert.js"></script>
+  	<script src="js/foundation/foundation.dropdown.js"></script>
     <script>
-      	$(document).foundation();
+    	var disableVirtualMatt = false;
       	function commentatorResize(){//when it's too small, i want to be able to see all the text
       		if($( window ).width() < 600){
 				$('#whatIwantToSay').removeClass("free").addClass("locked");
@@ -323,24 +184,53 @@
 				$('#whatIwantToSay').removeClass("locked").addClass("free");
 			}
       	}
+      	function mobileSupport(){//if the screen is too small / cannot really support speech guy, switch to tooltips - tooltips should have accessibility in already
+      		if($( window ).width() < 600){
+	      		disableVirtualMatt = true;
+	      		$('.mobile').show();
+	      		$('.not-mobile').hide();
+	      		$('.th').addClass('has-tip').attr('title','Working').attr('data-tooltip','').attr('aria-haspopup','true');
+      		}
+      	}
      	$(window).resize(function() {
 			commentatorResize();
 		});
 		commentatorResize();
+		mobileSupport();
+
+		$(document).foundation();
+
 		//details div
 		$(document.body).on("opened.fndtn.clearing", function(event) {
-			$(document.getElementById('detailscontainer')).show(300);
-			//document.getElementById('detailscontainer').className = "in";
-		  //console.info("About to open thumbnail with src ", $('img', event.target).attr('src'));
+			if(!disableVirtualMatt)
+			{
+				$(document.getElementById('detailscontainer')).show(300);
+			}
+			else
+			{//prevent the big clearing container from opening lol i can't really do much else
+				console.log('handled');
+				$('.carousel').removeClass('carousel');
+				//1.$('.clearing-assembled.clearing-blackout') remove clearing-blackout class
+				$('.clearing-assembled.clearing-blackout').removeClass('clearing-blackout');
+				//2.$('.visible-img') style change to display: none;
+				$('.visible-img').css('display','none');
+				//3.remove body style
+				$('body').attr('style','');
+				//4.remove $('.clearing-thumbs') style
+				$('.clearing-thumbs').attr('style','');
+			}
 		});
 		$(document.body).on("closed.fndtn.clearing", function(event) {
-			$(document.getElementById('detailscontainer')).hide(300);
-			commentOnThis("Click an image to see what I have to say about it!","assets/mespeak2.png");
-			commentOnThis("Click an image to see what I have to say about it!","assets/mespeak2.png");//twice to cancel anim
-			//document.getElementById('detailscontainer').className = "out";
+			if(!disableVirtualMatt)
+			{
+				$(document.getElementById('detailscontainer')).hide(300);
+				commentOnThis("Click an image to see what I have to say about it!","assets/mespeak2.png");
+				commentOnThis("Click an image to see what I have to say about it!","assets/mespeak2.png");//twice to cancel anim
+			}
 		});
 
 		//quick (and terrible) fixes for the inability to escape quotation marks in html
+		//TIL http://stackoverflow.com/questions/1593800/how-to-have-quotation-marks-in-html-input-values, yet to implement fix
 		function anand()
 		{
 			window.open('http://tinyurl.com/adventuresofmranand');
@@ -358,5 +248,5 @@
 		});
     </script>
     <script src="js/google_analytics.js"></script>
-	<div id="footer" style="text-align: left;">Matthew Lee / Crazoter 2015<br/>Icon(s) designed by <a href="http://www.freepik.com/" title="freepik">freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>, Background(s) from <a href="http://www.subtlepatterns.com">subtlepatterns.com</a></div>
+	</body>
 </html>
