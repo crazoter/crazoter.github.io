@@ -34,10 +34,10 @@
 	</div>
 	<br/>
 		<div data-alert class="mobile alert-box info radius" style="display:none;">
-			This webpage is best viewed on a computer.
+			This webpage is best viewed on a computer. Current Mobile version: v1.1.2
 			<a href="#" class="close">&times;</a>
 		</div>
-		<h4 class="mobile" style="display:none;">MOBILE IS CURRENTLY A WORK IN PROGRESS.Tap on a thumbnail for more details!</h4>
+		<h4 class="mobile" style="display:none;">Tap on a thumbnail for more details!</h4>
 		<div class="content">
 			<h3>Notable Work</h3>
 			<h6>Projects that I'm particularly proud of</h6>
@@ -60,7 +60,7 @@
 						data-imgsrc="assets/mespeak.png" src="assets/th/travel.png"></a></li>
 				<li class="interactable">
 						<a class="th" href="assets/big/grpg.png"><img 
-						data-speech="A parody of Runescape Classic. Features include fishing,cooking,mining,trading,equipment,eating,map generation, mob generation, fighting and quite a number more such as quests."
+						data-speech="A parody of Runescape Classic. Features include fishing, cooking, mining, trading, equipment, eating, map generation, mob generation, fighting and quite a number more such as quests."
 						data-caption="GRPG"
 						data-manpower = "3"
 						data-time = "3 weeks"
@@ -174,7 +174,8 @@
     <script src="js/foundation/foundation.js"></script>
   	<script src="js/foundation/foundation.clearing.mattpatched.js"></script>
   	<script src="js/foundation/foundation.alert.js"></script>
-  	<script src="js/foundation/foundation.dropdown.js"></script>
+  	<script src="js/foundation/foundation.tooltip.js"></script>
+  	<!--<script src="js/foundation/foundation.dropdown.js"></script>-->
     <script>
     	var disableVirtualMatt = false;
       	function commentatorResize(){//when it's too small, i want to be able to see all the text
@@ -189,7 +190,13 @@
 	      		disableVirtualMatt = true;
 	      		$('.mobile').show();
 	      		$('.not-mobile').hide();
-	      		//$('.th').addClass('has-tip').attr('title','Working').attr('data-tooltip','').attr('aria-haspopup','true');
+	      		//add tool-tip and also add title
+	      		$('.interactable').addClass('has-tip').attr('data-tooltip','').attr('aria-haspopup','true').each(function(index) {
+	      			//set the title to what is said
+	      			var jThisData = $(this.children[0].children[0]).data();
+	      			var cleanedSpeech = jThisData.speech.replace('^','').replace('$','');//for the ^$ functionality
+	      			$(this).attr('title',cleanedSpeech);
+	      		});
 	      		//disable clearing
 	      		$('.clearing-thumbs').removeAttr('data-clearing');
 	      		$('.th').removeAttr('href');
