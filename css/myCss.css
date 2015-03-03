@@ -141,6 +141,10 @@
 			padding-right: 20px;
 			text-align: justify;
 		}
+		div.pad-bottom
+		{
+			padding-bottom: 120px;
+		}
 		#footer
 		{
 		    clear: both;
