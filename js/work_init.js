@@ -24,6 +24,9 @@ function mobileSupport(){//if the screen is too small / cannot really support sp
 		//disable clearing
 		$('.clearing-thumbs').removeAttr('data-clearing');
 		$('.th').removeAttr('href');
+
+		//change header a little because of clipping and all that
+		 $('div.header').addClass('mobile').addClass('blackbg');
 	}
 }
 $(window).resize(function() {
