@@ -69,7 +69,7 @@ $(document.body).on("closed.fndtn.clearing", function(event) {
 //TIL http://stackoverflow.com/questions/1593800/how-to-have-quotation-marks-in-html-input-values, yet to implement fix
 function anand()
 {
-	window.open('http://tinyurl.com/adventuresofmranand');
+	window.open('http://tinyurl.com/photos-of-mr-anand');
 }
 function splashwars()
 {
