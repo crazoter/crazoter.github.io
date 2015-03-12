@@ -59,7 +59,7 @@ window.onload = function ()
 	}
 
 	//end preloader
-	//$('#preloader').fadeOut('slow',function(){$(this).remove();
+	$('#preloader').fadeOut('slow',function(){$(this).remove();
 });
 }
 
