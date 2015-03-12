@@ -130,7 +130,7 @@
 			overflow: visible; 
 		}
 		div.preloader.fg {
-			background: #F0F0F0 url('assets/preloader.gif') no-repeat center center;
+			background: #F0F0F0 url('../assets/preloader.gif') no-repeat center center;
 		}
 
 		h1.preloader {/*vertical center*/
