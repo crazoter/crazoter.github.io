@@ -1,0 +1,22 @@
+body{margin:0px;line-height:1.6;font-size:18px;background-color:#F0F0F0;background-image:url(../assets/bgs/halftone.png);}
+.whitebg{background-color:#F0F0F0;}
+.blackbg{background-color:#181818;background-image:url(../assets/bgs/binding_dark.png);-webkit-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.75);-moz-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.75);box-shadow:0px 0px 10px 3px rgba(0,0,0,0.75);}
+div.nav{width:100%;height:250px;overflow:hidden;top:0;left:0;margin:0;background-color:#181818;background-image:url(../assets/bgs/binding_dark.png);-webkit-box-shadow:5px 5px 5px #888888;-moz-box-shadow:5px 5px 5px #888888;box-shadow:5px 5px 5px #888888;}
+div.navImg{height:250px;position:relative;right:0;}
+div#navbardiv{width:100%;overflow:hidden;position:fixed;padding-bottom:10px;z-index:990;}
+ul#navbar{list-style-type:none;margin:0;padding:0;font:22px helvetica,arial,sans-serif;color:#444;position:relative;float:left;display:block;left:50%;}
+li.nav{background-color:black;-webkit-box-shadow:0px 0px 10px 0px rgba(0,0,0,1);-moz-box-shadow:0px 0px 10px 0px rgba(0,0,0,1);box-shadow:0px 0px 10px 0px rgba(0,0,0,1);display:inline-block;padding-left:20px;padding-right:20px;margin:10px;position:relative;float:left;right:50%;}
+div.header{position:absolute;top:180px;left:20px;float:left;z-index:2;font-family:Share;color:#EEEEEE;font-size:46px;text-shadow:2px 2px #000000;clip:rect(0px,700px,400px,0px)}
+a{text-decoration:none;transition:color 300ms;}
+a.links{display:block;font-size:20px;color:#EEEEEE;}
+a.header{font-family:Share;color:#FFCC33;}
+a:hover{color:rgb(255,255,255);}
+a.navSelected{font-weight:bold;color:#FFEBAD;}
+img.navImg{position:absolute;bottom:0;right:0;max-height:275px;margin:auto;float:right;}
+div.content{font:20px helvetica,arial,sans-serif;padding-left:20px;padding-top:10px;padding-right:20px;text-align:justify;}
+div.pad-bottom{padding-bottom:120px;}
+#footer{clear:both;-webkit-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.75);-moz-box-shadow:0px 0px 5px 0px rgba(0,0,0,0.75);box-shadow:0px 0px 5px 0px rgba(0,0,0,0.75);color:#F0F0F0;padding:3px;text-align:center;vertical-align:middle;line-height:normal;margin:0;bottom:0px;width:100%;font:10px helvetica,arial,sans-serif;background:#181818;z-index:3;}
+@font-face{font-family:'Share', cursive;}
+.outer-centered{text-align:center;display:table;position:absolute;height:100%;width:100%;}
+.middle-centered{display:table-cell;vertical-align:middle;}
+.inner-centered{margin-left:auto;margin-right:auto;width:;}
