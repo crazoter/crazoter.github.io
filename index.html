@@ -64,12 +64,12 @@
 				<div class="blackbg" id="footer">Matthew Lee / Crazoter 2015<br/>Background(s) from <a href="http://www.subtlepatterns.com">subtlepatterns.com</a></div>
 			</div>
 		</div>
-		<script src="js/pagespeed/jquery.js"></script>
-	    <script src="js/pagespeed/foundation.min.js"></script>
-	    <script src="js/pagespeed/index_resize.js"></script>
+		<script src="js/pagespeed/jqueryxfoundationxga.js"></script>
 	    <script>
+	    	//index resize
+	    	var topPaddingAmt=0;var jNavbardiv=$(document.getElementById('navbardiv'));var jContentdiv=$(document.getElementById('content'));function paddingResize(){jContentdiv.removeAttr('style');var height=jNavbardiv.height();if(jContentdiv.offset().top+topPaddingAmt<height){jContentdiv.css("margin-top",(height+topPaddingAmt)+"px");}}$(window).resize(function(){paddingResize();});paddingResize();
+
 		  	$(document).foundation();
 	    </script>
-	    <script src="js/pagespeed/google_analytics.js"></script>
 	</body>
 </html>

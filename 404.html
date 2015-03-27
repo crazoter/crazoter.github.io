@@ -28,11 +28,11 @@
 				</div>
 		    </div>
 		</div>
-		<script src="js/pagespeed/jquery.js"></script>
-	    <script src="js/pagespeed/foundation.min.js"></script>
+		<script src="js/pagespeed/jqueryxfoundationxga.js"></script>
 	    <script>
 	      	$(document).foundation();
+	      	
+	      	var a=document.URL,a=a.substr(a.lastIndexOf("/")+1);document.getElementById("trollQuestion").innerHTML="Were you looking for "+a+"?";var b="You've found it!"; if("404.html"!==a)switch(Math.floor(10*Math.random())){case 1:b="It doesn't exist.";break;case 2:b="Nope, not here.";break;case 3:b="Wait, it's not here?! Thanks, Obama.";break;case 4:b="You do not have enough mana to summon that page.";break;case 5:b="It's probably in here. Somewhere.";break;case 6:b="PAGE IS UNDEFINED";break;case 7:b="Me too. Tell me when you find it.";break;case 8:b="...I don't have that page.";break;default:b="I can't find it."} document.getElementById("trollAnswer").innerHTML=b;
 	    </script>
-	    <script src="js/404.js"></script>
 	</body>
 </html>
