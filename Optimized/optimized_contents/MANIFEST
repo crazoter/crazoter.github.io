@@ -1,4 +1,4 @@
-This zip file contains optimized resources for http://crazoter.github.io/. The optimized resources are listed below in the format of: 
+This zip file contains optimized resources for http://crazoter.github.io/work.html. The optimized resources are listed below in the format of: 
 filename: url
 
 Note: We only include up to 10 MB of optimized contents. If the
@@ -8,9 +8,14 @@ further optimization.
 
 css/foundation.css: http://crazoter.github.io/css/foundation.css
 css/myCss.css: http://crazoter.github.io/css/myCss.css
-css/index.css: http://crazoter.github.io/css/index.css
+css/work.css: http://crazoter.github.io/css/work.css
 js/modernizr.js: http://crazoter.github.io/js/vendor/modernizr.js
+js/achievementsScript.js: http://crazoter.github.io/js/achievementsScript.js
 js/jquery.js: http://crazoter.github.io/js/vendor/jquery.js
-js/foundation.min.js: http://crazoter.github.io/js/foundation.min.js
-js/index_resize.js: http://crazoter.github.io/js/index_resize.js
+js/foundation.js: http://crazoter.github.io/js/foundation/foundation.js
+js/foundation.clearing.mattpatched.js: http://crazoter.github.io/js/foundation/foundation.clearing.mattpatched.js
+js/foundation.alert.js: http://crazoter.github.io/js/foundation/foundation.alert.js
+js/foundation.tooltip.js: http://crazoter.github.io/js/foundation/foundation.tooltip.js
+js/foundation.dropdown.js: http://crazoter.github.io/js/foundation/foundation.dropdown.js
+js/work_init.js: http://crazoter.github.io/js/work_init.js
 js/google_analytics.js: http://crazoter.github.io/js/google_analytics.js

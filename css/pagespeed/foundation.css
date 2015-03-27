@@ -1183,13 +1183,13 @@ dialog[open]{display:block;}
 .clearing-thumbs:after, [data-clearing]:after{clear:both;}
 .clearing-thumbs li, [data-clearing] li{float:left;margin-right:10px;}
 .clearing-thumbs[class*="block-grid-"] li, [data-clearing][class*="block-grid-"] li{margin-right:0;}
-.clearing-blackout{background:#333333;background-image:url(../assets/bgs/binding_dark.png);position:fixed;width:100%;height:100%;top:0;left:0;z-index:998;}
+.clearing-blackout{background:#333333;background-image:url(../../assets/bgs/binding_dark.png);position:fixed;width:100%;height:100%;top:0;left:0;z-index:998;}
 .clearing-blackout .clearing-close{display:block;}
 .clearing-container{position:relative;z-index:998;height:100%;overflow:hidden;margin:0;}
 .clearing-touch-label{position:absolute;top:50%;left:50%;color:#AAAAAA;font-size:0.6em;}
 .visible-img{height:95%;position:relative;}
 .visible-img img{position:absolute;left:50%;top:50%;margin-left:-50%;max-height:100%;max-width:100%;}
-.clearing-caption{color:#CCCCCC;font-size:0.875em;line-height:1.3;margin-bottom:0;text-align:center;bottom:0;background:#333333;background-image:url(../assets/bgs/binding_dark.png);width:100%;padding:10px 30px 20px;position:absolute;left:0;}
+.clearing-caption{color:#CCCCCC;font-size:0.875em;line-height:1.3;margin-bottom:0;text-align:center;bottom:0;background:#333333;background-image:url(../../assets/bgs/binding_dark.png);width:100%;padding:10px 30px 20px;position:absolute;left:0;}
 .clearing-close{z-index:999;padding-left:20px;padding-top:10px;font-size:30px;line-height:1;color:#CCCCCC;display:none;}
 .clearing-close:hover, .clearing-close:focus{color:#CCCCCC;}
 .clearing-assembled .clearing-container{height:100%;}
@@ -1216,7 +1216,7 @@ dialog[open]{display:block;}
 .clearing-assembled .clearing-container .carousel > ul li img{cursor:pointer !important;width:100% !important;}
 .clearing-assembled .clearing-container .carousel > ul li.visible{opacity:1;}
 .clearing-assembled .clearing-container .carousel > ul li:hover{opacity:0.8;}
-.clearing-assembled .clearing-container .visible-img{background:#333333;background-image:url(../assets/bgs/binding_dark.png);overflow:hidden;height:85%;}
+.clearing-assembled .clearing-container .visible-img{background:#333333;background-image:url(../../assets/bgs/binding_dark.png);overflow:hidden;height:85%;}
 .clearing-close{position:absolute;top:10px;right:20px;padding-left:0;padding-top:0;}
 }
 .progress{background-color:#F6F6F6;height:1.5625rem;border:1px solid white;padding:0.125rem;margin-bottom:0.625rem;}
