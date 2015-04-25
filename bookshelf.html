@@ -1,0 +1,107 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>The Aidil Bookshelf</title>
+  <meta name="description" content="The Aidil Bookshelf">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/bin/materialize.css"  media="screen,projection"/>
+
+  <script src="js/pagespeed/modernizr.js"></script>
+</head>
+
+<body>
+  <!--nav-->
+  <nav>
+    <div class="nav-wrapper teal darken-2">
+      <div class="container">
+        <a class="brand-logo">Aidil Bookshelf</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!--Login Modal Trigger-->
+          <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
+          <span id="span_loggedInUser" style="display:none;" >Hi Crazoter!</span>
+          <a id="btn_logout" style="display:none;" class="waves-effect waves-light btn" onclick="logout();">Log out</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Modals-->
+  <!--Login-->
+  <div id="modal_login" class="modal">
+    <div class="modal-content">
+      <h4>Login</h4>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="txt_username" type="text" class="validate">
+            <label for="txt_username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="txt_password" type="password" class="validate">
+            <label for="txt_password">Password</label>
+          </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn waves-effect waves-light" onclick="login();">Login
+        <i class="mdi-content-send right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!--Content-->
+  <div class="container">
+    <!--Article Search-->
+    <nav>
+      <div class="nav-wrapper teal lighten-2">
+        <form>
+          <div class="input-field">
+            <input id="search" type="search" required>
+            <label for="search"><i class="mdi-action-search"></i></label>
+            <i class="mdi-navigation-close"></i>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+  <script type="text/javascript" src="js/bookshelf.js"></script>
+  <script type="text/javascript">
+    //Variables
+    var btn_login = document.getElementById("btn_login");
+    var btn_logout = document.getElementById("btn_logout");
+    var span_loggedInUser = document.getElementById("span_loggedInUser");
+    var txt_user = document.getElementById("txt_username");
+    var txt_pass = document.getElementById("txt_password");
+
+    //Initialize Parse
+    Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
+    $(document).ready(function(){
+
+      //Initialize Modals
+      $('.modal-trigger').leanModal();
+
+      //Display login/logout
+      if(Parse.User.current() === null){
+        showLogin();
+      }
+      else{
+        showLogout("Crazoter");
+      }
+    });
+  </script>
+</body>
+<!--
+  Frameworks used:
+  http://materializecss.com
+  http://www.materialpalette.com
+  https://www.parse.com/
+-->
+</html>
