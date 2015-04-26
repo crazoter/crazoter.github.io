@@ -19,6 +19,19 @@
 	var txt_ref = document.getElementById("txt_ref");
 	var txt_tags = document.getElementById("txt_tags");
 
+	//Search Article
+	var txt_notfound = document.getElementById('txt_notfound');
+	var ul_searches	= document.getElementById("ul_searches");
+	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript) {
+		this.li = li;
+		this.reference = ref_anchor;
+		this.title = span_title;
+		this.tags = tagholder;
+		this.description = p_descript;
+	}
+	var searchDoms = [];
+	var SEARCH_MAX_LENGTH = 20;
+
 	//var Color Tags
 	function Tag (string,color,isLight) {
 		this.string = string;
@@ -102,6 +115,10 @@
 			  success: function(article) {
 			    // Execute any logic that should take place after the object is saved.
 			    Materialize.toast("Hooray! New article added!", 4000);
+			    txt_title.value = "";
+			    txtarea_description.value = "";
+			    txt_tags.value = "";
+			    txt_ref.value = "";
 			  },
 			  error: function(article, error) {
 			    // Execute any logic that should take place if the save fails.
@@ -116,18 +133,34 @@
 
 	//Retrieval of Articles
 	function initializeArticles () {
+		buildArticleHolders();
+		loadFillerText();
+		
+		clearArticleList();
+		
 		var Article = Parse.Object.extend("Article");
 		var query = new Parse.Query(Article);
 		query.descending("updatedAt");
-		query.limit(20);
+		query.limit(SEARCH_MAX_LENGTH);
 		query.find({
 		  success: function(results) {
-		    for (var i = 0,l = results.length; i < results.length; ++i) { 
-		      var object = results[i];
-		      alert(object.id + ' - ' + object.get('playerName'));
-		    }
+		  	if(results.length === 0)
+		  	{
+		  		nothingToShowText();
+		  	}
+		  	else
+		  	{
+		  		finishedLoadingText();
+			    for (var i = 0,l = results.length; i < results.length; ++i) { 
+			      var article = results[i];
+			      displayArticle(i,article);
+			    }
+			    colorTags();
+			    $('ul.tabs').tabs();
+			}
 		  },
 		  error: function(error) {
+		  	finishedLoadingText();
 		    Materialize.toast("Error: " + error.code + " " + error.message,4000);
 		  }
 		});
@@ -136,8 +169,105 @@
 		
 	}
 
-	//Displaying of Articles
-	//TAG COLORING
+	//Fun filler text
+	function loadFillerText () {
+		txt_notfound.innerHTML = loadingBookshelfText();
+		$(txt_notfound).show();
+	}
+	function finishedLoadingText () {
+		$(txt_notfound).hide();
+	}
+	function nothingToShowText () {
+		txt_notfound.innerHTML = "The Bookshelf is empty.";
+	}
+	function notFoundText () {
+		txt_notfound.innerHTML = "We could not find anything in the Bookshelf that matches your search.";
+	}
+	function loadingBookshelfText () {
+		switch(Math.floor(Math.random()*10))
+		{
+			case 0: return "Preparing the Bookshelf...";
+			case 1: return "Flip flip flip...";
+			case 2: return "Retrieving articles...";
+			case 3: return "Preparing some tea...";
+			case 4: return "Preparing...";
+			case 5: return "Loading...";
+			case 6: return "The Bookshelf prepares itself...";
+			case 7: return "Please wait while our elves arrange the Bookshelf...";
+			case 8: return "The Bookshelf is loading - please wait...";
+			case 9: return "Patience, my dear Watson - the Bookshelf needs time to load.";
+			default: return "COME FORTH, ARTICLES!";//lol this will never happen too bad guys
+		}
+	}
+
+	function clearArticleList () {
+		//var jq_ul_searches = $(ul_searches);
+		//jq_ul_searches.hide();
+		for(var i=0,l=searchDoms.length;i<l;++i)
+		{
+			searchDoms[i].li.hide();
+		}
+
+	}
+	function buildArticleHolders () {
+		/*
+		<li>
+	         <div class="collapsible-header truncate"><a href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i><span>The Bro Code</span>
+	          <span class="tagholder right">
+	            <span class="tag">funny</span>
+	            <span class="tag">random</span>
+	            <span class="tag">can't tell</span>
+	            <span class="tag">hi aidil</span>
+	            <span class="tag">KIV</span>
+	          </span>
+	        </div>
+	        <div class="collapsible-body"><p>"168: Bro's don’t touch each others hair."</p></div>
+	      </li>
+		*/
+		for(var i=0,l=SEARCH_MAX_LENGTH;i<l;++i)
+		{
+			var li = document.createElement('li');
+			var inner = '<div class=\"collapsible-header truncate\"><a id=\"search_ref'+i+'\" href=\"';
+			//inner += he.encode(article.get('reference'));
+			inner += '\" target=\"_blank\"><i class=\"mdi-action-open-in-new\"></a></i><span id=\"search_title'+i+'\">';
+			//inner += he.encode(article.get('title'));
+			inner += '</span><span id=\"search_tags'+i+'\" class=\"tagholder right\">';
+
+			inner += '</span></div><div class=\"collapsible-body\"><p id=\"search_desc'+i+'\">';
+			//inner += he.encode(article.get('description'));
+			inner += '</p></div>';
+			li.innerHTML = inner;
+			li.style.display = "none";
+			ul_searches.appendChild(li);
+			searchDoms.push(new SearchDomJQ($(li),
+				$("#search_ref"+i),
+				$("#search_title"+i),
+				$("#search_tags"+i),
+				$("#search_desc"+i)
+				));
+		}
+		$('.collapsible').collapsible();//init collapsibles
+	}
+	function displayArticle (index,article) {
+		var searchDom = searchDoms[index];//document.createElement("li");
+		searchDom.reference.attr("href",he.encode(article.get("reference")));
+		searchDom.title.text(he.encode(article.get("title")));
+		var tags = article.get('tags').split(/\s+/g);
+		var inner = "";
+		for(var i=0,l=tags.length;i<l;++i)
+		{
+			inner = '<span class=\"tag\">';
+			inner += he.encode(tags[i]);
+			inner += '</span>';
+		}
+		if(inner !== "")
+		{
+			searchDom.tags.html(inner);
+		}
+		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
+		searchDom.li.show();
+	}
+	//Coloring of Tags (do only after the articles are displayed)
 	//http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
 	function colorTags () {
 		$("span.tag").each(function(){
@@ -186,6 +316,7 @@
 	exports.login = login;
 	exports.logout = logout;
 	exports.addArticle = addArticle;
+	exports.initializeArticles = initializeArticles;
 	exports.colorTags = colorTags;
 
 })(window)

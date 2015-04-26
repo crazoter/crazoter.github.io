@@ -21,18 +21,18 @@
         <a class="brand-logo">Aidil Bookshelf</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         <span class="right">
-        <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
+          <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
           <span id="span_loggedInUser" class="hide-on-small-and-down" style="display:none;" ></span>
           <a id="btn_logout" style="display:none;" class="waves-effect waves-light btn" onclick="logout();">Log out</a>
         </span>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="http://crazoter.github.io">Go Home</a></li>
         </ul>
-      <ul class="side-nav" id="mobile-demo">
+        <ul class="side-nav" id="mobile-demo">
           <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger grey-text text-lighten-4" href="#modal_login">Login</a>
           <h5 id="span_loggedInUser_mobile" style="display:none;" class="hide-on-small-and-down center-align grey-text text-darken-4"></h5>
           <a id="btn_logout_mobile" style="display:none;" class="waves-effect waves-light btn grey-text text-lighten-4" onclick="logout();">Log out</a>
-      </ul>
+        </ul>
       </div>
     </div>
   </nav>
@@ -55,16 +55,24 @@
             <label for="txt_password">Password</label>
           </div>
         </div>
-    </div>
-    <div class="modal-footer">
-      <div id="progress_login" style="display:none;" class="progress">
-          <div class="indeterminate"></div>
       </div>
-      <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
-        <i class="mdi-content-send right"></i>
-      </button>
+      <div class="modal-footer">
+        <div id="progress_login" style="display:none;" class="progress">
+          <div class="indeterminate"></div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
+          <i class="mdi-content-send right"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!--Search Instructions-->
+  <div id="modal_sInstruct" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">
+    <div class="modal-content">
+      <h4>Search Instructions</h4>
+      <p>Searching the Bookshelf is as easy as ABC!</p>
     </div>
-  </form>
   </div>
 
   <!--Content-->
@@ -100,8 +108,8 @@
               </div>
               <div class="input-field col s6">
                 <i class="mdi-image-style prefix"></i>
-                <input id="txt_tags" type="text"length="20" class="validate" required>
-                <label for="txt_tags">Tag(s)</label>
+                <input id="txt_tags" type="text"length="77" class="validate" required>
+                <label for="txt_tags">Tag(s) - delimit with whitespace</label>
               </div>
             </div>
             <div class="row">
@@ -117,48 +125,39 @@
         <div class="collapsible-header active"><i class="mdi-action-find-in-page"></i>View Articles</div>
         <div class="collapsible-body">
           <!--Article Search-->
-            <div class="row">
+          <div class="row">
             <div class="col s11">
-            <nav>
-              <div class="nav-wrapper teal lighten-2">
-                <form onSubmit="search();return false;" action="#">
-                  <div class="input-field">
-                    <input id="search" placeholder="Search Bookshelf" type="search" required>
-                    <label for="search"><i class="mdi-action-search"></i></label>
-                    <i class="mdi-navigation-close"></i>
-                  </div>
-                </form>
-              </div>
-            </nav>
-          </div>
-         <a class="waves-effect waves-light btn"><i class="mdi-action-help small"></i></a>
-          <div style="" class="progress">
-            <div class="indeterminate"></div>
-          </div>
+              <nav>
+                <div class="nav-wrapper teal lighten-2">
+                  <form onSubmit="search();return false;" action="#">
+                    <div class="input-field">
+                      <input id="search" placeholder="Search Bookshelf" type="search" required>
+                      <label for="search"><i class="mdi-action-search"></i></label>
+                      <i class="mdi-navigation-close"></i>
+                    </div>
+                  </form>
+                </div>
+              </nav>
+            </div>
+            <!--Article Search Help-->
+            <a class="waves-effect waves-light btn modal-trigger" href="#modal_sInstruct"><i class="mdi-action-help small"></i></a>
+            <!--Article Search Progress Bar-->
+            <div style="display:none;" class="progress">
+              <div class="indeterminate"></div>
+            </div>
           </div>
           <!--Article Search Results-->
-            <ul class="collapsible popout" data-collapsible="accordion">
-            <li>
-               <div class="collapsible-header truncate"><a href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i>The Bro Code FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_
-                <span class="tagholder right">
-                  <span class="tag">funny</span>
-                  <span class="tag">random</span>
-                  <span class="tag">can't tell</span>
-                  <span class="tag">hi aidil</span>
-                  <span class="tag">KIV</span>
-                </span>
-              </div>
-               <div class="collapsible-body"><p>"168: Bro's don’t touch each others hair."</p></div>
-             </li>
-           </ul>
-          </div>
-      </li>
-      <li>
-        <div class="collapsible-header"><i class="mdi-action-face-unlock"></i>Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a></div>
-          <div class="collapsible-body">
-            <p>
-            This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online.</p>
-          </div>
+          <p id="txt_notfound">The bookshelf prepares...</p>
+          <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion">
+        </ul>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="mdi-action-face-unlock"></i>Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a>.</div>
+      <div class="collapsible-body">
+        <p>
+          This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online.</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -166,6 +165,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+  <script type="text/javascript" src="js/he.min.js"></script>
   <script type="text/javascript" src="js/bookshelf.js"></script>
   <script type="text/javascript">
     //Initialize Parse
@@ -187,10 +187,10 @@
       else{
         showLogout("Crazoter");
       }
-      colorTags();
+      initializeArticles();
     });
-  </script>
-</body>
+    </script>
+  </body>
 <!--
   Frameworks used:
   http://materializecss.com
