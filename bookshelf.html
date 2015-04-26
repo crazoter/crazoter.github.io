@@ -117,22 +117,25 @@
         <div class="collapsible-header active"><i class="mdi-action-find-in-page"></i>View Articles</div>
         <div class="collapsible-body">
           <!--Article Search-->
-            <p>
-            <nav class="searchbar">
+            <div class="row">
+            <div class="col s11">
+            <nav>
               <div class="nav-wrapper teal lighten-2">
                 <form onSubmit="search();return false;" action="#">
                   <div class="input-field">
-                    <input id="search" type="search" required>
+                    <input id="search" placeholder="Search Bookshelf" type="search" required>
                     <label for="search"><i class="mdi-action-search"></i></label>
                     <i class="mdi-navigation-close"></i>
-                  </div>
-                  <div style="display:none;" class="progress">
-                    <div class="indeterminate"></div>
                   </div>
                 </form>
               </div>
             </nav>
-          </p>
+          </div>
+         <a class="waves-effect waves-light btn"><i class="mdi-action-help small"></i></a>
+          <div style="" class="progress">
+            <div class="indeterminate"></div>
+          </div>
+          </div>
           <!--Article Search Results-->
             <ul class="collapsible popout" data-collapsible="accordion">
             <li>
