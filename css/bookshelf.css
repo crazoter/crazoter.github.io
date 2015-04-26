@@ -1,0 +1,18 @@
+.searchbar {
+  width: 80%;
+}
+
+.tagholder {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+}
+span.tag {
+  min-width: 3rem;
+  padding: 0 6px;
+  margin: 0 2px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: inherit;
+  font-weight: 300;
+}

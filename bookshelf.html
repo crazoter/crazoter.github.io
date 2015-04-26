@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
   <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link type="text/css" rel="stylesheet" href="css/bookshelf.css" media="screen,projection"/>
   <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/bin/materialize.css"  media="screen,projection"/>
 
   <script src="js/pagespeed/modernizr.js"></script>
@@ -19,13 +20,16 @@
       <div class="container">
         <a class="brand-logo">Aidil Bookshelf</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
+        <span class="right">
+        <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
           <span id="span_loggedInUser" class="hide-on-small-and-down" style="display:none;" ></span>
           <a id="btn_logout" style="display:none;" class="waves-effect waves-light btn" onclick="logout();">Log out</a>
+        </span>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="http://crazoter.github.io">Go Home</a></li>
         </ul>
       <ul class="side-nav" id="mobile-demo">
-          <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
+          <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger grey-text text-lighten-4" href="#modal_login">Login</a>
           <h5 id="span_loggedInUser_mobile" style="display:none;" class="hide-on-small-and-down center-align grey-text text-darken-4"></h5>
           <a id="btn_logout_mobile" style="display:none;" class="waves-effect waves-light btn grey-text text-lighten-4" onclick="logout();">Log out</a>
       </ul>
@@ -38,15 +42,16 @@
   <div id="modal_login" class="modal">
     <div class="modal-content">
       <h4>Login</h4>
+      <form onSubmit="login();return false;" action="#">
         <div class="row">
           <div class="input-field col s12">
-            <input id="txt_username" type="text" class="validate">
+            <input id="txt_username" type="text" class="validate" required>
             <label for="txt_username">Username</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="txt_password" type="password" class="validate">
+            <input id="txt_password" type="password" class="validate" required>
             <label for="txt_password">Password</label>
           </div>
         </div>
@@ -55,10 +60,11 @@
       <div id="progress_login" style="display:none;" class="progress">
           <div class="indeterminate"></div>
       </div>
-      <button class="btn waves-effect waves-light" onclick="login();">Login
+      <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
         <i class="mdi-content-send right"></i>
       </button>
     </div>
+  </form>
   </div>
 
   <!--Content-->
@@ -70,32 +76,32 @@
         <!--Add Article-->
         <div class="collapsible-header"><i class="mdi-av-my-library-add"></i>Add Article</div>
         <div class="collapsible-body container">
-          <form>
+          <form onSubmit="addArticle();return false;" action="#">
             <br/>
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi-action-picture-in-picture prefix"></i>
-                <input id="text_title" type="text" length="77" class="validate" required>
-                <label for="text_title">Title</label>
+                <input id="txt_title" type="text" length="77" class="validate" required>
+                <label for="txt_title">Title</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi-editor-mode-edit prefix"></i>
-                <textarea id="textarea_description" class="materialize-textarea" length="120" class="validate" required></textarea>
-                <label for="textarea_description">Description</label>
+                <textarea id="txtarea_description" class="materialize-textarea" length="120" class="validate" required></textarea>
+                <label for="txtarea_description">Description</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
                 <i class="mdi-action-language prefix"></i>
-                <input id="text_ref" type="url" length="99" class="validate" required>
-                <label for="text_ref">Reference (URL)</label>
+                <input id="txt_ref" type="url" length="99" class="validate" required>
+                <label for="txt_ref">Reference (URL)</label>
               </div>
               <div class="input-field col s6">
                 <i class="mdi-image-style prefix"></i>
-                <input id="text_tags" type="text"length="20" class="validate" required>
-                <label for="text_tags">Tag(s)</label>
+                <input id="txt_tags" type="text"length="20" class="validate" required>
+                <label for="txt_tags">Tag(s)</label>
               </div>
             </div>
             <div class="row">
@@ -109,25 +115,47 @@
       <li>
         <!--View Articles-->
         <div class="collapsible-header active"><i class="mdi-action-find-in-page"></i>View Articles</div>
-        <div class="collapsible-body container">
+        <div class="collapsible-body">
           <!--Article Search-->
-          <div class="row">
-            <nav>
+            <p>
+            <nav class="searchbar">
               <div class="nav-wrapper teal lighten-2">
-                <form>
+                <form onSubmit="search();return false;" action="#">
                   <div class="input-field">
                     <input id="search" type="search" required>
                     <label for="search"><i class="mdi-action-search"></i></label>
                     <i class="mdi-navigation-close"></i>
                   </div>
-                  <div class="progress">
+                  <div style="display:none;" class="progress">
                     <div class="indeterminate"></div>
                   </div>
                 </form>
               </div>
             </nav>
+          </p>
+          <!--Article Search Results-->
+            <ul class="collapsible popout" data-collapsible="accordion">
+            <li>
+               <div class="collapsible-header truncate"><a href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i>The Bro Code FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_FILLER_
+                <span class="tagholder right">
+                  <span class="tag">funny</span>
+                  <span class="tag">random</span>
+                  <span class="tag">can't tell</span>
+                  <span class="tag">hi aidil</span>
+                  <span class="tag">KIV</span>
+                </span>
+              </div>
+               <div class="collapsible-body"><p>"168: Bro's don’t touch each others hair."</p></div>
+             </li>
+           </ul>
           </div>
-        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="mdi-action-face-unlock"></i>Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a></div>
+          <div class="collapsible-body">
+            <p>
+            This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online.</p>
+          </div>
       </li>
     </ul>
   </div>
@@ -156,6 +184,7 @@
       else{
         showLogout("Crazoter");
       }
+      colorTags();
     });
   </script>
 </body>
