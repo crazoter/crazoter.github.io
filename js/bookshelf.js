@@ -256,7 +256,7 @@
 		var inner = "";
 		for(var i=0,l=tags.length;i<l;++i)
 		{
-			inner = '<span class=\"tag\">';
+			inner += '<span class=\"tag\">';
 			inner += he.encode(tags[i]);
 			inner += '</span>';
 		}
