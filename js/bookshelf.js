@@ -24,6 +24,7 @@
 	var selectedArticleSearchDom = null;
 
 	//Search Article
+	var txt_search = document.getElementById('txt_search');
 	var txt_notfound = document.getElementById('txt_notfound');
 	var ul_searches	= document.getElementById("ul_searches");
 	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn) {
@@ -111,21 +112,14 @@
 		var currentUser = Parse.User.current();
 		if(currentUser !== null)
 		{
-			//access control
-			var acl = new Parse.ACL();
-			acl.setPublicReadAccess(true);
-			acl.setWriteAccess(Parse.User.current().id, true);
-			acl.setRoleWriteAccess("Admin", true);//should be enforced on cloud code
-
-			//article itself
 			var Article = Parse.Object.extend("Article");
 			var article = new Article();
 			article.set("title",txt_title.value);
 			article.set("description",txtarea_description.value);
 			article.set("reference",txt_ref.value);
-			article.set("tags",txt_tags.value);
+			article.set("tags",txt_tags.value.split(/\s+/g));
 			article.set("uploadedBy",currentUser);
-			article.setACL(acl);
+
 			article.save(null, {
 			  success: function(article) {
 			    // Execute any logic that should take place after the object is saved.
@@ -138,6 +132,7 @@
 			  error: function(article, error) {
 			    // Execute any logic that should take place if the save fails.
 			    // error is a Parse.Error with an error code and message.
+			    shit = error;
 			    Materialize.toast("Failed to create new article. Perhaps you are not authorized to do so.", 4000);
 			  }
 			});
@@ -200,8 +195,8 @@
 		  }
 		});
 	}
-	function search (argument) {
-		
+	function search () {
+
 	}
 
 	//Fun filler text
@@ -292,17 +287,20 @@
 		var searchDom = searchDoms[index];//document.createElement("li");
 		searchDom.reference.attr("href",he.encode(article.get("reference")));
 		searchDom.title.text(article.get("title"));
-		var tags = article.get('tags').split(/\s+/g);
-		var inner = "";
-		for(var i=0,l=tags.length;i<l;++i)
+		var tags = article.get('tags');
+		if(tags != null)
 		{
-			inner += '<span class=\"tag\">';
-			inner += he.encode(tags[i]);
-			inner += '</span>';
-		}
-		if(inner !== "")
-		{
-			searchDom.tags.html(inner);
+			var inner = "";
+			for(var i=0,l=tags.length;i<l;++i)
+			{
+				inner += '<span class=\"tag\">';
+				inner += he.encode(tags[i]);
+				inner += '</span>';
+			}
+			if(inner !== "")
+			{
+				searchDom.tags.html(inner);
+			}
 		}
 		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT));
@@ -405,5 +403,6 @@
 	exports.initializeArticles = initializeArticles;
 	exports.colorTags = colorTags;
 	exports.deleteArticle = deleteArticle;
+	exports.search = search;
 
 })(window)

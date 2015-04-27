@@ -79,7 +79,16 @@
   <div id="modal_sInstruct" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">
     <div class="modal-content">
       <h4>Search Instructions</h4>
-      <p>Searching the Bookshelf is as easy as ABC!</p>
+      <p>Searching the Bookshelf is as easy as ABC! Type your query into the search box and hit enter. Related articles will pop right up.<br/>
+        <h5>Advanced syntax:</h5><hr>
+        <h6>Search by Tag (<span class="tag">#</span>)</h6>
+        <span class="tag">#TAG</span> - E.G. search "#Aidil" to query for articles that are tagged "Aidil".<hr>
+        <h6>Search by Date (<span class="tag">@</span>)</h6>
+        <span class="tag">@{yyyy/mm/dd}-{yyyy/mm/dd}</span> - E.G. "@2015/03/20-2015/03/25" will search for posts made during March 20th to 25th.
+        <h6>Date Shortcuts</h6>
+        <span class="tag">@NOW</span> - Used as today's date and time. E.G. @2015/03/20-@NOW will search for posts made since 2015/03/20.<br/>
+        <span class="tag">@TODAY</span> <span class="tag">@YESTERDAY</span> - Retrieve articles that were posted since today / since yesterday.
+        </p>
     </div>
   </div>
 
@@ -151,8 +160,8 @@
                 <div class="nav-wrapper teal lighten-2">
                   <form onSubmit="search();return false;" action="#">
                     <div class="input-field">
-                      <input id="search" placeholder="Search Bookshelf" type="search" required>
-                      <label for="search"><i class="mdi-action-search"></i></label>
+                      <input id="txt_search" placeholder="Search Bookshelf" type="search" required>
+                      <label for="txt_search"><i class="mdi-action-search"></i></label>
                       <i class="mdi-navigation-close"></i>
                     </div>
                   </form>
@@ -206,7 +215,7 @@
         showLogin();
       }
       else{
-        showLogout("Crazoter");
+        showLogout(Parse.User.current().attributes.username);
       }
       initializeArticles();
       //colorTags();
