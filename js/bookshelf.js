@@ -311,11 +311,19 @@
 		deleteBtn.unbind('click');
 		var currentUser = Parse.User.current();
 		var acl = article.getACL();
-		if(currentUser == null || acl == null)
-		{
-			deleteBtn.hide();
+		var valid = false;
+
+		if(acl == null)
+		{//no access control so well anything goes
+			valid = true;
 		}
-		else if(article.getACL().getWriteAccess(currentUser.id))
+		else if(currentUser !== null)
+		{
+			if(article.getACL().getWriteAccess(currentUser.id))
+				valid = true;//i can edit it!
+		}
+
+		if(valid)
 		{
 			deleteBtn.show();
 			deleteBtn.click(function(){ 
@@ -326,7 +334,6 @@
 		}
 		else
 			deleteBtn.hide();
-		//searchDom.li.show();
 	}
 	function cascadingDisplayArticles (index,length) {
 		if(index<length)
