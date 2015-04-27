@@ -39,6 +39,7 @@
 	var searchDoms = [];
 	var SEARCH_MAX_LENGTH = 20;
 	var DATEFORMAT  = 'dd/MM/yyyy HH:mm';
+	var searchDomsInitialized = false;
 
 	//var Color Tags
 	function Tag (string,color,isLight) {
@@ -124,6 +125,7 @@
 			article.set("reference",txt_ref.value);
 			article.set("tags",txt_tags.value);
 			article.set("uploadedBy",currentUser);
+			article.setACL(acl);
 			article.save(null, {
 			  success: function(article) {
 			    // Execute any logic that should take place after the object is saved.
@@ -271,7 +273,7 @@
 						+'<span class="timeholder right"><span id="search_time'+i+'" class="grey-text text-darken-1"></span>'//insert timestamp
 						+' by <span id="search_user'+i+'"></span></span>'//username
 						+'<p id="search_desc'+i+'"></p>'//descript
-						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle" onclick=""><i class="mdi-action-delete"></i>Remove Article</a></div>';
+						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a></div>';
 			li.innerHTML = inner;
 			li.style.display = "none";
 			ul_searches.appendChild(li);
@@ -285,8 +287,6 @@
 				$("#search_delete"+i)
 				));
 		}
-		$('.collapsible').collapsible();//init collapsibles
-      	$('.modal-trigger').leanModal();//init Modals
 	}
 	function refreshArticle (index,article) {
 		var searchDom = searchDoms[index];//document.createElement("li");
@@ -306,15 +306,26 @@
 		}
 		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT));
-		debugger;
 		searchDom.username.text(article.get("uploadedBy").attributes.username);
 		var deleteBtn = $(searchDom.delete);
 		deleteBtn.unbind('click');
-		deleteBtn.click(function(){ 
-			selectedArticle = article;
-			selectedArticleSearchDom = $(this).parent().parent();
-			return true; 
-		});
+		var currentUser = Parse.User.current();
+		var acl = article.getACL();
+		if(currentUser == null || acl == null)
+		{
+			deleteBtn.hide();
+		}
+		else if(article.getACL().getWriteAccess(currentUser.id))
+		{
+			deleteBtn.show();
+			deleteBtn.click(function(){ 
+				selectedArticle = article;
+				selectedArticleSearchDom = $(this).parent().parent();
+				return true; 
+						});
+		}
+		else
+			deleteBtn.hide();
 		//searchDom.li.show();
 	}
 	function cascadingDisplayArticles (index,length) {
@@ -323,6 +334,16 @@
 			$(searchDoms[index].li).show(200, function () {
 				cascadingDisplayArticles(index+1,length);
 			});
+		}
+		else
+		{
+			if(!searchDomsInitialized)
+			{
+				//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
+				$('.collapsible').collapsible();//init collapsibles
+				$('.modal-trigger').leanModal();//init Modals
+				searchDomsInitialized = true;
+			}
 		}
 	}
 	//Coloring of Tags (do only after the articles are displayed)
@@ -376,5 +397,6 @@
 	exports.addArticle = addArticle;
 	exports.initializeArticles = initializeArticles;
 	exports.colorTags = colorTags;
+	exports.deleteArticle = deleteArticle;
 
 })(window)
