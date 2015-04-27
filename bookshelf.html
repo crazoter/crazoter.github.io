@@ -26,7 +26,7 @@
           <a id="btn_logout" style="display:none;" class="waves-effect waves-light btn" onclick="logout();">Log out</a>
         </span>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="http://crazoter.github.io">Go Home</a></li>
+          <li><a href="https://crazoter.github.io">Go Home</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger grey-text text-lighten-4" href="#modal_login">Login</a>
@@ -75,6 +75,18 @@
     </div>
   </div>
 
+  <!--Confirm Delete-->
+  <div id="modal_deleteArticle" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">
+    <div class="modal-content">
+      <h4>Confirm Removal?</h4>
+      <p>Are you sure you want this article gone? Forever?</p>
+      <div class="modal-footer">
+      <a href="#!" onclick="deleteArticle();return false;" class=" modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+    </div>
+    </div>
+  </div>
+
   <!--Content-->
   <div class="container">
     <br/>
@@ -89,26 +101,26 @@
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi-action-picture-in-picture prefix"></i>
-                <input id="txt_title" type="text" length="77" class="validate" required>
+                <input id="txt_title" type="text" length="70" class="validate" required>
                 <label for="txt_title">Title</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
                 <i class="mdi-editor-mode-edit prefix"></i>
-                <textarea id="txtarea_description" class="materialize-textarea" length="120" class="validate" required></textarea>
+                <textarea id="txtarea_description" class="materialize-textarea" length="150" class="validate" required></textarea>
                 <label for="txtarea_description">Description</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
                 <i class="mdi-action-language prefix"></i>
-                <input id="txt_ref" type="url" length="99" class="validate" required>
+                <input id="txt_ref" type="url" length="80" class="validate" required>
                 <label for="txt_ref">Reference (URL)</label>
               </div>
               <div class="input-field col s6">
                 <i class="mdi-image-style prefix"></i>
-                <input id="txt_tags" type="text"length="77" class="validate" required>
+                <input id="txt_tags" type="text"length="50" class="validate" required>
                 <label for="txt_tags">Tag(s) - delimit with whitespace</label>
               </div>
             </div>
@@ -165,6 +177,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>
   <script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-dateFormat.min.js"></script>
   <script type="text/javascript" src="js/he.min.js"></script>
   <script type="text/javascript" src="js/bookshelf.js"></script>
   <script type="text/javascript">
@@ -188,6 +201,7 @@
         showLogout("Crazoter");
       }
       initializeArticles();
+      //colorTags();
     });
     </script>
   </body>

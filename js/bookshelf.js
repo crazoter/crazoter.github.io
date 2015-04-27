@@ -19,18 +19,26 @@
 	var txt_ref = document.getElementById("txt_ref");
 	var txt_tags = document.getElementById("txt_tags");
 
+	//Remove Article
+	var selectedArticle = null;
+	var selectedArticleSearchDom = null;
+
 	//Search Article
 	var txt_notfound = document.getElementById('txt_notfound');
 	var ul_searches	= document.getElementById("ul_searches");
-	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript) {
+	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn) {
 		this.li = li;
 		this.reference = ref_anchor;
 		this.title = span_title;
 		this.tags = tagholder;
 		this.description = p_descript;
+		this.timestamp = span_time;
+		this.username = span_user;
+		this.delete = deleteBtn;
 	}
 	var searchDoms = [];
 	var SEARCH_MAX_LENGTH = 20;
+	var DATEFORMAT  = 'dd/MM/yyyy HH:mm';
 
 	//var Color Tags
 	function Tag (string,color,isLight) {
@@ -94,16 +102,21 @@
 		showLogin();
 	}
 
-	//Adding of Articles
+	//Manipulation of Articles
 	//http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
 	//http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
 	//http://codepen.io/WebSeed/pen/pvgqEq
 	function addArticle () {
 		var currentUser = Parse.User.current();
-		debugger;
 		if(currentUser !== null)
 		{
-			if(currentUser)
+			//access control
+			var acl = new Parse.ACL();
+			acl.setPublicReadAccess(true);
+			acl.setWriteAccess(Parse.User.current().id, true);
+			acl.setRoleWriteAccess("Admin", true);//should be enforced on cloud code
+
+			//article itself
 			var Article = Parse.Object.extend("Article");
 			var article = new Article();
 			article.set("title",txt_title.value);
@@ -130,6 +143,23 @@
 		else
 			Materialize.toast("Failed to create new article. Perhaps you are not logged in?", 4000);
 	}
+	function deleteArticle () {
+		if(selectedArticle !== null)
+		{
+			selectedArticle.destroy({
+			  success: function(myObject) {
+			    // The object was deleted from the Parse Cloud.
+			    Materialize.toast("Successfully removed article.", 4000);
+			    selectedArticleSearchDom.hide(200);
+			  },
+			  error: function(myObject, error) {
+			    // The delete failed.
+			    // error is a Parse.Error with an error code and message.
+			    Materialize.toast("Unsuccessfully removed article.", 4000);
+			  }
+			});
+		}	
+	}
 
 	//Retrieval of Articles
 	function initializeArticles () {
@@ -141,6 +171,7 @@
 		var Article = Parse.Object.extend("Article");
 		var query = new Parse.Query(Article);
 		query.descending("updatedAt");
+		query.include("uploadedBy");
 		query.limit(SEARCH_MAX_LENGTH);
 		query.find({
 		  success: function(results) {
@@ -151,12 +182,14 @@
 		  	else
 		  	{
 		  		finishedLoadingText();
-			    for (var i = 0,l = results.length; i < results.length; ++i) { 
+		  		var i = 0,l = results.length;
+			    for (; i < results.length; ++i) { 
 			      var article = results[i];
-			      displayArticle(i,article);
+			      refreshArticle(i,article);
 			    }
 			    colorTags();
 			    $('ul.tabs').tabs();
+			    cascadingDisplayArticles(0,l);
 			}
 		  },
 		  error: function(error) {
@@ -212,30 +245,33 @@
 	function buildArticleHolders () {
 		/*
 		<li>
-	         <div class="collapsible-header truncate"><a href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i><span>The Bro Code</span>
-	          <span class="tagholder right">
-	            <span class="tag">funny</span>
-	            <span class="tag">random</span>
-	            <span class="tag">can't tell</span>
-	            <span class="tag">hi aidil</span>
-	            <span class="tag">KIV</span>
-	          </span>
-	        </div>
-	        <div class="collapsible-body"><p>"168: Bro's don’t touch each others hair."</p></div>
-	      </li>
+             <div class="collapsible-header truncate"><a id="test_a" href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="test_b">The Bro Code</span>
+              <span class="timeholder right"><span id="test_e" class="grey-text">somefuckingrandomtimestamp </span><span id="test_g" class="tag">Crazoter</span></span>
+              <span id="test_c" class="tagholder right">
+                <span class="tag">funny</span>
+                <span class="tag">random</span>
+                <span class="tag">can't tell</span>
+                <span class="tag">hi aidil</span>
+                <span class="tag">KIV</span>
+              </span>
+            </div>
+            <div class="collapsible-body">
+              <p id="test_d">"168: Bro's don’t touch each others hair."</p>
+               <a class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle" onclick="delete('test_f-id');return true;"><i class="mdi-action-delete"></i>Remove Article</a>
+            </div>
+          </li>
 		*/
 		for(var i=0,l=SEARCH_MAX_LENGTH;i<l;++i)
 		{
 			var li = document.createElement('li');
-			var inner = '<div class=\"collapsible-header truncate\"><a id=\"search_ref'+i+'\" href=\"';
-			//inner += he.encode(article.get('reference'));
-			inner += '\" target=\"_blank\"><i class=\"mdi-action-open-in-new\"></a></i><span id=\"search_title'+i+'\">';
-			//inner += he.encode(article.get('title'));
-			inner += '</span><span id=\"search_tags'+i+'\" class=\"tagholder right\">';
-
-			inner += '</span></div><div class=\"collapsible-body\"><p id=\"search_desc'+i+'\">';
-			//inner += he.encode(article.get('description'));
-			inner += '</p></div>';
+			var inner = '<div class="collapsible-header truncate"><a id="search_ref'+i+'" href="'//insert reference
+						+'" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="search_title'+i+'"></span>'//insert title
+						+'<span id="search_tags'+i+'" class="tagholder right"></span></div>'//tags html
+						+'<div class="collapsible-body">'
+						+'<span class="timeholder right"><span id="search_time'+i+'" class="grey-text text-darken-1"></span>'//insert timestamp
+						+' by <span id="search_user'+i+'"></span></span>'//username
+						+'<p id="search_desc'+i+'"></p>'//descript
+						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle" onclick=""><i class="mdi-action-delete"></i>Remove Article</a></div>';
 			li.innerHTML = inner;
 			li.style.display = "none";
 			ul_searches.appendChild(li);
@@ -243,15 +279,19 @@
 				$("#search_ref"+i),
 				$("#search_title"+i),
 				$("#search_tags"+i),
-				$("#search_desc"+i)
+				$("#search_desc"+i),
+				$("#search_time"+i),
+				$("#search_user"+i),
+				$("#search_delete"+i)
 				));
 		}
 		$('.collapsible').collapsible();//init collapsibles
+      	$('.modal-trigger').leanModal();//init Modals
 	}
-	function displayArticle (index,article) {
+	function refreshArticle (index,article) {
 		var searchDom = searchDoms[index];//document.createElement("li");
 		searchDom.reference.attr("href",he.encode(article.get("reference")));
-		searchDom.title.text(he.encode(article.get("title")));
+		searchDom.title.text(article.get("title"));
 		var tags = article.get('tags').split(/\s+/g);
 		var inner = "";
 		for(var i=0,l=tags.length;i<l;++i)
@@ -265,7 +305,25 @@
 			searchDom.tags.html(inner);
 		}
 		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
-		searchDom.li.show();
+		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT));
+		debugger;
+		searchDom.username.text(article.get("uploadedBy").attributes.username);
+		var deleteBtn = $(searchDom.delete);
+		deleteBtn.unbind('click');
+		deleteBtn.click(function(){ 
+			selectedArticle = article;
+			selectedArticleSearchDom = $(this).parent().parent();
+			return true; 
+		});
+		//searchDom.li.show();
+	}
+	function cascadingDisplayArticles (index,length) {
+		if(index<length)
+		{
+			$(searchDoms[index].li).show(200, function () {
+				cascadingDisplayArticles(index+1,length);
+			});
+		}
 	}
 	//Coloring of Tags (do only after the articles are displayed)
 	//http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
