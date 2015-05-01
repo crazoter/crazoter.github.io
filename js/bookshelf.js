@@ -39,6 +39,8 @@
 		this.delete = deleteBtn;
 	}
 	var searchDoms = [];
+	var search_currentPageIndex = 1;
+	var search_currentCollection;
 	var SEARCH_MAX_LENGTH = 20;
 	var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
 	var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
@@ -198,8 +200,9 @@
 		var query = new Parse.Query(Article);
 		query.descending("updatedAt");
 		query.include("uploadedBy");
-		query.limit(SEARCH_MAX_LENGTH);
-		query.find({
+		//query.limit(SEARCH_MAX_LENGTH);
+		search_currentCollection = query.collection();
+		search_currentCollection.fetch({
 		  success: function(results) {
 		  	if(results.length === 0)
 		  	{
@@ -208,13 +211,15 @@
 		  	else
 		  	{
 		  		finishedLoadingText();
-		  		var i = 0,l = results.length;
-			    for (; i < results.length; ++i) { 
-			      var article = results[i];
+		  		var i = 0,l = SEARCH_MAX_LENGTH;
+		  		if(results.length < l)
+		  			l = results.length;
+			    for (; i < l; ++i) { 
+			      var article = results.at(i);
 			      refreshArticle(i,article);
 			    }
 			    colorTags();
-			    $('ul.tabs').tabs();
+			    //$('ul.tabs').tabs();
 			    cascadingDisplayArticles(0,l);
 			}
 		  },
@@ -225,8 +230,8 @@
 		});
 	}
 	function search () {
+		loadFillerText();
 		var searchStuff = txt_search.value;
-		var searchStuff = "@now @lol @ytd @today $2015-03-15-@last_wed";
 		//Replace date shortcuts (@)
 		var shortcutRegex = /@(\S+?)\b|@(\S+?)$/g;
 		var tempArr;
@@ -261,8 +266,7 @@
 		var tags = [];//group 2 and 3 - #(\S+?)\s OR #(\S+?)$
 		var dates = [];//group 4, 5 and 6- \$(\d{4}\/\d{1,2}\/\d{1,2}) OR \$(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})
 		var words = [];//group 7 and 8 - (\S+?)\s OR (\S+?)$
-		var myRegex = /"(.+)"|#(\S+?)\s|#(\S+?)$|/+
-		/\$(\d{4}\/\d{1,2}\/\d{1,2})|\$(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})|(\S+?)\s|(\S+?)$/g;//2 groups to handle one tht is in the middle (ends with space) or ends with EOL
+		var myRegex = /"(.+)"|#(\S+?)\s|#(\S+?)$|\$(\d{4}\/\d{1,2}\/\d{1,2})|\$(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})|(\S+?)\s|(\S+?)$/g;//2 groups to handle one tht is in the middle (ends with space) or ends with EOL
 		//var tempArr;
 		while ((tempArr = myRegex.exec(searchStuff)) !== null) {
 			if(tempArr[1] != null)
@@ -293,8 +297,8 @@
 		}
 		if(wordsWithSpace.length > 0)
 		{
-			query_title.contains("title",words);
-			query_desc.contains("description",words);
+			query_title.contains("title",wordsWithSpace);
+			query_desc.contains("description",wordsWithSpace);
 		}
 		var main_query = Parse.Query.or(query_title, query_desc);
 		if(tags.length > 0)
@@ -305,25 +309,70 @@
 			main_query.greaterThanOrEqualTo("updatedAt",dates[0].fromDate);
 		}
 		//collection by query
-		var collection = main_query.collection();
+		search_currentCollection = main_query.collection();
+		var titleKeywordsMap = {};
+		for(var i=words.length-1;i>=0;--i)
+		{
+			titleKeywordsMap[words[i]] = true;
+		}
 		//create comparator for sorting
-		collection.comparator = function(object) {
-		  return object.get("temperature");
+		search_currentCollection.comparator = function(object) {
+			var value = object.updatedAt.getTime();
+			//Prioritize searches found in title and less in description
+			if(words.length > 0) {
+				var keywords = object.get("title_keywords");
+				for(var i=keywords.length;i>=0;--i) {
+					if(titleKeywordsMap[keywords[i]]) {
+						value *= 2;
+						break;
+					}
+				}
+			}
+			if(wordsWithSpace.length > 0) {
+				var isInTitle;
+				for(var i=0,l=wordsWithSpace.length;i<l;++i) {
+					isInTitle = object.get("title").indexOf(wordsWithSpace[i]);
+					if(isInTitle !== -1) {
+						value *= 2;
+						break;
+					}
+				}
+			}
+		  return value;
 		};
-		collection.fetch({
-		  success: function(collection) {
-		    collection.each(function(object) {
-		      console.warn(object);
-		    });
+		search_currentCollection.fetch({
+		  success: function(results) {
+		  	debugger;
+		  	if(results.length === 0)
+		  	{
+		  		nothingToShowText();
+		  	}
+		  	else
+		  	{
+		  		search_currentPageIndex = 1;
+		  		finishedLoadingText();
+		  		var i = 0,l = SEARCH_MAX_LENGTH;
+		  		if(results.length < l)
+		  			l = results.length;
+			    for (; i < l; ++i) { 
+			      var article = results.at(i);
+			      refreshArticle(i,article);
+			    }
+			    colorTags();
+			    cascadingDisplayArticles(0,l);
+		  	}
 		  },
 		  error: function(collection, error) {
+		  	debugger;
 		    // The collection could not be retrieved.
+		    notFoundText();
 		  }
 		});
 	}
 
 	//Fun filler text
 	function loadFillerText () {
+		clearArticleList();
 		txt_notfound.innerHTML = loadingBookshelfText();
 		$(txt_notfound).show();
 	}
@@ -455,6 +504,9 @@
 		}
 		else
 			deleteBtn.hide();
+	}
+	function cascadingDisplayArticlesStart (length) {
+		cascadingDisplayArticles(0,length);
 	}
 	function cascadingDisplayArticles (index,length) {
 		if(index<length)
