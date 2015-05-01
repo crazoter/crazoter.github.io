@@ -26,20 +26,15 @@
   <nav class="teal darken-2">
     <div class="nav-wrapper">
       <div class="container">
-        <a class="brand-logo">Aidil Bookshelf</a>
+        <a class="brand-logo center">Aidil Bookshelf</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <span class="right">
-          <a id="btn_login" style="display:none;" class="waves-effect waves-light btn modal-trigger" href="#modal_login">Login</a>
-          <span id="span_loggedInUser" class="hide-on-small-and-down" style="display:none;" ></span>
-          <a id="btn_logout" style="display:none;" class="waves-effect waves-light btn" onclick="logout();">Log out</a>
-        </span>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul class="side-nav fixed" id="mobile-demo">
           <li><a href="https://crazoter.github.io">Go Home</a></li>
-        </ul>
-        <ul class="side-nav" id="mobile-demo">
           <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger grey-text text-lighten-4" href="#modal_login">Login</a>
-          <h5 id="span_loggedInUser_mobile" style="display:none;" class="hide-on-small-and-down center-align grey-text text-darken-4"></h5>
+          <h5 id="span_loggedInUser_mobile" style="display:none;" class="center-align grey-text text-darken-4"></h5>
           <a id="btn_logout_mobile" style="display:none;" class="waves-effect waves-light btn grey-text text-lighten-4" onclick="logout();">Log out</a>
+          <!-- Dropdown Trigger -->
+          <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Resources</a>
         </ul>
       </div>
     </div>
@@ -74,6 +69,14 @@
       </div>
     </form>
   </div>
+
+  <!-- Dropdown Structure -->
+  <ul id='dropdown1' class='dropdown-content'>
+    <!--Polygon-->
+    <li><a href="http://www.polygon.com/" target="_blank" style='background: url("https://cdn1.vox-cdn.com/images/polygon/logos/logo_black.vbbf4076.png") no-repeat scroll 0px 0px transparent;background-position: center;'></a></li>
+    <li><a href="#!" target="_blank" style="background-image: url(https://www.redditstatic.com/sprite-reddit.EMWQffWtZwo.png);background-position: 0px -313px center;background-repeat: no-repeat;">Reddit</a></li>
+    <li><a href="https://news.ycombinator.com/news" target="_blank"><img src="https://news.ycombinator.com/y18.gif" width="18" height="18" style="border:1px #ffffff solid;"> Hacker News</a></li>
+  </ul>
 
   <!--Search Instructions-->
   <div id="modal_sInstruct" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">

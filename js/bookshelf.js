@@ -1,10 +1,10 @@
 //DOM VARIABLES
 (function(exports){
 	//Login x Logout UI
-	var btn_login = document.getElementById("btn_login");
+	//var btn_login = document.getElementById("btn_login");
 	var btn_login_mobile = document.getElementById("btn_login_mobile");
-	var btn_logout = document.getElementById("btn_logout");
-	var span_loggedInUser = document.getElementById("span_loggedInUser");
+	//var btn_logout = document.getElementById("btn_logout");
+	//var span_loggedInUser = document.getElementById("span_loggedInUser");
 	var btn_logout_mobile = document.getElementById("btn_logout_mobile");
 	var span_loggedInUser_mobile = document.getElementById("span_loggedInUser_mobile");
 
@@ -84,22 +84,22 @@
 
 	//LOGIN / LOGOUT
 	function showLogin () {
-		$(btn_login).show();
+		//$(btn_login).show();
 		$(btn_login_mobile).show();
-	    $(span_loggedInUser).hide();
+	    //$(span_loggedInUser).hide();
 	    $(span_loggedInUser_mobile).hide();
-	    $(btn_logout).hide();
+	    //$(btn_logout).hide();
 	    $(btn_logout_mobile).hide();
 	}
 	function showLogout (username) {
-		$(btn_login).hide();
+		//$(btn_login).hide();
 		$(btn_login_mobile).hide();
-	    $(span_loggedInUser).show();
+	    //$(span_loggedInUser).show();
 	    $(span_loggedInUser_mobile).show();
-	    $(btn_logout).show();
+	    //$(btn_logout).show();
 	    $(btn_logout_mobile).show();
 	    var s = "Hi "+username+"!";
-	    span_loggedInUser.innerHTML = s;
+	    //span_loggedInUser.innerHTML = s;
 	    span_loggedInUser_mobile.innerHTML = s;
 	}
 
@@ -260,6 +260,7 @@
 				searchStuff = searchStuff.replace(tempArr[0],jQuery.format.date(date,DATEFORMAT_SEARCH));//and format
 			}
 		}
+		txt_search.value = searchStuff;
 
 		//Tags (special characters accepted but must have # in front to signify it is a tagx)
 		var wordsWithSpace = [];//group 1 - "(.+)"

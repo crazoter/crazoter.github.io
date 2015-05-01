@@ -1701,4 +1701,4 @@ div.pad-bottom{padding-bottom:120px;}
 .outer-centered{text-align:center;display:table;position:absolute;height:100%;width:100%;}
 .middle-centered{display:table-cell;vertical-align:middle;}
 .inner-centered{margin-left:auto;margin-right:auto;}
-@font-face {font-family:'Share';font-style:normal;font-weight:400;src:local('Share'),local('Share-Regular'),url(http://fonts.gstatic.com/s/share/v5/QAIpJutej8pwMhTqANTdOg.woff2)format('woff2'),url(http://fonts.gstatic.com/s/share/v5/_jCje2O-7QL947BeMhJzWQ.woff)format('woff');}
+@font-face {font-family:'Share';font-style:normal;font-weight:400;src:local('Share'),local('Share-Regular'),url(../../fonts/Share.woff2)format('woff2'),url(../../fonts/Share.woff)format('woff');}
