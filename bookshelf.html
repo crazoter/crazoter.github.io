@@ -83,11 +83,14 @@
         <h5>Advanced syntax:</h5><hr>
         <h6>Search by Tag (<span class="tag">#</span>)</h6>
         <span class="tag">#TAG</span> - E.G. search "#Aidil" to query for articles that are tagged "Aidil".<hr>
-        <h6>Search by Date (<span class="tag">@</span>)</h6>
-        <span class="tag">@{yyyy/mm/dd}-{yyyy/mm/dd}</span> - E.G. "@2015/03/20-2015/03/25" will search for posts made during March 20th to 25th.
+        <h6>Search by Date (<span class="tag">$</span>)(Because time is money lol)</h6>
+        <span class="tag">${yyyy/mm/dd}-{yyyy/mm/dd}</span> - E.G. "$2015/03/20-2015/03/25" will search for posts made during March 20th to 25th (inclusive)<br/>
+        <span class="tag">${yyyy/mm/dd}</span> - Supplying only 1 date will search for articles posted on that day.
         <h6>Date Shortcuts</h6>
-        <span class="tag">@NOW</span> - Used as today's date and time. E.G. @2015/03/20-@NOW will search for posts made since 2015/03/20.<br/>
-        <span class="tag">@TODAY</span> <span class="tag">@YESTERDAY</span> - Retrieve articles that were posted since today / since yesterday.
+        <span class="tag">@NOW</span> OR <span class="tag">@TODAY</span> - Used as today's date. E.G. @2015/03/20-@NOW will search for posts made since 2015/03/20. @TODAY can also be used in place of @NOW.<br/>
+        <span class="tag">@YDA</span> - Used as yesterday's date.<br/>
+        <span class="tag">@MON</span><span class="tag">@TUE</span><span class="tag">@WED</span><span class="tag">@THU</span><span class="tag">@FRI</span><span class="tag">@SAT</span><span class="tag">@SUN</span> - Used as the date of the day specified on this week. E.G. if today is 2015/5/6 (Wednesday), @SUN will return 2015/5/10 and @MON will return 2015/5/4.<br/>
+        <span class="tag">@LAST_MON</span> - Used as the date of last monday. "MON" can be replaced with other days and multiple "LAST"s can be appended (e.g. LAST_LAST_LAST_MON).
         </p>
     </div>
   </div>
@@ -138,7 +141,7 @@
               <div class="input-field col s6">
                 <i class="mdi-image-style prefix"></i>
                 <input id="txt_tags" type="text"length="50" class="validate" required>
-                <label for="txt_tags">Tag(s) - delimit with whitespace</label>
+                <label for="txt_tags">Tag(s) - delimit with space</label>
               </div>
             </div>
             <div class="row">

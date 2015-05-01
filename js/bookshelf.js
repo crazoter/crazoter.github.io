@@ -27,6 +27,7 @@
 	var txt_search = document.getElementById('txt_search');
 	var txt_notfound = document.getElementById('txt_notfound');
 	var ul_searches	= document.getElementById("ul_searches");
+
 	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn) {
 		this.li = li;
 		this.reference = ref_anchor;
@@ -39,8 +40,36 @@
 	}
 	var searchDoms = [];
 	var SEARCH_MAX_LENGTH = 20;
-	var DATEFORMAT  = 'dd/MM/yyyy HH:mm';
+	var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
+	var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
 	var searchDomsInitialized = false;
+	var DATE_NOW = new Date();
+	var DATE_MAP = {
+		"now":0,
+		"today":0,
+		"yda":-1,
+		"last":-7
+	};
+	var DAY_ARR = ["mon","tue","wed","thu","fri","sat","sun"];
+	function initDateMap () {
+		//DATE_MAP.yda.setDate(DATE_MAP.now.getDate() - 1);
+		var baseline = DATE_NOW.getDay();//for days
+		if(baseline == 0)
+			baseline = 7;
+		for(var i=0,l=DAY_ARR.length;i<l;)//keep the number of days needed to add / deduct
+			DATE_MAP[DAY_ARR[i]] = ++i - baseline;//wow so optimize
+	}
+	initDateMap();
+	function FromToDate (formattedDate1,formattedDate2) {
+		this.fromDate = new Date(formattedDate1);
+		if(formattedDate2)
+			this.fromDate = new Date(formattedDate2);
+		else
+		{//1 whole day
+			this.toDate = new Date(this.fromDate);
+			this.toDate.setDate(this.fromDate.getDate()+1);
+		}
+	}
 
 	//var Color Tags
 	function Tag (string,color,isLight) {
@@ -196,7 +225,101 @@
 		});
 	}
 	function search () {
+		var searchStuff = txt_search.value;
+		var searchStuff = "@now @lol @ytd @today $2015-03-15-@last_wed";
+		//Replace date shortcuts (@)
+		var shortcutRegex = /@(\S+?)\b|@(\S+?)$/g;
+		var tempArr;
+		while ((tempArr = shortcutRegex.exec(searchStuff)) !== null) {
+			//calculate offset from today's day
+			var shortcutValue;
+			var offset = 0;
+			if(tempArr[1] != null)
+				shortcutValue = tempArr[1].toLowerCase();
+			else if(tempArr[2] != null)
+				shortcutValue = tempArr[2].toLowerCase();
 
+			if(shortcutValue.indexOf("_") !== -1)
+			{//last last whatever
+				var values = shortcutValue.split("_");
+				for(var i=0,l=values.length;i<l;++i)
+					offset += DATE_MAP[values[i]];
+			}
+			else//now, today, ytd or whatever
+				offset += DATE_MAP[shortcutValue];
+
+			if(!isNaN(offset))
+			{
+				var date = new Date();//set it
+				date.setDate(DATE_NOW.getDate() + offset);
+				searchStuff = searchStuff.replace(tempArr[0],jQuery.format.date(date,DATEFORMAT_SEARCH));//and format
+			}
+		}
+
+		//Tags (special characters accepted but must have # in front to signify it is a tagx)
+		var wordsWithSpace = [];//group 1 - "(.+)"
+		var tags = [];//group 2 and 3 - #(\S+?)\s OR #(\S+?)$
+		var dates = [];//group 4, 5 and 6- \$(\d{4}\/\d{1,2}\/\d{1,2}) OR \$(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})
+		var words = [];//group 7 and 8 - (\S+?)\s OR (\S+?)$
+		var myRegex = /"(.+)"|#(\S+?)\s|#(\S+?)$|/+
+		/\$(\d{4}\/\d{1,2}\/\d{1,2})|\$(\d{4}\/\d{1,2}\/\d{1,2})-(\d{4}\/\d{1,2}\/\d{1,2})|(\S+?)\s|(\S+?)$/g;//2 groups to handle one tht is in the middle (ends with space) or ends with EOL
+		//var tempArr;
+		while ((tempArr = myRegex.exec(searchStuff)) !== null) {
+			if(tempArr[1] != null)
+				wordsWithSpace.push(tempArr[1]);
+			else if(tempArr[2] != null)
+				tags.push(tempArr[2]);
+			else if(tempArr[3] != null)
+				tags.push(tempArr[3]);
+			else if(tempArr[4] != null)
+			{//single date
+				dates.push(new FromToDate(tempArr[4]));
+			}
+			else if(tempArr[5] != null || tempArr[6] != null)
+			{//These two come as a pair
+				dates.push(new FromToDate(tempArr[5],tempArr[6]));
+			}
+			else if(tempArr[7] != null)
+				words.push(tempArr[7]);
+			else if(tempArr[8] != null)
+				words.push(tempArr[8]);
+		}
+		var query_title = new Parse.Query("Article");
+		var query_desc = new Parse.Query("Article");
+		if(words.length > 0)
+		{
+			query_title.containsAll("title_keywords",words);
+			query_desc.containsAll("description_keywords",words);
+		}
+		if(wordsWithSpace.length > 0)
+		{
+			query_title.contains("title",words);
+			query_desc.contains("description",words);
+		}
+		var main_query = Parse.Query.or(query_title, query_desc);
+		if(tags.length > 0)
+			main_query.containsAll("tags",tags);
+		if(dates.length > 0)
+		{//i will only take the 1st one lol lazy ftw
+			main_query.lessThan("updatedAt",dates[0].toDate);
+			main_query.greaterThanOrEqualTo("updatedAt",dates[0].fromDate);
+		}
+		//collection by query
+		var collection = main_query.collection();
+		//create comparator for sorting
+		collection.comparator = function(object) {
+		  return object.get("temperature");
+		};
+		collection.fetch({
+		  success: function(collection) {
+		    collection.each(function(object) {
+		      console.warn(object);
+		    });
+		  },
+		  error: function(collection, error) {
+		    // The collection could not be retrieved.
+		  }
+		});
 	}
 
 	//Fun filler text
@@ -303,7 +426,7 @@
 			}
 		}
 		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
-		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT));
+		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
 		searchDom.username.text(article.get("uploadedBy").attributes.username);
 		var deleteBtn = $(searchDom.delete);
 		deleteBtn.unbind('click');
