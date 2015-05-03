@@ -28,6 +28,9 @@
 	var txt_notfound = document.getElementById('txt_notfound');
 	var ul_searches	= document.getElementById("ul_searches");
 
+	//IFRAME
+	var iframe_res = document.getElementById('iframe_res');
+
 	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn) {
 		this.li = li;
 		this.reference = ref_anchor;
@@ -570,6 +573,11 @@
 	  return (a < 0.5);
 	}
 
+//IFRAME
+	function iframe_back () {
+		iframe_res.contentWindow.history.back();
+	}
+
 	exports.showLogin = showLogin;
 	exports.showLogout = showLogout;
 	exports.login = login;
@@ -579,5 +587,6 @@
 	exports.colorTags = colorTags;
 	exports.deleteArticle = deleteArticle;
 	exports.search = search;
+	exports.iframe_back = iframe_back;
 
 })(window)
