@@ -321,7 +321,7 @@
 		}
 		//create comparator for sorting
 		search_currentCollection.comparator = function(object) {
-			var value = object.updatedAt.getTime();
+			var value = object.updatedAt.getTime() * -1;
 			//Prioritize searches found in title and less in description
 			if(words.length > 0) {
 				var keywords = object.get("title_keywords");
