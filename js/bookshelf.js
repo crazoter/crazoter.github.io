@@ -151,7 +151,7 @@
 			article.set("title",txt_title.value);
 			article.set("description",txtarea_description.value);
 			article.set("reference",txt_ref.value);
-			article.set("tags",txt_tags.value.split(/\s+/g));
+			article.set("tags",txt_tags.value.toUpperCase().split(/\s+/g));
 			article.set("uploadedBy",currentUser);
 
 			article.save(null, {
