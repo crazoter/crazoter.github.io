@@ -10,9 +10,9 @@
 
   <!--Force HTTPS on GitHub-->
   <script>
-    //var host = "crazoter.github.io";
-    //if ((host == window.location.host) && (window.location.protocol != "https:"))
-      //window.location.protocol = "https";
+    var host = "crazoter.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
   </script>
 
   <link type="text/css" rel="stylesheet" href="css/bookshelf.css" media="screen,projection"/>
@@ -118,8 +118,12 @@
   </div>
 
   <!--Content-->
-  <div class="container" style="padding-left: 100px;">
+  <div class="container">
     <br/>
+    <div class="row">
+    <!--Mobile nav handler--> 
+    <div class="col s6 l1 hide-on-med-and-down">t</div>
+    <div class="col s12 l11">
     <!--Accordion-->
     <ul class="collapsible popout" data-collapsible="accordion">
       <li>
@@ -202,6 +206,8 @@
         </div>
       </li>
     </ul>
+  </div>
+  </div>
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
