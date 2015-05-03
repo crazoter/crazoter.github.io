@@ -343,7 +343,6 @@
 		};
 		search_currentCollection.fetch({
 		  success: function(results) {
-		  	debugger;
 		  	if(results.length === 0)
 		  	{
 		  		nothingToShowText();
@@ -351,6 +350,7 @@
 		  	else
 		  	{
 		  		search_currentPageIndex = 1;
+		  		search_currentCollection = results;
 		  		finishedLoadingText();
 		  		var i = 0,l = SEARCH_MAX_LENGTH;
 		  		if(results.length < l)
@@ -364,7 +364,6 @@
 		  	}
 		  },
 		  error: function(collection, error) {
-		  	debugger;
 		    // The collection could not be retrieved.
 		    notFoundText();
 		  }

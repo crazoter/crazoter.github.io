@@ -21,3 +21,29 @@ span.tag {
   line-height: inherit;
   font-weight: 300;
 }
+.main {
+  padding-left: 260px !important;
+  padding-right: 20px !important;
+}
+.header {
+  padding-left: 240px !important;
+}
+
+@media screen and (max-width : 992px) {
+  .header {
+    padding-left: 0px !important;
+  }
+  .main {
+    padding-left: 20px !important;
+  }
+}
+
+.fat {
+  width: 100%;
+  height: 100%;
+}
+
+.iframe {
+  border:none;
+  outline: none;
+}

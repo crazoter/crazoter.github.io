@@ -22,14 +22,8 @@
 </head>
 
 <body>
-  <!--nav-->
-  <nav class="teal darken-2">
-    <div class="nav-wrapper">
-      <div class="container">
-        <a class="brand-logo center">Aidil Bookshelf</a>
-        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <ul class="side-nav fixed" id="mobile-demo">
-          <!-- Dropdown Trigger -->
+  <ul class="side-nav fixed" id="mobile-demo">
+          <a class="brand-logo center" style="background-image: url(assets/bookshelf/foolingaround.png);background-position: center; background-repeat: no-repeat;" title="Aidil Bookshelf"></a>
           <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Resources</a>
           <p id="span_loggedInUser_mobile" style="display:none;" class="center-align grey-text text-darken-4"></p>
           <li class="divider"></li>
@@ -37,9 +31,6 @@
           <a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light btn modal-trigger grey-text text-lighten-4" href="#modal_login">Login</a>
           <li><a id="btn_logout_mobile" style="display:none;" href="#" onclick="logout();">Log out</a></li>
         </ul>
-      </div>
-    </div>
-  </nav>
 
   <!--Modals-->
   <!--Login-->
@@ -116,14 +107,19 @@
     </div>
     </div>
   </div>
-
+  <div class="header">
+    <ul class="tabs">
+      <li class="tab col s6"><a class="teal grey-text text-lighten-4 active" href="#tab1">Bookshelf</a></li>
+      <li class="tab col s6"><a class="teal grey-text text-lighten-4" href="#tab2">Resources</a></li>
+    </ul>
+  </div>
   <!--Content-->
-  <div class="container">
-    <br/>
-    <div class="row">
-    <!--Mobile nav handler--> 
-    <div class="col s6 l1 hide-on-med-and-down">t</div>
-    <div class="col s12 l11">
+  <div class="main">
+    <div id="tab2" style="display:none;" class="row">
+      <iframe id="f1" src="http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml" class="fat iframe">
+      </iframe>
+    </div>
+    <div id="tab1" class="row">
     <!--Accordion-->
     <ul class="collapsible popout" data-collapsible="accordion">
       <li>
@@ -208,7 +204,6 @@
     </ul>
   </div>
   </div>
-  </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>
@@ -239,6 +234,8 @@
       initializeArticles();
       //colorTags();
     });
+
+    $(".fat").height($(document).height()-140);
     </script>
   </body>
 <!--
