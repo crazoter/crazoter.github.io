@@ -11,8 +11,8 @@
   <!--Force HTTPS on GitHub-->
   <script>
     var host = "crazoter.github.io";
-    if ((host == window.location.host) && (window.location.protocol != "https:"))
-      window.location.protocol = "https";
+    //if ((host == window.location.host) && (window.location.protocol != "https:"))
+    //  window.location.protocol = "https";
   </script>
 
   <link type="text/css" rel="stylesheet" href="css/bookshelf.css" media="screen,projection"/>
@@ -119,7 +119,8 @@
       <ul class="pagination">
         <li class="waves-effect"><a href="#" onclick="iframe_back();"><i class="mdi-navigation-chevron-left"></i></a></li>
       </ul>
-      <iframe id="iframe_res" src="https://crazoter.github.io/go.html?url=http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml" class="fat iframe">
+      Doesn't work properly if you're on HTTPS.
+      <iframe id="iframe_res" src="https://news.ycombinator.com/news" class="fat iframe">
       </iframe>
     </div>
     <div id="tab1" class="row">
