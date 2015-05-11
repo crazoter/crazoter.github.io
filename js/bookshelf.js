@@ -203,7 +203,7 @@
 		var query = new Parse.Query(Article);
 		query.descending("updatedAt");
 		query.include("uploadedBy");
-		//query.limit(SEARCH_MAX_LENGTH);
+		query.limit(SEARCH_MAX_LENGTH);
 		search_currentCollection = query.collection();
 		search_currentCollection.fetch({
 		  success: function(results) {

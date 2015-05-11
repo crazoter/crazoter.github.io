@@ -1,0 +1,18 @@
+sudoku:
+possibilities: 1 to 9
+row must be unique
+col must be unique
+grid must be unique
+
+1 square can have 1 to 9 choices
+row -> 1 to 9 choices
+&
+col -> 1 to 9 choices
+&
+gri -> 1 to 9 choices
+^
+other squares
+=
+rem -> 1 to 9 choices, remaining options
+
+1. calculate all the row and col and gri (fixed)
