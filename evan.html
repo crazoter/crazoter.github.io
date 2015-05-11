@@ -72,7 +72,7 @@
 		<!--content-->
 		<div>
 			<div class="glorious evan">
-				<img class="evan" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY HAHAHAHA WHAT ON EARTH">
+				<img class="evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY HAHAHAHA WHAT ON EARTH">
 			</div>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
@@ -127,6 +127,7 @@
 			    }
 			    //set evan size (person) based on screen size
 			    $(".evan").css("max-width",screenWidth/5);
+			    $("img.evan").show();
 			}
 
 			function preloaderOff () {
