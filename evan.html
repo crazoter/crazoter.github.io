@@ -112,6 +112,7 @@
 			    h5_title = document.getElementById("h5_title");
 			    //imgLoad = imagesLoaded(img_bg);
 			    var screenWidth = $(document).width();
+			    chosenThumbnailSize = thumbnailMap[thumbnailArr[thumbnailArr.length-1]];//default as biggest
 			    for(var i=0,l=thumbnailArr.length;i<l;++i) {
 			    	if(screenWidth<thumbnailArr[i]) {
 			    		chosenThumbnailSize = thumbnailMap[thumbnailArr[i]];
