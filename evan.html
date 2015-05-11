@@ -48,7 +48,7 @@
 	<body>
 		<!--preloader-->
 		<div id="preloader" style="display:none;">
-			<h1 class="preloader">Loading...(The wait is worth it)</h1>
+			<h1 class="preloader">Loading...</h1>
 		</div>
 		<!--header-->
 		<div class="title">
@@ -66,9 +66,10 @@
 		<script type="text/javascript">
 			var imgs;
 			var img_bg;
+			var img_data;//for debugging purposes;
 			var preloader;
 			var h5_title;
-			var SIZE_THRESHOLD = 400000;
+			var SIZE_THRESHOLD = 200000;
 
 			function random_img () {
 				if(imgs){
@@ -77,7 +78,7 @@
 						$(img_bg).remove();
 					}
 					//randomize src
-					var img_data = imgs[Math.floor(Math.random()*imgs.length)];
+					img_data = imgs[Math.floor(Math.random()*imgs.length)];
 					h5_title.innerHTML = img_data.title;
 					if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
 						preloader.show(200);
