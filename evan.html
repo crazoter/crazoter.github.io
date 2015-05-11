@@ -70,6 +70,13 @@
 			var preloader;
 			var h5_title;
 			var SIZE_THRESHOLD = 200000;
+			var thumbnailArr = [320,640,1024];
+			var thumbnailMap = {
+				320: "m",
+				640: "l",
+				1024: "h"
+			};
+			var chosenThumbnailSize;
 
 			function random_img () {
 				if(imgs){
@@ -84,7 +91,7 @@
 						preloader.show(200);
 					//I don't like recreating the img, but i got no other choice if i want to make the handler handle reloading
 					img_bg = document.createElement('IMG');
-					img_bg.src = img_data.link+"h";
+					img_bg.src = img_data.link+chosenThumbnailSize;
 					img_bg.className = "glorious background";
 					document.body.appendChild(img_bg);
 					if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
@@ -104,7 +111,13 @@
 			    preloader = $(document.getElementById("preloader"));
 			    h5_title = document.getElementById("h5_title");
 			    //imgLoad = imagesLoaded(img_bg);
-
+			    var screenWidth = $(document).width();
+			    for(var i=0,l=thumbnailArr.length;i<l;++i) {
+			    	if(screenWidth<thumbnailArr[i]) {
+			    		chosenThumbnailSize = thumbnailMap[thumbnailArr[i]];
+			    		break;
+			    	}
+			    }
 			    $.ajax({ 
 				    url: 'https://api.imgur.com/3/gallery/r/earthporn',//nsfw guys
 				    headers: {
