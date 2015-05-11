@@ -19,11 +19,13 @@
 			  	/* Set up positioning */
 			  	position: fixed;top: 0;left: 0;z-index: 1;
 			}
-			.glorious.evan {
+			div.glorious.evan {
 				/*center horizontally*/
 				position:absolute;left: 0;right: 0;margin: 0 auto;
     			/*glue to the ground*/
-				max-width: 225px;bottom: 0px;z-index: 2;
+				bottom: 0px;z-index: 2;
+			}
+			img.evan {
 			}
 			div#preloader {
 				position:fixed;left:0;top:0;z-index:1000;width:100%;height:100%;overflow:visible;background:#F0F0F0
@@ -32,7 +34,11 @@
 				text-align:center;position:relative;top:70%;transform:translateY(-70%);font-family: 'Open Sans', sans-serif;
 			}
 			div.title {
-				z-index: 999;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 22px;
+				z-index: 999;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
+			}
+			h5.title {
+				margin-top: 0px;
+				margin-bottom: 10px;
 			}
 			img.refresh {
 				margin:5px;cursor: pointer; cursor: hand;
@@ -61,12 +67,12 @@
 		<!--header-->
 		<div class="title">
 			<img id="img_refresh" src="data:image/png;base64,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" class="refresh" onclick="random_img();"></i>
-			<h5 id="h5_title">Loading...</h5>
+			<h5 class="title" id="h5_title">Loading...</h5>
 		</div>
 		<!--content-->
 		<div>
 			<div class="glorious evan">
-				<img src="assets/joke/evan.png" alt="Evan TAY TAY TAAY HAHAHAHA WHAT ON EARTH">
+				<img class="evan" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY HAHAHAHA WHAT ON EARTH">
 			</div>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
@@ -109,6 +115,20 @@
 				}
 			}
 
+			function resize () {
+				//set thumbnail size (background) based on screen size
+			    var screenWidth = $(document).width();
+			    chosenThumbnailSize = thumbnailMap[thumbnailArr[thumbnailArr.length-1]];//default as biggest
+			    for(var i=0,l=thumbnailArr.length;i<l;++i) {
+			    	if(screenWidth<thumbnailArr[i]) {
+			    		chosenThumbnailSize = thumbnailMap[thumbnailArr[i]];
+			    		break;
+			    	}
+			    }
+			    //set evan size (person) based on screen size
+			    $(".evan").css("max-width",screenWidth/5);
+			}
+
 			function preloaderOff () {
 				preloader.hide(200);
 			}
@@ -121,17 +141,8 @@
 			    h5_title = document.getElementById("h5_title");
 			    img_refresh = $(document.getElementById("img_refresh"));
 			    //imgLoad = imagesLoaded(img_bg);
-			    //set thumbnail size based on screen size
-			    var screenWidth = $(document).width();
-			    chosenThumbnailSize = thumbnailMap[thumbnailArr[thumbnailArr.length-1]];//default as biggest
-			    for(var i=0,l=thumbnailArr.length;i<l;++i) {
-			    	if(screenWidth<thumbnailArr[i]) {
-			    		chosenThumbnailSize = thumbnailMap[thumbnailArr[i]];
-			    		break;
-			    	}
-			    }
 
-			    //spin effect
+			    //spin effect (css)
 			    $(img_refresh).click(function() {
 			    	$(this).addClass('spin');
 			    	$(this).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
@@ -140,6 +151,12 @@
 				    	$(this).removeClass('spin');
 				 	});
 			    });
+
+			    //resize evan based on screensize, and size of backgrounds based on screensize too
+			    $( window ).resize(function() {
+			    	resize();
+				});
+				resize();
 
 			    //pull data from earthporn
 			    $.ajax({ 
