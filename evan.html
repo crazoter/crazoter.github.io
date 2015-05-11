@@ -47,8 +47,8 @@
 	</head>
 	<body>
 		<!--preloader-->
-		<div id="preloader">
-			<h1 class="preloader">Loading...</h1>
+		<div id="preloader" style="display:none;">
+			<h1 class="preloader">Loading...(The wait is worth it)</h1>
 		</div>
 		<!--header-->
 		<div class="title">
@@ -68,6 +68,8 @@
 			var img_bg;
 			var preloader;
 			var h5_title;
+			var SIZE_THRESHOLD = 400000;
+
 			function random_img () {
 				if(imgs){
 					if(img_bg)
@@ -77,13 +79,15 @@
 					//randomize src
 					var img_data = imgs[Math.floor(Math.random()*imgs.length)];
 					h5_title.innerHTML = img_data.title;
-					preloader.show(200);
+					if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
+						preloader.show(200);
 					//I don't like recreating the img, but i got no other choice if i want to make the handler handle reloading
 					img_bg = document.createElement('IMG');
 					img_bg.src = img_data.link;
 					img_bg.className = "glorious background";
 					document.body.appendChild(img_bg);
-					imagesLoaded(img_bg,preloaderOff);
+					if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
+						imagesLoaded(img_bg,preloaderOff);
 					//preloaderOff();
 				}
 			}
