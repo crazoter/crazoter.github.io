@@ -62,6 +62,9 @@
 				z-index: 4;
 				display:none;
 			}
+			.hidden {
+				display:none;
+			}
 		</style>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
@@ -92,8 +95,7 @@
 			var preloader;
 			var h5_title;
 			var img_refresh;
-			var SIZE_THRESHOLD = 750000;
-			var MAXIMUM_SPEED_ALLOWANCE = 5000;//milliseconds
+			var SIZE_THRESHOLD = 500000;
 			var thumbnailArr = [320,640,1024];
 			var thumbnailMap = {
 				320: "m",
@@ -102,15 +104,20 @@
 			};
 			var chosenThumbnailSize;
 			var subreddits = ["earthporn","villageporn"];
+			var IMG_BUFFER_LENGTH = 6;//once buffer over, buffer next img
+			var img_buffer_position = 0;
+			var img_display_position = 0;
 
 			function random_img () {
 				if(imgs){
+					if(img_display_position >= imgs.length)
+						img_display_position = 0;
 					if(img_bg)
 					{
 						$(img_bg).remove();
 					}
 					//randomize src
-					img_data = imgs[Math.floor(Math.random()*imgs.length)];
+					img_data = imgs[img_display_position++];
 					h5_title.innerHTML = img_data.title;
 					//if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
 						//preloader.show(200);
@@ -147,6 +154,48 @@
 				preloader.hide(200);
 			}
 
+			function array_shuffle (arr) {
+				for(var i=arr.length-1,j,temp;i>=0;--i) {
+					j = Math.random() * i | 0;
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+
+			function buffer_next_img () {
+				//i wonder about js mutex
+				if(++img_buffer_position < imgs.length)
+				{
+					var img_data = imgs[img_buffer_position];
+					var temp_img = document.createElement('IMG');
+					//get thumbnail instead of actual image.
+					if(img_data.size >= SIZE_THRESHOLD)
+						temp_img.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
+					else temp_img.src = img_data.link;
+					temp_img.className = "hidden";
+					document.body.appendChild(temp_img);
+				}
+			}
+
+			function pullData () {
+			    $.ajax({ 
+				    url: 'https://api.imgur.com/3/gallery/r/'+subreddits[Math.floor(Math.random()*subreddits.length)],//nsfw guys
+				    headers: {
+				        'Authorization': 'Client-ID 3bc8b402e145392'
+				    },
+				    type: 'GET'})
+				    .done(function(msg) {
+				    	//usually returns 60
+				    	imgs = msg.data;
+				    	array_shuffle(imgs);
+				    	//buffer_imgs();
+				    	random_img();
+					}).fail(function( jqXHR, textStatus ) {
+						pullData();//:)
+					});
+			}
+
 			//onload
 			$(function() {
 			    //Load stuff from Imgur API
@@ -172,19 +221,7 @@
 				});
 				resize();
 
-			    //pull data from earthporn
-			    $.ajax({ 
-				    url: 'https://api.imgur.com/3/gallery/r/'+subreddits[Math.floor(Math.random()*subreddits.length)],//nsfw guys
-				    headers: {
-				        'Authorization': 'Client-ID 3bc8b402e145392'
-				    },
-				    type: 'GET',
-				    success: function(xhr) { 
-				    		//usually returns 60
-				    		imgs = xhr.data;
-				    		random_img();
-				    	}
-				});
+				pullData();
 			});
 		</script>
 		<!--Very lazy youtube video implementation (copy paste lol)-->
@@ -200,28 +237,28 @@
 	      //    after the API code downloads.
 	      var player;
 	      function onYouTubeIframeAPIReady() {
-	        player = new YT.Player('player', {
-	          height: '186',//lol
-	          width: '105',
-	          videoId: 'e3nSvIiBNFo',
-	          events: {
-	            'onReady': onPlayerReady,
-	            'onStateChange': onStateChange
-	          }
-	        });
+	      	player = new YT.Player('player', {
+		          height: '186',//lol
+		          width: '105',
+		          videoId: 'e3nSvIiBNFo',
+		          events: {
+		          	'onReady': onPlayerReady,
+		          	'onStateChange': onStateChange
+		          }
+		      });
 	      }
 
 	      // 4. The API will call this function when the video player is ready.
 	      function onPlayerReady(event) {
-	        event.target.playVideo();
-	        event.target.setVolume(100);
+	      	event.target.playVideo();
+	      	event.target.setVolume(100);
 	      }
 
 	      function onStateChange(event) {
-		    if(event.data === YT.PlayerState.ENDED){
-		        player.loadVideoById('e3nSvIiBNFo');
-		  }
-}
+	      	if(event.data === YT.PlayerState.ENDED){
+	      		player.loadVideoById('e3nSvIiBNFo');
+	      	}
+	      }
 	    </script>
 	</body>
 </html>
