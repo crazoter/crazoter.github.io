@@ -91,7 +91,7 @@
 			var preloader;
 			var h5_title;
 			var img_refresh;
-			//var SIZE_THRESHOLD = 200000;
+			var SIZE_THRESHOLD = 750000;
 			var thumbnailArr = [320,640,1024];
 			var thumbnailMap = {
 				320: "m",
@@ -114,7 +114,9 @@
 					//I don't like recreating the img, but i got no other choice if i want to make the handler handle reloading
 					img_bg = document.createElement('IMG');
 					//get thumbnail instead of actual image.
-					img_bg.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
+					if(img_data.size >= SIZE_THRESHOLD)
+						img_bg.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
+					else img_bg.src = img_data.link;
 					img_bg.className = "glorious background";
 					document.body.appendChild(img_bg);
 					//if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
