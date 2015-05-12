@@ -205,7 +205,8 @@
 	          width: '105',
 	          videoId: 'e3nSvIiBNFo',
 	          events: {
-	            'onReady': onPlayerReady
+	            'onReady': onPlayerReady,
+	            'onStateChange': onStateChange
 	          }
 	        });
 	      }
@@ -215,6 +216,12 @@
 	        event.target.playVideo();
 	        event.target.setVolume(100);
 	      }
+
+	      function onPlayerReady(event) {
+		    if(e.data === YT.PlayerState.ENDED){
+		        player.loadVideoById('e3nSvIiBNFo');
+		  }
+}
 	    </script>
 	</body>
 </html>
