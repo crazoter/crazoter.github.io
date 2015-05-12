@@ -113,7 +113,8 @@
 						//preloader.show(200);
 					//I don't like recreating the img, but i got no other choice if i want to make the handler handle reloading
 					img_bg = document.createElement('IMG');
-					img_bg.src = img_data.link+chosenThumbnailSize;
+					//get thumbnail instead of actual image.
+					img_bg.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
 					img_bg.className = "glorious background";
 					document.body.appendChild(img_bg);
 					//if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
