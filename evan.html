@@ -56,6 +56,9 @@
 			   -webkit-transform: rotate(360deg);
 			   -ms-transform: rotate(360deg);
 			}
+			#player {
+				z-index: 10;
+			}
 		</style>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
@@ -190,11 +193,11 @@
 	      var player;
 	      function onYouTubeIframeAPIReady() {
 	        player = new YT.Player('player', {
-	          height: '1',//lol
-	          width: '1',
-	          videoId: 'kS-W3lfcVvY',
+	          height: '62',//lol
+	          width: '112',
+	          videoId: 'e3nSvIiBNFo',
 	          events: {
-	            'onReady': onPlayerReady,
+	            'onReady': onPlayerReady
 	          }
 	        });
 	      }
