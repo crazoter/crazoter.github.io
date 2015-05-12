@@ -92,6 +92,7 @@
 			var h5_title;
 			var img_refresh;
 			var SIZE_THRESHOLD = 750000;
+			var MAXIMUM_SPEED_ALLOWANCE = 5000;//milliseconds
 			var thumbnailArr = [320,640,1024];
 			var thumbnailMap = {
 				320: "m",
@@ -99,6 +100,7 @@
 				1024: "h"
 			};
 			var chosenThumbnailSize;
+			var subreddits = ["earthporn","villageporn"];
 
 			function random_img () {
 				if(imgs){
@@ -171,7 +173,7 @@
 
 			    //pull data from earthporn
 			    $.ajax({ 
-				    url: 'https://api.imgur.com/3/gallery/r/earthporn',//nsfw guys
+				    url: 'https://api.imgur.com/3/gallery/r/'+subreddits[Math.floor(Math.random()*subreddits.length),//nsfw guys
 				    headers: {
 				        'Authorization': 'Client-ID 3bc8b402e145392'
 				    },
