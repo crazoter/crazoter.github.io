@@ -58,11 +58,9 @@ body{overflow:hidden; background:transparent; }
 <script type="text/javascript" src="js/lib/soundmanager/soundmanager2-nodebug-jsmin.js"></script>
 <script type="text/javascript" src="config.js?168"></script>
 <script type="text/javascript" src="js/lib/require/require.js"></script>
-<script type="text/javascript" src="js/lib/knockout/knockout-2.1.0.js"></script>
-<script type="text/javascript" src="js/lib/jquery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/lib/underscore/underscore.js"></script>
 <script type="text/javascript" >
 require([
+	'knockout','jquery','underscore',
 	'text!view/player.html',
 	'text!view/playlist.html',
 	'scm','song','scm.ui',

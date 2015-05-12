@@ -12,7 +12,7 @@
 		postMessage = function(msg){
 			debugger;
 			return window.top.document.getElementById('scmframe')
-				.contentWindow.postMessage(msg,scmHost);
+				.contentWindow.postMessage(msg,scm);
 		},
 		postFactory = function(obj,keys){
 			var keys = keys.split(','),
