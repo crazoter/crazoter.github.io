@@ -60,6 +60,11 @@
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
 	<body>
+		<!--Music please!-->
+		<!-- SCM Music Player http://scmplayer.net -->
+		<script type="text/javascript" src="scmplayer/script.js" 
+		data-config="{'skin':'scmplayer/css/simplescinza.css','volume':40,'autoplay':false,'shuffle':false,'repeat':1,'placement':'top','showplaylist':false,'playlist':[{'title':'Vivaldi - The Four Seasons - Spring , Julia Fischer','url':'https://www.youtube.com/watch?v=hRRDCDFQj3s'}]}" ></script>
+		<!-- SCM Music Player script end -->
 		<!--preloader-->
 		<div id="preloader" style="display:none;">
 			<h1 class="preloader">Loading...</h1>
@@ -170,6 +175,7 @@
 				    		//usually returns 60
 				    		imgs = xhr.data;
 				    		random_img();
+				    		SCM.play();
 				    	}
 				});
 			});
