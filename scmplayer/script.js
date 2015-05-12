@@ -10,6 +10,7 @@
 		scmHost = scm.substr(0,scm.indexOf('/',10)),
 		isOutside = !hasFrame || location.href.indexOf("scmplayer=true")>0,
 		postMessage = function(msg){
+			debugger;
 			return window.top.document.getElementById('scmframe')
 				.contentWindow.postMessage(msg,scmHost);
 		},
