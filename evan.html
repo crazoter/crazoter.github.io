@@ -18,7 +18,7 @@
 				/* Set rules to fill background */
 			  	/*min-height: 100%;min-width: 1024px;*/
 			  	/* Set up proportionate scaling */
-			  	width: 100%;height: auto;
+			  	width: 100%;height: 100%;
 			  	/* Set up positioning */
 			  	position: absolute;bottom: 0;left: 0;z-index: 1;
 			}
@@ -26,12 +26,12 @@
 				/*center horizontally*/
 				position:absolute;left: 0;right: 0;margin: 0 auto;
     			/*glue to the ground*/
-				bottom: 0px;z-index: 2;
+				bottom: 0px;z-index: 9;
 			}
 			img.evan {
 			}
 			div.title {
-				z-index: 3;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
+				z-index: 10;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
 			}
 			h5.title {
 				margin-top: 0px;
@@ -79,13 +79,13 @@
 			}
 			div.selection {
 			  height: 100%;
-			  z-index: 6;
+			  z-index: 21;
 			}
 			div.selection.bg {
-				z-index: 5;
+				z-index: 20;
 			}
 			div.selection.selectiontitle {
-				z-index: 7;
+				z-index: 22;
 				width:100%;
 				height:0%;
 				position: absolute;
@@ -178,7 +178,7 @@
 		//#region variables
 			//DOM
 			var imgs,//List of img datas from imgur
-				img_bg,//DOM element of bg img
+				img_bg,//DOM element of bg img. If using fadeDisplay, is the most current img holder.
 				img_data,//for debugging purposes;
 				h5_title,//DOM element of title
 				$img_refresh;//Jquery element of the refresh / next image button
@@ -188,13 +188,16 @@
 				THUMBNAIL_ARR = [320,640,1024],//used to calculate best thumbnail size with regards to current screen size
 				THUMBNAIL_MAP = {320: "m",640: "l",1024: "h"},
 				SUBREDDITS = ["earthporn","villageporn"],
-				DISPLAY_METHOD = simpleDisplay,
-				SELECTED_NONE = -1,
+				DISPLAY_METHOD = fadeDisplay,//Method used to display images
+				SELECTED_NONE = -1,//placeholders for what is selected
 				SELECTED_FREENEASY = 0,
-				SELECTED_CONCERT = 1;//Method used to display images
+				SELECTED_CONCERT = 1,
+				SWAP_FAST = 100,
+				SWAP_SLOW = 500;
 
 			//READONLY - Set only once and then forgotten
 			var chosenThumbnailSize,//A thumbnail size (of background img) is chosen based on screen size
+				swapSpeed,//image swap speed
 				musicVol,
 				musicID;//youtube video id
 
@@ -203,8 +206,8 @@
 				screenWidth,
 				yt_player,//youtube player
 				yt_api_loaded = false;
-				selected = SELECTED_NONE,
-				finishedPreloading = false;
+				finishedPreloading = false,
+				selected = SELECTED_NONE;//free & easy or concert
 		//#endregion
 
 		//#region Initialization
@@ -308,10 +311,12 @@
 				if(isConcert)
 				{
 					alert('Sorry, this feature is not finished.');
+					swapSpeed = SWAP_FAST;
 					return;//not done yet
 				}
 				if(selected === SELECTED_NONE)
 				{
+					swapSpeed = SWAP_SLOW;
 					$('.left-half').removeClass('clickable hoverable');
 					$('.right-half').removeClass('clickable hoverable');
 					$('h1.selection.title').slideUp(500);
@@ -422,6 +427,25 @@
 					img_bg.className = "glorious background";
 					document.body.appendChild(img_bg);
 				}
+			}
+
+			/**
+				Fade & replace src
+				img_data: Object, image data from Imgur (Image class)
+			*/
+			function fadeDisplay (img_data) {
+				h5_title.innerHTML = img_data.title;
+				if(img_bg)
+				{
+					img_bg.style.zIndex = 7;
+					$(img_bg).fadeOut(swapSpeed,"swing", function (){
+						$(this).remove();
+					});
+				}
+				img_bg = document.createElement('IMG');
+				img_bg.src = getImgURL(img_data);
+				img_bg.className = "glorious background";
+				document.body.appendChild(img_bg);
 			}
 
 			/**
