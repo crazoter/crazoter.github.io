@@ -202,6 +202,7 @@
 			var img_display_position = 0,
 				screenWidth,
 				yt_player,//youtube player
+				yt_api_loaded = false;
 				selected = SELECTED_NONE,
 				finishedPreloading = false;
 		//#endregion
@@ -286,6 +287,7 @@
 				$("img.evan").show();
 
 				pullData();
+				loadYoutubeAPI();
 			});
 
 			/**
@@ -327,24 +329,27 @@
 						$('.left-half').animate({width: "100%"}, 500);
 						$('.right-half').animate({width: "0%"}, 500, function(){$('.right-half').hide();});
 						$('article.selection.left-half').animate({top: "20%"}, 500, function(){start();});
-						musicVol = 10;
-						musicID = 'p47fEXGabaY';
+						musicVol = 100;
+						musicID = '9E6b3swbnWg';
 					}
 				}
 			}
 
 			function start () {
-				if(selected !== SELECTED_NONE && finishedPreloading)
+				if(selected !== SELECTED_NONE && finishedPreloading && yt_api_loaded)
 				{
 					switch(selected)
 					{
 						case SELECTED_FREENEASY:
-							$('.left-half').fadeOut(500);
+							$('.left-half').slideUp(500);
 							break;
 						case SELECTED_CONCERT:
-							$('.right-half').fadeOut(500);
+							$('.right-half').slideUp(500);
 							break;
 					}
+					yt_player.loadVideoById(musicID);
+					//yt_player.playVideo();
+					yt_player.setVolume(musicVol);
 				}
 			}
 		//#endregion
@@ -458,7 +463,7 @@
 		      	yt_player = new YT.Player('player', {
 			        height: '186',//lol
 			        width: '105',
-			        videoId: 'e3nSvIiBNFo',
+			        videoId: musicID,
 			        events: {
 			        	'onReady': onPlayerReady,
 			          	'onStateChange': onStateChange
@@ -466,8 +471,9 @@
 			    });
 		    }
 		    function onPlayerReady(event) {
-		      	//event.target.playVideo();
-		      	event.target.setVolume(musicVol);
+		    	//yt_player.stopVideo();
+		    	yt_api_loaded = true;
+		    	start();
 		    }
 		    function onStateChange(event) {
 		      	if(event.data === YT.PlayerState.ENDED){
