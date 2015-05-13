@@ -7,6 +7,17 @@
 		<meta name="description" content="Sightseeing with Evan"/>
 		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
 		<title>EVAN IN ALL HIS GLORY</title>
+		<script type="text/javascript">
+			var IS_FIREFOX = false;
+			//If firefox, fallback to Pace.js because ImagesLoaded CMI with ff
+			if(navigator.userAgent.search("Firefox")!==-1)
+			{
+				var IS_FIREFOX = true;
+				document.write("<script type='text\/javascript'>paceOptions = {elements: {selectors: ['img']}};<\/script>"+
+					'<script src="js\/pace.min.js"><\/script>'+
+					'<link href="css\/pace.css" rel="stylesheet" \/>');
+			}
+		</script>
   		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 		<style type="text/css">
@@ -183,8 +194,8 @@
 	</head>
 	<body>
 		<!--Preloader-->
-		<div id="preloader" class="preloader"></div>
-		<div id="preloader_text" class="preloader">0%</div>
+		<div id="preloader" class="preloader" style="display:none;"></div>
+		<div id="preloader_text" class="preloader" style="display:none;">0%</div>
 		<!--Select between Free & Easy Or Concert-->
 		<section class="selection container">
 		<div class="selection selectiontitle">
@@ -298,22 +309,25 @@
 					//.css("display","none")
 					.appendTo($preloadContainer);
 				$preloadContainer.appendTo("body");//append 'em all at the same time for optimization's sake
-				imagesPreloaded = 0;
-				//var preloads = document.querySelectorAll('.pseudoHidden.t'+timestamp);
-				var imgLoad = imagesLoaded($preloadContainer.children());
-				imgLoad.on('progress', function( instance, image ) {
-					console.log("load over 1");
-					preloader_text.innerHTML = (++imagesPreloaded / IMG_PRELOAD_INTERVAL * 100 | 0) + "%";
-					if(imagesPreloaded === IMG_PRELOAD_INTERVAL)
-					{
-						console.log("load over all");
-						imagesPreloaded = 0;
-						$preloader.fadeOut();
-						finishedPreloading = true;
-						preload_imgs(end,imgs.length<end+IMG_PRELOAD_INTERVAL?imgs.length:end+IMG_PRELOAD_INTERVAL);//preload the rest of the images
-						window.start();
-					}
-				});
+				if(!IS_FIREFOX)
+				{
+					imagesPreloaded = 0;
+					//var preloads = document.querySelectorAll('.pseudoHidden.t'+timestamp);
+					var imgLoad = imagesLoaded($preloadContainer.children());
+					imgLoad.on('progress', function( instance, image ) {
+						console.log("load over 1");
+						preloader_text.innerHTML = (++imagesPreloaded / IMG_PRELOAD_INTERVAL * 100 | 0) + "%";
+						if(imagesPreloaded === IMG_PRELOAD_INTERVAL)
+						{
+							console.log("load over all");
+							imagesPreloaded = 0;
+							$preloader.fadeOut();
+							finishedPreloading = true;
+							preload_imgs(end,imgs.length<end+IMG_PRELOAD_INTERVAL?imgs.length:end+IMG_PRELOAD_INTERVAL);//preload the rest of the images
+							window.start();
+						}
+					});
+				}
 			}
 
 			/**
@@ -348,6 +362,10 @@
 			    preloader_text = document.getElementById("preloader_text")
 			    $img_refresh = $(document.getElementById("img_refresh"));
 
+			    //show preloader if is not firefox
+			    if(!IS_FIREFOX)
+			    	$preloader.show();
+
 			    //spin effect (css) of refresh button
 			    $img_refresh.click(function() {
 			    	$(this).addClass('spin');
@@ -371,17 +389,19 @@
 				/**
 					Finished preloading images
 				*/
-				/*
-				Pace.on('done', function(){
-					if(imgs)
-					{
-						finishedPreloading = true;
-						preload_imgs(IMG_PRELOAD_INTERVAL,imgs.length);//preload the rest of the images
-						start();
-					} else {
-						Pace.restart();
-					}
-				});*/
+				if(IS_FIREFOX)
+				{
+					Pace.on('done', function(){
+						if(imgs)
+						{
+							finishedPreloading = true;
+							preload_imgs(IMG_PRELOAD_INTERVAL,imgs.length);//preload the rest of the images
+							start();
+						} else {
+							Pace.restart();
+						}
+					});
+				}
 			});
 		//#endregion
 
