@@ -7,6 +7,8 @@
 		<meta name="description" content="Sightseeing with Evan"/>
 		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
 		<title>EVAN IN ALL HIS GLORY</title>
+		<script src="js/pace.min.js"></script>
+  		<link href="css/pace_bigctr.css" rel="stylesheet" />
   		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<style type="text/css">
 			body {
@@ -14,11 +16,11 @@
     		}
 			.glorious.background {
 				/* Set rules to fill background */
-			  	min-height: 100%;min-width: 1024px;
+			  	/*min-height: 100%;min-width: 1024px;*/
 			  	/* Set up proportionate scaling */
 			  	width: 100%;height: auto;
 			  	/* Set up positioning */
-			  	position: fixed;bottom: 0;left: 0;z-index: 1;
+			  	position: absolute;bottom: 0;left: 0;z-index: 1;
 			}
 			div.glorious.evan {
 				/*center horizontally*/
@@ -28,12 +30,6 @@
 			}
 			img.evan {
 			}
-			div#preloader {
-				position:fixed;left:0;top:0;z-index:5;width:100%;height:100%;overflow:visible;background:#F0F0F0
-			}
-			h1.preloader{
-				text-align:center;position:relative;top:70%;transform:translateY(-70%);font-family: 'Open Sans', sans-serif;
-			}
 			div.title {
 				z-index: 3;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
 			}
@@ -42,7 +38,10 @@
 				margin-bottom: 10px;
 			}
 			img.refresh {
-				margin:5px;cursor: pointer; cursor: hand;
+				margin:5px;
+			}
+			.clickable {
+				cursor: pointer; cursor: hand;
 			}
 			.spin {
 				-webkit-transition-duration: 1s;
@@ -65,122 +64,185 @@
 			.hidden {
 				display:none;
 			}
+
+			/*Selection*/
+			.selection {
+			  box-sizing: border-box;
+			}
+			section.selection {
+			  color: #fff;
+			  text-align: center;
+			  font-size: 1.25rem;
+			  font-family: sans-serif;
+			  line-height: 150%;
+			  text-shadow: 0 2px 2px #727272;
+			}
+			div.selection {
+			  height: 100%;
+			  z-index: 6;
+			}
+			div.selection.bg {
+				z-index: 5;
+				background-size: cover;
+			}
+			div.selection.selectiontitle {
+				z-index: 7;
+				width:100%;
+				height:0%;
+				position: absolute;
+				top: 5%;
+			}
+			article.selection {
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  width: 100%;
+			  padding: 20px;
+			}
+			h1.selection {
+			  font-size: 1.75rem;
+			  margin: 0 0 0.75rem 0;
+			}
+			h1.selection.selectiontitle {
+				z-index: 6;
+			}
+			/* Pattern styles */
+			.selection.container {
+			  display: table;
+			  width: 100%;
+			}
+			div.left-half {
+			  background-color: #B2EBF2;
+			  position: absolute;
+			  left: 0px;
+			  width: 50%;
+			}
+			div.left-half.bg {
+				background: url("assets/joke/left.jpg") no-repeat;
+			}
+			div.right-half {
+			  background-color: #FFC107;
+			  position: absolute;
+			  right: 0px;
+			  width: 50%;
+			}
+			div.right-half.bg {
+				background: url("assets/joke/right.jpg") no-repeat;
+			}
+			.hoverable:hover {
+				opacity: 0.8;
+			}
 		</style>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
 	<body>
+		<!--Select between Free & Easy Or Concert-->
+		<section class="selection container">
+		<div class="selection selectiontitle">
+			<h1 class="selection title">Select an option</h1>
+		</div>
+			<div class="selection left-half bg"></div>
+		  <div class="selection left-half hoverable clickable" onclick="selectedConcert(false);">
+		    <article class="selection left-half">
+		      <h1 class="selection">Free & Easy</h1>
+		      <p>Enjoy Evan's journey at your own pace and time.</p>
+		    </article>
+		  </div>
+		  <div class="selection right-half bg"></div>
+		  <div class="selection right-half hoverable clickable" onclick="selectedConcert(true);">
+		    <article class="selection right-half">
+		      <h1 class="selection">Concert (Under Construction)</h1>
+		      <p>Behold Evan's journey the way it's supposed to be savoured.</p>
+		    </article>
+		  </div>
+		</section>
 		<!--Music please-->
 		<div id="player"></div>
-		<!--preloader-->
-		<div id="preloader" style="display:none;">
-			<h1 class="preloader">Loading...</h1>
-		</div>
 		<!--header-->
 		<div class="title">
-			<img id="img_refresh" src="data:image/png;base64,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" class="refresh" onclick="random_img();"></i>
+			<img id="img_refresh" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAIVUlEQVRogdVaXUwbVxY+BizaTbo74R8ibZpNlTZ5Sbdo1fLUh5AXqkgrpJXMZhsp2od0VSDIQEgbdYMaVtk6TwhtAwoREYFuZCSkJRIiCREmIQRYC6EQAjaxbIcZezz3x7R9iRTbZx8yMx3A4HFwkHakI2Fzf77vnu8cn3vvAGzzQUQLImYjohURs02019siomW787/2g4hZiJiT7H+KouwmhJSurq7uX11d3U8IKVUUZfcm4+QgYtabRbt2wg3ACSEHo9HoKc55J6XURSn1MsZkxlhUNZlS6qWUujjnndFo9BQh5OCOE0FEq/a3oii7o9Ho55zzEcbYz4wxpJSaNsbYz5zzkWg0+rksy7uSzZFJ4BZN34ho4Zx/wRhbWgc6QSmNmbTEOjJLnPMvtJhQvZGZ+DAGJqX0Y875IwPwOCHkJaU0ns7qb9aXMfaIUvpxsrm3DT4ajTYwxmKGyWOvATqpqWPFVRIxxtiZbZMwduSc/0tbdXXVEpkCb5SgOrY2z/evTcKYDSil/Sr4uKrfTANfb7o3ZFn+AQC0uDBHwhg8lNLvVfD6oDtk+mKJothpIJE6sLUczxg7Y1j5nQSvk2CMxRVFwUAgYDdi2wq8VV35PxgCdidks6mcGGMoy3JseXn5EyPGZOCNun9EqR6waU3q9/txYGAA29ra0G63o91ux7a2NhwYGEC/379l36mpqQ3faRiCweA0AGStx7pBOpFI5LRBOqazzdjYGNpsNiwqKkJBEJJacXEx1tTU4Pj4+Ib+Fy5cwDNnziQbO8EYi0ciEVxYWKhNKiWNUSgU+hUhxKMyNyUdURTRbrdjQUHBpsDXW2FhITY3N6MkSTp4QRA2I4CEkBhjDIPBoPfatWvvbPCCxigUCv3FsPopwXs8Hjx69OgacGVlZVhTU4OXL1/G3t5e7O3tRYfDgTabDUtLS9e0PXbsGJ49e1b/vBkBSikyxuKyLOPjx49PrfGCMTXJsnzbrPYlSVoDPj8/H+vr69Hj8WzaZ2FhAU+fPo179uxJ6pmtCGiYPB7PqCEWLPoPxMrKynuU0p/UDik90NjYuGbV+/v7TQf61atXMT8/Py0ClNI45xwlSfppdHT0sEogW09LgUDgr6p8Ugbu+Pg4FhYW6iufDnij5tMkgIyxhCzLODMz8zc9pWoeCAaDV9WGKYP3xIkT+qT19fUZAW+GAKU0RgjBubm5HgCwGMsLiyiKD8wQCAaDWFxcrEtnaWkpI+DNEqCU4uLi4kMA+KU2un379i5Zlr1mCAwODuoT1tTUZAy8WQKMMfT5fMstLS2/0QlMTk7ujUQishkCly5d0id0OBymwLvdbmxubk5pN2/eNEUgEAjI3d3d+3QC9+7dO6AoCjdDwJi3e3t709J/BizGGMPnz5/znp6eD3QCIyMj7/2/Eejs7DysE3A6nb99kxLKNIFAICA7HI4DOoGGhgZBkqRlMwSMQWyz2bYNan5+HmdnZ3F2dhbD4bApAl6v99nx48cLjPVcbiAQmDBDYDtpdL0tLi7q9VFJSQmurKykJKCSfgQAbxsLuZzFxcUeMwQo3d4PmdFqa2v1cU6ePGlKQoQQnJiY6AOAHETM0UoJy+Tk5JdqowRNUU7cv39fLyXy8vLSLiUopdjX14d5eXkoCAIWFRXhw4cPU/VJMMYS4XAYBwcH7eov8S+lxJUrV34fiUR+VBunLOaamppeu5jr7+/HsrIyvX9LS0vKPoSQOOcc/X7/j+fPn/9ETT7ZxnJ6t9frHVUbmyqnKysrdRB5eXlYV1e3ZUwsLS1hXV2dvvLaniAUCpkh8JJSijMzMy4A+PWarYAWByMjI18SQkzJiNLNNzQ2mw0dDseGDY1x1QVBwMrKSvR6vWbAJzjniVAohDdu3LDr+jfsyLIAAI4cObLX7/entaWUJAkbGxv1mDC7pWxqatK3lCYIxBhjOD8/v3zo0KF9RsxGEjkA8NbQ0NDXiqIgY8yUFzRzuVymN/UulyudgNdXv6+v7+8A8FbS8yEDo5KnT5/+12wsrLetjlUCgUBaYxkxTE9PzwLAXgCA1tbW5BchKrPcixcv/lEUxReMMdNSehOmKEpMzTwvzp079ycAyB0bG0t5OpcDAMLAwMA/wuEwcs4ThJAdP1pU02ZCFEW8fv36dwAgpDxaVAlYVBeV3r17t1+WZeScx3eShAo+Hg6H8datW/8GgNLW1tYs07c2ajxYAeBdl8v1H9UTqCjKG5eTJptwOIx37twZAoD9AGDdVPdbkMgGgFwA+N3w8HC/JEnIOUdCyEtCSMYvOAghCULIS845iqKIQ0NDPwDAAQDIdTqdr3dLo3bMBYB9PT09//T7/S8opVpcZISIAXiCUoo+n+9Fd3f3dwCwb1vgDZ7IKi8vtwJAWUNDQ8309LRbkiRkjBmJpHUQTF9dJ8U14IwxlCQJp6am3LW1tX8GgLLy8vL0ZbMFCYvb7bYCwB4AONTV1fXt3NycRxRFVD2CnHNU7xS2NMZYTGtP6avD4bm5OU9XV9e3AHAYAPa43W7rG3kNQc3BuQBQIgjCh+3t7V89ePDA9ezZs6gkSagoClJKNe+sMe2SUFEUDIVC6PP5ohMTE2Pt7e1fCYLwIQCUgJk8v91HvfTOgVc7omIAOFhdXf1ZR0fHN8PDwzenpqYezc/PL3u93pDP5yM+n494vd7QkydPlmdmZiaHh4dvdnR0fFNdXf0ZALyvjvG2OubOvfxheGfCCq/K22IAeBcADhUUFHxUUVHxaVVV1bGqqqpjFRUVnxYUFHwEAB+obYrVPtYdf9lj/YOIFqfTme12u61qnFjhlXd2AcA7qu1Sv7Oq+rY6nc6MvG7zP+D1LngGIKIJAAAAAElFTkSuQmCC" class="refresh clickable" onclick="random_img();"></i>
 			<h5 class="title" id="h5_title">Loading...</h5>
 		</div>
 		<!--content-->
 		<div>
 			<div class="glorious evan">
-				<img class="evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY HAHAHAHA WHAT ON EARTH">
+				<img class="evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY">
 			</div>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
-		<script src="node_modules/imagesloaded/imagesloaded.pkgd.js"></script><!--img onload handler-->
+		<!--img onload handler-->
+		<!--<script src="node_modules/imagesloaded/imagesloaded.pkgd.js"></script>-->
 		<script type="text/javascript">
-			var imgs;
-			var img_bg;
-			var img_data;//for debugging purposes;
-			var preloader;
-			var h5_title;
-			var img_refresh;
-			var SIZE_THRESHOLD = 500000;
-			var thumbnailArr = [320,640,1024];
-			var thumbnailMap = {
-				320: "m",
-				640: "l",
-				1024: "h"
-			};
-			var chosenThumbnailSize;
-			var subreddits = ["earthporn","villageporn"];
-			var IMG_BUFFER_LENGTH = 6;//once buffer over, buffer next img
-			var img_buffer_position = 0;
-			var img_display_position = 0;
+		//#region variables
+			//DOM
+			var imgs,//List of img datas from imgur
+				img_bg,//DOM element of bg img
+				img_data,//for debugging purposes;
+				h5_title,//DOM element of title
+				$img_refresh;//Jquery element of the refresh / next image button
 
-			function random_img () {
-				if(imgs){
-					if(img_display_position >= imgs.length)
-						img_display_position = 0;
-					if(img_bg)
-					{
-						$(img_bg).remove();
-					}
-					//randomize src
-					img_data = imgs[img_display_position++];
-					h5_title.innerHTML = img_data.title;
-					//if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
-						//preloader.show(200);
-					//I don't like recreating the img, but i got no other choice if i want to make the handler handle reloading
-					img_bg = document.createElement('IMG');
-					//get thumbnail instead of actual image.
-					if(img_data.size >= SIZE_THRESHOLD)
-						img_bg.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
-					else img_bg.src = img_data.link;
-					img_bg.className = "glorious background";
-					document.body.appendChild(img_bg);
-					//if(img_data.size <= SIZE_THRESHOLD)//if it's small enough for preloader
-						//imagesLoaded(img_bg,preloaderOff);
-					//preloaderOff();
-				}
-			}
+			//CONSTANTS
+			var SIZE_THRESHOLD = 500000,//Size limit of an image before we resort to pulling its thumbnail instead
+				THUMBNAIL_ARR = [320,640,1024],//used to calculate best thumbnail size with regards to current screen size
+				THUMBNAIL_MAP = {320: "m",640: "l",1024: "h"},
+				SUBREDDITS = ["earthporn","villageporn"],
+				DISPLAY_METHOD = simpleDisplay,
+				SELECTED_NONE = -1,
+				SELECTED_FREENEASY = 0,
+				SELECTED_CONCERT = 1;//Method used to display images
 
+			//READONLY - Set only once and then forgotten
+			var chosenThumbnailSize,//A thumbnail size (of background img) is chosen based on screen size
+				musicVol,
+				musicID;//youtube video id
+
+			//RUNTIME
+			var img_display_position = 0,
+				screenWidth,
+				yt_player,//youtube player
+				selected = SELECTED_NONE,
+				finishedPreloading = false;
+		//#endregion
+
+		//#region Initialization
+
+			/**	
+				Handle resizing of screen - change size of person as well as configure thumbnail size.
+			*/
 			function resize () {
 				//set thumbnail size (background) based on screen size
-			    var screenWidth = $(document).width();
-			    chosenThumbnailSize = thumbnailMap[thumbnailArr[thumbnailArr.length-1]];//default as biggest
-			    for(var i=0,l=thumbnailArr.length;i<l;++i) {
-			    	if(screenWidth<thumbnailArr[i]) {
-			    		chosenThumbnailSize = thumbnailMap[thumbnailArr[i]];
+			    screenWidth = $(document).width();
+			    chosenThumbnailSize = THUMBNAIL_MAP[THUMBNAIL_ARR[THUMBNAIL_ARR.length-1]];//default as biggest
+			    for(var i=0,l=THUMBNAIL_ARR.length;i<l;++i) {
+			    	if(screenWidth<THUMBNAIL_ARR[i]) {
+			    		chosenThumbnailSize = THUMBNAIL_MAP[THUMBNAIL_ARR[i]];
 			    		break;
 			    	}
 			    }
 			    //set evan size (person) based on screen size
 			    $(".evan").css("max-width",screenWidth/5);
-			    $("img.evan").show();
 			}
 
-			function preloaderOff () {
-				preloader.hide(200);
+			/**
+				Preload images so that they don't slow down viewing tempo
+			*/
+			function preload_imgs () {
+				var i = imgs.length;
+				var $preloadContainer = $(document.createElement('span'));
+				while(i--)
+					$(document.createElement('span')) //fastest way to create elements in jQuery
+					.attr("style", "background: url("+getImgURL(imgs[i])+");")
+					.appendTo($preloadContainer);
+				$preloadContainer.appendTo("body");//append 'em all at the same time for optimization's sake
 			}
 
-			function array_shuffle (arr) {
-				for(var i=arr.length-1,j,temp;i>=0;--i) {
-					j = Math.random() * i | 0;
-					temp = arr[i];
-					arr[i] = arr[j];
-					arr[j] = temp;
-				}
-			}
-
-			function buffer_next_img () {
-				//i wonder about js mutex
-				if(++img_buffer_position < imgs.length)
-				{
-					var img_data = imgs[img_buffer_position];
-					var temp_img = document.createElement('IMG');
-					//get thumbnail instead of actual image.
-					if(img_data.size >= SIZE_THRESHOLD)
-						temp_img.src = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
-					else temp_img.src = img_data.link;
-					temp_img.className = "hidden";
-					document.body.appendChild(temp_img);
-				}
-			}
-
+			/**
+				Get data from Imgur
+			*/
 			function pullData () {
 			    $.ajax({ 
-				    url: 'https://api.imgur.com/3/gallery/r/'+subreddits[Math.floor(Math.random()*subreddits.length)],//nsfw guys
+				    url: 'https://api.imgur.com/3/gallery/r/'+SUBREDDITS[Math.floor(Math.random()*SUBREDDITS.length)],//nsfw guys
 				    headers: {
 				        'Authorization': 'Client-ID 3bc8b402e145392'
 				    },
@@ -189,24 +251,24 @@
 				    	//usually returns 60
 				    	imgs = msg.data;
 				    	array_shuffle(imgs);
-				    	//buffer_imgs();
+				    	preload_imgs();
 				    	random_img();
 					}).fail(function( jqXHR, textStatus ) {
 						pullData();//:)
 					});
 			}
 
-			//onload
+			/**
+				Onload function
+			*/
 			$(function() {
 			    //Load stuff from Imgur API
 			    img_bg = document.getElementById("img_bg");
-			    preloader = $(document.getElementById("preloader"));
 			    h5_title = document.getElementById("h5_title");
-			    img_refresh = $(document.getElementById("img_refresh"));
-			    //imgLoad = imagesLoaded(img_bg);
+			    $img_refresh = $(document.getElementById("img_refresh"));
 
-			    //spin effect (css)
-			    $(img_refresh).click(function() {
+			    //spin effect (css) of refresh button
+			    $img_refresh.click(function() {
 			    	$(this).addClass('spin');
 			    	$(this).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
 				    function(event) {
@@ -220,45 +282,198 @@
 			    	resize();
 				});
 				resize();
+				$("img.evan").show();
 
 				pullData();
 			});
-		</script>
-		<!--Very lazy youtube video implementation (copy paste lol)-->
-		<script>
-	      // 2. This code loads the IFrame Player API code asynchronously.
-	      var tag = document.createElement('script');
 
-	      tag.src = "https://www.youtube.com/iframe_api";
-	      var firstScriptTag = document.getElementsByTagName('script')[0];
-	      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			/**
+				Finished preloading images
+			*/
+			Pace.once('done', function(){
+				finishedPreloading = true;
+				start();
+			})
+		//#endregion
 
-	      // 3. This function creates an <iframe> (and YouTube player)
-	      //    after the API code downloads.
-	      var player;
-	      function onYouTubeIframeAPIReady() {
-	      	player = new YT.Player('player', {
-		          height: '186',//lol
-		          width: '105',
-		          videoId: 'e3nSvIiBNFo',
-		          events: {
-		          	'onReady': onPlayerReady,
-		          	'onStateChange': onStateChange
-		          }
-		      });
-	      }
+		//#region Selection (Choosing between f&e or concert)
+			/**
+				Onclick function for the selection portion.
+				isConcert: boolean, literally means "isConcert?". Left side returns false, right side true.
+			*/
+			function selectedConcert (isConcert) {
+				if(isConcert)
+				{
+					alert('Sorry, this feature is not finished.');
+					return;//not done yet
+				}
+				if(selected === SELECTED_NONE)
+				{
+					$('.left-half').removeClass('clickable hoverable');
+					$('.right-half').removeClass('clickable hoverable');
+					$('h1.selection.title').slideUp(500);
+					if(isConcert)
+					{
+						selected = SELECTED_CONCERT;
+						$('.left-half').animate({width: "0%"}, 500, function(){$('.left-half').hide();});
+						$('.right-half').animate({width: "100%"}, 500);
+						$('article.selection.right-half').animate({top: "20%"}, 500, function(){start();});
+						musicVol = 100;
+						musicID = 'e3nSvIiBNFo';
 
-	      // 4. The API will call this function when the video player is ready.
-	      function onPlayerReady(event) {
-	      	event.target.playVideo();
-	      	event.target.setVolume(100);
-	      }
+					} else {
+						selected = SELECTED_FREENEASY;
+						$('.left-half').animate({width: "100%"}, 500);
+						$('.right-half').animate({width: "0%"}, 500, function(){$('.right-half').hide();});
+						$('article.selection.left-half').animate({top: "20%"}, 500, function(){start();});
+						musicVol = 10;
+						musicID = 'p47fEXGabaY';
+					}
+				}
+			}
 
-	      function onStateChange(event) {
-	      	if(event.data === YT.PlayerState.ENDED){
-	      		player.loadVideoById('e3nSvIiBNFo');
+			function start () {
+				if(selected !== SELECTED_NONE && finishedPreloading)
+				{
+					switch(selected)
+					{
+						case SELECTED_FREENEASY:
+							$('.left-half').fadeOut(500);
+							break;
+						case SELECTED_CONCERT:
+							$('.right-half').fadeOut(500);
+							break;
+					}
+				}
+			}
+		//#endregion
+
+		//#region Misc
+			/**
+				get random integer from 0 to x (exclusive of x)
+				x: Integer
+			*/
+			function randInt (x) {
+				return Math.random() * x | 0;
+			}
+			/**
+				Shuffle array
+				arr: Array, array to be shuffled
+			*/
+			function array_shuffle (arr) {
+				for(var i=arr.length-1,j,temp;i>=0;--i) {
+					j = randInt(i);
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		//#endregion
+
+		//#region Image Manipulation
+			/**
+				Determine the url to get the img from based on its data. Caches the url in the imgURL variable in the data itself.
+				img_data: Object, image data from Imgur (Image class)
+			*/
+			function getImgURL (img_data) {
+				if(!img_data.imgURL)
+				{
+					if(img_data.size >= SIZE_THRESHOLD)
+						img_data.imgURL = "http://i.imgur.com/"+img_data.id+chosenThumbnailSize+img_data.link.substring(img_data.link.lastIndexOf('.'));
+					else img_data.imgURL = img_data.link;
+				}
+				return img_data.imgURL;
+			}
+
+			/**
+				Recreate the img element so that it will appear to be loading (if the image is not preloaded)
+				img_data: Object, image data from Imgur (Image class)
+			*/
+			function recreatedDisplay (img_data) {
+				if(img_bg)
+				{
+					$(img_bg).remove();
+				}
+				h5_title.innerHTML = img_data.title;
+				img_bg = document.createElement('IMG');
+				img_bg.src = getImgURL(img_data);
+				img_bg.className = "glorious background";
+				document.body.appendChild(img_bg);
+			}
+
+			/**
+				Just replace the src, create only if not created
+				img_data: Object, image data from Imgur (Image class)
+			*/
+			function simpleDisplay (img_data) {
+				h5_title.innerHTML = img_data.title;
+				if(img_bg)
+				{
+					img_bg.src = getImgURL(img_data);
+				} else {
+					img_bg = document.createElement('IMG');
+					img_bg.src = getImgURL(img_data);
+					img_bg.className = "glorious background";
+					document.body.appendChild(img_bg);
+				}
+			}
+
+			/**
+				Methods used to pick an image from the imgs array
+			*/
+			function random_img () {
+				if(imgs){
+					img_data = imgs[randInt(imgs.length)];
+					DISPLAY_METHOD(img_data);
+				}
+			}
+			function next_img () {
+				if(imgs){
+					if(img_display_position >= imgs.length)
+						img_display_position = 0;
+					img_data = imgs[img_display_position++];
+					DISPLAY_METHOD(img_data);
+				}
+			}
+			function prev_img () {
+				if(imgs){
+					if(img_display_position < 0)
+						img_display_position = imgs.length-1;
+					img_data = imgs[img_display_position--];
+					DISPLAY_METHOD(img_data);
+				}
+			}
+		//#endregion
+		//#region Youtube
+			function loadYoutubeAPI () {
+				//This code loads the IFrame Player API code asynchronously.
+			    var tag = document.createElement('script');
+			    tag.src = "https://www.youtube.com/iframe_api";
+
+			    var firstScriptTag = document.getElementsByTagName('script')[0];
+			    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			}
+			function onYouTubeIframeAPIReady() {
+		      	yt_player = new YT.Player('player', {
+			        height: '186',//lol
+			        width: '105',
+			        videoId: 'e3nSvIiBNFo',
+			        events: {
+			        	'onReady': onPlayerReady,
+			          	'onStateChange': onStateChange
+			        }
+			    });
+		    }
+		    function onPlayerReady(event) {
+		      	//event.target.playVideo();
+		      	event.target.setVolume(musicVol);
+		    }
+		    function onStateChange(event) {
+		      	if(event.data === YT.PlayerState.ENDED){
+		      		yt_player.loadVideoById(musicID);
+		      	}
 	      	}
-	      }
-	    </script>
+		//#endregion
+		</script>
 	</body>
 </html>
