@@ -88,8 +88,9 @@
 			  height: 100%;
 			  z-index: 21;
 			}
-			div.selection.bg {
+			img.selection.bg {
 				z-index: 20;
+				height: 100%;
 			}
 			div.selection.selectiontitle {
 				z-index: 22;
@@ -118,25 +119,17 @@
 			  display: table;
 			  width: 100%;
 			}
-			div.left-half {
+			img.left-half,div.left-half {
 			  background-color: #B2EBF2;
 			  position: absolute;
 			  left: 0px;
 			  width: 50%;
 			}
-			div.left-half.bg {
-				background: url("assets/joke/left.jpg") no-repeat;
-				background-size: cover;
-			}
-			div.right-half {
+			img.right-half,div.right-half {
 			  background-color: #FFC107;
 			  position: absolute;
 			  right: 0px;
 			  width: 50%;
-			}
-			div.right-half.bg {
-				background: url("assets/joke/right.jpg") no-repeat;
-				background-size: cover;
 			}
 			.hoverable:hover {
 				opacity: 0.8;
@@ -150,14 +143,14 @@
 		<div class="selection selectiontitle">
 			<h1 class="selection title">Select an option</h1>
 		</div>
-			<div class="selection left-half bg"></div>
+			<img class="selection left-half bg" src="assets/joke/right.jpg"/>
 		  <div class="selection left-half hoverable clickable" onclick="selectedConcert(false);">
 		    <article class="selection left-half">
 		      <h1 class="selection">Free & Easy</h1>
 		      <p>Enjoy Evan's journey at your own pace and time.</p>
 		    </article>
 		  </div>
-		  <div class="selection right-half bg"></div>
+		  <img class="selection right-half bg" src="assets/joke/right.jpg"/>
 		  <div class="selection right-half hoverable clickable" onclick="selectedConcert(true);">
 		    <article class="selection right-half">
 		      <h1 class="selection">Concert (Under Construction)</h1>
