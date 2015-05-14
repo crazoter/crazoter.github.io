@@ -272,6 +272,7 @@
 				screenWidth,
 				yt_player,//youtube player
 				yt_api_loaded = false,
+				yt_player_loop = true,
 				musicMuted = false,
 				finishedPreloading = false,
 				selected = SELECTED_NONE;//free & easy or concert
@@ -320,7 +321,7 @@
 				//debugger;
 				var imgLoad = imagesLoaded($preloadContainer.children());
 				imgLoad.on('progress', function( instance, image ) {
-					console.log("load over 1");
+					//console.log("load over 1");
 					preloader_text.innerHTML = (++imagesPreloaded / IMG_PRELOAD_INTERVAL * 100 | 0) + "%";
 					if(imagesPreloaded === IMG_PRELOAD_INTERVAL)
 					{
@@ -394,6 +395,7 @@
 				/**
 					Finished preloading images
 				*/
+				/*
 				if(Pace)
 				{
 					Pace.on('done', function(){
@@ -406,7 +408,7 @@
 							Pace.restart();
 						}
 					});
-				}
+				}*/
 			});
 		//#endregion
 
@@ -443,7 +445,7 @@
 						$('.right-half').animate({width: "0%"}, 500, function(){$('.right-half').hide();});
 						$('article.selection.left-half').animate({top: "20%"}, 500, function(){start();});
 						musicVol = 100;
-						musicID = '9E6b3swbnWg';
+						musicID = 'YGRO05WcNDk';
 					}
 				}
 			}
@@ -461,8 +463,9 @@
 							break;
 					}
 					yt_player.loadVideoById(musicID);
-					//yt_player.playVideo();
-					yt_player.setVolume(musicVol);
+					yt_player.unMute();
+					yt_player.setVolume(musicVol); 
+					yt_player.playVideo();
 				}
 			}
 		//#endregion
@@ -611,7 +614,11 @@
 		    }
 		    function onStateChange(event) {
 		      	if(event.data === YT.PlayerState.ENDED){
-		      		yt_player.loadVideoById(musicID);
+		      		if(yt_player_loop)
+		      		{
+		      			yt_player.seekTo(0);
+		      			yt_player.playVideo();
+		      		}
 		      	}
 	      	}
 	      	function volumeBtnSetImage () {
@@ -625,11 +632,12 @@
 	      		musicMuted = !musicMuted;
 	      		if(musicMuted)
 	      		{
-	      			yt_player.mute();
-	      		}
-	      		else
-	      		{
-	      			yt_player.unMute();
+	      			//yt_player.mute();
+	      			yt_player.pauseVideo();
+	      			yt_player.seekTo(0);//go back to front
+	      		} else {
+	      			yt_player.playVideo();
+	      			//yt_player.unMute();
 	      		}
 	      		volumeBtnSetImage();
 	      	}
