@@ -458,6 +458,7 @@
 			function start () {
 				if(selected !== SELECTED_NONE && finishedPreloading && yt_api_loaded)
 				{
+					$preloader.fadeOut();
 					switch(selected)
 					{
 						case SELECTED_FREENEASY:
@@ -502,8 +503,6 @@
 				//Account for both images percent and youtube videos
 				preloader_text.innerHTML = (((imagesPreloaded/IMG_PRELOAD_INTERVAL*(100-YT_PLAYER_LOAD_PERCENT)) + 
 											(yt_players_loaded/yt_players.length * YT_PLAYER_LOAD_PERCENT)) | 0) + "%";
-				if(preloader_text.innerHTML === "100%")
-					$preloader.fadeOut();
 			}
 		//#endregion
 
