@@ -134,6 +134,8 @@
 		MIDI.loader = new sketch.ui.Timer;
 		MIDI.loadPlugin({
 			soundfontUrl: "./soundfont/",
+			instruments: ['7 Harpsichord','41 Violin','43 Cello','49 String Ensemble 1'],
+		
 			onprogress: function(state, progress) {
 				MIDI.loader.setValue(progress * 100);
 			},
