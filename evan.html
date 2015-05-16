@@ -335,7 +335,7 @@
 						console.log("load over all");
 						imagesPreloaded = 0;
 						finishedPreloading = true;
-						//preload_imgs(end,imgs.length<end+IMG_PRELOAD_INTERVAL?imgs.length:end+IMG_PRELOAD_INTERVAL);//preload the rest of the images
+						preload_imgs(end,imgs.length<end+IMG_PRELOAD_INTERVAL?imgs.length:end+IMG_PRELOAD_INTERVAL);//preload the rest of the images
 						window.start();
 					}
 				});
