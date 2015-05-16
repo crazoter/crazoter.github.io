@@ -456,9 +456,10 @@
 			}
 
 			function start () {
+				if(finishedPreloading && yt_api_loaded)
+					$preloader.fadeOut();
 				if(selected !== SELECTED_NONE && finishedPreloading && yt_api_loaded)
 				{
-					$preloader.fadeOut();
 					switch(selected)
 					{
 						case SELECTED_FREENEASY:
