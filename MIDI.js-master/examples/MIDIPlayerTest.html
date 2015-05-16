@@ -134,7 +134,8 @@
 		MIDI.loader = new sketch.ui.Timer;
 		MIDI.loadPlugin({
 			soundfontUrl: "./soundfont/",
-			instruments: ['Harpsichord','Violin','Cello','String Ensemble 1'],
+			//need to be lower case and have a match in soundfonts
+			instruments: ['harpsichord','violin','cello','string_ensemble_1'],
 		
 			onprogress: function(state, progress) {
 				MIDI.loader.setValue(progress * 100);
