@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0"/>
 		<meta name="description" content="Sightseeing with Evan"/>
 		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
-		<title>EVAN IN ALL HIS GLORY</title>
+		<title>*Non-stop eye rolling*</title>
 		<!--Pace fallback-->
 		<!--<script type="text/javascript">
 			var IS_FIREFOX = false;
@@ -21,175 +21,7 @@
 		</script>-->
   		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
-		<style type="text/css">
-			body {
-    			margin: 0;
-    		}
-			.glorious.background {
-				/* Set rules to fill background */
-			  	/*min-height: 100%;min-width: 1024px;*/
-			  	/* Set up proportionate scaling */
-			  	width: 100%;height: 100%;
-			  	/* Set up positioning */
-			  	position: absolute;bottom: 0;left: 0;z-index: 1;
-			}
-			div.glorious.evan {
-				/*center horizontally*/
-				position:absolute;left: 0;right: 0;margin: 0 auto;
-    			/*glue to the ground*/
-				bottom: 0px;z-index: 9;
-			}
-			img.evan {
-			}
-			div.title {
-				z-index: 10;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
-			}
-			h5.title {
-				margin-top: 0px;
-				margin-bottom: 10px;
-			}
-			img.refresh {
-				margin:5px;
-			}
-			.clickable {
-				cursor: pointer; cursor: hand;
-			}
-			.spin {
-				-webkit-transition-duration: 1s;
-			    -moz-transition-duration: 1s;
-			    -o-transition-duration: 1s;
-			     transition-duration: 1s;
-			    -webkit-transition-property: -webkit-transform;
-			    -moz-transition-property: -moz-transform;
-			    -o-transition-property: -o-transform;
-			     transition-property: transform;
-				transform: rotate(360deg);
-			   -webkit-transform: rotate(360deg);
-			   -ms-transform: rotate(360deg);
-			}
-			#player {
-				position: absolute;
-				z-index: 4;
-				display:none;
-			}
-			.hidden {
-				display:none;
-			}
-			.pseudoHidden {
-				width: 10px;
-				height: 10px;
-			}
-
-			/*Selection*/
-			.selection {
-			  box-sizing: border-box;
-			}
-			section.selection {
-			  color: #fff;
-			  text-align: center;
-			  font-size: 1.25rem;
-			  font-family: sans-serif;
-			  line-height: 150%;
-			  text-shadow: 0 2px 2px #727272;
-			}
-			div.selection {
-			  height: 100%;
-			  z-index: 21;
-			}
-			img.selection.bg {
-				z-index: 20;
-				height: 100%;
-			}
-			div.selection.selectiontitle {
-				z-index: 22;
-				width:100%;
-				height:0%;
-				position: absolute;
-				top: 5%;
-			}
-			article.selection {
-			  position: absolute;
-			  top: 50%;
-			  left: 50%;
-			  transform: translate(-50%, -50%);
-			  width: 100%;
-			  padding: 20px;
-			}
-			h1.selection {
-			  font-size: 1.75rem;
-			  margin: 0 0 0.75rem 0;
-			}
-			h1.selection.selectiontitle {
-				z-index: 6;
-			}
-			/* Pattern styles */
-			.selection.container {
-			  display: table;
-			  width: 100%;
-			}
-			img.left-half,div.left-half {
-			  background-color: #B2EBF2;
-			  position: absolute;
-			  left: 0px;
-			  width: 50%;
-			}
-			img.right-half,div.right-half {
-			  background-color: #FFC107;
-			  position: absolute;
-			  right: 0px;
-			  width: 50%;
-			}
-			.hoverable:hover {
-				opacity: 0.8;
-			}
-
-			.preloader {
-				z-index:777;
-			    top:50%;
-			    left:50%;
-			    margin-top: -30px;
-				margin-left: -30px;
-			    position:absolute;
-			    width:60px;
-			    height:60px;
-			    border-radius:80px;
-			}
-			#preloader{
-			    animation: preloader_5 1.5s infinite linear;
-			}
-			#preloader_text{
-			    text-align: center;
-			    vertical-align: middle;
-			    line-height: 60px;
-			    color: #fff;
-			    background: url(assets/joke/right.jpg);
-			    background-size: 60px 60px;
-			    background-repeat: no-repeat;
-			    opacity: 1;
-			    font-family: 'Open Sans Condensed', sans-serif;
-			    font-size: 1.2em;
-			    text-shadow: 2px 2px 2px #000;
-			}
-			#preloader:after{
-			    position:absolute;
-			    width:80px;
-			    height:80px;
-			    border-left:10px solid #29d;
-			    border-right:10px solid #29d;
-			    border-top:10px solid transparent;
-			    border-bottom:10px solid transparent;
-			    border-radius:80px;
-			    content:'';
-			    top:-20px;
-			    left:-20px;
-			    animation: preloader_5_after 1.5s infinite linear;
-			}
-			@keyframes preloader_5 {
-			    0% {transform: rotate(0deg);}
-			    50% {transform: rotate(180deg);}
-			    100% {transform: rotate(360deg);}
-			}
-		</style>
+  		<link rel="stylesheet" href="css/evan.css"/>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
@@ -206,14 +38,14 @@
 		  <div class="selection left-half hoverable clickable" onclick="selectedConcert(false);">
 		    <article class="selection left-half">
 		      <h1 class="selection">Free & Easy</h1>
-		      <p>Enjoy Evan's journey at your own pace and time.</p>
+		      <p>I don't know what to put here</p>
 		    </article>
 		  </div>
 		  <img class="selection right-half bg" src="assets/joke/right.jpg"/>
-		  <div class="selection right-half hoverable clickable" onclick="selectedConcert(true);">
+		  <div class="selection right-half hoverable">
 		    <article class="selection right-half">
-		      <h1 class="selection">Concert (Under Construction)</h1>
-		      <p>Behold Evan's journey the way it's supposed to be savoured.</p>
+		      <h1 class="selection">Made By Matthew</h1>
+		      <p>Lol.</p>
 		    </article>
 		  </div>
 		</section>
@@ -227,7 +59,7 @@
 		<!--content-->
 		<div>
 			<div class="glorious evan">
-				<img class="evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY">
+				<img class="evan" style="display:none;" src="assets/joke/charlie.png">
 			</div>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
@@ -257,7 +89,7 @@
 				VIVALDI_4SEASONS_SPRING = 0,
 				CHOPIN_NOCTURNE_Op9_No2 = 1,
 				YT_PLAYER_LOAD_PERCENT = 20,//total load percent of youtube videos
-				DISPLAY_METHOD = fadeDisplay,//Method used to display images
+				DISPLAY_METHOD = slideDisplay,//Method used to display images
 				SELECTED_NONE = -1,//placeholders for what is selected
 				SELECTED_FREENEASY = 0,
 				SELECTED_CONCERT = 1,
@@ -397,6 +229,7 @@
 
 				pullData();
 				loadYoutubeAPI();
+				selectedConcert(false);
 
 				/**
 					Finished preloading images
@@ -435,23 +268,12 @@
 					$('.left-half').removeClass('clickable hoverable');
 					$('.right-half').removeClass('clickable hoverable');
 					$('h1.selection.title').slideUp(500);
-					if(isConcert)
-					{
-						selected = SELECTED_CONCERT;
-						$('.left-half').animate({width: "0%"}, 500, function(){$('.left-half').hide();});
-						$('.right-half').animate({width: "100%"}, 500);
-						$('article.selection.right-half').animate({top: "20%"}, 500, function(){start();});
-						musicVol = 100;
-						chosenMusicID = VIVALDI_4SEASONS_SPRING;
-
-					} else {
-						selected = SELECTED_FREENEASY;
-						$('.left-half').animate({width: "100%"}, 500);
-						$('.right-half').animate({width: "0%"}, 500, function(){$('.right-half').hide();});
-						$('article.selection.left-half').animate({top: "20%"}, 500, function(){start();});
-						musicVol = 100;
-						chosenMusicID = CHOPIN_NOCTURNE_Op9_No2;///'YGRO05WcNDk';
-					}
+					selected = SELECTED_FREENEASY;
+					$('.left-half').animate({width: "100%"}, 500);
+					$('.right-half').animate({width: "0%"}, 500, function(){$('.right-half').hide();});
+					$('article.selection.left-half').animate({top: "20%"}, 500, function(){start();});
+					musicVol = 100;
+					chosenMusicID = CHOPIN_NOCTURNE_Op9_No2;///'YGRO05WcNDk';
 				}
 			}
 
@@ -539,10 +361,11 @@
 			}
 
 			/**
-				Just replace the src, create only if not created
+				Just replace the src, create only if not created. Direction is not used for this simple change.
 				img_data: Object, image data from Imgur (Image class)
+				direction: Integer, -1 means backward, 1 means forward
 			*/
-			function simpleDisplay (img_data) {
+			function simpleDisplay (img_data,direction) {
 				h5_title.innerHTML = img_data.title;
 				if(img_bg)
 				{
@@ -556,22 +379,57 @@
 			}
 
 			/**
-				Fade & replace src
-				img_data: Object, image data from Imgur (Image class)
+				Fade & replace src. Direction is not used for this fade change.
+				img_data: Object, image data from Imgur (Image class).
+				direction: Integer, -1 means backward, 1 means forward
 			*/
-			function fadeDisplay (img_data) {
+			function fadeDisplay (img_data,direction) {
+				if(swapSpeed >= SWAP_SLOW)
+				{
+					h5_title.innerHTML = img_data.title;
+					if(img_bg)
+					{
+						img_bg.style.zIndex = 7;
+						$(img_bg).fadeOut(swapSpeed,"swing", function () {
+							$(this).remove();
+						});
+					}
+					img_bg = document.createElement('IMG');
+					img_bg.src = getImgURL(img_data);
+					img_bg.className = "glorious background";
+					document.body.appendChild(img_bg);
+				}
+				else
+					simpleDisplay(img_data,direction);//it's so fast we don't need to do animation
+			}
+
+			/**
+				Slide & replace src. Direction is not used for this simple change.
+				img_data: Object, image data from Imgur (Image class)
+				direction: Integer, -1 means backward, 1 means forward
+			*/
+			function slideDisplay (img_data,direction) {
 				h5_title.innerHTML = img_data.title;
+				var width = $(img_bg).width();
 				if(img_bg)
 				{
 					img_bg.style.zIndex = 7;
-					$(img_bg).fadeOut(swapSpeed,"swing", function () {
-						$(this).remove();
-					});
+					if(direction < 0) {
+						$(img_bg).animate({left: -width}, swapSpeed, function(){$(this).remove();});
+					}
+					else {
+						$(img_bg).animate({left: width}, swapSpeed, function(){$(this).remove();});
+					}
 				}
 				img_bg = document.createElement('IMG');
 				img_bg.src = getImgURL(img_data);
 				img_bg.className = "glorious background";
 				document.body.appendChild(img_bg);
+				if(direction < 0)
+					$(img_bg).style.left = width+"px";
+				else
+					img_bg.style.left = -width+"px";
+				$(img_bg).animate({left: "0px"}, swapSpeed);
 			}
 
 			/**
@@ -580,7 +438,7 @@
 			function random_img () {
 				if(imgs){
 					img_data = imgs[randInt(imgs.length)];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,1);
 				}
 			}
 			function next_img () {
@@ -588,7 +446,7 @@
 					if(img_display_position >= imgs.length)
 						img_display_position = 0;
 					img_data = imgs[img_display_position++];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,1);
 				}
 			}
 			function prev_img () {
@@ -596,7 +454,7 @@
 					if(img_display_position < 0)
 						img_display_position = imgs.length-1;
 					img_data = imgs[img_display_position--];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,-1);
 				}
 			}
 		//#endregion
