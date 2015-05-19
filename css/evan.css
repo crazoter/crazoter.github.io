@@ -142,9 +142,6 @@ img.right-half,div.right-half {
     vertical-align: middle;
     line-height: 60px;
     color: #fff;
-    background: url(assets/joke/right.jpg);
-    background-size: 60px 60px;
-    background-repeat: no-repeat;
     opacity: 1;
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 1.2em;
