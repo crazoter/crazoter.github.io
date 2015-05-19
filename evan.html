@@ -24,6 +24,7 @@
 		<style type="text/css">
 			body {
     			margin: 0;
+    			overflow: hidden;
     		}
 			.glorious.background {
 				/* Set rules to fill background */
@@ -257,7 +258,7 @@
 				VIVALDI_4SEASONS_SPRING = 0,
 				CHOPIN_NOCTURNE_Op9_No2 = 1,
 				YT_PLAYER_LOAD_PERCENT = 20,//total load percent of youtube videos
-				DISPLAY_METHOD = fadeDisplay,//Method used to display images
+				DISPLAY_METHOD = slideDisplay,//Method used to display images
 				SELECTED_NONE = -1,//placeholders for what is selected
 				SELECTED_FREENEASY = 0,
 				SELECTED_CONCERT = 1,
@@ -539,10 +540,11 @@
 			}
 
 			/**
-				Just replace the src, create only if not created
+				Just replace the src, create only if not created. Direction is not used for this simple change.
 				img_data: Object, image data from Imgur (Image class)
+				direction: Integer, -1 means backward, 1 means forward
 			*/
-			function simpleDisplay (img_data) {
+			function simpleDisplay (img_data,direction) {
 				h5_title.innerHTML = img_data.title;
 				if(img_bg)
 				{
@@ -556,22 +558,57 @@
 			}
 
 			/**
-				Fade & replace src
-				img_data: Object, image data from Imgur (Image class)
+				Fade & replace src. Direction is not used for this fade change.
+				img_data: Object, image data from Imgur (Image class).
+				direction: Integer, -1 means backward, 1 means forward
 			*/
-			function fadeDisplay (img_data) {
+			function fadeDisplay (img_data,direction) {
+				if(swapSpeed >= SWAP_SLOW)
+				{
+					h5_title.innerHTML = img_data.title;
+					if(img_bg)
+					{
+						img_bg.style.zIndex = 7;
+						$(img_bg).fadeOut(swapSpeed,"swing", function () {
+							$(this).remove();
+						});
+					}
+					img_bg = document.createElement('IMG');
+					img_bg.src = getImgURL(img_data);
+					img_bg.className = "glorious background";
+					document.body.appendChild(img_bg);
+				}
+				else
+					simpleDisplay(img_data,direction);//it's so fast we don't need to do animation
+			}
+
+			/**
+				Slide & replace src. Direction is not used for this simple change.
+				img_data: Object, image data from Imgur (Image class)
+				direction: Integer, -1 means backward, 1 means forward
+			*/
+			function slideDisplay (img_data,direction) {
 				h5_title.innerHTML = img_data.title;
+				var width = $(img_bg).width();
 				if(img_bg)
 				{
 					img_bg.style.zIndex = 7;
-					$(img_bg).fadeOut(swapSpeed,"swing", function () {
-						$(this).remove();
-					});
+					if(direction < 0) {
+						$(img_bg).animate({left: -width}, swapSpeed, function(){$(this).remove();});
+					}
+					else {
+						$(img_bg).animate({left: width}, swapSpeed, function(){$(this).remove();});
+					}
 				}
 				img_bg = document.createElement('IMG');
 				img_bg.src = getImgURL(img_data);
 				img_bg.className = "glorious background";
 				document.body.appendChild(img_bg);
+				if(direction < 0)
+					$(img_bg).style.left = width+"px";
+				else
+					img_bg.style.left = -width+"px";
+				$(img_bg).animate({left: "0px"}, swapSpeed);
 			}
 
 			/**
@@ -580,7 +617,7 @@
 			function random_img () {
 				if(imgs){
 					img_data = imgs[randInt(imgs.length)];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,1);
 				}
 			}
 			function next_img () {
@@ -588,7 +625,7 @@
 					if(img_display_position >= imgs.length)
 						img_display_position = 0;
 					img_data = imgs[img_display_position++];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,1);
 				}
 			}
 			function prev_img () {
@@ -596,7 +633,7 @@
 					if(img_display_position < 0)
 						img_display_position = imgs.length-1;
 					img_data = imgs[img_display_position--];
-					DISPLAY_METHOD(img_data);
+					DISPLAY_METHOD(img_data,-1);
 				}
 			}
 		//#endregion
