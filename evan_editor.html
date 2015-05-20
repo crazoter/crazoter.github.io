@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="Cache-Control" content="public"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0"/>
+		<meta name="description" content="Sightseeing with Evan"/>
+		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
+		<title>Lol Editor</title>
+  		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+  		<link rel="stylesheet" href="jquery-ui-1.11.4/jquery-ui.min.css"/>
+  		<link rel="stylesheet" href="bgrins-spectrum-a7bb45b/spectrum.css"/>
+		<link rel="stylesheet" href="css/evan.css"/>
+		<style>
+			body {
+				background-image: url("assets/bgs/transp_bg.png");
+				/*background-color: #F0F;*/
+			}
+  			#preloader_text.preloader {
+  				/*Set the background for the preloader*/
+  				background: url(assets/joke/right.jpg);
+  				background-size: 60px 60px;
+    			background-repeat: no-repeat;
+  			}
+  			.resizer-slider {
+				margin: 20px;
+  			}
+  			#imageCanvas {
+  				border-style: dashed;
+    			border-width: 2px;
+  			}
+  		</style>
+		<script src="js/prefixfree.min.js"></script>
+		<script src="js/pagespeed/modernizr.js"></script>
+	</head>
+	<body>
+		<!--header-->
+		<div class="title">
+			<!--Instructions-->
+			<label id="label_instructions">Loading...</label><br/>
+			<!--File upload-->
+			<input type="file" id="imageLoader" name="imageLoader"/>
+			<!--Resizer slider-->
+			<div id="slider-resizer" class="resizer-slider" style="display:none;"></div>
+			<!--Ok button-->
+			<button id="btn_ok" type="button" style="display:none;">OK</button>
+			<!--Color Picker-->
+			<input type='color' class='color-picker' value='#f594d0' /> 
+		</div>
+		<!--content-->
+		<div>
+			<canvas id="cursorCanvas"></canvas>
+			<div class="glorious evan">
+				<canvas class="img evan" id="imageCanvas">Please open this webpage on a HTML5 browser.</canvas>
+			</div>
+		</div>
+		<script src="js/pagespeed/jquery.js"></script>
+		<script src="jquery-ui-1.11.4/jquery-ui.min.js"></script>
+		<script src="bgrins-spectrum-a7bb45b/spectrum.js"></script>
+		<script type="text/javascript">
+			//http://jsfiddle.net/influenztial/qy7h5/
+			var label_instructions = document.getElementById('label_instructions');
+			var imageLoader = document.getElementById('imageLoader');
+			var imageCanvas = document.getElementById('imageCanvas'),
+				imageCtx = imageCanvas.getContext('2d'),
+				imageGCO;
+			var cursorCanvas = document.getElementById('cursorCanvas'),
+				cursorCtx = cursorCanvas.getContext('2d');
+			var imageWidth = 0,imageHeight = 0,scale = 1;
+			var uploadedImg;
+			var stepIndex = 1;
+			var history = [];
+			var mouseDown = false,
+				mousePos = {};
+			var brushRadius;
+			var STEP_RESIZE = 2,
+				STEP_ERASE = 3;
+
+			//Set up file upload to take image
+		    imageLoader.addEventListener('change', handleImage, false);
+
+		    //mouse functionality
+		    //http://miloq.blogspot.sg/2011/05/coordinates-mouse-click-canvas.html
+		    //http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
+		    function getMousePos(event)
+		    {
+		    	var rect = imageCanvas.getBoundingClientRect();	
+		        if (event.x != undefined && event.y != undefined)
+		        {
+		          mousePos.x = event.x;
+		          mousePos.y = event.y;
+		        }
+		        else // Firefox method to get the position
+		        {
+		          mousePos.x = event.clientX + document.body.scrollLeft +
+		              document.documentElement.scrollLeft;
+		          mousePos.y = event.clientY + document.body.scrollTop +
+		              document.documentElement.scrollTop;
+		        }
+
+		        mousePos.x -= rect.left;
+		        mousePos.y -= rect.top;
+		    }
+		    function canvasClick () {
+		    	switch(stepIndex)
+		    	{
+		    		case STEP_ERASE:
+		    			//imageGCO = imageCtx.globalCompositeOperation;
+		    			//imageCtx.globalCompositeOperation = "destination-out";
+						//imageCtx.strokeStyle = "rgba(0,0,0,1)";
+						//cursorCtx.fillRect(0,0,len,len);
+						//imageCtx.globalCompositeOperation = imageGCO;
+						imageCtx.clearRect(mousePos.x - brushRadius/2, mousePos.y - brushRadius/2, brushRadius, brushRadius);
+		    		break;
+		    	}
+		    }
+
+			function handleImage(e){
+			    var reader = new FileReader();
+			    reader.onload = function(event){
+			        uploadedImg = new Image();
+			        uploadedImg.onload = function(){
+			        	//Initialize image that is loaded
+			        	imageWidth = uploadedImg.width;
+			        	imageHeight = uploadedImg.height;
+			            imageCanvas.width = uploadedImg.width;
+			            imageCanvas.height = uploadedImg.height;
+			            imageCtx.drawImage(uploadedImg,0,0);
+
+			            //Step 2
+			            ++stepIndex;
+			            $(imageLoader).hide();
+			            $("#slider-resizer").show();
+			            $("#btn_ok").show();
+			            label_instructions.innerHTML = "Step 2: Resize your image. When done, press OK.";
+			        }
+			        uploadedImg.src = event.target.result;
+			    }
+			    reader.readAsDataURL(e.target.files[0]);
+			}
+
+			function setupCursor (len) {
+				brushRadius = len;
+				cursorCanvas.width = len;
+		    	cursorCanvas.height = len;
+		    	cursorCtx.fillStyle="#F0F";
+		    	cursorCtx.fillRect(0,0,len,len);
+		    	if(len > 1)
+		    	{
+			    	cursorCtx.clearRect(1,1,len-2,len-2);
+			    }
+		    	imageCanvas.style.cursor = "url("+cursorCanvas.toDataURL()+") "+len/2+" "+len/2+", auto";
+			}
+
+			//Onload
+			$(function() {
+				$('.color-picker').spectrum({
+					preferredFormat: "hex3",
+					showPalette: true,
+					showAlpha: true,
+					showInitial: true
+				});
+				//Setup instructions
+				label_instructions.innerHTML = "Step 1: Upload an image of you standing.";
+				//Setup mouse event handlers
+				//Mouse up & down
+				$('body').mouseup(function(){
+					mouseDown = false;
+					console.log('UP');
+				}).mousedown(function(){
+					mouseDown = true;
+					console.log('DOWN');
+					if ($(imageCanvas).is(':hover')) {
+						//if is over the canvas
+				        canvasClick();
+				    }
+				});
+				//Mouse move while over the canvas
+				imageCanvas.addEventListener('mousemove', function(evt) {
+		        	getMousePos(evt);
+		        	if(mouseDown)
+		        		canvasClick();
+		        });
+				//Setup resizing slider
+			    $("#slider-resizer").slider({
+			      range: "min",
+			      value: 100,
+			      min: 1,
+			      max: 100,
+			      slide: function( event, ui ) {
+			      	if(uploadedImg) {
+			      		//set the scale
+				      	scale = ui.value / 100;
+				        //resize the canvas & image
+				        imageCanvas.width = imageWidth * scale;
+				        imageCanvas.height = imageHeight * scale;
+				        imageCtx.drawImage(uploadedImg,0,0,imageCanvas.width,imageCanvas.height);
+				    }
+			      }
+			    });
+
+			    //Setup OK button
+			    $("#btn_ok").click(function() {
+			    	switch(stepIndex) {
+			    		//Was at step 2, the resizing part
+			    		case STEP_RESIZE:
+			    			//move onto the erasing part
+
+			    			$( "body" ).animate({
+							    "background-color":"#F0F"
+							  }, 2000, function() {});
+			    			//Setup erase size slider
+			    			$("#slider-resizer").slider("destroy");
+			    			$("#slider-resizer").slider({
+						      range: "min",
+						      value: 32,
+						      min: 1,
+						      max: 128,
+						      slide: function( event, ui ) {
+						      	setupCursor(ui.value);
+						      }
+						    });
+						    setupCursor(32);
+			    		 	label_instructions.innerHTML = "Step 3: Erase unnecessary background. When done, press OK.";
+			    			++stepIndex;
+			    			break;
+			    	}
+			    });
+			});
+		</script>
+	</body>
+</html>
