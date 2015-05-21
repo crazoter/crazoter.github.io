@@ -15,7 +15,6 @@
 		<style>
 			body {
 				background-image: url("assets/bgs/transp_bg.png");
-				/*background-color: #F0F;*/
 			}
   			#preloader_text.preloader {
   				/*Set the background for the preloader*/
@@ -24,11 +23,57 @@
     			background-repeat: no-repeat;
   			}
   			.resizer-slider {
+  				width:50%;
 				margin: 20px;
   			}
   			#imageCanvas {
   				border-style: dashed;
     			border-width: 2px;
+  			}
+  			#cursorCanvas {
+  				background-image: url("assets/bgs/transp_bg.png");
+  				border-style: dashed;
+  				border-width: 2px;
+  			}
+  			#div_tools {
+  				position: absolute;
+  				left: 0px;
+  				top: 0px;
+  				text-align: left;
+  				background-color: #222;
+  				color: #DDD;
+  				padding: 10px;
+  			}
+  			.tools_row {
+  				clear: both;
+  				padding-top: 5px;
+  				vertical-align: middle;
+  			}
+  			.tools_row > * {
+				float: left;
+  			}
+  			.editTools_h1 {
+  				font-size: 0.7em;
+  				margin: 5px;
+  			}
+  			.editTools_p {
+  				font-size: 0.5em;
+  				min-width: 100px;
+  			}
+  			.ui-slider,.ui-slider-range {/*resize sliders*/
+				height:5px !important;
+  			}
+  			.ui-slider-handle {
+  				height: 20px !important;
+  				width: 5px !important;
+  				margin-left: 1px !important;
+  			}
+  			button {
+  				color:#000;
+  			}
+  			.highlite {
+  				background-color: #FFF;
+  				color:#000;
   			}
   		</style>
 		<script src="js/prefixfree.min.js"></script>
@@ -36,21 +81,31 @@
 	</head>
 	<body>
 		<!--header-->
-		<div class="title">
+		<div class="main title">
 			<!--Instructions-->
 			<label id="label_instructions">Loading...</label><br/>
 			<!--File upload-->
 			<input type="file" id="imageLoader" name="imageLoader"/>
-			<!--Resizer slider-->
-			<div id="slider-resizer" class="resizer-slider" style="display:none;"></div>
+			<!--Resizer slider & brush size slider-->
+			<div id="resizer-slider" class="resizer-slider" style="display:none;"></div>
 			<!--Ok button-->
-			<button id="btn_ok" type="button" style="display:none;">OK</button>
-			<!--Color Picker-->
-			<input type='color' class='color-picker' value='#f594d0' /> 
+			<button id="btn_ok" type="button" title="Click me when you're done with whatever step you are at" style="display:none;">OK</button>
 		</div>
+		<!--Editing tools-->
+		<div id="div_tools" class="title">
+			<div class="tools_row"><label id="hl_shift" class="editTools_h1">SHIFT</label><label id="hl_alt" class="editTools_h1">ALT</label><label id="hl_ctrl" class="editTools_h1">CTRL</label></div>
+			<div class="tools_row"><label class="editTools_h1">Brush</label></div>
+			<div class="tools_row"><span class="editTools_p">Type</span><button id="btn_erase" type="button" onclick="change_toolType(0);">ERASE</button><button id="btn_paint" type="button" onclick="change_toolType(1);">PAINT</button></div>
+			<div class="tools_row"><span class="editTools_p">Color</span><input type='color' title="Change color of brush" class='color-picker' value='#f594d0' /></div>
+			<div class="tools_row"><span class="editTools_p">Shape</span><button id="btn_block" type="button" onclick="change_brushShape(0);">BLOCK</button><button id="btn_circle" type="button" onclick="change_brushShape(1);">CIRCLE</button></div>
+			<div class="tools_row"><span class="editTools_p">Size</span><div id="brushsize_slider" class="resizer-slider"></div></div>
+			<!--<div class="tools_row"><span class="editTools_p">Hardness</span><div id="hardness_slider" class="resizer-slider"></div></div>-->
+			<div class="tools_row"><span class="editTools_p">Brush Preview</span><canvas id="cursorCanvas"></canvas></div>
+			<div class="tools_row"><label class="editTools_h1">Shortcuts</label><br/>
+			<label class="editTools_p">[ ] to scale brush size<br/>Alt + Left Mouse Button for eyedropper<br/>Alt + Scroll Wheel to zoom<br/>Ctrl + Z / Y to undo / redo</label></div>
 		<!--content-->
+		</div>
 		<div>
-			<canvas id="cursorCanvas"></canvas>
 			<div class="glorious evan">
 				<canvas class="img evan" id="imageCanvas">Please open this webpage on a HTML5 browser.</canvas>
 			</div>
@@ -60,29 +115,68 @@
 		<script src="bgrins-spectrum-a7bb45b/spectrum.js"></script>
 		<script type="text/javascript">
 			//http://jsfiddle.net/influenztial/qy7h5/
-			var label_instructions = document.getElementById('label_instructions');
-			var imageLoader = document.getElementById('imageLoader');
-			var imageCanvas = document.getElementById('imageCanvas'),
-				imageCtx = imageCanvas.getContext('2d'),
-				imageGCO;
-			var cursorCanvas = document.getElementById('cursorCanvas'),
-				cursorCtx = cursorCanvas.getContext('2d');
-			var imageWidth = 0,imageHeight = 0,scale = 1;
-			var uploadedImg;
-			var stepIndex = 1;
-			var history = [];
-			var mouseDown = false,
-				mousePos = {};
-			var brushRadius;
-			var STEP_RESIZE = 2,
-				STEP_ERASE = 3;
+				//DOM ELEMENTS
+			var label_instructions = document.getElementById('label_instructions'),//title which acts as instructions
+				imageLoader = document.getElementById('imageLoader'),//file upload for image
+				imageCanvas = document.getElementById('imageCanvas'),//canvas for image
+				imageCtx = imageCanvas.getContext('2d'),//variables related to imageCanvas
+				imageGCO,
+				uploadedImg,//Actual image
+				imageWidth = 0,//Actual image dimensions
+				imageHeight = 0,
+				scale = 1,//Scale from original size
+				cursorCanvas = document.getElementById('cursorCanvas'),//canvas for cursor AKA brush
+				cursorCtx = cursorCanvas.getContext('2d'),//variables related to imageCanvas
+				imageHistories = [],//imageHistory
+				imageHistoryIndex = -1,
+				imageHISTORY_LIMIT = 31,
+				imageHistoryCallbackObject;
 
-			//Set up file upload to take image
-		    imageLoader.addEventListener('change', handleImage, false);
+				function ImageHistory () {
+					this.img = null;
+					this.ready = false;
+				}
+
+				//Mouse
+				var mouseDown = false,//Mouse is down boolean
+				mousePos = {},//Mouse position
+				hasDrawn = false,//Used to track if imageHistory is needed
+				brushLength,//Mouse thickness (brush size)
+				brushHardness = 95,
+				toolIndex = 0,
+				TOOLTYPE_ERASE = 0,//Tool IDs
+				TOOLTYPE_PAINT = 1,
+				brushTypeIndex = 0,//Brush type IDs
+				BRUSHTYPE_BLOCK = 0,
+				BRUSHTYPE_CIRCLE = 1,
+
+				//Key
+				KEYSDOWN = {
+					SHIFT:false,CTRL:false,ALT:false
+				},
+				KEYS = {
+					SHIFT:16,CTRL:17,ALT:18,
+					SQ_BR_LEFT:219,SQ_BR_RIGHT:221,
+					Y:89,Z:90
+				},
+
+				//STEP DATA
+				stepIndex = 0,//Starts from 0
+				STEP_RESIZE = 1,
+				STEP_EDIT = 2,
+				STEP_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+
+				//SLIDER_LIMITS
+				SLIDER_LIMIT_RESIZE = [1,100,100],//0: lower bound (inclusive),1: starting value,2: upper bound (inclusive)
+				SLIDER_LIMIT_BRUSHSIZE = [1,32,128],
+				SLIDER_LIMIT_HARDNESS = [1,95,100];
 
 		    //mouse functionality
 		    //http://miloq.blogspot.sg/2011/05/coordinates-mouse-click-canvas.html
 		    //http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
+		    /**
+		    	Get mouse position
+		    */
 		    function getMousePos(event)
 		    {
 		    	var rect = imageCanvas.getBoundingClientRect();	
@@ -102,21 +196,78 @@
 		        mousePos.x -= rect.left;
 		        mousePos.y -= rect.top;
 		    }
+
+		    /**
+		    	Function to centralize what happens when you click the canvas. If mouse down and move while LMB held down, also calls canvas click.
+		    */
 		    function canvasClick () {
-		    	switch(stepIndex)
-		    	{
-		    		case STEP_ERASE:
-		    			//imageGCO = imageCtx.globalCompositeOperation;
-		    			//imageCtx.globalCompositeOperation = "destination-out";
-						//imageCtx.strokeStyle = "rgba(0,0,0,1)";
-						//cursorCtx.fillRect(0,0,len,len);
-						//imageCtx.globalCompositeOperation = imageGCO;
-						imageCtx.clearRect(mousePos.x - brushRadius/2, mousePos.y - brushRadius/2, brushRadius, brushRadius);
-		    		break;
+		    	if(KEYSDOWN.ALT) {
+		    		eyedrop();
 		    	}
+		    	else {
+			    	hasDrawn = true;
+			    	switch(toolIndex)
+			    	{
+			    		case TOOLTYPE_ERASE:
+			    		if(brushTypeIndex === BRUSHTYPE_BLOCK)
+							imageCtx.clearRect(mousePos.x - brushLength/2, mousePos.y - brushLength/2, brushLength, brushLength);
+						else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
+							imageGCO = imageCtx.globalCompositeOperation;
+							imageCtx.globalCompositeOperation = "destination-out";
+							imageCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+							imageCtx.globalCompositeOperation = imageGCO;//reset
+						}
+						break;
+						case TOOLTYPE_PAINT:
+							imageCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+			    		break;
+			    	}
+			    }
 		    }
 
-			function handleImage(e){
+		    /**
+				Setup mouse cursor
+			*/
+			function setupCursor () {
+				//brushLength = len;
+				cursorCanvas.width = brushLength;
+		    	cursorCanvas.height = brushLength;
+		    	switch(toolIndex)
+		    	{
+		    		case TOOLTYPE_ERASE:
+		    			cursorCtx.fillStyle="#F0F";
+		    			if(brushTypeIndex === BRUSHTYPE_BLOCK) {
+					    	cursorCtx.fillRect(0,0,brushLength,brushLength);
+					    	if(brushLength > 1) {
+						    	cursorCtx.clearRect(1,1,brushLength-2,brushLength-2);
+						    }
+						} else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
+							setupCircleCursor(100);
+						}
+					    break;
+					case TOOLTYPE_PAINT:
+						cursorCtx.fillStyle = $(".color-picker").spectrum("get");
+						if(brushTypeIndex === BRUSHTYPE_BLOCK) {
+					    	cursorCtx.fillRect(0,0,brushLength,brushLength);
+						} else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
+							setupCircleCursor(100);
+						}
+						break;
+				}
+		    	imageCanvas.style.cursor = "url("+cursorCanvas.toDataURL()+") "+brushLength/2+" "+brushLength/2+", auto";
+			}
+			function setupCircleCursor (hardness) {
+				if(hardness >= 100)
+				{
+					cursorCtx.beginPath();
+					cursorCtx.arc(brushLength/2, brushLength/2, brushLength/2, 0, 2 * Math.PI, false);
+					cursorCtx.fill();
+				}
+			}
+		    /**
+		    	Handle Loading of Image
+		    */
+			function loadImage(e){
 			    var reader = new FileReader();
 			    reader.onload = function(event){
 			        uploadedImg = new Image();
@@ -127,76 +278,307 @@
 			            imageCanvas.width = uploadedImg.width;
 			            imageCanvas.height = uploadedImg.height;
 			            imageCtx.drawImage(uploadedImg,0,0);
+			            saveToimageHistory();//init imageHistory
 
 			            //Step 2
 			            ++stepIndex;
 			            $(imageLoader).hide();
-			            $("#slider-resizer").show();
+			            $("#resizer-slider").show();
 			            $("#btn_ok").show();
-			            label_instructions.innerHTML = "Step 2: Resize your image. When done, press OK.";
+			            setTitleStep();
 			        }
 			        uploadedImg.src = event.target.result;
 			    }
 			    reader.readAsDataURL(e.target.files[0]);
 			}
 
-			function setupCursor (len) {
-				brushRadius = len;
-				cursorCanvas.width = len;
-		    	cursorCanvas.height = len;
-		    	cursorCtx.fillStyle="#F0F";
-		    	cursorCtx.fillRect(0,0,len,len);
-		    	if(len > 1)
-		    	{
-			    	cursorCtx.clearRect(1,1,len-2,len-2);
+			/**
+				Set title step
+			*/
+			function setTitleStep () {
+				label_instructions.innerHTML = STEP_TEXT[stepIndex];
+			}
+
+			/**
+				Slider methods
+			*/
+			function slider_resize (event,ui) {
+				if(uploadedImg) {
+		      		//set the scale
+			      	scale = ui.value / 100;
+			        //resize the canvas & image
+			        imageCanvas.width = imageWidth * scale;
+			        imageCanvas.height = imageHeight * scale;
+			        imageCtx.drawImage(uploadedImg,0,0,imageCanvas.width,imageCanvas.height);
 			    }
-		    	imageCanvas.style.cursor = "url("+cursorCanvas.toDataURL()+") "+len/2+" "+len/2+", auto";
+			}
+			function keypressBrushSizeSliderChange (newVal) {
+				if(newVal >= SLIDER_LIMIT_BRUSHSIZE[0] && newVal <= SLIDER_LIMIT_BRUSHSIZE[2]) {
+					$("#brushsize_slider").slider('value',newVal);
+					return true;
+				}
+				return false;
+			}
+
+			/**
+				Edit Tools
+			*/
+			function change_toolType (val) {
+				toolIndex = val;
+				var $erase = $("#btn_erase"), $paint = $("#btn_paint");
+				switch(val)
+				{
+					case TOOLTYPE_PAINT:
+						$erase.prop('disabled', false);
+						$erase.removeAttr("style");
+						$paint.prop('disabled', true);
+						$paint.attr("style","transform: scale(1.2)");
+					break;
+					case TOOLTYPE_ERASE:
+						$erase.prop('disabled', true);
+						$erase.attr("style","transform: scale(1.2)");
+						$paint.prop('disabled', false);
+						$paint.removeAttr("style");
+					break;
+				}
+				setupCursor();
+			}
+			function change_brushShape (val) {
+				brushTypeIndex = val;
+				var $block = $("#btn_block"), $circle = $("#btn_circle");
+				switch(val)
+				{
+					case BRUSHTYPE_CIRCLE:
+						$block.prop('disabled', false);
+						$block.removeAttr("style");
+						$circle.prop('disabled', true);
+						$circle.attr("style","transform: scale(1.2)");
+					break;
+					case BRUSHTYPE_BLOCK:
+						$block.prop('disabled', true);
+						$block.attr("style","transform: scale(1.2)");
+						$circle.prop('disabled', false);
+						$circle.removeAttr("style");
+					break;
+				}
+				setupCursor();
+			}
+			function saveToimageHistory () {
+				if(imageHistoryIndex < imageHISTORY_LIMIT)
+					++imageHistoryIndex;
+				while (imageHistories.length > imageHistoryIndex) {//pop if went back and overrode "future" history
+					imageHistories.pop();
+				}
+				imageHistoryAdd(imageCanvas.toDataURL());
+				imageHistories.push(imageCanvas.toDataURL());
+				while(imageHistories.length >= imageHISTORY_LIMIT) {//shift if exceeded history length
+					imageHistories.shift();
+				}
+			}
+			function imageHistoryBack () {
+				if(imageHistoryIndex > 0) {
+					--imageHistoryIndex;
+					redrawImageCanvas(imageHistories[imageHistoryIndex]);
+				}
+			}
+			function imageHistoryForward () {
+				if(imageHistoryIndex < imageHistories.length - 1) {
+					++imageHistoryIndex;
+					redrawImageCanvas(imageHistories[imageHistoryIndex]);
+				}
+			}
+			function imageHistoryAdd (dataURL) {
+				var imageHistory = new ImageHistory();
+				var img = document.createElement('IMG');
+				img.onload = function () {
+					imageHistory.ready = true;
+					console.log('loaded');
+					console.log(imageHistoryIndex);
+					console.log(imageHistory);
+					if(imageHistoryCallbackObject === imageHistory) {
+						console.log('refire');
+						redrawImageCanvas(imageHistory);
+					}
+				};
+				img.src = dataURL;
+				imageHistory.img = img;
+				imageHistories.push(imageHistory);
+			}
+			function redrawImageCanvas (imageHistory) {
+				console.log('redrawing');
+				console.log(imageHistoryIndex);
+				console.log(imageHistory);
+				if(imageHistory.ready) {
+					imageCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+			        imageCtx.drawImage(imageHistory.img, 0, 0);
+				}
+				else {//prep it for redrawing
+					console.log('redraw prep');
+					console.log(imageHistory);
+					imageHistoryCallbackObject = imageHistory;
+				}
+			}
+
+			//http://jsfiddle.net/DV9Bw/1194/
+			function rgbToHex(r, g, b) {
+			    if (r > 255 || g > 255 || b > 255)
+			        throw "Invalid color component";
+			    return ((r << 16) | (g << 8) | b).toString(16);
+			}
+			function eyedrop () {
+				var p = imageCtx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+				var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+				$(".color-picker").spectrum("set", hex);
+				setupCursor();
 			}
 
 			//Onload
 			$(function() {
+				//Setup instructions
+				setTitleStep();
+				change_toolType(TOOLTYPE_ERASE);
+				change_brushShape(BRUSHTYPE_BLOCK);
+
+				//Initialize Color Picker
 				$('.color-picker').spectrum({
 					preferredFormat: "hex3",
 					showPalette: true,
 					showAlpha: true,
-					showInitial: true
+					showInitial: true,
+					change: function(color) {
+					    setupCursor();
+					}
 				});
-				//Setup instructions
-				label_instructions.innerHTML = "Step 1: Upload an image of you standing.";
-				//Setup mouse event handlers
-				//Mouse up & down
-				$('body').mouseup(function(){
+
+				//Mouse Event handlers
+				$('body').mouseup(function(){//mouse up
 					mouseDown = false;
-					console.log('UP');
-				}).mousedown(function(){
+					if(hasDrawn)
+					{
+						saveToimageHistory();
+						hasDrawn = false;
+					}
+				})
+				.mousedown(function(){//mouse down
 					mouseDown = true;
-					console.log('DOWN');
 					if ($(imageCanvas).is(':hover')) {
 						//if is over the canvas
 				        canvasClick();
 				    }
 				});
-				//Mouse move while over the canvas
-				imageCanvas.addEventListener('mousemove', function(evt) {
+				imageCanvas.addEventListener('mousemove', function(evt) {//mouse move (while over canvas)
 		        	getMousePos(evt);
 		        	if(mouseDown)
 		        		canvasClick();
 		        });
+
+				//Key Event handlers
+				$('body').keydown(function(event) {
+					switch(event.which)
+					{
+						case KEYS.CTRL:
+							KEYSDOWN.CTRL = true;
+							$('#hl_ctrl').addClass('highlite');
+						break;
+						case KEYS.ALT:
+							KEYSDOWN.ALT = true;
+							$('#hl_alt').addClass('highlite');
+							imageCanvas.style.cursor = "crosshair";
+						break;
+						case KEYS.SHIFT:
+							KEYSDOWN.SHIFT = true;
+							$('#hl_shift').addClass('highlite');
+						break;
+						//brush size smaller
+						case KEYS.SQ_BR_LEFT:
+							if(keypressBrushSizeSliderChange(brushLength-1))
+								--brushLength;
+						break;
+						//brush size bigger
+						case KEYS.SQ_BR_RIGHT:
+							if(keypressBrushSizeSliderChange(brushLength+1))
+								++brushLength;
+						break;
+					}
+				})
+				.keyup(function(event) {
+					//console.log(event.which);
+					switch(event.which)
+					{
+						case KEYS.CTRL:
+							KEYSDOWN.CTRL = false;
+							$('#hl_ctrl').removeClass('highlite');
+						break;
+						case KEYS.ALT:
+							KEYSDOWN.ALT = false;
+							$('#hl_alt').removeClass('highlite');
+							setupCursor();
+						break;
+						case KEYS.SHIFT:
+							KEYSDOWN.SHIFT = false;
+							$('#hl_shift').removeClass('highlite');
+						break;
+						case KEYS.Y:
+							if(KEYSDOWN.CTRL)
+								imageHistoryForward();
+						break;
+						case KEYS.Z:
+							if(KEYSDOWN.CTRL) {
+								imageHistoryBack();
+							}
+						break;
+					}
+				});
+
+
+				//Set up file upload to take image
+		   		imageLoader.addEventListener('change', loadImage, false);
+
 				//Setup resizing slider
-			    $("#slider-resizer").slider({
+			    $("#resizer-slider").slider({
 			      range: "min",
-			      value: 100,
-			      min: 1,
-			      max: 100,
+			      value: SLIDER_LIMIT_RESIZE[1],
+			      min: SLIDER_LIMIT_RESIZE[0],
+			      max: SLIDER_LIMIT_RESIZE[2],
+			      change: function( event, ui ) {
+			      	slider_resize(event,ui);
+			      },
 			      slide: function( event, ui ) {
-			      	if(uploadedImg) {
-			      		//set the scale
-				      	scale = ui.value / 100;
-				        //resize the canvas & image
-				        imageCanvas.width = imageWidth * scale;
-				        imageCanvas.height = imageHeight * scale;
-				        imageCtx.drawImage(uploadedImg,0,0,imageCanvas.width,imageCanvas.height);
-				    }
+			      	slider_resize(event,ui);
+			      }
+			    });
+
+			    //Setup brush size slider
+    			$("#brushsize_slider").slider({
+			      range: "min",
+			      value: SLIDER_LIMIT_BRUSHSIZE[1],
+			      min: SLIDER_LIMIT_BRUSHSIZE[0],
+			      max: SLIDER_LIMIT_BRUSHSIZE[2],
+			      change: function( event, ui ) {
+			      	brushLength = ui.value;
+			      	setupCursor();
+			      },
+			      slide: function( event, ui ) {
+			      	brushLength = ui.value;
+			      	setupCursor();
+			      }
+			    });
+			    brushLength = 32;
+			    setupCursor();
+
+			    //Setup brush hardness slider
+    			$("#hardness_slider").slider({
+			      range: "min",
+			      value: SLIDER_LIMIT_HARDNESS[1],
+			      min: SLIDER_LIMIT_HARDNESS[0],
+			      max: SLIDER_LIMIT_HARDNESS[2],
+			      change: function( event, ui ) {
+			      	brushHardness = ui.value;
+			      	setupCursor();
+			      },
+			      slide: function( event, ui ) {
+			      	brushHardness = ui.value;
+			      	setupCursor();
 			      }
 			    });
 
@@ -205,25 +587,10 @@
 			    	switch(stepIndex) {
 			    		//Was at step 2, the resizing part
 			    		case STEP_RESIZE:
-			    			//move onto the erasing part
-
-			    			$( "body" ).animate({
-							    "background-color":"#F0F"
-							  }, 2000, function() {});
-			    			//Setup erase size slider
-			    			$("#slider-resizer").slider("destroy");
-			    			$("#slider-resizer").slider({
-						      range: "min",
-						      value: 32,
-						      min: 1,
-						      max: 128,
-						      slide: function( event, ui ) {
-						      	setupCursor(ui.value);
-						      }
-						    });
-						    setupCursor(32);
-			    		 	label_instructions.innerHTML = "Step 3: Erase unnecessary background. When done, press OK.";
-			    			++stepIndex;
+				    			//move onto the editing part
+				    			$('#div_tools').show();
+				    			++stepIndex;
+				    			setTitleStep();
 			    			break;
 			    	}
 			    });

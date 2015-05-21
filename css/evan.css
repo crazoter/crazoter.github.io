@@ -22,7 +22,20 @@ div.glorious.evan {
     margin-right: auto;
 }
 div.title {
-	z-index: 10;position: absolute;top: 0;color: #fff;background-color: #000;display: block;width: 100%;text-align: center;opacity: 0.7;filter: alpha(opacity=70);font-family: 'Open Sans', sans-serif;font-size: 1.5em;
+	z-index: 10;
+  position: absolute;
+  top: 0;
+  display: block;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5em;
+}
+div.main.title {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  width: 100%;
+  color: #fff;
+  background-color: #000;
 }
 h5.title {
 	margin-top: 0px;
