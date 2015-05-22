@@ -22,7 +22,7 @@
   				background-size: 60px 60px;
     			background-repeat: no-repeat;
   			}
-  			.resizer-slider {
+  			.mySlider {
   				width:50%;
 				margin: 20px;
   			}
@@ -35,6 +35,8 @@
   			}
   			#cursorCanvas {
   				background-image: url("assets/bgs/transp_bg.png");
+  			}
+  			.bordered {
   				border-style: dashed;
   				border-width: 2px;
   			}
@@ -78,6 +80,15 @@
   				background-color: #FFF;
   				color:#000;
   			}
+  			/* unvisited link */
+			a:link {
+			    color: #ffff00;
+			}
+
+			/* visited link */
+			a:visited {
+			    color: #ffff00;
+			}
   		</style>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
@@ -90,7 +101,7 @@
 			<!--File upload-->
 			<input type="file" id="imageLoader" name="imageLoader"/>
 			<!--Resizer slider & brush size slider-->
-			<div id="resizer-slider" class="resizer-slider" style="display:none;"></div>
+			<div id="resizer-slider" class="mySlider resizer-slider" style="display:none;"></div>
 			<!--Ok button-->
 			<button id="btn_ok" type="button" title="Click me when you're done with whatever step you are at" style="display:none;">OK</button>
 		</div>
@@ -101,11 +112,16 @@
 			<div class="tools_row"><span class="editTools_p">Type</span><button id="btn_erase" type="button" onclick="change_toolType(0);">ERASE</button><button id="btn_paint" type="button" onclick="change_toolType(1);">PAINT</button></div>
 			<div class="tools_row"><span class="editTools_p">Color</span><input type='color' title="Change color of brush" class='color-picker' value='#f594d0' /></div>
 			<div class="tools_row"><span class="editTools_p">Shape</span><button id="btn_block" type="button" onclick="change_brushShape(0);">BLOCK</button><button id="btn_circle" type="button" onclick="change_brushShape(1);">CIRCLE</button></div>
-			<div class="tools_row"><span class="editTools_p">Size</span><div id="brushsize_slider" class="resizer-slider"></div></div>
-			<!--<div class="tools_row"><span class="editTools_p">Hardness</span><div id="hardness_slider" class="resizer-slider"></div></div>-->
-			<div class="tools_row"><span class="editTools_p">Brush Preview</span><canvas id="cursorCanvas"></canvas></div>
-			<div class="tools_row"><label class="editTools_h1">Shortcuts</label><br/>
-			<label class="editTools_p">[ ] to scale brush size<br/>Alt + Left Mouse Button for eyedropper<br/>Alt + Scroll Wheel to zoom<br/>Ctrl + Z / Y to undo / redo</label></div>
+			<div class="tools_row"><span class="editTools_p">Size</span><div id="brushsize_slider" class="mySlider"></div></div>
+			<div class="tools_row"><span class="editTools_p">Brush Preview</span><canvas id="cursorCanvas" class="bordered"></canvas></div>
+			<div class="tools_row"><label class="editTools_h1">Image / Canvas</label></div>
+			<div class="tools_row"><span class="editTools_p">Scale</span><div id="edit_resize_slider" class="mySlider resizer-slider"></div></div>
+			<div class="tools_row"><span class="editTools_p">Canvas Size / Crop</span><div id="crop_slider" class="mySlider"></div></div>
+			<div class="tools_row"><label class="editTools_h1">Controls / Shortcuts</label><br/>
+			<label class="editTools_p">[ ] to scale brush size<br/>Alt + Left Mouse Button (LMB) for eyedropper
+				<!--<br/>Alt + Scroll Wheel to zoom in and out-->
+				<br/>Ctrl + Z / Y to <a href="#" onclick="imageHistoryBack();">undo</a> / <a href="#" onclick="imageHistoryForward();">redo</a><br/>Ctrl + LMB + Drag to position image</label></div>
+			<div class="tools_row"><button type="button" onclick="resetImage();">RESET IMAGE</button></div>
 		<!--content-->
 		</div>
 		<div>
@@ -128,6 +144,7 @@
 				drawingCanvas = document.getElementById('drawingCanvas'),
 				drawingCtx = drawingCanvas.getContext('2d'),
 				uploadedImg,//Actual image
+				imageDisp = {x:0,y:0},//Actual image position
 				imageWidth = 0,//Actual image dimensions
 				imageHeight = 0,
 				scale = 1,//Scale from original size
@@ -136,16 +153,21 @@
 				imageHistories = [],//imageHistory
 				imageHistoryIndex = -1,
 				imageHISTORY_LIMIT = 31,
-				imageHistoryCallbackObject;
+				imageHistoryCallbackObject,
+				pickingColor = false;
 
 				function ImageHistory () {
+					this.canvasWidth = imageCanvas.width;
+					this.canvasHeight = imageCanvas.height;
+					this.canvasScale = $('#edit_resize_slider').slider('value');
 					this.img = null;
 					this.ready = false;
 				}
 
 				//Mouse
 				var mouseDown = false,//Mouse is down boolean
-				mousePos = {},//Mouse position
+				mousePos = {x:0,y:0},//Mouse position
+					//mousePos.x,mousePos.y, mousePos.prev_x,mousePos.prev_y
 				hasDrawn = false,//Used to track if imageHistory is needed
 				brushLength,//Mouse thickness (brush size)
 				brushHardness = 95,
@@ -173,8 +195,9 @@
 				STEP_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
 
 				//SLIDER_LIMITS
-				SLIDER_LIMIT_RESIZE = [1,100,100],//0: lower bound (inclusive),1: starting value,2: upper bound (inclusive)
+				SLIDER_LIMIT_RESIZE = [1,100,200],//0: lower bound (inclusive),1: starting value,2: upper bound (inclusive)
 				SLIDER_LIMIT_BRUSHSIZE = [1,32,128],
+				SLIDER_LIMIT_CROP = [1,100,200],
 				SLIDER_LIMIT_HARDNESS = [1,95,100];
 
 		    //mouse functionality
@@ -184,6 +207,8 @@
 		    	Get mouse position
 		    */
 		    function getMousePos(event) {
+		    	mousePos.prev_x = mousePos.x;
+		    	mousePos.prev_y = mousePos.y;
 		    	var rect = imageCanvas.getBoundingClientRect();	
 		        if (event.x != undefined && event.y != undefined)
 		        {
@@ -212,28 +237,37 @@
 		    	Function to centralize what happens when you click the canvas. If mouse down and move while LMB held down, also calls canvas click.
 		    */
 		    function canvasClick () {
-		    	if(KEYSDOWN.ALT) {
-		    		eyedrop();
-		    	}
-		    	else {
-			    	hasDrawn = true;
-			    	switch(toolIndex)
-			    	{
-			    		case TOOLTYPE_ERASE:
-			    		if(brushTypeIndex === BRUSHTYPE_BLOCK)
-							imageCtx.clearRect(mousePos.x - brushLength/2, mousePos.y - brushLength/2, brushLength, brushLength);
-						else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
-							imageGCO = imageCtx.globalCompositeOperation;
-							imageCtx.globalCompositeOperation = "destination-out";
-							imageCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
-							imageCtx.globalCompositeOperation = imageGCO;//reset
-						}
-						break;
-						case TOOLTYPE_PAINT:
-							drawingCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
-			    		break;
+		    	if(!pickingColor) {
+			    	if(KEYSDOWN.ALT) {
+			    		eyedrop();
 			    	}
-			    }
+			    	else if(KEYSDOWN.CTRL) {
+			    		hasDrawn = true;//lol lazy boy 95
+			    		imageDisp.x += mousePos.x - mousePos.prev_x;
+			    		imageDisp.y += mousePos.y - mousePos.prev_y;
+			    		imageCtx.clearRect(0,0,imageCanvas.width,imageCanvas.height);
+			    		imageCtx.drawImage(imageHistories[imageHistoryIndex].img,imageDisp.x,imageDisp.y);
+			    	}
+			    	else {
+				    	hasDrawn = true;
+				    	switch(toolIndex)
+				    	{
+				    		case TOOLTYPE_ERASE:
+				    		if(brushTypeIndex === BRUSHTYPE_BLOCK)
+								imageCtx.clearRect(mousePos.x - brushLength/2, mousePos.y - brushLength/2, brushLength, brushLength);
+							else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
+								imageGCO = imageCtx.globalCompositeOperation;
+								imageCtx.globalCompositeOperation = "destination-out";
+								imageCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+								imageCtx.globalCompositeOperation = imageGCO;//reset
+							}
+							break;
+							case TOOLTYPE_PAINT:
+								drawingCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+				    		break;
+				    	}
+				    }
+				}
 		    }
 
 		    /**
@@ -289,11 +323,7 @@
 			        uploadedImg = new Image();
 			        uploadedImg.onload = function(){
 			        	//Initialize image that is loaded
-			        	imageWidth = uploadedImg.width;
-			        	imageHeight = uploadedImg.height;
-			        	resizeCanvas(uploadedImg.width,uploadedImg.height);
-			            imageCtx.drawImage(uploadedImg,0,0);
-			            saveToimageHistory();//init imageHistory
+			        	resetImage();
 
 			            //Step 2
 			            ++stepIndex;
@@ -307,6 +337,13 @@
 			    reader.readAsDataURL(e.target.files[0]);
 			}
 
+			function resetImage () {
+				imageWidth = uploadedImg.width;
+	        	imageHeight = uploadedImg.height;
+	        	resizeCanvas(uploadedImg.width,uploadedImg.height);
+	            imageCtx.drawImage(uploadedImg,0,0);
+	            saveToImageHistory();//init imageHistory
+			}
 			/**
 				Set title step
 			*/
@@ -323,7 +360,7 @@
 			      	scale = ui.value / 100;
 			        //resize the canvas & image
 			        resizeCanvas(imageWidth*scale,imageHeight*scale);
-			        imageCtx.drawImage(uploadedImg,0,0,imageCanvas.width,imageCanvas.height);
+			        imageCtx.drawImage(imageHistories[imageHistoryIndex].img,0,0,imageCanvas.width,imageCanvas.height);
 			    }
 			}
 			function keypressBrushSizeSliderChange (newVal) {
@@ -377,14 +414,13 @@
 				}
 				setupCursor();
 			}
-			function saveToimageHistory () {
+			function saveToImageHistory () {
 				if(imageHistoryIndex < imageHISTORY_LIMIT)
 					++imageHistoryIndex;
 				while (imageHistories.length > imageHistoryIndex) {//pop if went back and overrode "future" history
 					imageHistories.pop();
 				}
 				imageHistoryAdd(imageCanvas.toDataURL());
-				imageHistories.push(imageCanvas.toDataURL());
 				while(imageHistories.length >= imageHISTORY_LIMIT) {//shift if exceeded history length
 					imageHistories.shift();
 				}
@@ -423,6 +459,12 @@
 				console.log(imageHistoryIndex);
 				console.log(imageHistory);
 				if(imageHistory.ready) {
+					if(imageHistory.canvasWidth !== imageCanvas.width || imageHistory.canvasHeight !== imageCanvas.height) {
+						resizeCanvas(imageHistory.canvasWidth,imageHistory.canvasHeight);
+			        }
+			        if($('#edit_resize_slider').slider('value') !== imageHistory.canvasScale) {
+			        	$('.resizer-slider').slider('value',imageHistory.canvasScale);
+			        }
 					imageCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
 			        imageCtx.drawImage(imageHistory.img, 0, 0);
 				}
@@ -461,18 +503,28 @@
 					showInitial: true,
 					change: function(color) {
 					    setupCursor();
+					},
+					show: function(color) {
+					    pickingColor = true;
+					},
+					hide: function(color) {
+					    pickingColor = false;
 					}
 				});
 
 				//Mouse Event handlers
 				$('body').mouseup(function(){//mouse up
 					mouseDown = false;
-					if(hasDrawn)
-					{
+					if(hasDrawn && !pickingColor) {
+						//if(!KEYSDOWN.CTRL) {//not moving
+						console.log('yes');
+						imageDisp.x = 0;
+						imageDisp.y = 0;
 						imageCtx.drawImage(drawingCanvas,0,0);
 						drawingCtx.clearRect(0,0,imageCanvas.width,imageCanvas.height);
-						saveToimageHistory();
+						saveToImageHistory();
 						hasDrawn = false;
+						//}
 					}
 				})
 				.mousedown(function(){//mouse down
@@ -551,15 +603,19 @@
 		   		imageLoader.addEventListener('change', loadImage, false);
 
 				//Setup resizing slider
-			    $("#resizer-slider").slider({
+			    $(".resizer-slider").slider({
 			      range: "min",
 			      value: SLIDER_LIMIT_RESIZE[1],
 			      min: SLIDER_LIMIT_RESIZE[0],
 			      max: SLIDER_LIMIT_RESIZE[2],
 			      change: function( event, ui ) {
-			      	slider_resize(event,ui);
+			      	console.log('resizer change');
+			      	$(imageCanvas).removeClass('bordered');
+			      	//slider_resize(event,ui);
 			      },
 			      slide: function( event, ui ) {
+			      	console.log('resizer slide');
+			      	$(imageCanvas).addClass('bordered');
 			      	slider_resize(event,ui);
 			      }
 			    });
@@ -582,7 +638,7 @@
 			    brushLength = 32;
 			    setupCursor();
 
-			    //Setup brush hardness slider
+			    //Setup brush hardness slider - currently doesn't exist
     			$("#hardness_slider").slider({
 			      range: "min",
 			      value: SLIDER_LIMIT_HARDNESS[1],
@@ -595,6 +651,37 @@
 			      slide: function( event, ui ) {
 			      	brushHardness = ui.value;
 			      	setupCursor();
+			      }
+			    });
+
+			    //Setup crop slider
+			    $("#crop_slider").slider({
+				  range: "min",
+			      value: SLIDER_LIMIT_CROP[1],
+			      min: SLIDER_LIMIT_CROP[0],
+			      max: SLIDER_LIMIT_CROP[2],
+			      change: function( event, ui ) {
+			      	//resize and offset image drawing to make it look like it is cropped
+			      	if(ui.value !== 100)
+			      	{
+				      	$(drawingCanvas).removeClass('bordered');
+				      	var dCanvasOffset = $(drawingCanvas).offset();
+				      	var iCanvasOffset = $(imageCanvas).offset();
+				      	var imgDisplacement = {x:iCanvasOffset.left - dCanvasOffset.left,y:iCanvasOffset.top - dCanvasOffset.top};
+				      	resizeCanvas(drawingCanvas.width,drawingCanvas.height);
+				      	imageCtx.drawImage(imageHistories[imageHistoryIndex].img,imgDisplacement.x,imgDisplacement.y);
+				      	saveToImageHistory();//lel
+				      	$("#crop_slider").slider('value',100);//reset value
+				    }
+			      },
+			      slide: function( event, ui ) {
+			      	//crop while keeping the thing centered. Use the drawing canvas to "on top"
+			      	var newOffset = $(imageCanvas).offset();
+					drawingCanvas.width = imageCanvas.width * ui.value / 100;
+					drawingCanvas.height = imageCanvas.height * ui.value / 100;
+					newOffset.left += (imageCanvas.width - drawingCanvas.width) / 2;
+					newOffset.top += (imageCanvas.height - drawingCanvas.height) / 2;
+					$(drawingCanvas).addClass('bordered').offset(newOffset);
 			      }
 			    });
 
