@@ -101,12 +101,12 @@
 			<!--File upload-->
 			<input type="file" id="imageLoader" name="imageLoader"/>
 			<!--Resizer slider & brush size slider-->
-			<div id="resizer-slider" class="mySlider resizer-slider" style="display:none;"></div>
+			<div id="resizer-slider" class="resizer-slider" style="margin: 20px;display:none;"></div>
 			<!--Ok button-->
 			<button id="btn_ok" type="button" title="Click me when you're done with whatever step you are at" style="display:none;">OK</button>
 		</div>
 		<!--Editing tools-->
-		<div id="div_tools" class="title">
+		<div id="div_tools" style="display:none;" class="title">
 			<div class="tools_row"><label id="hl_shift" class="editTools_h1">SHIFT</label><label id="hl_alt" class="editTools_h1">ALT</label><label id="hl_ctrl" class="editTools_h1">CTRL</label></div>
 			<div class="tools_row"><label class="editTools_h1">Brush</label></div>
 			<div class="tools_row"><span class="editTools_p">Type</span><button id="btn_erase" type="button" onclick="change_toolType(0);">ERASE</button><button id="btn_paint" type="button" onclick="change_toolType(1);">PAINT</button></div>
@@ -691,7 +691,8 @@
 			    		//Was at step 2, the resizing part
 			    		case STEP_RESIZE:
 				    			//move onto the editing part
-				    			$('#div_tools').show();
+				    			$('#resizer-slider').hide();
+				    			$('#div_tools').show(300);
 				    			++stepIndex;
 				    			setTitleStep();
 			    			break;
