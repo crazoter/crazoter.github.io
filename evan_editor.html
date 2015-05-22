@@ -27,8 +27,11 @@
 				margin: 20px;
   			}
   			#imageCanvas {
-  				border-style: dashed;
-    			border-width: 2px;
+    			z-index: 5;
+  			}
+  			#drawingCanvas {
+  				position: absolute;
+  				z-index: 7;
   			}
   			#cursorCanvas {
   				background-image: url("assets/bgs/transp_bg.png");
@@ -107,6 +110,7 @@
 		</div>
 		<div>
 			<div class="glorious evan">
+				<canvas class="img evan" id="drawingCanvas">Please open this webpage on a HTML5 browser.</canvas>
 				<canvas class="img evan" id="imageCanvas">Please open this webpage on a HTML5 browser.</canvas>
 			</div>
 		</div>
@@ -121,6 +125,8 @@
 				imageCanvas = document.getElementById('imageCanvas'),//canvas for image
 				imageCtx = imageCanvas.getContext('2d'),//variables related to imageCanvas
 				imageGCO,
+				drawingCanvas = document.getElementById('drawingCanvas'),
+				drawingCtx = drawingCanvas.getContext('2d'),
 				uploadedImg,//Actual image
 				imageWidth = 0,//Actual image dimensions
 				imageHeight = 0,
@@ -177,8 +183,7 @@
 		    /**
 		    	Get mouse position
 		    */
-		    function getMousePos(event)
-		    {
+		    function getMousePos(event) {
 		    	var rect = imageCanvas.getBoundingClientRect();	
 		        if (event.x != undefined && event.y != undefined)
 		        {
@@ -196,7 +201,13 @@
 		        mousePos.x -= rect.left;
 		        mousePos.y -= rect.top;
 		    }
-
+		    function resizeCanvas (w,h) {
+		    	imageCanvas.width = w;
+		    	imageCanvas.height = h;
+		    	drawingCanvas.width = w;
+		    	drawingCanvas.height = h;
+		    	$(drawingCanvas).offset($(imageCanvas).offset());
+		    }
 		    /**
 		    	Function to centralize what happens when you click the canvas. If mouse down and move while LMB held down, also calls canvas click.
 		    */
@@ -219,7 +230,7 @@
 						}
 						break;
 						case TOOLTYPE_PAINT:
-							imageCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+							drawingCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
 			    		break;
 			    	}
 			    }
@@ -236,6 +247,7 @@
 		    	{
 		    		case TOOLTYPE_ERASE:
 		    			cursorCtx.fillStyle="#F0F";
+		    			imageCtx.globalAlpha = 1;
 		    			if(brushTypeIndex === BRUSHTYPE_BLOCK) {
 					    	cursorCtx.fillRect(0,0,brushLength,brushLength);
 					    	if(brushLength > 1) {
@@ -246,7 +258,11 @@
 						}
 					    break;
 					case TOOLTYPE_PAINT:
-						cursorCtx.fillStyle = $(".color-picker").spectrum("get");
+						var tinyColor = $(".color-picker").spectrum("get");
+						drawingCanvas.style.opacity = tinyColor._a;
+						imageCtx.globalAlpha = tinyColor._a;
+						tinyColor._a = 1;
+						cursorCtx.fillStyle = tinyColor;
 						if(brushTypeIndex === BRUSHTYPE_BLOCK) {
 					    	cursorCtx.fillRect(0,0,brushLength,brushLength);
 						} else if(brushTypeIndex === BRUSHTYPE_CIRCLE) {
@@ -254,7 +270,7 @@
 						}
 						break;
 				}
-		    	imageCanvas.style.cursor = "url("+cursorCanvas.toDataURL()+") "+brushLength/2+" "+brushLength/2+", auto";
+		    	drawingCanvas.style.cursor = "url("+cursorCanvas.toDataURL()+") "+brushLength/2+" "+brushLength/2+", auto";
 			}
 			function setupCircleCursor (hardness) {
 				if(hardness >= 100)
@@ -275,8 +291,7 @@
 			        	//Initialize image that is loaded
 			        	imageWidth = uploadedImg.width;
 			        	imageHeight = uploadedImg.height;
-			            imageCanvas.width = uploadedImg.width;
-			            imageCanvas.height = uploadedImg.height;
+			        	resizeCanvas(uploadedImg.width,uploadedImg.height);
 			            imageCtx.drawImage(uploadedImg,0,0);
 			            saveToimageHistory();//init imageHistory
 
@@ -307,8 +322,7 @@
 		      		//set the scale
 			      	scale = ui.value / 100;
 			        //resize the canvas & image
-			        imageCanvas.width = imageWidth * scale;
-			        imageCanvas.height = imageHeight * scale;
+			        resizeCanvas(imageWidth*scale,imageHeight*scale);
 			        imageCtx.drawImage(uploadedImg,0,0,imageCanvas.width,imageCanvas.height);
 			    }
 			}
@@ -455,18 +469,20 @@
 					mouseDown = false;
 					if(hasDrawn)
 					{
+						imageCtx.drawImage(drawingCanvas,0,0);
+						drawingCtx.clearRect(0,0,imageCanvas.width,imageCanvas.height);
 						saveToimageHistory();
 						hasDrawn = false;
 					}
 				})
 				.mousedown(function(){//mouse down
 					mouseDown = true;
-					if ($(imageCanvas).is(':hover')) {
+					if ($(drawingCanvas).is(':hover')) {
 						//if is over the canvas
 				        canvasClick();
 				    }
 				});
-				imageCanvas.addEventListener('mousemove', function(evt) {//mouse move (while over canvas)
+				drawingCanvas.addEventListener('mousemove', function(evt) {//mouse move (while over canvas)
 		        	getMousePos(evt);
 		        	if(mouseDown)
 		        		canvasClick();
@@ -483,7 +499,7 @@
 						case KEYS.ALT:
 							KEYSDOWN.ALT = true;
 							$('#hl_alt').addClass('highlite');
-							imageCanvas.style.cursor = "crosshair";
+							drawingCanvas.style.cursor = "crosshair";
 						break;
 						case KEYS.SHIFT:
 							KEYSDOWN.SHIFT = true;
