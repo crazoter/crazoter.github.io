@@ -4,7 +4,7 @@
 		<meta charset="UTF-8"/>
 		<meta http-equiv="Cache-Control" content="public"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0"/>
-		<meta name="description" content="Sightseeing with Evan"/>
+		<meta name="description" content="Stand-in-front-of-scenery editor"/>
 		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
 		<title>Lol Editor</title>
   		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -263,7 +263,10 @@
 							}
 							break;
 							case TOOLTYPE_PAINT:
+								if(drawingCanvas.style.opacity)
+									imageCtx.globalAlpha = drawingCanvas.style.opacity;
 								drawingCtx.drawImage(cursorCanvas, mousePos.x - brushLength/2, mousePos.y - brushLength/2);
+								imageCtx.globalAlpha = 1;
 				    		break;
 				    	}
 				    }
@@ -281,7 +284,7 @@
 		    	{
 		    		case TOOLTYPE_ERASE:
 		    			cursorCtx.fillStyle="#F0F";
-		    			imageCtx.globalAlpha = 1;
+		    			//imageCtx.globalAlpha = 1;
 		    			if(brushTypeIndex === BRUSHTYPE_BLOCK) {
 					    	cursorCtx.fillRect(0,0,brushLength,brushLength);
 					    	if(brushLength > 1) {
@@ -294,7 +297,7 @@
 					case TOOLTYPE_PAINT:
 						var tinyColor = $(".color-picker").spectrum("get");
 						drawingCanvas.style.opacity = tinyColor._a;
-						imageCtx.globalAlpha = tinyColor._a;
+						//imageCtx.globalAlpha = tinyColor._a;
 						tinyColor._a = 1;
 						cursorCtx.fillStyle = tinyColor;
 						if(brushTypeIndex === BRUSHTYPE_BLOCK) {
