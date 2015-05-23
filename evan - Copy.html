@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<meta http-equiv="Cache-Control" content="public"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0"/>
+		<meta name="description" content="Sightseeing with Evan"/>
+		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
+		<title>EVAN IN ALL HIS GLORY</title>
+		<!--Pace fallback-->
+		<!--<script type="text/javascript">
+			var IS_FIREFOX = false;
+			//If firefox, fallback to Pace.js because ImagesLoaded CMI with ff
+			if(navigator.userAgent.search("Firefox")!==-1)
+			{
+				var IS_FIREFOX = true;
+				document.write("<script type='text\/javascript'>paceOptions = {elements: {selectors: ['img']}};<\/script>"+
+					'<script src="js\/pace.min.js"><\/script>'+
+					'<link href="css\/pace.css" rel="stylesheet" \/>');
+			}
+		</script>-->
+  		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/evan.css"/>
+		<style>
+  			#preloader_text.preloader {
+  				/*Set the background for the preloader*/
+  				background: url(assets/joke/right.jpg);
+  				background-size: 60px 60px;
+    			background-repeat: no-repeat;
+  			}
+  		</style>
+		<script src="js/prefixfree.min.js"></script>
+		<script src="js/pagespeed/modernizr.js"></script>
+	</head>
+	<body>
+		<!--Preloader-->
+		<div id="preloader" class="preloader" style="display:none;"></div>
+		<div id="preloader_text" class="preloader" style="display:none;">0%</div>
+		<!--Select between Free & Easy Or Concert-->
+		<section class="selection container">
+		<div class="selection selectiontitle">
+			<h1 class="selection title">Select an option</h1>
+		</div>
+			<img class="selection left-half bg" src="assets/joke/right.jpg"/>
+		  <div class="selection left-half hoverable clickable" onclick="selectedConcert(false);">
+		    <article class="selection left-half">
+		      <h1 class="selection">Free & Easy</h1>
+		      <p>Enjoy Evan's journey at your own pace and time.</p>
+		    </article>
+		  </div>
+		  <img class="selection right-half bg" src="assets/joke/right.jpg"/>
+		  <div class="selection right-half hoverable clickable" onclick="selectedConcert(true);">
+		    <article class="selection right-half">
+		      <h1 class="selection">Concert (Under Construction)</h1>
+		      <p>Behold Evan's journey the way it's supposed to be savoured.</p>
+		    </article>
+		  </div>
+		</section>
+		<!--header-->
+		<div class="main title">
+			<img id="img_refresh" src="data:image/png;base64,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" class="refresh clickable" onclick="next_img();"/>
+
+			<img id="img_volume" src="" class="refresh clickable" onclick="toggle_mute();"/>
+			<h5 class="title" id="h5_title">Loading...</h5>
+		</div>
+		<!--content-->
+		<div>
+			<div class="glorious evan">
+				<img class="img evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY">
+			</div>
+		</div>
+		<script src="js/pagespeed/jquery.js"></script>
+		<!--img onload handler-->
+		<script src="node_modules/imagesloaded/imagesloaded.pkgd.js"></script>
+		<script type="text/javascript">
+			//Initialize these variables
+			var SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subreddit(s)
+			yt_players = ['WW_774CHwDg','9E6b3swbnWg'],//Put the video ID(s) into this array
+			SOUNDTRACKS = {
+				0: "Darude - Sandstorm",//Name the videos by their ID(s)
+				1: "Chopin - Nocturne op.9 No.2"
+			},
+			CONCERT_SOUNDTRACK_ID = 0,//indicate which video (by their id) is to be played in which scenario
+			FREE_AND_EASY_SOUNDTRACK_ID = 1,
+			FREE_AND_EASY_ONLY = false;
+		</script>
+		<script src="js/evan.js"></script>
+	</body>
+</html>

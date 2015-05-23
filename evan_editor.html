@@ -33,6 +33,10 @@
   		<link rel="stylesheet" href="bgrins-spectrum-a7bb45b/spectrum.css"/>
 		<link rel="stylesheet" href="css/evan.css"/>
 		<style>
+			html, body { 
+				/*height 100% now fills page*/
+				height: 100%;
+			}
 			* {
 			    -moz-user-select: -moz-none;
 			    -khtml-user-select: none;
@@ -41,8 +45,7 @@
 			    user-select: none;
 			}
 			body {
-				background-color: #FFF;
-				/*background-image: url("assets/bgs/transp_bg.png");*/
+				background-color: #EEE;
 			}
   			#preloader_text.preloader {
   				/*Set the background for the preloader*/
@@ -172,7 +175,7 @@
 	.info.clickable:hover {
 		opacity: 0.7;
 	}
-	.info > h3 {
+	.info > h2 {
 		padding-left: 3%;
 	}
 	.info > section {
@@ -187,24 +190,45 @@
 		text-align: center;
 	}
 	
-
+	.loading-screen-details {
+		padding: 3%;
+	}
+	.big_text {
+		font-family: sans-serif;
+		line-height: 150%;
+		font-size: 1rem;
+	}
+	.loading-screen-sidebar {
+		width: 30%;
+		height: 100%;
+		float: left;
+		position: relative;
+		-webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
+		box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
+	}
+	.loading-screen-content {
+		width: 70%;
+		height: 100%;
+		float: left;
+	}
   		</style>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
 	<body>
-		<div id="main-wrap">
+		<div id="main-wrap" style="display:none;">
 			<div id="info-wrap">
-				<div class="info"><h3>Stand-in-front-of-scenery Editor</h3><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h3 id="components_text">0/6 components finished.<br/>WHAT ARE YOU WAITING FOR???</h3></div>
+				<div class="info"><h2>Stand-in-front-of-scenery Editor</h2><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h2 id="components_text">0/5 components finished.<br/>WHAT ARE YOU WAITING FOR???</h2></div>
 				<div class="info clickable" style="background-image: url(assets/joke/background_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Subreddits / Albums</p></div>
 				<div id="div_setForeground" class="info clickable" onclick="set_foregroundScreen()" style="background-image: url(assets/joke/foreground_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Image of you / Foreground</p></div>
-				<div class="info clickable" onclick="set_loadingScreen();"><p>Loading Screen</p></div>
+				<div class="info clickable" onclick="set_loadingScreen();"><p>Title / Loading Screen</p></div>
 				<div class="info clickable" style="background-image: url(assets/joke/preloader_bg.png);background-repeat: no-repeat;background-position: center;"><p>Preloader</p></div>
 				<div class="info clickable" style="background-image: url(assets/joke/music_bg.png);background-repeat: no-repeat;background-position: center;"><p>Youtube Music Video URL</p></div>
 			</div>
 		</div>
 		<!--header-->
-		<div class="main title" style="display:none;">
+		<div class="main title">
 			<!--Instructions-->
 			<label id="label_instructions">Loading...</label><br/>
 			<!--File upload-->
@@ -219,7 +243,7 @@
 			<div class="tools_row"><label id="hl_shift" class="editTools_h1">SHIFT</label><label id="hl_alt" class="editTools_h1">ALT</label><label id="hl_ctrl" class="editTools_h1">CTRL</label></div>
 			<div class="tools_row"><label class="editTools_h1">Brush</label></div>
 			<div class="tools_row"><span class="editTools_p">Type</span><button id="btn_erase" type="button" onclick="change_toolType(0);">ERASE</button><button id="btn_paint" type="button" onclick="change_toolType(1);">PAINT</button></div>
-			<div class="tools_row"><span class="editTools_p">Color</span><input type='color' title="Change color of brush" class='color-picker' value='#f594d0' /></div>
+			<div class="tools_row"><span class="editTools_p">Color</span><input id="brush_color_picker" type='color' title="Change color of brush" class='color-picker' value='#663399' /></div>
 			<div class="tools_row"><span class="editTools_p">Shape</span><button id="btn_block" type="button" onclick="change_brushShape(0);">BLOCK</button><button id="btn_circle" type="button" onclick="change_brushShape(1);">CIRCLE</button></div>
 			<div class="tools_row"><span class="editTools_p">Size</span><div id="brushsize_slider" class="mySlider"></div></div>
 			<div class="tools_row"><span class="editTools_p">Brush Preview</span><canvas id="cursorCanvas" class="bordered"></canvas></div>
@@ -231,8 +255,17 @@
 				<!--<br/>Alt + Scroll Wheel to zoom in and out-->
 				<br/>Ctrl + Z / Y to <a href="#" onclick="imageHistoryBack();">undo</a> / <a href="#" onclick="imageHistoryForward();">redo</a><br/>Ctrl + LMB + Drag to position image</label></div>
 			<div class="tools_row"><button type="button" onclick="resetImage();">RESET IMAGE</button></div>
-		<!--content-->
 		</div>
+		<!--Loading screen form-->
+		<div class="loading-screen-sidebar">
+			<form class="loading-screen-details">
+				<div class="tools_row"><span class="editTools_p big_text">Title</span><input type="text" name="title" value="Hello World"></div>
+				<div class="tools_row"><span class="editTools_p big_text">Caption</span><input type="text" name="caption" value="What a boring title"></div>
+				<div class="tools_row"><span class="editTools_p big_text">Color</span><input id="loading_color_picker" type='color' title="Change color of brush" class='color-picker' value='#663399'/></div>
+				<div class="tools_row"><input type="submit" value="Confirm"></div>
+			</form>
+		</div>
+		<div class="loading-screen-content" style="background-color: #663399;"></div>
 		<!--Image editing canvases-->
 		<div class="glorious evan" style="display:none;">
 			<canvas class="img evan" id="drawingCanvas">Please open this webpage on a HTML5 browser.</canvas>
@@ -334,6 +367,7 @@
 			function set_foregroundScreen () {
 				okButtonHandler = btnHandler_foreground;
 				STEP_TEXT = STEP_DRAWING_TEXT;
+				document.body.style.backgroundImage = 'url("assets/bgs/transp_bg.png")';
 				transitMainToAction();
 			}
 			function set_loadingScreen () {
@@ -369,6 +403,7 @@
 			    			$("#div_setForeground").css("background-image","url("+personDataURL+")");
 			    			COMPONENTS[1] = 1;
 			    			transitActionToMain();
+			    			document.body.style.backgroundImage = '';
 			    			break;
 			    	}
 				}
@@ -468,7 +503,7 @@
 						}
 					    break;
 					case TOOLTYPE_PAINT:
-						var tinyColor = $(".color-picker").spectrum("get");
+						var tinyColor = $("#brush_color_picker").spectrum("get");
 						drawingCanvas.style.opacity = tinyColor._a;
 						//imageCtx.globalAlpha = tinyColor._a;
 						tinyColor._a = 1;
@@ -661,7 +696,7 @@
 			function eyedrop () {
 				var p = imageCtx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
 				var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
-				$(".color-picker").spectrum("set", hex);
+				$("#brush_color_picker").spectrum("set", hex);
 				setupCursor();
 			}
 
@@ -673,8 +708,9 @@
 				change_brushShape(BRUSHTYPE_BLOCK);
 
 				//Initialize Color Picker
-				$('.color-picker').spectrum({
+				$('#brush_color_picker').spectrum({
 					preferredFormat: "hex3",
+					showInput: true,
 					showPalette: true,
 					showAlpha: true,
 					showInitial: true,
@@ -687,6 +723,16 @@
 					hide: function(color) {
 					    pickingColor = false;
 					}
+				});
+				//Initialize Color Picker
+				$('#loading_color_picker').spectrum({
+					preferredFormat: "hex3",
+					showInput: true,
+					showPalette: true,
+					showInitial: true,
+					change: function(color) {
+					    $('.loading-screen-content').css('background-color',color.toHexString());
+					},
 				});
 
 				//Mouse Event handlers
