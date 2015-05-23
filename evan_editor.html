@@ -1,5 +1,25 @@
 <!DOCTYPE html>
 <html>
+	<!--Things needed for your very own scenery thing:
+		1. List of:
+			a. Subreddits
+			b. Gallery 
+			i. Handle both separately
+		2. Image of you / whatever in front of these images from these subreddits / galleries
+			a. Editor
+			b. Upload to imgur
+		3. Background image (loading screen)
+			a. Editor
+			b. Convert to black & white
+			c. Upload to imgur
+		4. Preloader thumbnail
+			a. Editor
+			b. Handle preview of thumbnail 
+			c. Upload to imgur
+		5. Youtube music url (i need the id)
+			a. If doesn't exist, remove the icon to mute music.
+		6. Query String & Template Website
+		-->
 	<head>
 		<meta charset="UTF-8"/>
 		<meta http-equiv="Cache-Control" content="public"/>
@@ -13,8 +33,16 @@
   		<link rel="stylesheet" href="bgrins-spectrum-a7bb45b/spectrum.css"/>
 		<link rel="stylesheet" href="css/evan.css"/>
 		<style>
+			* {
+			    -moz-user-select: -moz-none;
+			    -khtml-user-select: none;
+			    -webkit-user-select: none;
+			    -o-user-select: none;
+			    user-select: none;
+			}
 			body {
-				background-image: url("assets/bgs/transp_bg.png");
+				background-color: #FFF;
+				/*background-image: url("assets/bgs/transp_bg.png");*/
 			}
   			#preloader_text.preloader {
   				/*Set the background for the preloader*/
@@ -89,17 +117,98 @@
 			a:visited {
 			    color: #ffff00;
 			}
+			.main.title {
+				position: relative;
+			}
+
+/**
+ * custom layout
+ */
+	#main-wrap {
+		background-color: #D9D9D9;
+	}
+	
+	#content-wrap {
+		background-color: #c5c5c5;
+	}
+	
+	.info:first-child {background-color: #03A9F4;}
+	.info:nth-child(2n+3) {background-color: #B3E5FC;}
+	.info:nth-child(even) {background-color: #B2EBF2;}
+	
+	
+	/* sizes */
+	#main-wrap > div {
+		position: absolute;
+		z-index: 9999;
+	}
+	
+	/* layout */
+	
+	#main-wrap {
+		/* overflow to handle inner floating block */
+		width: 100%;
+		height: 100%;
+	}
+	
+	#info-wrap {
+		/* overflow to handle inner floating block */
+		width: 100%;
+		height: 100%;
+	}
+	
+	.info {
+		width: 33.3%;
+		height:50%;
+		float: left;
+		color: #fff;
+		font-family: sans-serif;
+		line-height: 150%;
+		text-shadow: 0 2px 2px #444;
+	}
+	.info.clickable {
+		cursor: hand;
+	}
+	.info.clickable:hover {
+		opacity: 0.7;
+	}
+	.info > h3 {
+		padding-left: 3%;
+	}
+	.info > section {
+		padding-left: 3%;
+	}
+	.info > p {
+		font-size: 1.75rem;
+		position: relative;
+		top: 33%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+	}
+	
+
   		</style>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
 	<body>
+		<div id="main-wrap">
+			<div id="info-wrap">
+				<div class="info"><h3>Stand-in-front-of-scenery Editor</h3><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h3 id="components_text">0/6 components finished.<br/>WHAT ARE YOU WAITING FOR???</h3></div>
+				<div class="info clickable" style="background-image: url(assets/joke/background_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Subreddits / Albums</p></div>
+				<div id="div_setForeground" class="info clickable" onclick="set_foregroundScreen()" style="background-image: url(assets/joke/foreground_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Image of you / Foreground</p></div>
+				<div class="info clickable" onclick="set_loadingScreen();"><p>Loading Screen</p></div>
+				<div class="info clickable" style="background-image: url(assets/joke/preloader_bg.png);background-repeat: no-repeat;background-position: center;"><p>Preloader</p></div>
+				<div class="info clickable" style="background-image: url(assets/joke/music_bg.png);background-repeat: no-repeat;background-position: center;"><p>Youtube Music Video URL</p></div>
+			</div>
+		</div>
 		<!--header-->
-		<div class="main title">
+		<div class="main title" style="display:none;">
 			<!--Instructions-->
 			<label id="label_instructions">Loading...</label><br/>
 			<!--File upload-->
-			<input type="file" id="imageLoader" name="imageLoader"/>
+			<input type="file" id="imageLoader" name="imageLoader" style="display:none;"/>
 			<!--Resizer slider & brush size slider-->
 			<div id="resizer-slider" class="resizer-slider" style="margin: 20px;display:none;"></div>
 			<!--Ok button-->
@@ -124,11 +233,10 @@
 			<div class="tools_row"><button type="button" onclick="resetImage();">RESET IMAGE</button></div>
 		<!--content-->
 		</div>
-		<div>
-			<div class="glorious evan">
-				<canvas class="img evan" id="drawingCanvas">Please open this webpage on a HTML5 browser.</canvas>
-				<canvas class="img evan" id="imageCanvas">Please open this webpage on a HTML5 browser.</canvas>
-			</div>
+		<!--Image editing canvases-->
+		<div class="glorious evan" style="display:none;">
+			<canvas class="img evan" id="drawingCanvas">Please open this webpage on a HTML5 browser.</canvas>
+			<canvas class="img evan" id="imageCanvas">Please open this webpage on a HTML5 browser.</canvas>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
 		<script src="jquery-ui-1.11.4/jquery-ui.min.js"></script>
@@ -137,13 +245,14 @@
 			//http://jsfiddle.net/influenztial/qy7h5/
 				//DOM ELEMENTS
 			var label_instructions = document.getElementById('label_instructions'),//title which acts as instructions
-				imageLoader = document.getElementById('imageLoader'),//file upload for image
+				imageLoader,//file upload for image
 				imageCanvas = document.getElementById('imageCanvas'),//canvas for image
 				imageCtx = imageCanvas.getContext('2d'),//variables related to imageCanvas
 				imageGCO,
 				drawingCanvas = document.getElementById('drawingCanvas'),
 				drawingCtx = drawingCanvas.getContext('2d'),
 				uploadedImg,//Actual image
+				personDataURL,//Finalized data url of any person
 				imageDisp = {x:0,y:0},//Actual image position
 				imageWidth = 0,//Actual image dimensions
 				imageHeight = 0,
@@ -154,7 +263,8 @@
 				imageHistoryIndex = -1,
 				imageHISTORY_LIMIT = 31,
 				imageHistoryCallbackObject,
-				pickingColor = false;
+				pickingColor = false,
+				okButtonHandler;
 
 				function ImageHistory () {
 					this.canvasWidth = imageCanvas.width;
@@ -190,15 +300,78 @@
 
 				//STEP DATA
 				stepIndex = 0,//Starts from 0
-				STEP_RESIZE = 1,
-				STEP_EDIT = 2,
-				STEP_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+				STEP_DRAWING_START = 0,
+				STEP_DRAWING_RESIZE = 1,
+				STEP_DRAWING_EDIT = 2,
+				STEP_DRAWING_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+				STEP_TEXT,
 
 				//SLIDER_LIMITS
 				SLIDER_LIMIT_RESIZE = [1,100,200],//0: lower bound (inclusive),1: starting value,2: upper bound (inclusive)
 				SLIDER_LIMIT_BRUSHSIZE = [1,32,128],
 				SLIDER_LIMIT_CROP = [1,100,200],
-				SLIDER_LIMIT_HARDNESS = [1,95,100];
+				SLIDER_LIMIT_HARDNESS = [1,95,100],
+
+				COMPONENTS = [0,0,0,0,0];
+				COMPONENTS_TEXT = ["0/5 components finished.<br/>WHAT ARE YOU WAITING FOR???","1/5 components finished.<br/>","2/5 components finished.<br/>","3/5 components finished.<br/>","4/5 components finished.<br/>ONE LAST TIME!","5/5 components finished!<br/>"];
+
+			/**Setup options*/
+			function transitActionToMain () {
+				$('#main-wrap').show(200);
+				$('.main.title').hide(200);
+				var total = 0;
+				for (var i = 0; i < COMPONENTS.length; i++) {
+				    total += COMPONENTS[i] << 0;
+				}
+				$('#components_text').html(COMPONENTS_TEXT[total]);
+			}
+			function transitMainToAction () {
+				$('#main-wrap').hide(200);
+				$('.main.title').show(200);
+				stepIndex = 0;
+				okButtonHandler();
+			}
+			function set_foregroundScreen () {
+				okButtonHandler = btnHandler_foreground;
+				STEP_TEXT = STEP_DRAWING_TEXT;
+				transitMainToAction();
+			}
+			function set_loadingScreen () {
+				transitMainToAction();
+			}
+
+			/** Ok button handlers
+			*/
+				function btnHandler_foreground () {
+					switch(stepIndex) {
+						case STEP_DRAWING_START:
+							//Start
+							setTitleStep();
+							//reset file upload
+							$("#imageLoader").replaceWith($("#imageLoader").clone(true));
+							imageLoader = document.getElementById('imageLoader');
+							imageLoader.addEventListener('change', loadImage, false);
+							$('#imageLoader').show(200);
+							$("#btn_ok").hide();
+						break;
+			    		//Was at step 2, the resizing part
+			    		case STEP_DRAWING_RESIZE:
+			    			//move onto the editing part
+			    			$('#resizer-slider').hide();
+			    			$('#div_tools').show(300);
+			    			++stepIndex;
+			    			setTitleStep();
+			    			break;
+			    		case STEP_DRAWING_EDIT:
+			    			personDataURL = imageCanvas.toDataURL();
+			    			$("#div_tools").hide(200);
+			    			$('.glorious.evan').hide(200);
+			    			$("#div_setForeground").css("background-image","url("+personDataURL+")");
+			    			COMPONENTS[1] = 1;
+			    			transitActionToMain();
+			    			break;
+			    	}
+				}
 
 		    //mouse functionality
 		    //http://miloq.blogspot.sg/2011/05/coordinates-mouse-click-canvas.html
@@ -331,6 +504,7 @@
 			            //Step 2
 			            ++stepIndex;
 			            $(imageLoader).hide();
+			            $('.glorious.evan').fadeIn(200);
 			            $("#resizer-slider").show();
 			            $("#btn_ok").show();
 			            setTitleStep();
@@ -494,7 +668,7 @@
 			//Onload
 			$(function() {
 				//Setup instructions
-				setTitleStep();
+				//setTitleStep();
 				change_toolType(TOOLTYPE_ERASE);
 				change_brushShape(BRUSHTYPE_BLOCK);
 
@@ -601,10 +775,6 @@
 					}
 				});
 
-
-				//Set up file upload to take image
-		   		imageLoader.addEventListener('change', loadImage, false);
-
 				//Setup resizing slider
 			    $(".resizer-slider").slider({
 			      range: "min",
@@ -614,7 +784,7 @@
 			      change: function( event, ui ) {
 			      	console.log('resizer change');
 			      	$(imageCanvas).removeClass('bordered');
-			      	//slider_resize(event,ui);
+			      	//saveToImageHistory();//lel
 			      },
 			      slide: function( event, ui ) {
 			      	console.log('resizer slide');
@@ -665,14 +835,14 @@
 			      max: SLIDER_LIMIT_CROP[2],
 			      change: function( event, ui ) {
 			      	//resize and offset image drawing to make it look like it is cropped
-			      	if(ui.value !== 100)
-			      	{
+			      	if(ui.value !== 100) {
 				      	$(drawingCanvas).removeClass('bordered');
 				      	var dCanvasOffset = $(drawingCanvas).offset();
 				      	var iCanvasOffset = $(imageCanvas).offset();
 				      	var imgDisplacement = {x:iCanvasOffset.left - dCanvasOffset.left,y:iCanvasOffset.top - dCanvasOffset.top};
+				      	var prevDim = {width:imageCanvas.width,height:imageCanvas.height};
 				      	resizeCanvas(drawingCanvas.width,drawingCanvas.height);
-				      	imageCtx.drawImage(imageHistories[imageHistoryIndex].img,imgDisplacement.x,imgDisplacement.y);
+				      	imageCtx.drawImage(imageHistories[imageHistoryIndex].img,imgDisplacement.x,imgDisplacement.y,prevDim.width,prevDim.height);
 				      	saveToImageHistory();//lel
 				      	$("#crop_slider").slider('value',100);//reset value
 				    }
@@ -690,16 +860,7 @@
 
 			    //Setup OK button
 			    $("#btn_ok").click(function() {
-			    	switch(stepIndex) {
-			    		//Was at step 2, the resizing part
-			    		case STEP_RESIZE:
-				    			//move onto the editing part
-				    			$('#resizer-slider').hide();
-				    			$('#div_tools').show(300);
-				    			++stepIndex;
-				    			setTitleStep();
-			    			break;
-			    	}
+			    	okButtonHandler();
 			    });
 			});
 		</script>
