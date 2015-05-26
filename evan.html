@@ -7,18 +7,6 @@
 		<meta name="description" content="Sightseeing with Evan"/>
 		<link rel="shortcut icon" href="assets/favicon_evan.ico"/>
 		<title>EVAN IN ALL HIS GLORY</title>
-		<!--Pace fallback-->
-		<!--<script type="text/javascript">
-			var IS_FIREFOX = false;
-			//If firefox, fallback to Pace.js because ImagesLoaded CMI with ff
-			if(navigator.userAgent.search("Firefox")!==-1)
-			{
-				var IS_FIREFOX = true;
-				document.write("<script type='text\/javascript'>paceOptions = {elements: {selectors: ['img']}};<\/script>"+
-					'<script src="js\/pace.min.js"><\/script>'+
-					'<link href="css\/pace.css" rel="stylesheet" \/>');
-			}
-		</script>-->
   		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   		<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/evan.css"/>
@@ -35,15 +23,16 @@
 	</head>
 	<body>
 		<!--Preloader-->
-		<div id="preloader" class="preloader" style="display:none;"></div>
+		<div id="preloader" class="preloader" style="display:none;"><div id="preloader_after"></div></div>
 		<div id="preloader_text" class="preloader" style="display:none;">0%</div>
 		<!--Select between Free & Easy Or Concert-->
 		<section class="selection container">
-		<img class="selection middle-piece bg" src="assets/joke/right.jpg"/>
-		  <div class="selection middle-piece hoverable">
+		<div id="middle-piece-bg" class="selection middle-piece"></div>
+		<div class="selection middle-piece bg"></div>
+		  <div class="selection middle-piece">
 		    <article class="selection middle-piece">
-		      <h1 class="selection">Free & Easy</h1>
-		      <p>Enjoy Evan's journey at your own pace and time.</p>
+		      <h1 id="user_title" class="selection">EVAN IN ALL HIS GLORY</h1>
+		      <p id="user_subtitle">DARUDE SAAAANDSTOOORM</p>
 		    </article>
 		  </div>
 		</section>
@@ -57,16 +46,36 @@
 		<!--content-->
 		<div>
 			<div class="glorious evan">
-				<img class="img evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY">
+				<img id="user_foreground" class="img evan" style="display:none;" src="assets/joke/evan.png" alt="Evan TAY TAY TAAY">
 			</div>
+			<div id="disco_lights" class="glorious background discolights"></div>
 		</div>
 		<script src="js/pagespeed/jquery.js"></script>
 		<!--img onload handler-->
 		<script src="node_modules/imagesloaded/imagesloaded.pkgd.js"></script>
 		<script type="text/javascript">
 			//Initialize these variables
+			//Customizability:
+			/*
+				Preloader spinning color	(#preloader
+												border-left:10px solid #29d;
+    											border-right:10px solid #29d;
+    										)
+				title						(document.title & #user_title)
+				subtitle					(#user_subtitle)
+				preloader text is visible	(boolean, make sure the innerhtml is always "")
+				loading screen bg-color		(#middle-piece-bg)
+				loading screen bg-img		url
+				preloader img				#preloader_text background-url, passed in as Url
+				Foreground img				#user_foreground, passed in as Url
+				SUBREDDITS					SUBREDDITS variable
+				ALBUMS						ALBUMS variable
+				YT_PLAYERS					Video IDs, yt_players variable
+			*/
+
 			var SUBREDDITS = ["earthporn","villageporn"];//Pulling images from which subreddit(s)
-			var yt_players = ['WW_774CHwDg','9E6b3swbnWg'];//Put the video ID(s) into this array
+			var yt_players = ['y6120QOlsfU','9E6b3swbnWg'];//Put the video ID(s) into this array
+			var discoScale = true;
 		</script>
 		<script src="js/evan.js"></script>
 	</body>

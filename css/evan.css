@@ -14,7 +14,19 @@ div.glorious.evan {
 	/*center horizontally*/
 	position:absolute;left: 0;right: 0;margin: 0 auto;
 	/*glue to the ground*/
-	bottom: 0px;z-index: 9;
+	bottom: 0px;z-index: 8;
+}
+div.glorious.background.discolights {
+  z-index: 9;
+  opacity: 0.4;
+  animation: disco_color 3s;
+  animation-timing-function: linear;
+  animation-iteration-count:infinite;
+}
+.discotime {
+  animation: disco_scale 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count:infinite;
 }
 .img.evan {
 	display: block;
@@ -89,9 +101,13 @@ div.selection {
   height: 100%;
   z-index: 21;
 }
-img.selection.bg {
+div.selection.bg {
 	z-index: 20;
 	height: 100%;
+  background-image: url(../assets/joke/right.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #FFF;
 }
 article.selection {
   position: absolute;
@@ -109,15 +125,16 @@ h1.selection {
 .selection.container {
   display: table;
   width: 100%;
+  height: 100%;
 }
-img.middle-piece,div.middle-piece {
-  background-color: #B2EBF2;
+div.middle-piece {
   position: absolute;
   left: 0px;
   width: 100%;
 }
-.hoverable:hover {
-	opacity: 0.8;
+#middle-piece-bg {
+  background-color: #B2EBF2;
+  opacity: 0.7;
 }
 
 .preloader {
@@ -144,7 +161,7 @@ img.middle-piece,div.middle-piece {
     font-size: 1.2em;
     text-shadow: 2px 2px 2px #000;
 }
-#preloader:after{
+#preloader_after{
     position:absolute;
     width:80px;
     height:80px;
@@ -162,4 +179,24 @@ img.middle-piece,div.middle-piece {
     0% {transform: rotate(0deg);}
     50% {transform: rotate(180deg);}
     100% {transform: rotate(360deg);}
+}
+
+@keyframes disco_color {
+    0%{background-color: red;}
+    10% {background-color: green;}
+    20% {background-color:blue;}
+    30% {background-color: yellow;}
+    40% {background-color: orange;}
+    50% {background-color: purple;}
+    60% {background-color:brown;}
+    70% {background-color: pink;}
+    80% {background-color: lime;}
+    90% {background-color: cyan;}
+    100% {background-color: teal;}
+} 
+
+@keyframes disco_scale {
+  0%{transform: scale(1);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
 }

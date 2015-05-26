@@ -198,6 +198,11 @@
 		line-height: 150%;
 		font-size: 1rem;
 	}
+	.sidebarxcontent-container {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
 	.loading-screen-sidebar {
 		width: 30%;
 		height: 100%;
@@ -206,25 +211,29 @@
 		-webkit-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
 		-moz-box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
 		box-shadow: 2px 0px 10px 0px rgba(0,0,0,0.75);
+		z-index: 999;
 	}
 	.loading-screen-content {
 		width: 70%;
 		height: 100%;
 		float: left;
 	}
+	.selection.container {
+		position:relative;
+	}
   		</style>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
 	</head>
 	<body>
-		<div id="main-wrap" style="display:none;">
+		<div id="main-wrap">
 			<div id="info-wrap">
-				<div class="info"><h2>Stand-in-front-of-scenery Editor</h2><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h2 id="components_text">0/5 components finished.<br/>WHAT ARE YOU WAITING FOR???</h2></div>
-				<div class="info clickable" style="background-image: url(assets/joke/background_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Subreddits / Albums</p></div>
+				<div class="info"><h2>Stand-in-front-of-scenery Editor</h2><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h2 id="components_text">0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???</h2></div>
+				<div class="info clickable" onclick="set_subreddits()" style="background-image: url(assets/joke/background_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Subreddits / Albums</p></div>
 				<div id="div_setForeground" class="info clickable" onclick="set_foregroundScreen()" style="background-image: url(assets/joke/foreground_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Image of you / Foreground</p></div>
-				<div class="info clickable" onclick="set_loadingScreen();"><p>Title / Loading Screen</p></div>
-				<div class="info clickable" style="background-image: url(assets/joke/preloader_bg.png);background-repeat: no-repeat;background-position: center;"><p>Preloader</p></div>
-				<div class="info clickable" style="background-image: url(assets/joke/music_bg.png);background-repeat: no-repeat;background-position: center;"><p>Youtube Music Video URL</p></div>
+				<div id="div_setLoadingScreen" class="info clickable" onclick="set_loadingScreen();" style="background-image: url(assets/joke/preloader_bg.png);background-repeat: no-repeat;background-position: center;"><p>Title / Loading Screen</p></div>
+				<div class="info clickable" onclick="set_misc();" style="background-image: url(assets/joke/music_bg.png);background-repeat: no-repeat;background-position: center;"><p>Music & Misc</p></div>
+				<div class="info"></div>
 			</div>
 		</div>
 		<!--header-->
@@ -257,15 +266,57 @@
 			<div class="tools_row"><button type="button" onclick="resetImage();">RESET IMAGE</button></div>
 		</div>
 		<!--Loading screen form-->
-		<div class="loading-screen-sidebar">
-			<form class="loading-screen-details">
-				<div class="tools_row"><span class="editTools_p big_text">Title</span><input type="text" name="title" value="Hello World"></div>
-				<div class="tools_row"><span class="editTools_p big_text">Caption</span><input type="text" name="caption" value="What a boring title"></div>
-				<div class="tools_row"><span class="editTools_p big_text">Color</span><input id="loading_color_picker" type='color' title="Change color of brush" class='color-picker' value='#663399'/></div>
-				<div class="tools_row"><input type="submit" value="Confirm"></div>
-			</form>
+		<div id="loading-screen-div" class="sidebarxcontent-container" style="display:none;">
+			<div class="loading-screen-sidebar">
+				<form class="loading-screen-details">
+					<div class="tools_row"><span class="editTools_p big_text">Title</span><input id="bg_title" type="text" name="title" value="Your Title"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Caption</span><input id="bg_subtitle" type="text" name="caption" value="Your subtitle"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Background<br/>Color</span><input id="loading_color_picker" type='color' title="Change color of brush" class='color-picker' value='#B2EBF2'/></div>
+					<div class="tools_row"><span class="editTools_p big_text">Preloader<br/>Color</span><input id="preloader_color_picker" type='color' title="Change color of brush" class='color-picker' value='#2299dd'/></div>
+					<div class="tools_row"><span class="editTools_p big_text">Image</span><input type="file" id="bg_imageLoader" name="imageLoader"/></div>
+					<div class="tools_row"><button type="button" onclick="loading_screen_finish()">Confirm</div>
+				</form>
+			</div>
+			<div class="loading-screen-content">
+				<section class="selection container">
+				<div id="preloader" class="preloader"><div id="preloader_after"></div></div>
+				<div id="preloader_text" class="preloader">0%</div>
+				<div id="middle-piece-bg" class="selection middle-piece" style="background-color: #B2EBF2;"></div>
+				<div id="middle-piece-img" class="selection middle-piece bg"></div>
+				  <div class="selection middle-piece">
+				    <article class="selection middle-piece">
+				      <h1 id="user_title" class="selection">Your Title</h1>
+				      <p id="user_subtitle">Your subtitle</p>
+				    </article>
+				  </div>
+			</section>
+			</div>
 		</div>
-		<div class="loading-screen-content" style="background-color: #663399;"></div>
+		<!--Subredd and Albums-->
+		<!--{subreddits:[],albums:[]}-->
+		<div id="subreddits-div" class="sidebarxcontent-container" style="display:none;">
+			<div class="loading-screen-sidebar">
+				<form class="loading-screen-details">
+					<div class="tools_row"><span class="editTools_p big_text">Source 1</span><span><input type="radio" id="subr_1_radio" name="subr_1" checked='true' value="subreddit"><span>Subreddit</span><input type="radio" name="subr_1" value="album"><span>Album</span></span><input id="subr_1_text" type="text" name="title" value="earthporn"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Source 2<br/>(optional)</span><span><input type="radio" id="subr_2_radio" name="subr_2" value="subreddit"><span>Subreddit</span><input type="radio" name="subr_2" value="album"><span>Album</span></span><input id="subr_2_text" type="text" name="title" value=""></div>
+					<div class="tools_row"><button type="button" onclick="subr_finish()">Confirm</div>
+				</form>
+			</div>
+			<div class="loading-screen-content">Too lazy to show a preview lol</div>
+		</div>
+		<!--Misc-->
+		<div id="misc-div" class="sidebarxcontent-container" style="display:none;">
+			<div class="loading-screen-sidebar">
+				<form class="loading-screen-details">
+					<div class="tools_row"><span class="editTools_p big_text">Youtube Music Video URL<br/>(optional)</span><input id="music_url" type="url" name="title" value=""></div>
+					<div class="tools_row"><span class="editTools_p big_text">Disco Lights</span><input type="checkbox" id="disco_lights_checkbox"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Disco Shake</span><input type="checkbox" id="disco_scale_checkbox"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Autoplay Images (every 5 seconds)</span><input type="checkbox" id="autoplay_checkbox"></div>
+					<div class="tools_row"><button type="button" onclick="misc_finish()">Confirm</div>
+				</form>
+			</div>
+			<div class="loading-screen-content">Too lazy to show a preview lol</div>
+		</div>
 		<!--Image editing canvases-->
 		<div class="glorious evan" style="display:none;">
 			<canvas class="img evan" id="drawingCanvas">Please open this webpage on a HTML5 browser.</canvas>
@@ -336,7 +387,10 @@
 				STEP_DRAWING_START = 0,
 				STEP_DRAWING_RESIZE = 1,
 				STEP_DRAWING_EDIT = 2,
-				STEP_DRAWING_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+				STEP_DRAWING_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image to the size you want on screen. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+				STEP_LOADING_TEXT = ["Customize your loading screen! When you're done, hit confirm."],
+				STEP_SUBREDDIT_TEXT = ["To populate the background, we use images from Imgur <a href='http://redditlist.com/' target='_blank'>subreddits</a> and/or <a href='https://help.imgur.com/hc/en-us/articles/201146429-How-do-I-create-an-album' target='_blank'>albums</a>."],
+				STEP_MISC_TEXT = ["Further customization"],
 				STEP_TEXT,
 
 				//SLIDER_LIMITS
@@ -345,8 +399,20 @@
 				SLIDER_LIMIT_CROP = [1,100,200],
 				SLIDER_LIMIT_HARDNESS = [1,95,100],
 
-				COMPONENTS = [0,0,0,0,0];
-				COMPONENTS_TEXT = ["0/5 components finished.<br/>WHAT ARE YOU WAITING FOR???","1/5 components finished.<br/>","2/5 components finished.<br/>","3/5 components finished.<br/>","4/5 components finished.<br/>ONE LAST TIME!","5/5 components finished!<br/>"];
+				COMPONENTS = [0,0,0,0];
+				COMPONENTS_TEXT = ["0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???","1/4 components finished.<br/>","2/4 components finished.<br/>","3/4 components finished.<br/>ONE LAST TIME!","4/4 components finished!<br/>"];
+
+				//Loading screen / background
+				var bg_imageLoader = document.getElementById('bg_imageLoader');
+					//bg_imgDataURL,
+					//bg_title_text,
+					//bg_subtitle_text,
+					//bg_color,
+					//bg_preloader_color;
+				bg_imageLoader.addEventListener('change', loadBgImage, false);
+
+				//final JSON
+				var result = {};
 
 			/**Setup options*/
 			function transitActionToMain () {
@@ -357,8 +423,12 @@
 				    total += COMPONENTS[i] << 0;
 				}
 				$('#components_text').html(COMPONENTS_TEXT[total]);
+				if(total === COMPONENTS.length) {
+					finishedCreation();
+				}
 			}
 			function transitMainToAction () {
+				imageHistories = [];
 				$('#main-wrap').hide(200);
 				$('.main.title').show(200);
 				stepIndex = 0;
@@ -371,7 +441,22 @@
 				transitMainToAction();
 			}
 			function set_loadingScreen () {
+				okButtonHandler = btnHandler_loading;
+				STEP_TEXT = STEP_LOADING_TEXT;
 				transitMainToAction();
+				$('#loading-screen-div').show();
+			}
+			function set_subreddits () {
+				okButtonHandler = btnHandler_loading;
+				STEP_TEXT = STEP_SUBREDDIT_TEXT;
+				transitMainToAction();
+				$('#subreddits-div').show();
+			}
+			function set_misc () {
+				okButtonHandler = btnHandler_loading;
+				STEP_TEXT = STEP_MISC_TEXT;
+				transitMainToAction();
+				$("#misc-div").show();
 			}
 
 			/** Ok button handlers
@@ -398,6 +483,7 @@
 			    			break;
 			    		case STEP_DRAWING_EDIT:
 			    			personDataURL = imageCanvas.toDataURL();
+			    			//result.personDataURL = personDataURL;
 			    			$("#div_tools").hide(200);
 			    			$('.glorious.evan').hide(200);
 			    			$("#div_setForeground").css("background-image","url("+personDataURL+")");
@@ -406,6 +492,54 @@
 			    			document.body.style.backgroundImage = '';
 			    			break;
 			    	}
+				}
+				function btnHandler_loading () {
+					setTitleStep();
+					$("#btn_ok").hide();
+					$('#resizer-slider').hide();
+					$('#imageLoader').hide();
+				}
+				function loading_screen_finish () {
+					COMPONENTS[2] = 1;
+					$('#loading-screen-div').hide();
+					result.bg_title = $("#bg_title").val();
+					result.bg_subtitle = $("#bg_subtitle").val();
+					result.bg_color = $("#loading_color_picker").spectrum("get").toHexString();
+					result.bg_preloader_color = $("#preloader_color_picker").spectrum("get").toHexString();
+					$('#div_setLoadingScreen').css(
+						{'background-color':result.bg_color,
+						'background-image':"url("+result.bg_imgDataURL+")",
+						'background-size:':"100% 100%"
+						});
+					transitActionToMain();
+				}
+				function subr_finish () {
+					COMPONENTS[0] = 1;
+					$('#subreddits-div').hide();
+					result.subreddits = [];
+					result.albums = [];
+					for(var i=1,l=2;i<=l;++i) {
+						var name = document.getElementById('subr_'+i+'_text').value;
+						if(document.getElementById('subr_'+i+'_radio').checked) {//subr
+							result.subreddits.push(name);
+						} else {//album
+							result.albums.push(name);
+						}
+					}
+					transitActionToMain();
+				}
+				function misc_finish () {
+					COMPONENTS[3] = 1;
+					$('#misc-div').hide();
+					result.music_url = getYoutubeID(document.getElementById('music_url').value);
+					result.discoLights = document.getElementById('disco_lights_checkbox').checked;
+					result.discoScale = document.getElementById('disco_scale_checkbox').checked;
+					result.autoplay = document.getElementById('autoplay_checkbox').checked;
+					transitActionToMain();
+				}
+				function finishedCreation () {
+					json = JSON.stringify(result);
+					console.log(json);
 				}
 
 		    //mouse functionality
@@ -543,6 +677,21 @@
 			            $("#resizer-slider").show();
 			            $("#btn_ok").show();
 			            setTitleStep();
+			        }
+			        uploadedImg.src = event.target.result;
+			    }
+			    reader.readAsDataURL(e.target.files[0]);
+			}
+
+			function loadBgImage(e){
+			    var reader = new FileReader();
+			    reader.onload = function(event) {
+			        uploadedImg = new Image();
+			        uploadedImg.onload = function() {
+			        	resetImage();
+			        	result.bg_imgDataURL = imageCanvas.toDataURL();
+			        	document.getElementById('middle-piece-img').style.backgroundImage = "url("+result.bg_imgDataURL+")";
+			        	document.getElementById('preloader_text').style.backgroundImage = "url("+result.bg_imgDataURL+")";
 			        }
 			        uploadedImg.src = event.target.result;
 			    }
@@ -699,6 +848,15 @@
 				$("#brush_color_picker").spectrum("set", hex);
 				setupCursor();
 			}
+			//http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+			function getYoutubeID (url) {
+				url = url.substring(url.indexOf('v=')+2);
+				var ampersand = url.indexOf('&');
+				if(ampersand !== -1) {
+					url = url.substring(0,ampersand);
+				}
+				return url;
+			}
 
 			//Onload
 			$(function() {
@@ -724,16 +882,46 @@
 					    pickingColor = false;
 					}
 				});
-				//Initialize Color Picker
+				//Initialize background modifier stuff
+				//like the color picker
 				$('#loading_color_picker').spectrum({
 					preferredFormat: "hex3",
 					showInput: true,
 					showPalette: true,
 					showInitial: true,
-					change: function(color) {
-					    $('.loading-screen-content').css('background-color',color.toHexString());
-					},
+					change: function (color) {
+						$('#middle-piece-bg').css('background-color',color.toHexString());
+					}
 				});
+				$('#loading_color_picker').on("dragstop.spectrum", function(e, color) {
+					$('#middle-piece-bg').css('background-color',color.toHexString());
+				});
+				$('#preloader_color_picker').spectrum({
+					preferredFormat: "hex3",
+					showInput: true,
+					showPalette: true,
+					showInitial: true,
+					change: function (color) {
+						$('#preloader_after').css({
+							"border-left":"10px solid "+color.toHexString(),
+		    				"border-right":"10px solid "+color.toHexString()
+		    			});
+					}
+				});
+				$('#preloader_color_picker').on("dragstop.spectrum", function(e, color) {
+					$('#preloader_after').css({
+						"border-left":"10px solid "+color.toHexString(),
+	    				"border-right":"10px solid "+color.toHexString()
+	    			});
+				});
+				//and the textboxes
+				$("#bg_title").on("input", null, null,function () {
+					document.title = this.value;
+					$("#user_title").text(this.value);
+				})
+				$("#bg_subtitle").on("input", null, null,function () {
+					$("#user_subtitle").text(this.value);
+				})
 
 				//Mouse Event handlers
 				$('body').mouseup(function(){//mouse up

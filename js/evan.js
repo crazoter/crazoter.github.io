@@ -236,6 +236,8 @@ var preloader_percent = 0,
 		img_bg = document.createElement('IMG');
 		img_bg.src = getImgURL(img_data);
 		img_bg.className = "glorious background";
+		if(discoScale)
+			img_bg.className += " discotime";
 		document.body.appendChild(img_bg);
 	}
 
@@ -253,6 +255,8 @@ var preloader_percent = 0,
 			img_bg = document.createElement('IMG');
 			img_bg.src = getImgURL(img_data);
 			img_bg.className = "glorious background";
+			if(discoScale)
+				img_bg.className += " discotime";
 			document.body.appendChild(img_bg);
 		}
 	}
@@ -276,6 +280,8 @@ var preloader_percent = 0,
 			img_bg = document.createElement('IMG');
 			img_bg.src = getImgURL(img_data);
 			img_bg.className = "glorious background";
+			if(discoScale)
+				img_bg.className += " discotime";
 			document.body.appendChild(img_bg);
 		}
 		else
@@ -303,6 +309,8 @@ var preloader_percent = 0,
 		img_bg = document.createElement('IMG');
 		img_bg.src = getImgURL(img_data);
 		img_bg.className = "glorious background";
+		if(discoScale)
+			img_bg.className += " discotime";
 		document.body.appendChild(img_bg);
 		if(direction < 0)
 			$(img_bg).style.left = width+"px";
