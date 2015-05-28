@@ -44,6 +44,13 @@
 			    -o-user-select: none;
 			    user-select: none;
 			}
+			.selectable {
+				-moz-user-select: -moz-text;
+			    -khtml-user-select: text;
+			    -webkit-user-select: text;
+			    -o-user-select: text;
+			    user-select: text;
+			}
 			body {
 				background-color: #EEE;
 			}
@@ -234,7 +241,7 @@
 	<body>
 		<div id="main-wrap">
 			<div id="info-wrap">
-				<div class="info"><h2>Stand-in-front-of-scenery Editor</h2><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h2 id="components_text">0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???</h2></div>
+				<div class="info"><h2>Stand-in-front-of-scenery Editor</h2><section>Here is an <a href="https://crazoter.github.io/evan.html" target="_blank">example</a> of what you will be making!<br/>Create your own version now!</section><h2 id="components_text" class="selectable">0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???</h2></div>
 				<div class="info clickable" onclick="set_subreddits()" style="background-image: url(assets/joke/background_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Subreddits / Albums</p></div>
 				<div id="div_setForeground" class="info clickable" onclick="set_foregroundScreen()" style="background-image: url(assets/joke/foreground_bg.png);background-repeat: no-repeat;background-size: 100% 100%"><p>Image of you / Foreground</p></div>
 				<div id="div_setLoadingScreen" class="info clickable" onclick="set_loadingScreen();" style="background-image: url(assets/joke/preloader_bg.png);background-repeat: no-repeat;background-position: center;"><p>Title / Loading Screen</p></div>
@@ -275,8 +282,8 @@
 		<div id="loading-screen-div" class="sidebarxcontent-container" style="display:none;">
 			<div class="loading-screen-sidebar">
 				<form class="loading-screen-details">
-					<div class="tools_row"><span class="editTools_p big_text">Title</span><input id="bg_title" type="text" name="title" value="Your Title"></div>
-					<div class="tools_row"><span class="editTools_p big_text">Caption</span><input id="bg_subtitle" type="text" name="caption" value="Your subtitle"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Title</span><input class="selectable" id="bg_title" type="text" name="title" value="Your Title"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Caption</span><input class="selectable" id="bg_subtitle" type="text" name="caption" value="Your subtitle"></div>
 					<div class="tools_row"><span class="editTools_p big_text">Background<br/>Color</span><input id="loading_color_picker" type='color' title="Change color of brush" class='color-picker' value='#B2EBF2'/></div>
 					<div class="tools_row"><span class="editTools_p big_text">Preloader<br/>Color</span><input id="preloader_color_picker" type='color' title="Change color of brush" class='color-picker' value='#2299dd'/></div>
 					<div class="tools_row"><span class="editTools_p big_text">Image<br/>(optional)</span><input type="file" id="bg_imageLoader" name="imageLoader"/></div>
@@ -303,8 +310,8 @@
 		<div id="subreddits-div" class="sidebarxcontent-container" style="display:none;">
 			<div class="loading-screen-sidebar">
 				<form class="loading-screen-details">
-					<div class="tools_row"><span class="editTools_p big_text">Source 1</span><span><input type="radio" id="subr_1_radio" name="subr_1" checked='true' value="subreddit"><span>Subreddit</span><input type="radio" name="subr_1" value="album"><span>Album</span></span><input id="subr_1_text" type="text" name="title" value="earthporn"></div>
-					<div class="tools_row"><span class="editTools_p big_text">Source 2<br/>(optional)</span><span><input type="radio" id="subr_2_radio" name="subr_2" value="subreddit"><span>Subreddit</span><input type="radio" name="subr_2" value="album"><span>Album</span></span><input id="subr_2_text" type="text" name="title" value=""></div>
+					<div class="tools_row"><span class="editTools_p big_text">Source 1</span><span><input type="radio" id="subr_1_radio" name="subr_1" checked='true' value="subreddit"><span>Subreddit</span><input type="radio" name="subr_1" value="album"><span>Album</span></span><input class="selectable" id="subr_1_text" type="text" name="title" value="earthporn"></div>
+					<div class="tools_row"><span class="editTools_p big_text">Source 2<br/>(optional)</span><span><input type="radio" id="subr_2_radio" name="subr_2" value="subreddit"><span>Subreddit</span><input type="radio" name="subr_2" value="album"><span>Album</span></span><input class="selectable" id="subr_2_text" type="text" name="title" value=""></div>
 					<div class="tools_row"><button type="button" onclick="subr_finish()">Confirm</div>
 				</form>
 			</div>
@@ -314,14 +321,16 @@
 		<div id="misc-div" class="sidebarxcontent-container" style="display:none;">
 			<div class="loading-screen-sidebar">
 				<form class="loading-screen-details">
-					<div class="tools_row"><span class="editTools_p big_text">Youtube Music Video URL<br/>(optional)</span><input id="music_url" type="url" name="title" value=""></div>
+					<div class="tools_row"><span class="editTools_p big_text">Youtube Music Video URL<br/>(optional)</span><input class="selectable" id="music_url" type="url" name="title" value=""></div>
 					<div class="tools_row"><span class="editTools_p big_text">Disco Lights</span><input type="checkbox" id="disco_lights_checkbox"></div>
 					<div class="tools_row"><span class="editTools_p big_text">Disco Shake</span><input type="checkbox" id="disco_scale_checkbox"></div>
 					<div class="tools_row"><span class="editTools_p big_text">Autoplay Images (every 5 seconds)</span><input type="checkbox" id="autoplay_checkbox"></div>
 					<div class="tools_row"><button type="button" onclick="misc_finish()">Confirm</div>
 				</form>
 			</div>
-			<div class="loading-screen-content">Too lazy to show a preview lol</div>
+			<div class="loading-screen-content"><span>Make sure your youtube video can be played back. If it loads successfully, it can be played. If not, choose another one.</span>
+				 <div id="player" style="display:block;"></div>
+			</div>
 		</div>
 		<!--Image editing canvases-->
 		<div class="glorious evan" style="display:none;">
@@ -543,6 +552,7 @@
 					result.discoLights = document.getElementById('disco_lights_checkbox').checked;
 					result.discoScale = document.getElementById('disco_scale_checkbox').checked;
 					result.autoplay = document.getElementById('autoplay_checkbox').checked;
+					player.stopVideo();
 					transitActionToMain();
 				}
 				function finishedCreation () {
@@ -967,10 +977,13 @@
 				$("#bg_title").on("input", null, null,function () {
 					document.title = this.value;
 					$("#user_title").text(this.value);
-				})
+				});
 				$("#bg_subtitle").on("input", null, null,function () {
 					$("#user_subtitle").text(this.value);
-				})
+				});
+				$("#music_url").on("input", null, null,function () {
+					player.loadVideoById(getYoutubeID(this.value));
+				});
 
 				//Mouse Event handlers
 				$('body').mouseup(function(){//mouse up
@@ -1146,6 +1159,43 @@
 			    	okButtonHandler();
 			    });
 			});
+
+			/**
+			MUSIC
+			*/
+			// 2. This code loads the IFrame Player API code asynchronously.
+	      var tag = document.createElement('script');
+	      tag.src = "https://www.youtube.com/iframe_api";
+	      var firstScriptTag = document.getElementsByTagName('script')[0];
+
+	      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	      // 3. This function creates an <iframe> (and YouTube player)
+	      //    after the API code downloads.
+	      var player;
+	      function onYouTubeIframeAPIReady() {
+	        player = new YT.Player('player', {
+	          height: '390',
+	          width: '640',
+	          videoId: 'M7lc1UVf-VE',
+	          events: {
+	            'onReady': onPlayerReady
+	          }
+	        });
+	      }
+
+	      // 4. The API will call this function when the video player is ready.
+	      function onPlayerReady(event) {
+	        event.target.playVideo();
+	        player.setVolume(0);
+	      }
+
+	      // 5. The API calls this function when the player's state changes.
+	      //    The function indicates that when playing a video (state=1),
+	      //    the player should play for six seconds and then stop.
+	      function stopVideo() {
+	        player.stopVideo();
+	      }
 		</script>
 	</body>
 </html>
