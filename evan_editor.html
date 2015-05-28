@@ -221,6 +221,12 @@
 	.selection.container {
 		position:relative;
 	}
+	div.selection.bg {
+		background-image: url(assets/joke/bg_placeholder.png);
+	  background-repeat: no-repeat;
+	  background-size: 100% 100%;
+	  background-color: #FFF;
+	}
   		</style>
 		<script src="js/prefixfree.min.js"></script>
 		<script src="js/pagespeed/modernizr.js"></script>
@@ -273,7 +279,7 @@
 					<div class="tools_row"><span class="editTools_p big_text">Caption</span><input id="bg_subtitle" type="text" name="caption" value="Your subtitle"></div>
 					<div class="tools_row"><span class="editTools_p big_text">Background<br/>Color</span><input id="loading_color_picker" type='color' title="Change color of brush" class='color-picker' value='#B2EBF2'/></div>
 					<div class="tools_row"><span class="editTools_p big_text">Preloader<br/>Color</span><input id="preloader_color_picker" type='color' title="Change color of brush" class='color-picker' value='#2299dd'/></div>
-					<div class="tools_row"><span class="editTools_p big_text">Image</span><input type="file" id="bg_imageLoader" name="imageLoader"/></div>
+					<div class="tools_row"><span class="editTools_p big_text">Image<br/>(optional)</span><input type="file" id="bg_imageLoader" name="imageLoader"/></div>
 					<div class="tools_row"><button type="button" onclick="loading_screen_finish()">Confirm</div>
 				</form>
 			</div>
@@ -400,11 +406,11 @@
 				SLIDER_LIMIT_HARDNESS = [1,95,100],
 
 				COMPONENTS = [0,0,0,0];
-				COMPONENTS_TEXT = ["0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???","1/4 components finished.<br/>","2/4 components finished.<br/>","3/4 components finished.<br/>ONE LAST TIME!","4/4 components finished!<br/>"];
+				COMPONENTS_TEXT = ["0/4 components finished.<br/>WHAT ARE YOU WAITING FOR???","1/4 components finished.<br/>","2/4 components finished.<br/>","3/4 components finished.<br/>ONE LAST TIME!","4/4 components finished!<br/>Please wait while we generate your page..."];
 
 				//Loading screen / background
-				var bg_imageLoader = document.getElementById('bg_imageLoader');
-					//bg_imgDataURL,
+				var bg_imageLoader = document.getElementById('bg_imageLoader'),
+					bg_imgDataURL;
 					//bg_title_text,
 					//bg_subtitle_text,
 					//bg_color,
@@ -429,6 +435,7 @@
 			}
 			function transitMainToAction () {
 				imageHistories = [];
+				imageHistoryIndex = -1;
 				$('#main-wrap').hide(200);
 				$('.main.title').show(200);
 				stepIndex = 0;
@@ -508,7 +515,7 @@
 					result.bg_preloader_color = $("#preloader_color_picker").spectrum("get").toHexString();
 					$('#div_setLoadingScreen').css(
 						{'background-color':result.bg_color,
-						'background-image':"url("+result.bg_imgDataURL+")",
+						'background-image':"url("+bg_imgDataURL+")",
 						'background-size:':"100% 100%"
 						});
 					transitActionToMain();
@@ -531,15 +538,49 @@
 				function misc_finish () {
 					COMPONENTS[3] = 1;
 					$('#misc-div').hide();
-					result.music_url = getYoutubeID(document.getElementById('music_url').value);
+					result.music_id = getYoutubeID(document.getElementById('music_url').value);
 					result.discoLights = document.getElementById('disco_lights_checkbox').checked;
 					result.discoScale = document.getElementById('disco_scale_checkbox').checked;
 					result.autoplay = document.getElementById('autoplay_checkbox').checked;
 					transitActionToMain();
 				}
 				function finishedCreation () {
-					json = JSON.stringify(result);
-					console.log(json);
+					//first time is submit the personImage
+					//second time is submit the backgroundImage
+					 $.ajax({ 
+					    url: "https://api.imgur.com/3/image",
+					    headers: {
+					        'Authorization': 'Client-ID 3bc8b402e145392'
+					    },
+					    data: {
+					    	image: getRidOfBase64Header(personDataURL),
+					    	description: (bg_imgDataURL?null:JSON.stringify(result)),
+					    	type:'base64'
+					    },
+					    type: 'POST'})
+					    .done(function(msg) {
+					    	msgA = msg;
+					    	if(bg_imgDataURL) {
+					    		result.personId = msg.data.id;
+						    	 $.ajax({ 
+								    url: "https://api.imgur.com/3/image",
+								    headers: {
+								        'Authorization': 'Client-ID 3bc8b402e145392'
+								    },
+								    data: {
+								    	image: getRidOfBase64Header(bg_imgDataURL),
+								    	description: JSON.stringify(result),
+								    	type:'base64'
+								    },
+								    type: 'POST'})
+								    .done(function(msg) {
+								    	msgB = msg;
+								    	$('#components_text').html("Your page has been created!Access it at<br/>https://crazoter.github.io/lol?id="+encodeURIComponent(msg.data.id));
+									});
+							} else {
+								$('#components_text').html("Your page has been created!Access it at<br/>https://crazoter.github.io/lol?id="+msg.data.id);
+							}
+					    });
 				}
 
 		    //mouse functionality
@@ -689,9 +730,9 @@
 			        uploadedImg = new Image();
 			        uploadedImg.onload = function() {
 			        	resetImage();
-			        	result.bg_imgDataURL = imageCanvas.toDataURL();
-			        	document.getElementById('middle-piece-img').style.backgroundImage = "url("+result.bg_imgDataURL+")";
-			        	document.getElementById('preloader_text').style.backgroundImage = "url("+result.bg_imgDataURL+")";
+			        	bg_imgDataURL = imageCanvas.toDataURL();
+			        	document.getElementById('middle-piece-img').style.backgroundImage = "url("+bg_imgDataURL+")";
+			        	document.getElementById('preloader_text').style.backgroundImage = "url("+bg_imgDataURL+")";
 			        }
 			        uploadedImg.src = event.target.result;
 			    }
@@ -710,6 +751,9 @@
 			*/
 			function setTitleStep () {
 				label_instructions.innerHTML = STEP_TEXT[stepIndex];
+			}
+			function getRidOfBase64Header (dataUrl) {
+				return dataUrl.substring(dataUrl.indexOf('base64,')+7);
 			}
 
 			/**

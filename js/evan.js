@@ -37,7 +37,16 @@ var preloader_percent = 0,
 	yt_api_loaded = false,
 	musicMuted = false,
 	finishedPreloading = false,
+	started = false,
 	selected = SELECTED_NONE;//free & easy or concert
+
+//CUSTOMIZABLES
+var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subreddit(s)
+	ALBUMS = [],
+	yt_players = [],//['y6120QOlsfU'],//Put the video ID(s) into this array
+	discoScale = true,
+	discoLights = true,
+	autoPlay = true;
 //#endregion
 
 //#region Initialization
@@ -102,8 +111,17 @@ var preloader_percent = 0,
 		Get data from Imgur
 	*/
 	function pullData () {
+		//randomize subr / album
+		var temp = [];
+		for(var i=0,l=SUBREDDITS.length;i<l;++i){
+			temp.push({"id":SUBREDDITS[i],"subreddit":1})
+		}
+		for(var i=0,l=ALBUMS.length;i<l;++i){
+			temp.push({"id":ALBUMS[i],"album":1})
+		}
+
 	    $.ajax({ 
-		    url: 'https://api.imgur.com/3/gallery/r/'+SUBREDDITS[Math.floor(Math.random()*SUBREDDITS.length)],//nsfw guys
+		    url: buildPullDataURL(temp[Math.random()*temp.length|0]),//nsfw guys
 		    headers: {
 		        'Authorization': 'Client-ID 3bc8b402e145392'
 		    },
@@ -118,12 +136,18 @@ var preloader_percent = 0,
 				pullData();//:)
 			});
 	}
+	function buildPullDataURL (obj) {
+		if(obj.subreddit)
+			return 'https://api.imgur.com/3/gallery/r/'+obj.id;
+		else// if(obj.album)
+			return 'https://api.imgur.com/3/album/'+obj.id+'/images';
+	}
 
 	/**
 		Onload function
 	*/
 	$(function() {
-	    //Load stuff from Imgur API
+		//Init main loot
 	    img_bg = document.getElementById("img_bg");
 	    h5_title = document.getElementById("h5_title");
 	    $preloader = $(".preloader");
@@ -149,12 +173,120 @@ var preloader_percent = 0,
 	    	resize();
 		});
 		resize();
-		$("img.evan").show();
-
+		//Init other stuff such as customizables
+		//Get query strings
+		var queryDict = {},items = location.search.substr(1).split("&"),l = items.length;
+		while(--l) {
+			var temp = items[l].split("=");
+			queryDict[temp[0]] = temp[1];
+		}
+		if(queryDict.id) {
+			var tempImg;
+			var result;
+			$.ajax({ 
+		    url: 'https://api.imgur.com/3/image/'+decodeURIComponent(queryDict.id[0]),
+		    type: 'GET'})
+		    .done(function(msg) {
+		    	result = JSON.parse(msg.description);
+		    	setupCustomization(result);//using the description of the image.... lol this is intriguing
+		    	//set custom stuff
+		    	//usually returns 60
+		    	if(result.personId) {
+		    		//there's another img to load, we only loaded the bg image
+		    		loadLoadingImg(msg.link);
+		    		$.ajax({ 
+				    url: 'https://api.imgur.com/3/image/'+result.personId,
+				    type: 'GET'})
+				    .done(function(msg) {
+				    	loadPersonImg(msg.link);
+				    	init();
+				    }).fail(function( jqXHR, textStatus ) {
+						debugger;
+						var DAAAAMN_IIIT = 999999;
+					});
+		    	} else {
+		    		//no loading image... REALLY?
+		    		loadLoadingImg(null);
+		    		loadPersonImg(msg.link);
+		    		init();
+		    	}
+			}).fail(function( jqXHR, textStatus ) {
+				debugger;
+				var THIS_CANT_BE_HAAAPPENING_oh_wait_it_is_DAMN_IT = 999999;
+			});
+		} else {
+			//values already initialized
+			loadLoadingImg("assets/joke/happy_evan.png");
+			loadPersonImg("assets/joke/evan.png");
+			init();
+		}
+		//Initialize these variables
+		//Customizability:
+		/*
+			Preloader spinning color	(#preloader
+											border-left:10px solid #29d;
+											border-right:10px solid #29d;
+										)
+			title						(document.title & #user_title)
+			subtitle					(#user_subtitle)
+			preloader text is visible	(boolean, make sure the innerhtml is always "")
+			loading screen bg-color		(#middle-piece-bg)
+			loading screen bg-img		url
+			preloader img				#preloader_text background-url, passed in as Url
+			Foreground img				#user_foreground, passed in as Url
+			SUBREDDITS					SUBREDDITS variable
+			ALBUMS						ALBUMS variable
+			YT_PLAYERS					Video IDs, yt_players variable
+		*/
+	});
+	function loadPersonImg (imgUrl) {
+		$("img.evan").load(function () {
+			$("img.evan").show();
+		});
+		$("img.evan").attr('src',imgUrl);
+	}
+	function loadLoadingImg (imgUrl) {
+		//when you do this remember never to put a semi-colon at the end
+		$("div.selection.bg").css({
+			"background-image":"url("+imgUrl+")",
+			"background-repeat": "no-repeat",
+			"background-size": "100% 100%"
+		});
+		$("#preloader_text.preloader").css({
+			"background":"url("+imgUrl+")",
+			"background-repeat": "no-repeat",
+			"background-size": "60px 60px"
+		});
+	}
+	function setupCustomization (result) {
+		//LOADING SCREEN
+		$('#user_title').text(result.bg_title);//AWWW
+		$('#user_subtitle').text(result.bg);//I know, it's tempting to put html and setup some nice xss
+		$('#middle-piece-bg').css('background-color',result.bg_color);
+		$('#preloader_after').css({
+				"border-left":"10px solid "+result.bg_preloader_color,
+				"border-right":"10px solid "+result.bg_preloader_color
+			});
+		//SUBREDDITS & ALBUMS
+		SUBREDDITS = result.subreddits;
+		ALBUMS = result.albums;
+		//MISC
+		yt_players = [];
+		if(result.music_id !== "")
+			yt_players.push(result.music_id);
+		discoLights = result.discoLights;
+		discoScale = result.discoScale;
+		autoPlay = result.autoplay;
+	}
+	function init () {
+		//Load stuff from Imgur API
+		if(discoLights)
+			document.getElementById('disco_lights').className = "glorious background discolights";//initialize discolights
 		pullData();
 		loadYoutubeAPI();
 		chosenMusicID = 0;
-	});
+		volumeBtnSetImage();
+	}
 //#endregion
 
 //#region Selection (Choosing between f&e or concert)
@@ -164,10 +296,15 @@ var preloader_percent = 0,
 	*/
 
 	function start () {
-		if(finishedPreloading && yt_api_loaded)
+		if(finishedPreloading && yt_api_loaded && !started) {
+			started = true;
 			$preloader.fadeOut();
-		if(finishedPreloading && yt_api_loaded) {
 			$('.middle-piece').slideUp(500);
+			if(autoPlay) {
+				window.setInterval(function(){
+					next_img();
+				},5000);
+			}
 			if(yt_players.length > 0)
 				yt_players[chosenMusicID].playVideo();
 		}
@@ -384,7 +521,6 @@ var preloader_percent = 0,
     	if(++yt_players_loaded >= yt_players.length)
     		yt_api_loaded = true;
     	//start();
-    	volumeBtnSetImage();
     	updatePreloaderPercent();
     	//toggle_mute();//lol
     }
@@ -409,6 +545,7 @@ var preloader_percent = 0,
 	  			img_volume.src = "data:image/png;base64,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";
 	  		}
 	  	} else {
+	  		console.log("i tried");
 	  		$(img_volume).hide();
 	  	}
   	}
