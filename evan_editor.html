@@ -487,6 +487,7 @@
 			    			$('#div_tools').show(300);
 			    			++stepIndex;
 			    			setTitleStep();
+			    			$(drawingCanvas).offset($(imageCanvas).offset());
 			    			break;
 			    		case STEP_DRAWING_EDIT:
 			    			personDataURL = imageCanvas.toDataURL();
@@ -575,12 +576,15 @@
 								    type: 'POST'})
 								    .done(function(msg) {
 								    	msgB = msg;
-								    	$('#components_text').html("Your page has been created!Access it at<br/>https://crazoter.github.io/lol?id="+encodeURIComponent(msg.data.id));
+								    	updateComponentsText("https://crazoter.github.io/evan?id="+encodeURIComponent(msg.data.id));
 									});
 							} else {
-								$('#components_text').html("Your page has been created!Access it at<br/>https://crazoter.github.io/lol?id="+msg.data.id);
+								updateComponentsText("https://crazoter.github.io/evan?id="+encodeURIComponent(msg.data.id));
 							}
 					    });
+				}
+				function updateComponentsText (url) {
+					$('#components_text').html("Your page has been created!Access it at<br/><a href='"+url+"' target='_blank'>"+url+"</a>");
 				}
 
 		    //mouse functionality
@@ -610,6 +614,7 @@
 		        mousePos.y -= rect.top;
 		    }
 		    function resizeCanvas (w,h) {
+		    	console.log('resizedCanvas');
 		    	imageCanvas.width = w;
 		    	imageCanvas.height = h;
 		    	drawingCanvas.width = w;

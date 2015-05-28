@@ -43,7 +43,7 @@ var preloader_percent = 0,
 //CUSTOMIZABLES
 var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subreddit(s)
 	ALBUMS = [],
-	yt_players = [],//['y6120QOlsfU'],//Put the video ID(s) into this array
+	yt_players = ['y6120QOlsfU'],//Put the video ID(s) into this array
 	discoScale = true,
 	discoLights = true,
 	autoPlay = true;
@@ -175,6 +175,7 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		resize();
 		//Init other stuff such as customizables
 		//Get query strings
+		debugger;
 		var queryDict = {},items = location.search.substr(1).split("&"),l = items.length;
 		while(--l) {
 			var temp = items[l].split("=");
