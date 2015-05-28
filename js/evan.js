@@ -112,7 +112,6 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 	*/
 	function pullData () {
 		//randomize subr / album
-		debugger;
 		var temp = [];
 		for(var i=0,l=SUBREDDITS.length;i<l;++i){
 			if(SUBREDDITS[i] !== "")
@@ -178,7 +177,6 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		resize();
 		//Init other stuff such as customizables
 		//Get query strings
-		debugger;
 		var queryDict = {},items = location.search.substr(1).split("&"),l = items.length;
 		while(l--) {
 			var temp = items[l].split("=");
@@ -194,7 +192,6 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		    },
 		    type: 'GET'})
 		    .done(function(msg) {
-		    	debugger;
 		    	result = JSON.parse(msg.data.description);
 		    	setupCustomization(result);//using the description of the image.... lol this is intriguing
 		    	//set custom stuff
@@ -209,11 +206,9 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 				    },
 				    type: 'GET'})
 				    .done(function(msg) {
-				    	debugger;
 				    	loadPersonImg(msg.data.link);
 				    	init();
 				    }).fail(function( jqXHR, textStatus ) {
-						debugger;
 						var DAAAAMN_IIIT = 999999;
 					});
 		    	} else {
@@ -223,11 +218,13 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		    		init();
 		    	}
 			}).fail(function( jqXHR, textStatus ) {
-				debugger;
 				var THIS_CANT_BE_HAAAPPENING_oh_wait_it_is_DAMN_IT = 999999;
 			});
 		} else {
 			//values already initialized
+			$('#user_title').text("EVAN IN ALL HIS GLORY");//AWWW
+			document.title = "EVAN IN ALL HIS GLORY";
+			$('#user_subtitle').text("DARUDE SAAAANDSTOOORM");//I know, it's tempting to put html and setup some nice xss
 			loadLoadingImg("assets/joke/happy_evan.png");
 			loadPersonImg("assets/joke/evan.png");
 			init();
@@ -271,9 +268,11 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		});
 	}
 	function setupCustomization (result) {
+		//Title
 		//LOADING SCREEN
 		$('#user_title').text(result.bg_title);//AWWW
-		$('#user_subtitle').text(result.bg);//I know, it's tempting to put html and setup some nice xss
+		document.title = result.bg_title;
+		$('#user_subtitle').text(result.bg_subtitle);//I know, it's tempting to put html and setup some nice xss
 		$('#middle-piece-bg').css('background-color',result.bg_color);
 		$('#preloader_after').css({
 				"border-left":"10px solid "+result.bg_preloader_color,
