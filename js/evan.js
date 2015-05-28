@@ -112,12 +112,15 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 	*/
 	function pullData () {
 		//randomize subr / album
+		debugger;
 		var temp = [];
 		for(var i=0,l=SUBREDDITS.length;i<l;++i){
-			temp.push({"id":SUBREDDITS[i],"subreddit":1})
+			if(SUBREDDITS[i] !== "")
+				temp.push({"id":SUBREDDITS[i],"subreddit":1});
 		}
 		for(var i=0,l=ALBUMS.length;i<l;++i){
-			temp.push({"id":ALBUMS[i],"album":1})
+			if(ALBUMS[i] !== "")
+				temp.push({"id":ALBUMS[i],"album":1});
 		}
 
 	    $.ajax({ 
@@ -177,7 +180,7 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		//Get query strings
 		debugger;
 		var queryDict = {},items = location.search.substr(1).split("&"),l = items.length;
-		while(--l) {
+		while(l--) {
 			var temp = items[l].split("=");
 			queryDict[temp[0]] = temp[1];
 		}
@@ -185,21 +188,29 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 			var tempImg;
 			var result;
 			$.ajax({ 
-		    url: 'https://api.imgur.com/3/image/'+decodeURIComponent(queryDict.id[0]),
+		    url: 'https://api.imgur.com/3/image/'+decodeURIComponent(queryDict.id),
+		    headers: {
+		        'Authorization': 'Client-ID 3bc8b402e145392'
+		    },
 		    type: 'GET'})
 		    .done(function(msg) {
-		    	result = JSON.parse(msg.description);
+		    	debugger;
+		    	result = JSON.parse(msg.data.description);
 		    	setupCustomization(result);//using the description of the image.... lol this is intriguing
 		    	//set custom stuff
 		    	//usually returns 60
 		    	if(result.personId) {
 		    		//there's another img to load, we only loaded the bg image
-		    		loadLoadingImg(msg.link);
+		    		loadLoadingImg(msg.data.link);
 		    		$.ajax({ 
 				    url: 'https://api.imgur.com/3/image/'+result.personId,
+				    headers: {
+				        'Authorization': 'Client-ID 3bc8b402e145392'
+				    },
 				    type: 'GET'})
 				    .done(function(msg) {
-				    	loadPersonImg(msg.link);
+				    	debugger;
+				    	loadPersonImg(msg.data.link);
 				    	init();
 				    }).fail(function( jqXHR, textStatus ) {
 						debugger;
@@ -208,7 +219,7 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		    	} else {
 		    		//no loading image... REALLY?
 		    		loadLoadingImg(null);
-		    		loadPersonImg(msg.link);
+		    		loadPersonImg(msg.data.link);
 		    		init();
 		    	}
 			}).fail(function( jqXHR, textStatus ) {
