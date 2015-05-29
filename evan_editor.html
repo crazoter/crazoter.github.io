@@ -402,7 +402,8 @@
 				STEP_DRAWING_START = 0,
 				STEP_DRAWING_RESIZE = 1,
 				STEP_DRAWING_EDIT = 2,
-				STEP_DRAWING_TEXT = ["Step 1: Upload an image of you standing.","Step 2: Resize your image to the size you want on screen. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
+				STEP_DRAWING_GIF_EXCEPTION = 3,
+				STEP_DRAWING_TEXT = ["Step 1: Upload an image of you standing (Note: gif files will not be editable to preserve animation)","Step 2: Resize your image to the size you want on screen. When done, press OK.","Step 3: Erase unnecessary background. When done, press OK."],
 				STEP_LOADING_TEXT = ["Customize your loading screen! When you're done, hit confirm."],
 				STEP_SUBREDDIT_TEXT = ["To populate the background, we use images from Imgur <a href='http://redditlist.com/' target='_blank'>subreddits</a> and/or <a href='https://help.imgur.com/hc/en-us/articles/201146429-How-do-I-create-an-album' target='_blank'>albums</a>."],
 				STEP_MISC_TEXT = ["Further customization"],
@@ -501,6 +502,16 @@
 			    		case STEP_DRAWING_EDIT:
 			    			personDataURL = imageCanvas.toDataURL();
 			    			//result.personDataURL = personDataURL;
+			    			$("#div_tools").hide(200);
+			    			$('.glorious.evan').hide(200);
+			    			$("#div_setForeground").css("background-image","url("+personDataURL+")");
+			    			COMPONENTS[1] = 1;
+			    			transitActionToMain();
+			    			document.body.style.backgroundImage = '';
+			    			break;
+			    			//i can just remove the trash and the break but nvm
+			    		case STEP_DRAWING_GIF_EXCEPTION:
+			    			//set personDataURL separately
 			    			$("#div_tools").hide(200);
 			    			$('.glorious.evan').hide(200);
 			    			$("#div_setForeground").css("background-image","url("+personDataURL+")");
@@ -717,24 +728,33 @@
 			}
 		    /**
 		    	Handle Loading of Image
+		    	from imageLoader
+		    	http://stackoverflow.com/questions/6150289/how-to-convert-image-into-base64-string-using-javascript
 		    */
 			function loadImage(e){
+				var isGif = e.target.value.substring(e.target.value.lastIndexOf('.')) === ".gif";
 			    var reader = new FileReader();
 			    reader.onload = function(event){
-			        uploadedImg = new Image();
-			        uploadedImg.onload = function(){
-			        	//Initialize image that is loaded
-			        	resetImage();
+			    	if(!isGif) {
+				        uploadedImg = new Image();
+				        uploadedImg.onload = function(){
+				        	//Initialize image that is loaded
+				        	resetImage();
 
-			            //Step 2
-			            ++stepIndex;
-			            $(imageLoader).hide();
-			            $('.glorious.evan').fadeIn(200);
-			            $("#resizer-slider").show();
-			            $("#btn_ok").show();
-			            setTitleStep();
-			        }
-			        uploadedImg.src = event.target.result;
+				            //Step 2
+				            ++stepIndex;
+				            $(imageLoader).hide();
+				            $('.glorious.evan').fadeIn(200);
+				            $("#resizer-slider").show();
+				            $("#btn_ok").show();
+				            setTitleStep();
+				        }
+				        uploadedImg.src = event.target.result;
+				    } else {
+				    	stepIndex = STEP_DRAWING_GIF_EXCEPTION;
+				    	personDataURL = event.target.result;
+				    	okButtonHandler();
+				    }
 			    }
 			    reader.readAsDataURL(e.target.files[0]);
 			}
@@ -742,14 +762,14 @@
 			function loadBgImage(e){
 			    var reader = new FileReader();
 			    reader.onload = function(event) {
-			        uploadedImg = new Image();
-			        uploadedImg.onload = function() {
-			        	resetImage();
-			        	bg_imgDataURL = imageCanvas.toDataURL();
-			        	document.getElementById('middle-piece-img').style.backgroundImage = "url("+bg_imgDataURL+")";
-			        	document.getElementById('preloader_text').style.backgroundImage = "url("+bg_imgDataURL+")";
-			        }
-			        uploadedImg.src = event.target.result;
+			        //uploadedImg = new Image();
+			        //uploadedImg.onload = function() {
+			        	//resetImage();
+			        bg_imgDataURL = event.target.result;//= imageCanvas.toDataURL();
+			        document.getElementById('middle-piece-img').style.backgroundImage = "url("+bg_imgDataURL+")";
+			        document.getElementById('preloader_text').style.backgroundImage = "url("+bg_imgDataURL+")";
+			        //}
+			        //uploadedImg.src = event.target.result;
 			    }
 			    reader.readAsDataURL(e.target.files[0]);
 			}
@@ -982,6 +1002,7 @@
 					$("#user_subtitle").text(this.value);
 				});
 				$("#music_url").on("input", null, null,function () {
+					console.log('yyyeah');
 					player.loadVideoById(getYoutubeID(this.value));
 				});
 

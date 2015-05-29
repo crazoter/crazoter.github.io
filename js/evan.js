@@ -194,6 +194,7 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 		    .done(function(msg) {
 		    	result = JSON.parse(msg.data.description);
 		    	setupCustomization(result);//using the description of the image.... lol this is intriguing
+		    	$('head').append( '<meta name="description" content="'+result.bg_title+'">' );
 		    	//set custom stuff
 		    	//usually returns 60
 		    	if(result.personId) {
@@ -222,6 +223,8 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 			});
 		} else {
 			//values already initialized
+			//$('meta[name=description]').remove();
+    		$('head').append( '<meta name="description" content="Sightseeing with Evan">' );
 			$('#user_title').text("EVAN IN ALL HIS GLORY");//AWWW
 			document.title = "EVAN IN ALL HIS GLORY";
 			$('#user_subtitle').text("DARUDE SAAAANDSTOOORM");//I know, it's tempting to put html and setup some nice xss
