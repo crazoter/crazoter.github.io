@@ -20,7 +20,7 @@ var SIZE_THRESHOLD = 500000,//Size limit of an image before we resort to pulling
 	SWAP_FAST = 100,
 	SWAP_SLOW = 500,
 	IMG_PRELOAD_INTERVAL = 20,
-	DISPLAY_METHOD = slideDisplay;//Method used to display images
+	DISPLAY_METHOD = reverseSlideDisplay;//Method used to display images
 
 //READONLY - Set only once and then forgotten
 var chosenThumbnailSize,//A thumbnail size (of background img) is chosen based on screen size
@@ -464,10 +464,13 @@ var	SUBREDDITS = ["earthporn","villageporn"],//Pulling images from which subredd
 			img_bg.className += " discotime";
 		document.body.appendChild(img_bg);
 		if(direction < 0)
-			$(img_bg).style.left = width+"px";
+			img_bg.style.left = width+"px";
 		else
 			img_bg.style.left = -width+"px";
 		$(img_bg).animate({left: "0px"}, swapSpeed);
+	}
+	function reverseSlideDisplay (img_data,direction) {
+		slideDisplay(img_data,-direction);
 	}
 
 	/**
