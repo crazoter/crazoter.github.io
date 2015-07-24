@@ -47,3 +47,10 @@ span.tag {
   border:none;
   outline: none;
 }
+
+a.vert-align-mid,span.vert-align-mid {
+  display:inline-block;
+}
+img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
+  vertical-align: middle;
+}

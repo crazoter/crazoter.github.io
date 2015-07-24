@@ -3,6 +3,7 @@
 	//Login x Logout UI
 	//var btn_login = document.getElementById("btn_login");
 	var btn_login_mobile = document.getElementById("btn_login_mobile");
+	var btn_add_article = document.getElementById("btn_add_article");
 	//var btn_logout = document.getElementById("btn_logout");
 	//var span_loggedInUser = document.getElementById("span_loggedInUser");
 	var btn_logout_mobile = document.getElementById("btn_logout_mobile");
@@ -93,12 +94,14 @@
 	    $(span_loggedInUser_mobile).hide();
 	    //$(btn_logout).hide();
 	    $(btn_logout_mobile).hide();
+	    $(btn_add_article).hide();
 	}
 	function showLogout (username) {
 		//$(btn_login).hide();
 		$(btn_login_mobile).hide();
 	    //$(span_loggedInUser).show();
 	    $(span_loggedInUser_mobile).show();
+	    $(btn_add_article).show();
 	    //$(btn_logout).show();
 	    $(btn_logout_mobile).show();
 	    var s = "Hi "+username+"!";
