@@ -55,17 +55,19 @@
   <!-- Dropdowns START -->
   <ul id='dropdown1' class='res-scroll dropdown-content' style="z-index:2;overflow:visible">
     <!--The Verge-->
-    <li style="background-image: url(assets/bookshelf/the_verge.png);background-position: center; background-repeat: no-repeat;"><a href="http://www.theverge.com/rss/frontpage" target="_blank" title="The Verge"></a></li>
+    <li style="background-image: url(assets/bookshelf/the_verge.png);background-position: center; background-repeat: no-repeat;"><a href="http://www.theverge.com/" target="_blank" title="The Verge"></a></li>
     <!--Hacker News-->
     <li><a class="center-align" href="https://news.ycombinator.com/news" target="_blank"><img src="assets/bookshelf/y18.gif" width="18" height="18" style="border:1px #ffffff solid;"> Hacker News</a></li>
     <!--Reddit-->
     <li><a href="https://www.reddit.com/" target="_blank" style="background-image: url(assets/bookshelf/reddit.png);background-position: center; background-repeat: no-repeat;" title="Reddit"></a></li>
     <!--Polygon-->
-    <li><a href="http://www.polygon.com/rss/index.xml" target="_blank" style='background: url("https://cdn1.vox-cdn.com/images/polygon/logos/logo_black.vbbf4076.png") no-repeat scroll 0px 0px transparent;background-position: center;' title="Polygon"></a></li>
+    <li><a href="http://www.polygon.com/news" target="_blank" style='background: url("https://cdn1.vox-cdn.com/images/polygon/logos/logo_black.vbbf4076.png") no-repeat scroll 0px 0px transparent;background-position: center;' title="Polygon"></a></li>
     <!--Reuters-->
     <li><a href="http://www.reuters.com/" target="_blank" style="background-image: url(assets/bookshelf/reuters.png);background-position: center; background-repeat: no-repeat;" title="Reuters"></a></li>
     <!--IFLS-->
     <li><a class="center-align vert-align-mid" href="http://omnifeed.com/feed/www.iflscience.com/rss.xml" target="_blank"><img src="assets/bookshelf/ifls.png" class="vert-align-mid" width="50" height="50"><span class="vert-align-mid">IFLScience</span></a></li>
+    <!--Omnifeed-->
+    <li><a class="center-align vert-align-mid" href="http://omnifeed.com/" target="_blank"><span class="vert-align-mid">Omnifeed</span></a></li>
   </ul>
   <!--Dropdowns END-->
 
@@ -106,10 +108,15 @@
       <h4>Search Instructions</h4>
       <p>Searching the Bookshelf is as easy as ABC! Type your query into the search box and hit enter. Related articles will pop right up.<br/>
         <h5>Advanced syntax:</h5><hr>
+        <h6>Pagination (<span class="tag">></span>)</h6>
+        <span class="tag">>ALL</span> - Retrieve all articles.<br/>
+        <span class="tag">>NEXT</span> - Go to the next page of articles (if there are any)<br/>
+        <span class="tag">>BACK</span> - Go to the previous page of articles (if there are any)
+        <hr>
         <h6>Search by Tag (<span class="tag">#</span>)</h6>
         <span class="tag">#TAG</span> - E.G. search "#Aidil" to query for articles that are tagged "Aidil".<hr>
         <h6>Search by Date (<span class="tag">$</span>)(Because time is money lol)</h6>
-        <span class="tag">${yyyy/mm/dd}-{yyyy/mm/dd}</span> - E.G. "$2015/03/20-2015/03/25" will search for posts made during March 20th to 25th (inclusive)<br/>
+        <span class="tag">${yyyy/mm/dd}-${yyyy/mm/dd}</span> - E.G. "$2015/03/20-$2015/03/25" will search for posts made during March 20th to 25th (inclusive)<br/>
         <span class="tag">${yyyy/mm/dd}</span> - Supplying only 1 date will search for articles posted on that day.
         <h6>Date Shortcuts</h6>
         <span class="tag">@NOW</span> OR <span class="tag">@TODAY</span> - Used as today's date. E.G. @2015/03/20-@NOW will search for posts made since 2015/03/20. @TODAY can also be used in place of @NOW.<br/>
@@ -193,11 +200,17 @@
   <!--Content START-->
   <div class="main">
     <div class="row">
+    <div class="col s12">
+      <ul class="tabs teal lighten-2">
+        <li class="tab col s6"><a class="teal-text text-darken-4" href="#tab1">Accordion</a></li>
+        <li class="tab col s6"><a class="teal-text text-darken-4" href="#tab2">Tabular</a></li>
+      </ul>
+    </div>
+    </div>
+    <div class="row">
     <!--View Articles-->
-    <div>
       <!--Article Search-->
-      <div class="row">
-        <div class="col s12" style="padding-left:0px">
+       <div id="tab1" class="col s12">
           <nav>
             <div class="nav-wrapper teal lighten-2">
               <form onSubmit="search();return false;">
@@ -209,21 +222,22 @@
               </form>
             </div>
           </nav>
-        </div>
-        <!--Article Search Help-->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal_sInstruct"><i class="mdi-action-help small"></i></a>
-        <!--Article Search Progress Bar-->
-        <div style="display:none;" class="progress">
-          <div class="indeterminate"></div>
-        </div>
+          <!--Article Search Help-->
+          <a class="waves-effect waves-light btn modal-trigger" href="#modal_sInstruct"><i class="mdi-action-help small"></i></a>
+          <!--Article Search Progress Bar-->
+          <div style="display:none;" class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        <!--Article Search Results-->
+        <p id="txt_notfound">The bookshelf prepares...</p>
+        <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion"></ul>
       </div>
-      <!--Article Search Results-->
-      <p id="txt_notfound">The bookshelf prepares...</p>
-      <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion">
-    </ul>
+      <div id="tab2" class="col s12">
+          
+        <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion"></ul>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>

@@ -54,3 +54,7 @@ a.vert-align-mid,span.vert-align-mid {
 img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
   vertical-align: middle;
 }
+
+.indicator {
+  background-color: #00796b !important;
+}
