@@ -22,8 +22,8 @@ span.tag {
   font-weight: 300;
 }
 .main {
-  padding-left: 260px !important;
-  padding-right: 20px !important;
+  padding-left: 239px !important;
+  /*padding-right: 20px !important;*/
 }
 .header {
   padding-left: 240px !important;
@@ -34,7 +34,7 @@ span.tag {
     padding-left: 0px !important;
   }
   .main {
-    padding-left: 20px !important;
+    padding-left: 0px !important;
   }
 }
 
