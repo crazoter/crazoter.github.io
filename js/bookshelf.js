@@ -242,11 +242,12 @@
 		});
 	}
 	function search () {
+		//debugger;
 		loadFillerText();
 		var searchStuff = txt_search.value;
 		//Check hardcoded methods
-		if(HARD_CODED_COMMANDS[searchStuff.toLowerCase()] == null) {
-			HARD_CODED_COMMANDS[searchStuff.toLowerCase()]();
+		if(HARD_CODED_COMMANDS[searchStuff.toLowerCase()] != null) {
+			//HARD_CODED_COMMANDS[searchStuff.toLowerCase()]();
 		} else {
 			//Replace date shortcuts (@)
 			var shortcutRegex = /@(\S+?)\b|@(\S+?)$/g;
