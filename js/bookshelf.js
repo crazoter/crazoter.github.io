@@ -532,7 +532,7 @@
 	function cascadingDisplayArticles (index,length) {
 		if(index<length)
 		{
-			$(searchDoms[index].li).show(200, function () {
+			$(searchDoms[index].li).show(50, function () {
 				cascadingDisplayArticles(index+1,length);
 			});
 		}
