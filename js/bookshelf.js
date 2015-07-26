@@ -46,6 +46,7 @@
 	var search_currentPageIndex = 0;
 	var search_currentCollection;
 	var SEARCH_MAX_LENGTH = 20;
+	var SHOWSPEED = 50;
 	var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
 	var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
 	var searchDomsInitialized = false;
@@ -532,7 +533,7 @@
 	function cascadingDisplayArticles (index,length) {
 		if(index<length)
 		{
-			$(searchDoms[index].li).show(50, function () {
+			$(searchDoms[index].li).show(SHOWSPEED, function () {
 				cascadingDisplayArticles(index+1,length);
 			});
 		}
