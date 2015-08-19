@@ -17,8 +17,7 @@
 
   <link type="text/css" rel="stylesheet" href="css/bookshelf.css" media="screen,projection"/>
   <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/bin/materialize.css"  media="screen,projection"/>
-
-  <!--<link type="text/css" rel="stylesheet" href="materialize-0.97/css/materialize.css"  media="screen,projection"/>-->
+  <script src="js/prefixfree.min.js"></script><!--auto prefix tool for css with js-->
   <script src="js/pagespeed/modernizr.js"></script>
 </head>
 
@@ -31,7 +30,7 @@
           <li><a class="waves-effect waves-light text-darken-4" href="https://crazoter.github.io">Go Home</a></li>
           <li><a class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_about">About</a></li>
           <li><a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_login">Login</a></li>
-          <li><a id="btn_logout_mobile" style="display:none;" href="#" onclick="logout();">Log out</a></li>
+          <li><a id="btn_logout_mobile" style="display:none;" href="#" onclick="btn_logout_onclick();">Log out</a></li>
         </ul>
   <!--Side Nav END-->
 
@@ -46,7 +45,7 @@
   
   <!--Floating Buttons START-->
   <div id="btn_add_article" class="fixed-action-btn" style="display:none; bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large teal waves-effect waves-light modal-trigger" href="#modal_add">
+    <a class="btn-floating btn-large teal waves-effect waves-light" href="#" onclick="btn_add_onclick();">
       <i class="large mdi-av-my-library-add"></i>
     </a>
   </div>
@@ -76,7 +75,7 @@
   <div id="modal_login" class="modal">
     <div class="modal-content">
       <h4>Login</h4>
-      <form onSubmit="login();return false;">
+      <form onSubmit="submit_login();">
         <div class="row">
           <div class="input-field col s12">
             <input id="txt_username" type="text" class="validate" required>
@@ -109,7 +108,7 @@
       <p>Searching the Bookshelf is as easy as ABC! Type your query into the search box and hit enter. Related articles will pop right up.<br/>
         <h5>Advanced syntax:</h5><hr>
         <h6>Pagination (<span class="tag">></span>)</h6>
-        <span class="tag">>ALL</span> - Retrieve all articles.<br/>
+        <span class="tag">>ALL</span> - Retrieve all articles. Inputting nothing also does the same thing.<br/>
         <span class="tag">>NEXT</span> - Go to the next page of articles (if there are any)<br/>
         <span class="tag">>BACK</span> - Go to the previous page of articles (if there are any)
         <hr>
@@ -134,7 +133,7 @@
       <h4>Confirm Removal?</h4>
       <p>Are you sure you want this article gone? Forever?</p>
       <div class="modal-footer">
-      <a href="#!" onclick="deleteArticle();return false;" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+      <a href="#!" onclick="btn_delete_onclick()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
     </div>
     </div>
@@ -158,33 +157,36 @@
   <!--Add Article START-->
   <div id="modal_add" class="modal">
     <div class="modal-content">
-      <div class="vert-align-mid"><i class="vert-align-mid small mdi-av-my-library-add"></i><span class="vert-align-mid"> Add Article</span></div>
+      <div class="vert-align-mid"><i class="vert-align-mid small mdi-av-my-library-add"></i><span class="vert-align-mid">Add Article</span></div>
       <form onSubmit="addArticle();return false;">
         <div class="row">
           <div class="input-field col s12">
             <i class="mdi-action-picture-in-picture prefix"></i>
             <input id="txt_title" type="text" length="70" class="validate" required>
-            <label for="txt_title">Title</label>
+            <label for="txt_title" class="lbl_add_article">Title</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="mdi-editor-mode-edit prefix"></i>
             <textarea id="txtarea_description" class="materialize-textarea" length="150" class="validate" required></textarea>
-            <label for="txtarea_description">Description</label>
+            <label for="txtarea_description" class="lbl_add_article">Description</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <i class="mdi-action-language prefix"></i>
             <input id="txt_ref" type="url" length="80" class="validate" required>
-            <label for="txt_ref">Reference (URL)</label>
+            <label for="txt_ref" class="lbl_add_article">Reference (URL)</label>
           </div>
           <div class="input-field col s6">
             <i class="mdi-image-style prefix"></i>
-            <input id="txt_tags" type="text"length="50" class="validate" required>
-            <label for="txt_tags">Tag(s) - delimit with space</label>
+            <input id="txt_tags" type="text" length="50" class="validate" required>
+            <label for="txt_tags" class="lbl_add_article">Tag(s) - delimit with space</label>
           </div>
+        </div>
+        <div id="progress_add" style="display:none;" class="progress">
+          <div class="indeterminate"></div>
         </div>
         <div class="row">
           <button class="btn waves-effect waves-light" type="submit" name="action">Submit
@@ -199,81 +201,46 @@
 
   <!--Content START-->
   <div class="main">
-    <div class="row">
-      <ul class="tabs teal lighten-2">
-        <li class="tab col s6"><a class="teal-text text-darken-4" href="#tab1">Accordion</a></li>
-        <li class="tab col s6"><a class="teal-text text-darken-4" href="#tab2">Tabular</a></li>
-      </ul>
-    </div>
-    <div class="row">
-    <!--View Articles-->
-      <!--Article Search-->
-       <div id="tab1" class="col s12">
-          <nav>
-            <div class="nav-wrapper teal lighten-2">
-              <form onSubmit="search();return false;">
-                <div class="input-field">
-                  <input id="txt_search" placeholder="Search Bookshelf" type="search" required>
-                  <label for="txt_search"><i class="mdi-action-search"></i></label>
-                  <i class="mdi-navigation-close"></i>
-                </div>
-              </form>
+    <!--Article Search-->
+    <div class="searchbar">
+      <nav>
+        <div class="nav-wrapper teal lighten-2">
+          <form onSubmit="search();return false;">
+            <div class="input-field">
+              <input id="txt_search" placeholder="Search Bookshelf" type="search">
+              <label for="txt_search"><i class="mdi-action-search"></i></label>
+              <i class="mdi-navigation-close"></i>
             </div>
-          </nav>
-          <!--Article Search Help-->
-          <a class="waves-effect waves-light btn modal-trigger" href="#modal_sInstruct"><i class="mdi-action-help small"></i></a>
-          <!--Article Search Progress Bar-->
-          <div style="display:none;" class="progress">
-            <div class="indeterminate"></div>
-          </div>
+          </form>
+        </div>
+      </nav>
+       <a class="waves-effect waves-light btn modal-trigger teal lighten-2" href="#modal_sInstruct"><i class="mdi-action-help small"></i></a>
+   </div>
+    <!--Article Search Help-->
+    <div class="row">
+      <!--View Articles-->
+      <div class="col s12">
+        <!--Article Search Progress Bar-->
+        <div id="progress_search" class="progress">
+          <div class="indeterminate"></div>
+        </div>
         <!--Article Search Results-->
         <p id="txt_notfound">The bookshelf prepares...</p>
-        <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion"></ul>
-      </div>
-      <div id="tab2" class="col s12">
-        <table><tr></tr></table>
       </div>
     </div>
+        <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion"></ul>
+    </div>
+    <ul class="pagination">
+      <li id="page_back" class="disabled"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+      <li id="page_next" class="disabled"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+    </ul>
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="node_modules/materialize-css/bin/materialize.js"></script>
-  <!--<script type="text/javascript" src="materialize-0.97/js/materialize.js"></script>-->
   <script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
   <script type="text/javascript" src="js/jquery-dateFormat.min.js"></script>
   <script type="text/javascript" src="js/he.min.js"></script>
   <script type="text/javascript" src="js/bookshelf.js"></script>
-  <script type="text/javascript">
-    //Initialize Parse
-    Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
-    $(document).ready(function(){
-      //Initialize Modals
-      $('.modal-trigger').leanModal();
-
-      //Initialize Mobile Collapse Nav
-      $(".button-collapse").sideNav();
-
-      //Initialize Tabs
-      $('ul.tabs').tabs();
-
-      //Display login/logout
-      if(Parse.User.current() === null){
-        showLogin();
-      }
-      else{
-        showLogout(Parse.User.current().attributes.username);
-      }
-      initializeArticles();
-      //colorTags();
-    });
-
-    $(".fat").height($(document).height()-140);
-    </script>
   </body>
-<!--
-  Frameworks used:
-  http://materializecss.com
-  http://www.materialpalette.com
-  https://www.parse.com/
--->
 </html>

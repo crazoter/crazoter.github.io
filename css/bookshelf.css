@@ -11,6 +11,7 @@ a.deleteBtn {
   position: absolute;
   top: 0px;
   right: 15px;
+  font-size: 12px;
 }
 span.tag {
   min-width: 3rem;
@@ -21,20 +22,9 @@ span.tag {
   line-height: inherit;
   font-weight: 300;
 }
-.main {
-  padding-left: 239px !important;
-  /*padding-right: 20px !important;*/
-}
-.header {
-  padding-left: 240px !important;
-}
-
-@media screen and (max-width : 992px) {
-  .header {
-    padding-left: 0px !important;
-  }
-  .main {
-    padding-left: 0px !important;
+@media (max-width : 450px) {
+  span.tag {
+    font-size: 11px;
   }
 }
 
@@ -55,6 +45,43 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
   vertical-align: middle;
 }
 
+/*Materializecss overrides*/
+.collapsible-body {
+  word-wrap: break-word;
+}
+.main {
+  padding-left: 239px !important;
+}
+.header {
+  padding-left: 240px !important;
+}
+
+@media (max-width : 992px) {
+  .header {
+    padding-left: 0px !important;
+  }
+  .main {
+    padding-left: 0px !important;
+  }
+}
+
 .indicator {
   background-color: #00796b !important;
+}
+
+/*Animations*/
+.shown {
+    animation: show 0.2s linear forwards;
+}
+.hidden {
+    display:none;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,98 +1,129 @@
 //DOM VARIABLES
 (function(exports){
+
+//VARIABLES & CLASSES
 	//Login x Logout UI
-	//var btn_login = document.getElementById("btn_login");
-	var btn_login_mobile = document.getElementById("btn_login_mobile");
-	var btn_add_article = document.getElementById("btn_add_article");
-	//var btn_logout = document.getElementById("btn_logout");
-	//var span_loggedInUser = document.getElementById("span_loggedInUser");
-	var btn_logout_mobile = document.getElementById("btn_logout_mobile");
-	var span_loggedInUser_mobile = document.getElementById("span_loggedInUser_mobile");
-
+		//var btn_login = document.getElementById("btn_login");
+		var btn_login_mobile = document.getElementById("btn_login_mobile");
+		var btn_add_article = document.getElementById("btn_add_article");
+		//var btn_logout = document.getElementById("btn_logout");
+		//var span_loggedInUser = document.getElementById("span_loggedInUser");
+		var btn_logout_mobile = document.getElementById("btn_logout_mobile");
+		var span_loggedInUser_mobile = document.getElementById("span_loggedInUser_mobile");
 	//Login Modal Form
-	var txt_user = document.getElementById("txt_username");
-	var txt_pass = document.getElementById("txt_password");
-	var progress_login = document.getElementById("progress_login");
-
+		var txt_user = document.getElementById("txt_username");
+		var txt_pass = document.getElementById("txt_password");
+		var progress_login = document.getElementById("progress_login");
 	//Add Article Form
-	var txt_title = document.getElementById("txt_title");
-	var txtarea_description = document.getElementById("txtarea_description");
-	var txt_ref = document.getElementById("txt_ref");
-	var txt_tags = document.getElementById("txt_tags");
-
+		//CONSTANTS
+			var EDIT_KEY = "article";
+		//RUNTIME
+			var txt_title = document.getElementById("txt_title");
+			var txtarea_description = document.getElementById("txtarea_description");
+			var txt_ref = document.getElementById("txt_ref");
+			var txt_tags = document.getElementById("txt_tags");
+			var progress_add = document.getElementById("progress_add");
+			var editingParseObject = null;
+			var addingArticle = false;
 	//Remove Article
-	var selectedArticle = null;
-	var selectedArticleSearchDom = null;
-
+		//CONSTANTS
+			var DELETE_KEY = "delete";
+		var selectedArticle = null;
+		var selectedArticleSearchDom = null;
 	//Search Article
-	var txt_search = document.getElementById('txt_search');
-	var txt_notfound = document.getElementById('txt_notfound');
-	var ul_searches	= document.getElementById("ul_searches");
-
+		var txt_search = document.getElementById('txt_search');
+		var txt_notfound = document.getElementById('txt_notfound');
+		var ul_searches	= document.getElementById("ul_searches");
+		var progress_search = document.getElementById("progress_search");
 	//IFRAME
-	var iframe_res = document.getElementById('iframe_res');
+		var iframe_res = document.getElementById('iframe_res');
+		//
+	//Search, SearchDom & Pagination
+		//CONSTANTS
+			var SEARCH_MAX_LENGTH = 25;
+			function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn,editBtn) {
+				this.li = li;
+				this.reference = ref_anchor;
+				this.title = span_title;
+				this.tags = tagholder;
+				this.description = p_descript;
+				this.timestamp = span_time;
+				this.username = span_user;
+				this.delete = deleteBtn;
+				this.edit = editBtn;
+				this.article = null;
+			}
+			var HARD_CODED_COMMANDS = {
+				">all": function(){getArticlesOrderByDESC("updatedAt")},
+				"": function(){getArticlesOrderByDESC("updatedAt")},
+				">next": function(){
+					if(!searching && search_currentCollection !== null) {
+						if(pagination_hasNext()) {
+							loadFillerText();
+							search_currentCollection.query.skip(search_currentCollection.query._skip + SEARCH_MAX_LENGTH);
+							fetchAndDisplayArticles();
+						} else {
+							Materialize.toast("There are no more articles to load.",TOAST_SHOWDURATION);
+						}
+					}
+				},
+				">back": function(){
+					if(!searching && search_currentCollection !== null) {
+						if(pagination_hasBack()) {
+							loadFillerText();
+							if(search_currentCollection.query._skip - SEARCH_MAX_LENGTH < 0) {
+								search_currentCollection.query.skip(0);
+							} else {
+								search_currentCollection.query.skip(search_currentCollection.query._skip - SEARCH_MAX_LENGTH);
+							}
+							fetchAndDisplayArticles();
+						} else {
+							Materialize.toast("You're already on the first page.",TOAST_SHOWDURATION);
+						}
+					}
+				}
+			};
+		//RUNTIME
+			var $page_next = $("#page_next");
+			var $page_back = $("#page_back");
 
-	function SearchDomJQ (li,ref_anchor,span_title,tagholder,p_descript,span_time,span_user,deleteBtn) {
-		this.li = li;
-		this.reference = ref_anchor;
-		this.title = span_title;
-		this.tags = tagholder;
-		this.description = p_descript;
-		this.timestamp = span_time;
-		this.username = span_user;
-		this.delete = deleteBtn;
-	}
-	var searchDoms = [];
-	var search_currentPageIndex = 0;
-	var search_currentCollection;
-	var SEARCH_MAX_LENGTH = 20;
-	var SHOWSPEED = 50;
-	var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
-	var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
-	var searchDomsInitialized = false;
-	var DATE_NOW = new Date();
-	var DATE_MAP = {
-		"now":0,
-		"today":0,
-		"yda":-1,
-		"last":-7
-	};
-	var DAY_ARR = ["mon","tue","wed","thu","fri","sat","sun"];
-	var HARD_CODED_COMMANDS = {
-		">all": function(){},
-		">next": function(){},
-		">back": function(){}
-	};
-	function initDateMap () {
-		//DATE_MAP.yda.setDate(DATE_MAP.now.getDate() - 1);
-		var baseline = DATE_NOW.getDay();//for days
-		if(baseline == 0)
-			baseline = 7;
-		for(var i=0,l=DAY_ARR.length;i<l;)//keep the number of days needed to add / deduct
-			DATE_MAP[DAY_ARR[i]] = ++i - baseline;//wow so optimize
-	}
-	initDateMap();
-	function FromToDate (formattedDate1,formattedDate2) {
-		this.fromDate = new Date(formattedDate1);
-		if(formattedDate2)
-			this.fromDate = new Date(formattedDate2);
-		else
-		{//1 whole day
-			this.toDate = new Date(this.fromDate);
-			this.toDate.setDate(this.fromDate.getDate()+1);
+			var searchDoms = [];
+			var searchDomsInitialized = false;
+			var search_currentPageIndex = 0;
+			var search_currentCollection;
+			var searching = false;
+	//Animations
+		var SHOWSPEED = 50;
+		var TOAST_SHOWDURATION = 4000;
+		//
+	//Date
+		var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
+		var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
+		var DATE_NOW = new Date();
+		var DATE_MAP = {"now":0, "today":0, "yda":-1, "last":-7};
+		var DAY_ARR = ["mon","tue","wed","thu","fri","sat","sun"];
+		function FromToDate (formattedDate1,formattedDate2) {
+			this.fromDate = new Date(formattedDate1);
+			if(formattedDate2)
+				this.fromDate = new Date(formattedDate2);
+			else
+			{//1 whole day
+				this.toDate = new Date(this.fromDate);
+				this.toDate.setDate(this.fromDate.getDate()+1);
+			}
 		}
-	}
+	//Color (Tags)
+		function Tag (string,color,isLight) {
+			this.string = string;
+			this.bgColor = color;
+			this.bgIsLight = isLight;
+		}
+		var calculatedTags = {};//cache tags we have calculated so we don't have to recalculate
+	//Responsive?
+		var isComputer = true;
 
-	//var Color Tags
-	function Tag (string,color,isLight) {
-		this.string = string;
-		this.bgColor = color;
-		this.bgIsLight = isLight;
-	}
-	var calculatedTags = {};
-
-
-	//LOGIN / LOGOUT
+//LOGIN / LOGOUT
+	//Display functions
 	function showLogin () {
 		//$(btn_login).show();
 		$(btn_login_mobile).show();
@@ -114,7 +145,7 @@
 	    //span_loggedInUser.innerHTML = s;
 	    span_loggedInUser_mobile.innerHTML = s;
 	}
-
+	//Logic functions
 	function login () {
 		//Maybe I should do some security stuff? I must make sure never to redisplay them though.
 		$(progress_login).show();
@@ -123,132 +154,161 @@
 		    // Do stuff after successful login.
 		    txt_user.value = "";
 		    txt_pass.value = "";
-		    Materialize.toast("Logged in! Welcome, "+user.attributes.username+"!", 4000);
+		    Materialize.toast("Logged in! Welcome, "+user.attributes.username+"!", TOAST_SHOWDURATION);
 		    showLogout(user.attributes.username);//display the username :)
 			$(progress_login).hide();
 			$('#modal_login').closeModal();
+			configAllArticleACL();
 		  },
 		  error: function(user, error) {
 		    // The login failed. Check error to see why.
-		    txt_pass.value = "";
-		    Materialize.toast("Wrong username / password!", 4000);
+		    Materialize.toast("Wrong username / password!", TOAST_SHOWDURATION);
 		    $(progress_login).hide();
 		  }
 		});
 	}
-
 	function logout () {
 		var currentUser = Parse.User.current();
 		if(currentUser !== null)
 		{
-			Materialize.toast("Logging out! Goodbye, "+currentUser.attributes.username+"!", 4000);
+			Materialize.toast("Logging out! Goodbye, "+currentUser.attributes.username+"!", TOAST_SHOWDURATION);
 			Parse.User.logOut();
+			configAllArticleACL();
 		}
 		showLogin();
 	}
 
-	//Manipulation of Articles
-	//http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
+//Manipulation of Articles
 	//http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
 	//http://codepen.io/WebSeed/pen/pvgqEq
 	function addArticle () {
 		var currentUser = Parse.User.current();
 		if(currentUser !== null)
 		{
-			var Article = Parse.Object.extend("Article");
-			var article = new Article();
-			article.set("title",txt_title.value);
-			article.set("description",txtarea_description.value);
-			article.set("reference",txt_ref.value);
-			article.set("tags",txt_tags.value.toUpperCase().split(/\s+/g));
-			article.set("uploadedBy",currentUser);
+			if(!addingArticle) {
+				addingArticle = true;
+				$(progress_add).show();
+				var article;
+				if(editingParseObject == null) {
+					//if creating new article
+					var Article = Parse.Object.extend("Article");
+					article = new Article();
+				} else {
+					//if editing article
+					article = editingParseObject;
+				}
+				article.set("title",txt_title.value);
+				article.set("description",txtarea_description.value);
+				article.set("reference",txt_ref.value);
+				article.set("tags",txt_tags.value.toUpperCase().split(/\s+/g));
+				article.set("uploadedBy",currentUser);
 
-			article.save(null, {
-			  success: function(article) {
-			    // Execute any logic that should take place after the object is saved.
-			    Materialize.toast("Hooray! New article added!", 4000);
-			    txt_title.value = "";
-			    txtarea_description.value = "";
-			    txt_tags.value = "";
-			    txt_ref.value = "";
-			  },
-			  error: function(article, error) {
-			    // Execute any logic that should take place if the save fails.
-			    // error is a Parse.Error with an error code and message.
-			    shit = error;
-			    Materialize.toast("Failed to create new article. Perhaps you are not authorized to do so.", 4000);
-			  }
-			});
+				article.save(null, {
+				  success: function(article) {
+				    // Execute any logic that should take place after the object is saved.
+				    clearAddArticleForm();
+				    $('.lbl_add_article').removeClass("active");
+				    if(editingParseObject !== null) {
+					    Materialize.toast("New article added!", TOAST_SHOWDURATION);
+					} else {
+						Materialize.toast("Article updated.", TOAST_SHOWDURATION);
+					}
+				    postAddArticle();
+				  },
+				  error: function(article, error) {
+				    // Execute any logic that should take place if the save fails.
+				    // error is a Parse.Error with an error code and message.
+				    //shit = error;
+				    Materialize.toast("Failed to create new article. Perhaps you are not authorized to do so.", TOAST_SHOWDURATION);
+				    postAddArticle();
+				  }
+				});
+			}
 		}
 		else
-			Materialize.toast("Failed to create new article. Perhaps you are not logged in?", 4000);
+			Materialize.toast("Failed to create new article. Perhaps you are not logged in?", TOAST_SHOWDURATION);
 	}
-	function deleteArticle () {
-		if(selectedArticle !== null)
+	//Add article helper methods
+		function clearAddArticleForm () {
+			txt_title.value = "";
+		    txtarea_description.value = "";
+		    txt_tags.value = "";
+		    txt_ref.value = "";
+		}
+		function postAddArticle () {
+		    $(progress_add).hide();
+		    addingArticle = false;
+		}
+	function deleteArticle (deleteBtn) {
+		var selectedSearchDom = searchDoms[$(deleteBtn).data(DELETE_KEY)];
+		if(selectedSearchDom.article !== null)
 		{
-			selectedArticle.destroy({
+			selectedSearchDom.article.destroy({
 			  success: function(myObject) {
 			    // The object was deleted from the Parse Cloud.
-			    Materialize.toast("Successfully removed article.", 4000);
-			    selectedArticleSearchDom.hide(200);
+			    Materialize.toast("Successfully removed article.", TOAST_SHOWDURATION);
+			    selectedSearchDom.li.hide(200);
 			  },
 			  error: function(myObject, error) {
 			    // The delete failed.
 			    // error is a Parse.Error with an error code and message.
-			    Materialize.toast("Unsuccessfully removed article.", 4000);
+			    Materialize.toast("Unsuccessfully removed article.", TOAST_SHOWDURATION);
 			  }
 			});
 		}	
 	}
+	function editArticle (editBtn) {
+		editingParseObject = searchDoms[$(editBtn).data(EDIT_KEY)].article;
+		//populate modal data
+		txt_title.value = editingParseObject.get("title");
+		txtarea_description.value = editingParseObject.get("description");
+		txt_ref.value = editingParseObject.get("reference");
+		txt_tags.value = editingParseObject.get("tags").join(" ");
+		//display modal
+		$('.lbl_add_article').addClass("active");
+		$('#modal_add').openModal();
+	}
 
-	//Retrieval of Articles
-	function initializeArticles () {
-		buildArticleHolders();
-		loadFillerText();
-		
-		clearArticleList();
-		
-		var Article = Parse.Object.extend("Article");
-		var query = new Parse.Query(Article);
-		query.descending("updatedAt");
-		query.include("uploadedBy");
-		query.limit(SEARCH_MAX_LENGTH);
-		search_currentCollection = query.collection();
+//Retrieval of Articles & Pagination
+	function fetchAndDisplayArticles () {
+		searching = true;
 		search_currentCollection.fetch({
 		  success: function(results) {
-		  	if(results.length === 0)
-		  	{
-		  		nothingToShowText();
-		  	}
-		  	else
-		  	{
-		  		finishedLoadingText();
-		  		var i = 0,l = SEARCH_MAX_LENGTH;
-		  		if(results.length < l)
-		  			l = results.length;
-			    for (; i < l; ++i) { 
-			      var article = results.at(i);
-			      refreshArticle(i,article);
-			    }
-			    colorTags();
-			    //$('ul.tabs').tabs();
-			    cascadingDisplayArticles(0,l);
-			}
+		  	displayArticles(results);
+		  	searching = false;
 		  },
 		  error: function(error) {
-		  	finishedLoadingText();
-		    Materialize.toast("Error: " + error.code + " " + error.message,4000);
+		  	//finishedLoadingText();
+		  	notFoundText();
+		    Materialize.toast(error.message,TOAST_SHOWDURATION);
+		    searching = false;
 		  }
 		});
 	}
-	function search () {
-		//debugger;
+	//helper methods
+		function pagination_hasNext () {
+			return search_currentCollection.length >= SEARCH_MAX_LENGTH;
+		}
+		function pagination_hasBack () {
+			return search_currentCollection.query._skip > 0;
+		}
+	function getArticlesOrderByDESC (column) {
 		loadFillerText();
+		var Article = Parse.Object.extend("Article");
+		var query = new Parse.Query(Article);
+		query.descending(column);
+		query.include("uploadedBy");
+		query.limit(SEARCH_MAX_LENGTH);
+		search_currentCollection = query.collection();
+		fetchAndDisplayArticles();
+	}
+	function search () {
 		var searchStuff = txt_search.value;
 		//Check hardcoded methods
 		if(HARD_CODED_COMMANDS[searchStuff.toLowerCase()] != null) {
-			//HARD_CODED_COMMANDS[searchStuff.toLowerCase()]();
+			HARD_CODED_COMMANDS[searchStuff.toLowerCase()]();
 		} else {
+			loadFillerText();
 			//Replace date shortcuts (@)
 			var shortcutRegex = /@(\S+?)\b|@(\S+?)$/g;
 			var tempArr;
@@ -312,13 +372,11 @@
 			}
 			var query_title = new Parse.Query("Article");
 			var query_desc = new Parse.Query("Article");
-			if(words.length > 0)
-			{
+			if(words.length > 0) {
 				query_title.containsAll("title_keywords",words);
 				query_desc.containsAll("description_keywords",words);
 			}
-			if(wordsWithSpace.length > 0)
-			{
+			if(wordsWithSpace.length > 0) {
 				query_title.contains("title",wordsWithSpace);
 				query_desc.contains("description",wordsWithSpace);
 			}
@@ -326,16 +384,14 @@
 			if(tags.length > 0)
 				main_query.containsAll("tags",tags);
 			console.log(dates);
-			if(dates.length > 0)
-			{//i will only take the 1st one lol lazy ftw
+			if(dates.length > 0) {//i will only take the 1st one lol lazy ftw
 				main_query.lessThan("updatedAt",dates[0].toDate);
 				main_query.greaterThanOrEqualTo("updatedAt",dates[0].fromDate);
 			}
 			//collection by query
 			search_currentCollection = main_query.collection();
 			var titleKeywordsMap = {};
-			for(var i=words.length-1;i>=0;--i)
-			{
+			for(var i=words.length-1;i>=0;--i) {
 				titleKeywordsMap[words[i]] = true;
 			}
 			//create comparator for sorting
@@ -363,54 +419,37 @@
 				}
 			  return value;
 			};
+			fetchAndDisplayArticles();
 		}
-		search_currentCollection.fetch({
-		  success: function(results) {
-		  	if(results.length === 0)
-		  	{
-		  		nothingToShowText();
-		  	}
-		  	else
-		  	{
-		  		//search_currentPageIndex = 0;
-		  		search_currentCollection = results;
-		  		finishedLoadingText();
-		  		var i = 0,l = SEARCH_MAX_LENGTH;
-		  		if(results.length < l)
-		  			l = results.length;
-			    for (; i < l; ++i) { 
-			      var article = results.at(i);
-			      refreshArticle(i,article);
-			    }
-			    colorTags();
-			    cascadingDisplayArticles(0,l);
-		  	}
-		  },
-		  error: function(collection, error) {
-		    // The collection could not be retrieved.
-		    notFoundText();
-		  }
-		});
 	}
 
-	//Fun filler text
+//Fun filler text
 	function loadFillerText () {
-		clearArticleList();
+		hideArticleList();
 		txt_notfound.innerHTML = loadingBookshelfText();
+		$(progress_search).show();
 		$(txt_notfound).show();
 	}
 	function finishedLoadingText () {
+		$(progress_search).hide();
 		$(txt_notfound).hide();
+		enablePageNext(pagination_hasNext());
+		enablePageBack(pagination_hasBack());
 	}
 	function nothingToShowText () {
+		$(progress_search).hide();
 		txt_notfound.innerHTML = "The Bookshelf is empty.";
+		enablePageNext(false);
+		enablePageBack(false);
 	}
 	function notFoundText () {
+		$(progress_search).hide();
 		txt_notfound.innerHTML = "We could not find anything in the Bookshelf that matches your search.";
+		enablePageNext(false);
+		enablePageBack(false);
 	}
 	function loadingBookshelfText () {
-		switch(Math.floor(Math.random()*10))
-		{
+		switch(Math.floor(Math.random()*11)) {
 			case 0: return "Preparing the Bookshelf...";
 			case 1: return "Flip flip flip...";
 			case 2: return "Retrieving articles...";
@@ -421,40 +460,20 @@
 			case 7: return "Please wait while our elves arrange the Bookshelf...";
 			case 8: return "The Bookshelf is loading - please wait...";
 			case 9: return "Patience, my dear Watson - the Bookshelf needs time to load.";
-			default: return "COME FORTH, ARTICLES!";//lol this will never happen too bad guys
+			default: return "COME FORTH, ARTICLES!";
 		}
 	}
 
-	function clearArticleList () {
-		//var jq_ul_searches = $(ul_searches);
-		//jq_ul_searches.hide();
-		for(var i=0,l=searchDoms.length;i<l;++i)
-		{
+//DOM Manipulation
+	//Hide all article lists
+	function hideArticleList () {
+		for(var i=0,l=searchDoms.length;i<l;++i) {
 			searchDoms[i].li.hide();
 		}
-
 	}
+	//Build the dom for the articles
 	function buildArticleHolders () {
-		/*
-		<li>
-             <div class="collapsible-header truncate"><a id="test_a" href="http://www.brocode.org/" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="test_b">The Bro Code</span>
-              <span class="timeholder right"><span id="test_e" class="grey-text">somefuckingrandomtimestamp </span><span id="test_g" class="tag">Crazoter</span></span>
-              <span id="test_c" class="tagholder right">
-                <span class="tag">funny</span>
-                <span class="tag">random</span>
-                <span class="tag">can't tell</span>
-                <span class="tag">hi aidil</span>
-                <span class="tag">KIV</span>
-              </span>
-            </div>
-            <div class="collapsible-body">
-              <p id="test_d">"168: Bro's don’t touch each others hair."</p>
-               <a class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle" onclick="delete('test_f-id');return true;"><i class="mdi-action-delete"></i>Remove Article</a>
-            </div>
-          </li>
-		*/
-		for(var i=0,l=SEARCH_MAX_LENGTH;i<l;++i)
-		{
+		for(var i=0,l=SEARCH_MAX_LENGTH;i<l;++i) {
 			var li = document.createElement('li');
 			var inner = '<div class="collapsible-header truncate"><a id="search_ref'+i+'" href="'//insert reference
 						+'" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="search_title'+i+'"></span>'//insert title
@@ -463,18 +482,21 @@
 						+'<span class="timeholder right"><span id="search_time'+i+'" class="grey-text text-darken-1"></span>'//insert timestamp
 						+' by <span id="search_user'+i+'"></span></span>'//username
 						+'<p id="search_desc'+i+'"></p>'//descript
-						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a></div>';
+						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
+						+'<a id="search_edit'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
+						+'</div>';
 			li.innerHTML = inner;
 			li.style.display = "none";
 			ul_searches.appendChild(li);
 			searchDoms.push(new SearchDomJQ($(li),
-				$("#search_ref"+i),
-				$("#search_title"+i),
-				$("#search_tags"+i),
-				$("#search_desc"+i),
-				$("#search_time"+i),
-				$("#search_user"+i),
-				$("#search_delete"+i)
+					$("#search_ref"+i),
+					$("#search_title"+i),
+					$("#search_tags"+i),
+					$("#search_desc"+i),
+					$("#search_time"+i),
+					$("#search_user"+i),
+					$("#search_delete"+i),
+					$("#search_edit"+i)
 				));
 		}
 	}
@@ -483,72 +505,112 @@
 		searchDom.reference.attr("href",he.encode(article.get("reference")));
 		searchDom.title.text(article.get("title"));
 		var tags = article.get('tags');
-		if(tags != null)
-		{
+		if(tags != null) {
 			var inner = "";
-			for(var i=0,l=tags.length;i<l;++i)
-			{
+			for(var i=0,l=tags.length;i<l;++i) {
 				inner += '<span class=\"tag\">';
 				inner += he.encode(tags[i]);
 				inner += '</span>';
 			}
-			if(inner !== "")
-			{
+			if(inner !== "") {
 				searchDom.tags.html(inner);
 			}
 		}
 		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
 		searchDom.username.text(article.get("uploadedBy").attributes.username);
+		searchDom.article = article;
+
 		var deleteBtn = $(searchDom.delete);
-		deleteBtn.unbind('click');
-		var currentUser = Parse.User.current();
-		var acl = article.getACL();
-		var valid = false;
-
-		if(acl == null)
-		{//no access control so well anything goes
-			valid = true;
-		}
-		else if(currentUser !== null)
-		{
-			if(article.getACL().getWriteAccess(currentUser.id))
-				valid = true;//i can edit it!
-		}
-
-		if(valid)
-		{
-			deleteBtn.show();
-			deleteBtn.click(function(){ 
-				selectedArticle = article;
-				selectedArticleSearchDom = $(this).parent().parent();
-				return true; 
-						});
-		}
-		else
-			deleteBtn.hide();
+		//deleteBtn.unbind('click');
+		var editBtn = $(searchDom.edit);
+		editBtn.click(function(){ 
+			editArticle(this);
+			return false; 
+		});
+		deleteBtn.click(function(){ 
+			deleteArticle(this);
+			return true; 
+		});
+		configArticleACL(index,searchDom);
 	}
+	function configArticleACL (index,searchDom) {
+		var article = searchDom.article;
+		var currentUser = Parse.User.current();
+		var acl = article.getACL();//access control
+
+		if(acl == null || //no access control so well anything goes
+			(currentUser !== null && article.getACL().getWriteAccess(currentUser.id))) {//user can edit it
+			searchDom.edit.data(EDIT_KEY,index);
+			searchDom.delete.data(DELETE_KEY,index);
+			searchDom.edit.show();
+			searchDom.delete.show();
+		} else {
+			searchDom.edit.hide();
+			searchDom.delete.hide();
+		}
+	}
+	//configArticleACL helper methods
+		function configAllArticleACL () {
+			for(var i=0;i<searchDoms.length;++i) {
+				configArticleACL(i,searchDoms[i]);
+			}
+		}
+	function displayArticles (results) {
+		if(results.length === 0) {
+	  		nothingToShowText();
+	  	} else {
+	  		//search_currentPageIndex = 0;
+	  		search_currentCollection = results;
+	  		finishedLoadingText();
+	  		var i = 0,l = SEARCH_MAX_LENGTH;
+	  		if(results.length < l)
+	  			l = results.length;
+		    for (; i < l; ++i) { 
+		      var article = results.at(i);
+		      refreshArticle(i,article);
+		    }
+		    colorTags();
+		    cascadingDisplayArticles(0,l);
+	  	}
+	}
+	function enablePaging ($dom,enable) {
+		if(enable) {
+			$dom.removeClass("disabled").addClass("waves-effect");
+		} else {
+			$dom.addClass("disabled").removeClass("waves-effect");
+		}
+	}
+	function enablePageNext (enable) {
+		enablePaging($page_next,enable);
+	}
+	function enablePageBack (enable) {
+		enablePaging($page_back,enable);
+	}
+	//Animate the cascading article effect
 	function cascadingDisplayArticlesStart (length) {
 		cascadingDisplayArticles(0,length);
+
 	}
 	function cascadingDisplayArticles (index,length) {
-		if(index<length)
-		{
+		if(index<length) {
 			$(searchDoms[index].li).show(SHOWSPEED, function () {
 				cascadingDisplayArticles(index+1,length);
 			});
-		}
-		else
-		{
-			if(!searchDomsInitialized)
-			{
+		} else {
+			if(!searchDomsInitialized) {
 				//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
-				$('.collapsible').collapsible();//init collapsibles
-				$('.modal-trigger').leanModal();//init Modals
+				if(true || isComputer) {
+					//tablet or computer, has the power
+					$('.collapsible').collapsible();//init collapsibles
+					$('.modal-trigger').leanModal();//init Modals
+				}
 				searchDomsInitialized = true;
 			}
 		}
 	}
+
+//COLOR
 	//Coloring of Tags (do only after the articles are displayed)
 	//http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
 	function colorTags () {
@@ -570,23 +632,20 @@
 			this.style.backgroundColor = tag.bgColor;
 		});
 	}
+	//HEX TO RGB
 	function stringToColor (str) {
 	    // str to hash
 	    for (var i = 0, hash = 0; i < str.length; hash = str.charCodeAt(i++) + ((hash << 5) - hash));
 	    // int/hash to hex
 	    for (var i = 0, colour = "#"; i < 3; colour += ("00" + ((hash >> i++ * 8) & 0xFF).toString(16)).slice(-2));
-
 	    return colour;
 	}
-
 	//http://www.javascripter.net/faq/hextorgb.htm
 	function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
 	function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
 	function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
 	function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
-
 	function colourIsLight (r, g, b) {
-	  
 	  // Counting the perceptive luminance
 	  // human eye favors green color... 
 	  var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
@@ -594,19 +653,92 @@
 	}
 
 //IFRAME
-	function iframe_back () {
-		iframe_res.contentWindow.history.back();
+	// function iframe_back () {
+	// 	iframe_res.contentWindow.history.back();
+	// }
+
+//CLICK EVENTS
+	function submit_login () {
+		login();
+		return false;
+	}
+	function submit_addArticle () {
+		addArticle();
+		return false;
+	}
+	function btn_add_onclick () {
+		if(editingParseObject !== null) {
+			editingParseObject = null;
+			clearAddArticleForm();
+		}
+		$("#modal_add").openModal();
+		return false;
+	}
+	function btn_delete_onclick () {
+		deleteArticle();
+		return false;
+	}
+	function btn_logout_onclick () {
+		logout();
+		return false;
 	}
 
-	exports.showLogin = showLogin;
-	exports.showLogout = showLogout;
-	exports.login = login;
-	exports.logout = logout;
-	exports.addArticle = addArticle;
-	exports.initializeArticles = initializeArticles;
+//EXPORTS
 	exports.colorTags = colorTags;
-	exports.deleteArticle = deleteArticle;
 	exports.search = search;
-	exports.iframe_back = iframe_back;
+	exports.submit_login = submit_login;
+	exports.submit_addArticle = submit_addArticle;
+	exports.btn_add_onclick = btn_add_onclick;
+	exports.btn_delete_onclick = btn_delete_onclick;
+	exports.btn_logout_onclick = btn_logout_onclick;
+
+//Initialization
+	function initDateMap () {
+		//DATE_MAP.yda.setDate(DATE_MAP.now.getDate() - 1);
+		var baseline = DATE_NOW.getDay();//for days
+		if(baseline == 0)
+			baseline = 7;
+		for(var i=0,l=DAY_ARR.length;i<l;)//keep the number of days needed to add / deduct
+			DATE_MAP[DAY_ARR[i]] = ++i - baseline;//wow so optimize
+	}
+	function initializeArticles () {
+		buildArticleHolders();
+		hideArticleList();
+		//Get initial set of articles
+		getArticlesOrderByDESC("updatedAt");
+	}
+	function initPagination () {
+		$page_next.click(function(){
+			if(pagination_hasNext())
+				HARD_CODED_COMMANDS[">next"]();
+		});
+		$page_back.click(function(){
+			if(pagination_hasBack())
+				HARD_CODED_COMMANDS[">back"]();
+		});
+	}
+
+	initDateMap();
+
+	Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
+	$(document).ready(function(){
+		isComputer = $(document).width() >= 640;
+		//Initialize Modals
+		$('.modal-trigger').leanModal();
+		//Initialize Mobile Collapse Nav
+		$(".button-collapse").sideNav();
+		//Initialize Tabs
+		$('ul.tabs').tabs();
+		//Display login/logout
+		if(Parse.User.current() === null){
+		  showLogin();
+		} else {
+		  showLogout(Parse.User.current().attributes.username);
+		}
+		initializeArticles();
+		initPagination();
+		//colorTags();
+	});
+	$(".fat").height($(document).height()-140);
 
 })(window)
