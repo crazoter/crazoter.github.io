@@ -23,17 +23,18 @@
 			var $txt_ref = $("#txt_ref");
 			var $txt_tags = $("#txt_tags");
 			var $progress_add = $("#progress_add");
-			var editingParseObject = null;
+			var $modal_add = $("#modal_add");
+			var editingArticleIndex = null;
 			var addingArticle = false;
 	//Remove Article
 		//CONSTANTS
 			var DELETE_KEY = "delete";
-		var selectedArticle = null;
-		var selectedArticleSearchDom = null;
+		//RUNTIME
+			var searchDomToDelete = null;
 	//Search Article
 		var $txt_search = $("#txt_search");
 		var $txt_notfound = $("#txt_notfound");
-		var $ul_searches	= $("#ul_searches");
+		var $ul_searches = $("#ul_searches");
 		var $progress_search = $("#progress_search");
 	//Search, SearchDom & Pagination
 		//CONSTANTS
@@ -186,13 +187,13 @@
 				addingArticle = true;
 				show($(progress_add));
 				var article;
-				if(editingParseObject == null) {
+				if(editingArticleIndex == null) {
 					//if creating new article
 					var Article = Parse.Object.extend("Article");
 					article = new Article();
 				} else {
 					//if editing article
-					article = editingParseObject;
+					article = searchDoms[editingArticleIndex].article;
 				}
 				article.set("title",$txt_title.val());
 				article.set("description",$txtarea_description.val());
@@ -205,10 +206,13 @@
 				    // Execute any logic that should take place after the object is saved.
 				    clearAddArticleForm();
 				    $('.lbl_add_article').removeClass("active");
-				    if(editingParseObject !== null) {
-					    Materialize.toast("New article added!", TOAST_SHOWDURATION);
+				    if(editingArticleIndex !== null) {
+					    Materialize.toast("Article updated.", TOAST_SHOWDURATION);
+					    //edit dom
+					    refreshArticle(editingArticleIndex,article);
+					    colorTags();
 					} else {
-						Materialize.toast("Article updated.", TOAST_SHOWDURATION);
+						Materialize.toast("Article added.", TOAST_SHOWDURATION);
 					}
 				    postAddArticle();
 				  },
@@ -227,24 +231,25 @@
 	}
 	//Add article helper methods
 		function clearAddArticleForm () {
-			$txt_title.val() = "";
-		    $txtarea_description.val() = "";
-		    $txt_tags.val() = "";
-		    $txt_ref.val() = "";
+			$txt_title.val("");
+		    $txtarea_description.val("");
+		    $txt_tags.val("");
+		    $txt_ref.val("");
 		}
 		function postAddArticle () {
 		    hide($(progress_add));
 		    addingArticle = false;
+		    $modal_add.closeModal();
 		}
-	function deleteArticle (deleteBtn) {
-		var selectedSearchDom = searchDoms[$(deleteBtn).data(DELETE_KEY)];
-		if(selectedSearchDom.article !== null)
+	function deleteArticle () {
+		if(searchDomToDelete.article !== null)
 		{
-			selectedSearchDom.article.destroy({
+			searchDomToDelete.article.destroy({
 			  success: function(myObject) {
 			    // The object was deleted from the Parse Cloud.
 			    Materialize.toast("Successfully removed article.", TOAST_SHOWDURATION);
-			    selectedSearchDom.li.hide(200);
+			    searchDomToDelete.li.hide(200);
+			    searchDomToDelete = null;
 			  },
 			  error: function(myObject, error) {
 			    // The delete failed.
@@ -252,10 +257,11 @@
 			    Materialize.toast("Unsuccessfully removed article.", TOAST_SHOWDURATION);
 			  }
 			});
-		}	
+		}
 	}
 	function editArticle (editBtn) {
-		editingParseObject = searchDoms[$(editBtn).data(EDIT_KEY)].article;
+		editingArticleIndex = $(editBtn).data(EDIT_KEY);
+		var editingParseObject = searchDoms[editingArticleIndex].article;
 		//populate modal data
 		$txt_title.val(editingParseObject.get("title"));
 		$txtarea_description.val(editingParseObject.get("description"));
@@ -524,11 +530,9 @@
 		var editBtn = $(searchDom.edit);
 		editBtn.click(function(){ 
 			editArticle(this);
-			return false; 
 		});
 		deleteBtn.click(function(){ 
-			deleteArticle(this);
-			return true; 
+			searchDomToDelete = searchDoms[$(deleteBtn).data(DELETE_KEY)];
 		});
 		configArticleACL(index,searchDom);
 	}
@@ -612,21 +616,23 @@
 	//http://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
 	function colorTags () {
 		$("span.tag").each(function(){
-			var tag = calculatedTags[this.innerHTML];
-			if(tag == undefined)
-			{//calculate if undefined
-				var bgColor = stringToColor(this.innerHTML);
-				var snippedColor = cutHex(bgColor);
-				var isLight = colourIsLight(hexToR(snippedColor),hexToG(snippedColor),hexToB(snippedColor));
-				tag = new Tag(
-					this.innerHTML,
-					bgColor,
-					isLight
-					);
-				calculatedTags[this.innerHTML] = tag;
-			}//else use the "cache"
-			this.style.color = tag.bgIsLight?"#000":"#FFF";//set the color of the text
-			this.style.backgroundColor = tag.bgColor;
+			if(!this.style.color) {
+				var tag = calculatedTags[this.innerHTML];
+				if(tag == undefined)
+				{//calculate if undefined
+					var bgColor = stringToColor(this.innerHTML);
+					var snippedColor = cutHex(bgColor);
+					var isLight = colourIsLight(hexToR(snippedColor),hexToG(snippedColor),hexToB(snippedColor));
+					tag = new Tag(
+						this.innerHTML,
+						bgColor,
+						isLight
+						);
+					calculatedTags[this.innerHTML] = tag;
+				}//else use the "cache"
+				this.style.color = tag.bgIsLight?"#000":"#FFF";//set the color of the text
+				this.style.backgroundColor = tag.bgColor;
+			}
 		});
 	}
 	//HEX TO RGB
@@ -664,11 +670,11 @@
 		//return false;
 	}
 	function btn_add_onclick () {
-		if(editingParseObject !== null) {
-			editingParseObject = null;
+		if(editingArticleIndex !== null) {
+			editingArticleIndex = null;
 			clearAddArticleForm();
 		}
-		$("#modal_add").openModal();
+		$modal_add.openModal();
 		return false;
 	}
 	function btn_delete_onclick () {
