@@ -3,26 +3,26 @@
 
 //VARIABLES & CLASSES
 	//Login x Logout UI
-		//var btn_login = document.getElementById("btn_login");
-		var btn_login_mobile = document.getElementById("btn_login_mobile");
-		var btn_add_article = document.getElementById("btn_add_article");
-		//var btn_logout = document.getElementById("btn_logout");
-		//var span_loggedInUser = document.getElementById("span_loggedInUser");
-		var btn_logout_mobile = document.getElementById("btn_logout_mobile");
-		var span_loggedInUser_mobile = document.getElementById("span_loggedInUser_mobile");
+		//var btn_login = $("btn_login");
+		var $btn_login_mobile = $("#btn_login_mobile");
+		var $btn_add_article = $("#btn_add_article");
+		//var btn_logout = $("#btn_logout");
+		//var span_loggedInUser = $("#span_loggedInUser");
+		var $btn_logout_mobile = $("#btn_logout_mobile");
+		var $span_loggedInUser_mobile = $("#span_loggedInUser_mobile");
 	//Login Modal Form
-		var txt_user = document.getElementById("txt_username");
-		var txt_pass = document.getElementById("txt_password");
-		var progress_login = document.getElementById("progress_login");
+		var $txt_user = $("#txt_username");
+		var $txt_pass = $("#txt_password");
+		var $progress_login = $("#progress_login");
 	//Add Article Form
 		//CONSTANTS
 			var EDIT_KEY = "article";
 		//RUNTIME
-			var txt_title = document.getElementById("txt_title");
-			var txtarea_description = document.getElementById("txtarea_description");
-			var txt_ref = document.getElementById("txt_ref");
-			var txt_tags = document.getElementById("txt_tags");
-			var progress_add = document.getElementById("progress_add");
+			var $txt_title = $("#txt_title");
+			var $txtarea_description = $("#txtarea_description");
+			var $txt_ref = $("#txt_ref");
+			var $txt_tags = $("#txt_tags");
+			var $progress_add = $("#progress_add");
 			var editingParseObject = null;
 			var addingArticle = false;
 	//Remove Article
@@ -31,13 +31,10 @@
 		var selectedArticle = null;
 		var selectedArticleSearchDom = null;
 	//Search Article
-		var txt_search = document.getElementById('txt_search');
-		var txt_notfound = document.getElementById('txt_notfound');
-		var ul_searches	= document.getElementById("ul_searches");
-		var progress_search = document.getElementById("progress_search");
-	//IFRAME
-		var iframe_res = document.getElementById('iframe_res');
-		//
+		var $txt_search = $("#txt_search");
+		var $txt_notfound = $("#txt_notfound");
+		var $ul_searches	= $("#ul_searches");
+		var $progress_search = $("#progress_search");
 	//Search, SearchDom & Pagination
 		//CONSTANTS
 			var SEARCH_MAX_LENGTH = 25;
@@ -125,22 +122,22 @@
 //LOGIN / LOGOUT
 	//Display functions
 	function showLogin () {
-		//$(btn_login).show();
-		$(btn_login_mobile).show();
-	    //$(span_loggedInUser).hide();
-	    $(span_loggedInUser_mobile).hide();
-	    //$(btn_logout).hide();
-	    $(btn_logout_mobile).hide();
-	    $(btn_add_article).hide();
+		//show($(btn_login));
+		show($btn_login_mobile);
+	    //hide($(span_loggedInUser));
+	    hide($span_loggedInUser_mobile);
+	    //hide($(btn_logout));
+	    hide($btn_logout_mobile);
+	    hide($btn_add_article);
 	}
 	function showLogout (username) {
-		//$(btn_login).hide();
-		$(btn_login_mobile).hide();
-	    //$(span_loggedInUser).show();
-	    $(span_loggedInUser_mobile).show();
-	    $(btn_add_article).show();
-	    //$(btn_logout).show();
-	    $(btn_logout_mobile).show();
+		//hide($(btn_login));
+		hide($btn_login_mobile);
+	    //show($(span_loggedInUser));
+	    show($span_loggedInUser_mobile);
+	    show($btn_add_article);
+	    //show($(btn_logout));
+	    show($btn_logout_mobile);
 	    var s = "Hi "+username+"!";
 	    //span_loggedInUser.innerHTML = s;
 	    span_loggedInUser_mobile.innerHTML = s;
@@ -148,22 +145,22 @@
 	//Logic functions
 	function login () {
 		//Maybe I should do some security stuff? I must make sure never to redisplay them though.
-		$(progress_login).show();
-		Parse.User.logIn(txt_user.value, txt_pass.value, {
+		show($progress_login);
+		Parse.User.logIn($txt_user.val(), $txt_pass.val(), {
 		  success: function(user) {
 		    // Do stuff after successful login.
-		    txt_user.value = "";
-		    txt_pass.value = "";
+		    $txt_user.val("");
+		    $txt_pass.val("");
 		    Materialize.toast("Logged in! Welcome, "+user.attributes.username+"!", TOAST_SHOWDURATION);
 		    showLogout(user.attributes.username);//display the username :)
-			$(progress_login).hide();
+			hide($progress_login);
 			$('#modal_login').closeModal();
 			configAllArticleACL();
 		  },
 		  error: function(user, error) {
 		    // The login failed. Check error to see why.
 		    Materialize.toast("Wrong username / password!", TOAST_SHOWDURATION);
-		    $(progress_login).hide();
+		    hide($progress_login);
 		  }
 		});
 	}
@@ -187,7 +184,7 @@
 		{
 			if(!addingArticle) {
 				addingArticle = true;
-				$(progress_add).show();
+				show($(progress_add));
 				var article;
 				if(editingParseObject == null) {
 					//if creating new article
@@ -197,10 +194,10 @@
 					//if editing article
 					article = editingParseObject;
 				}
-				article.set("title",txt_title.value);
-				article.set("description",txtarea_description.value);
-				article.set("reference",txt_ref.value);
-				article.set("tags",txt_tags.value.toUpperCase().split(/\s+/g));
+				article.set("title",$txt_title.val());
+				article.set("description",$txtarea_description.val());
+				article.set("reference",$txt_ref.val());
+				article.set("tags",$txt_tags.val().toUpperCase().split(/\s+/g));
 				article.set("uploadedBy",currentUser);
 
 				article.save(null, {
@@ -230,13 +227,13 @@
 	}
 	//Add article helper methods
 		function clearAddArticleForm () {
-			txt_title.value = "";
-		    txtarea_description.value = "";
-		    txt_tags.value = "";
-		    txt_ref.value = "";
+			$txt_title.val() = "";
+		    $txtarea_description.val() = "";
+		    $txt_tags.val() = "";
+		    $txt_ref.val() = "";
 		}
 		function postAddArticle () {
-		    $(progress_add).hide();
+		    hide($(progress_add));
 		    addingArticle = false;
 		}
 	function deleteArticle (deleteBtn) {
@@ -260,10 +257,10 @@
 	function editArticle (editBtn) {
 		editingParseObject = searchDoms[$(editBtn).data(EDIT_KEY)].article;
 		//populate modal data
-		txt_title.value = editingParseObject.get("title");
-		txtarea_description.value = editingParseObject.get("description");
-		txt_ref.value = editingParseObject.get("reference");
-		txt_tags.value = editingParseObject.get("tags").join(" ");
+		$txt_title.val(editingParseObject.get("title"));
+		$txtarea_description.val(editingParseObject.get("description"));
+		$txt_ref.val(editingParseObject.get("reference"));
+		$txt_tags.val(editingParseObject.get("tags").join(" "));
 		//display modal
 		$('.lbl_add_article').addClass("active");
 		$('#modal_add').openModal();
@@ -303,7 +300,7 @@
 		fetchAndDisplayArticles();
 	}
 	function search () {
-		var searchStuff = txt_search.value;
+		var searchStuff = $txt_search.val();
 		//Check hardcoded methods
 		if(HARD_CODED_COMMANDS[searchStuff.toLowerCase()] != null) {
 			HARD_CODED_COMMANDS[searchStuff.toLowerCase()]();
@@ -341,7 +338,7 @@
 				}
 			}
 			//replace date
-			txt_search.value = searchStuff;
+			$txt_search.val(searchStuff);
 
 			//Tags (special characters accepted but must have # in front to signify it is a tagx)
 			var wordsWithSpace = [];//group 1 - "(.+)"
@@ -427,23 +424,23 @@
 	function loadFillerText () {
 		hideArticleList();
 		txt_notfound.innerHTML = loadingBookshelfText();
-		$(progress_search).show();
-		$(txt_notfound).show();
+		show($(progress_search));
+		show($(txt_notfound));
 	}
 	function finishedLoadingText () {
-		$(progress_search).hide();
-		$(txt_notfound).hide();
+		hide($(progress_search));
+		hide($(txt_notfound));
 		enablePageNext(pagination_hasNext());
 		enablePageBack(pagination_hasBack());
 	}
 	function nothingToShowText () {
-		$(progress_search).hide();
+		hide($(progress_search));
 		txt_notfound.innerHTML = "The Bookshelf is empty.";
 		enablePageNext(false);
 		enablePageBack(false);
 	}
 	function notFoundText () {
-		$(progress_search).hide();
+		hide($(progress_search));
 		txt_notfound.innerHTML = "We could not find anything in the Bookshelf that matches your search.";
 		enablePageNext(false);
 		enablePageBack(false);
@@ -468,7 +465,7 @@
 	//Hide all article lists
 	function hideArticleList () {
 		for(var i=0,l=searchDoms.length;i<l;++i) {
-			searchDoms[i].li.hide();
+			hide(searchDoms[i].li);
 		}
 	}
 	//Build the dom for the articles
@@ -486,8 +483,9 @@
 						+'<a id="search_edit'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'</div>';
 			li.innerHTML = inner;
-			li.style.display = "none";
-			ul_searches.appendChild(li);
+			li.className = "article hidden";
+			//li.style.display = "none";
+			$ul_searches.append(li);
 			searchDoms.push(new SearchDomJQ($(li),
 					$("#search_ref"+i),
 					$("#search_title"+i),
@@ -543,11 +541,11 @@
 			(currentUser !== null && article.getACL().getWriteAccess(currentUser.id))) {//user can edit it
 			searchDom.edit.data(EDIT_KEY,index);
 			searchDom.delete.data(DELETE_KEY,index);
-			searchDom.edit.show();
-			searchDom.delete.show();
+			show(searchDom.edit);
+			show(searchDom.delete);
 		} else {
-			searchDom.edit.hide();
-			searchDom.delete.hide();
+			hide(searchDom.edit);
+			hide(searchDom.delete);
 		}
 	}
 	//configArticleACL helper methods
@@ -571,7 +569,8 @@
 		      refreshArticle(i,article);
 		    }
 		    colorTags();
-		    cascadingDisplayArticles(0,l);
+		    postDisplayArticles();
+		    //cascadingDisplayArticles(0,l);
 	  	}
 	}
 	function enablePaging ($dom,enable) {
@@ -588,26 +587,24 @@
 		enablePaging($page_back,enable);
 	}
 	//Animate the cascading article effect
-	function cascadingDisplayArticlesStart (length) {
-		cascadingDisplayArticles(0,length);
-
-	}
-	function cascadingDisplayArticles (index,length) {
-		if(index<length) {
-			$(searchDoms[index].li).show(SHOWSPEED, function () {
-				cascadingDisplayArticles(index+1,length);
-			});
-		} else {
-			if(!searchDomsInitialized) {
-				//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
-				if(true || isComputer) {
-					//tablet or computer, has the power
-					$('.collapsible').collapsible();//init collapsibles
-					$('.modal-trigger').leanModal();//init Modals
-				}
-				searchDomsInitialized = true;
+	function postDisplayArticles () {
+		show($("li.article"));
+		if(!searchDomsInitialized) {
+			//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
+			if(true || isComputer) {
+				//tablet or computer, has the power
+				$('.collapsible').collapsible();//init collapsibles
+				$('.modal-trigger').leanModal();//init Modals
 			}
+			searchDomsInitialized = true;
 		}
+	}
+	//CSS3 only animation
+	function show ($dom) {
+		$dom.removeClass('hidden').addClass('shown');
+	}
+	function hide ($dom) {
+		$dom.removeClass('shown').addClass('hidden');
 	}
 
 //COLOR
@@ -660,11 +657,11 @@
 //CLICK EVENTS
 	function submit_login () {
 		login();
-		return false;
+		//return false;
 	}
 	function submit_addArticle () {
 		addArticle();
-		return false;
+		//return false;
 	}
 	function btn_add_onclick () {
 		if(editingParseObject !== null) {

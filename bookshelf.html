@@ -25,12 +25,12 @@
   <!--Side nav START-->
   <ul class="side-nav fixed" id="mobile-demo">
           <a class="brand-logo center" style="background-image: url(assets/bookshelf/foolingaround.png);background-position: center; background-repeat: no-repeat;" title="Aidil Bookshelf"></a>
-          <p id="span_loggedInUser_mobile" style="display:none;" class="center-align grey-text text-darken-4"></p>
+          <p id="span_loggedInUser_mobile" class="hidden center-align grey-text text-darken-4"></p>
           <li><a class="waves-effect waves-light dropdown-button text-darken-4" href='#' data-activates='dropdown1'>Resources</a></li>
           <li><a class="waves-effect waves-light text-darken-4" href="https://crazoter.github.io">Go Home</a></li>
           <li><a class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_about">About</a></li>
-          <li><a id="btn_login_mobile" style="display:none;" class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_login">Login</a></li>
-          <li><a id="btn_logout_mobile" style="display:none;" href="#" onclick="btn_logout_onclick();">Log out</a></li>
+          <li><a id="btn_login_mobile" class="hidden waves-effect waves-light modal-trigger text-darken-4" href="#modal_login">Login</a></li>
+          <li><a id="btn_logout_mobile" class="hidden" href="#" onclick="btn_logout_onclick();return false;">Log out</a></li>
         </ul>
   <!--Side Nav END-->
 
@@ -44,8 +44,8 @@
   <!--Top Nav END-->
   
   <!--Floating Buttons START-->
-  <div id="btn_add_article" class="fixed-action-btn" style="display:none; bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large teal waves-effect waves-light" href="#" onclick="btn_add_onclick();">
+  <div id="btn_add_article" class="hidden fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large teal waves-effect waves-light" href="#" onclick="btn_add_onclick();return false;">
       <i class="large mdi-av-my-library-add"></i>
     </a>
   </div>
@@ -75,7 +75,7 @@
   <div id="modal_login" class="modal">
     <div class="modal-content">
       <h4>Login</h4>
-      <form onSubmit="submit_login();">
+      <form onSubmit="submit_login();return false;">
         <div class="row">
           <div class="input-field col s12">
             <input id="txt_username" type="text" class="validate" required>
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <div id="progress_login" style="display:none;" class="progress">
+        <div id="progress_login" class="hidden progress">
           <div class="indeterminate"></div>
         </div>
         <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
@@ -113,7 +113,7 @@
         <span class="tag">>BACK</span> - Go to the previous page of articles (if there are any)
         <hr>
         <h6>Search by Tag (<span class="tag">#</span>)</h6>
-        <span class="tag">#TAG</span> - E.G. search "#Aidil" to query for articles that are tagged "Aidil".<hr>
+        <span class="tag">#TAG</span> - E.G. search "#Aidil" to query for articles that are tagged "Aidil" (Case sensitive, although most (if not all) tags are in full caps).<hr>
         <h6>Search by Date (<span class="tag">$</span>)(Because time is money lol)</h6>
         <span class="tag">${yyyy/mm/dd}-${yyyy/mm/dd}</span> - E.G. "$2015/03/20-$2015/03/25" will search for posts made during March 20th to 25th (inclusive)<br/>
         <span class="tag">${yyyy/mm/dd}</span> - Supplying only 1 date will search for articles posted on that day.
@@ -133,7 +133,7 @@
       <h4>Confirm Removal?</h4>
       <p>Are you sure you want this article gone? Forever?</p>
       <div class="modal-footer">
-      <a href="#!" onclick="btn_delete_onclick()" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+      <a href="#!" onclick="btn_delete_onclick();return false;" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
     </div>
     </div>
@@ -158,7 +158,7 @@
   <div id="modal_add" class="modal">
     <div class="modal-content">
       <div class="vert-align-mid"><i class="vert-align-mid small mdi-av-my-library-add"></i><span class="vert-align-mid">Add Article</span></div>
-      <form onSubmit="addArticle();return false;">
+      <form onSubmit="submit_addArticle();return false;">
         <div class="row">
           <div class="input-field col s12">
             <i class="mdi-action-picture-in-picture prefix"></i>
@@ -185,7 +185,7 @@
             <label for="txt_tags" class="lbl_add_article">Tag(s) - delimit with space</label>
           </div>
         </div>
-        <div id="progress_add" style="display:none;" class="progress">
+        <div id="progress_add" class="hidden progress">
           <div class="indeterminate"></div>
         </div>
         <div class="row">
@@ -229,11 +229,13 @@
       </div>
     </div>
         <ul id="ul_searches" class="collapsible popout" data-collapsible="accordion"></ul>
+        <div class="pagination_container">
+          <ul class="pagination">
+          <li id="page_back" class="pagination_node disabled"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
+          <li id="page_next" class="pagination_node disabled"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
+        </ul>
+      </div>
     </div>
-    <ul class="pagination">
-      <li id="page_back" class="disabled"><a href="#!"><i class="mdi-navigation-chevron-left"></i></a></li>
-      <li id="page_next" class="disabled"><a href="#!"><i class="mdi-navigation-chevron-right"></i></a></li>
-    </ul>
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
