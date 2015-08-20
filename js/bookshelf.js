@@ -688,7 +688,7 @@
 
 //TOUCH EVENTS
 	function initSwipeMenu () {
-		var swipeWidth = 140;
+		var swipeWidth = 200;
 		$(".main").touchwipe({
 		    wipeLeft: function() {},
 		    wipeRight: function() { $('.button-collapse').sideNav('show'); },
