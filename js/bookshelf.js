@@ -688,22 +688,23 @@
 
 //TOUCH EVENTS
 	function initSwipeMenu () {
+		var swipeWidth = $('document').width() * 3/5;
 		$(".main").touchwipe({
-		    wipeLeft: function() { alert("left"); },
-		    wipeRight: function() { alert("right"); },
-		    wipeUp: function() { alert("up"); },
-		    wipeDown: function() { alert("down"); },
-		    min_move_x: 150,
-		    min_move_y: 150,
+		    wipeLeft: function() {},
+		    wipeRight: function() { $('#mobile-demo').sideNav('show'); },
+		    wipeUp: function() {},
+		    wipeDown: function() {},
+		    min_move_x: swipeWidth,
+		    min_move_y: swipeWidth,
 		    preventDefaultEvents: false
 		});
 		$("#mobile-demo").touchwipe({
-		    wipeLeft: function() { alert("left"); },
-		    wipeRight: function() { alert("right"); },
-		    wipeUp: function() { alert("up"); },
-		    wipeDown: function() { alert("down"); },
-		    min_move_x: 150,
-		    min_move_y: 150,
+		    wipeLeft: function() { $('#mobile-demo').sideNav('hide'); },
+		    wipeRight: function() {},
+		    wipeUp: function() {},
+		    wipeDown: function() {},
+		    min_move_x: swipeWidth,
+		    min_move_y: swipeWidth,
 		    preventDefaultEvents: false
 		});
 	}
