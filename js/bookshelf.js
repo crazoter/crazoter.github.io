@@ -656,8 +656,9 @@
 	function postDisplayArticles (length) {
 		show($("li.article:nth-child(-n+"+length+")"));
 		if(!searchDomsInitialized) {
+			initModalTriggers();
 			//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
-			$('.modal-trigger').leanModal();//init Modals for the delete buttons
+			//$('.modal-trigger').leanModal();//init Modals for the delete buttons
 			searchDomsInitialized = true;
 		}
 	}
@@ -809,11 +810,11 @@
 		$dom.fadeOut(MODAL_ANIM_SPEED);
 	}
 	function initModalTriggers () {
-		$(".overlay-trigger").each(function(){
+		$(".modal-trigger").each(function(){
 			var ev = $._data(this, 'events');
 	        if(!(ev && ev.click)){//click not bound
 	        	$(this).click(function(){
-	        		showModal($(this.href));
+	        		showModal($(this.getAttribute("href")));
 	        	});
 	        }
 	    });
@@ -833,7 +834,7 @@
 	$(document).ready(function(){
 		//isComputer = $(document).width() >= 640;
 		//Initialize Modals
-		$('.modal-trigger').leanModal();
+		//$('.modal-trigger').leanModal();
 		//Initialize Mobile Collapse Nav
 		$(".button-collapse").sideNav();
 		//Initialize Tabs
@@ -849,6 +850,7 @@
 		initSwipeMenu();
 		initPopulateByURL();
 		initModals();
+		initModalTriggers();
 	});
 	$(".fat").height($(document).height()-140);
 
