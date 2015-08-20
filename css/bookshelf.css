@@ -62,7 +62,6 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
    background: rgb(76, 76, 76);
    background: rgba(0, 0, 0, 0.5); 
    animation-duration: 0.5s;
-   -webkit-overflow-scrolling: touch;
 }
 
 .overlay.shown,.overlay.fade-out {
@@ -79,7 +78,8 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
      border-radius: 2px;
      box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
      padding:15px;
-     -webkit-overflow-scrolling: touch;
+     /*http://weblog.west-wind.com/posts/2013/Jun/01/Smoothing-out-div-scrolling-in-Mobile-WebKit-Browsers*/
+     /*-webkit-overflow-scrolling: touch;*/
 }
 
 
