@@ -5,19 +5,16 @@
   <title>The Aidil Bookshelf</title>
   <meta name="description" content="The Aidil Bookshelf">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
   <link rel="shortcut icon" href="assets/favicon.ico"/>
-
   <!--Force HTTPS on GitHub-->
   <script>
     var host = "crazoter.github.io";
     if ((host == window.location.host) && (window.location.protocol != "https:"))
       window.location.protocol = "https";
   </script>
-
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
   <link type="text/css" rel="stylesheet" href="css/bookshelf.css" media="screen,projection"/>
   <link type="text/css" rel="stylesheet" href="node_modules/materialize-css/bin/materialize.css"  media="screen,projection"/>
-  <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
   <script src="js/prefixfree.min.js"></script><!--auto prefix tool for css with js-->
   <script src="js/pagespeed/modernizr.js"></script>
 </head>
@@ -25,23 +22,23 @@
 <body>
   <!--Side nav START-->
   <ul class="side-nav fixed" id="mobile-demo">
-          <a class="brand-logo center" style="background-image: url(assets/bookshelf/foolingaround.png);background-position: center; background-repeat: no-repeat;" title="Aidil Bookshelf"></a>
-          <p id="span_loggedInUser_mobile" class="hidden center-align grey-text text-darken-4"></p>
-          <li><a class="waves-effect waves-light dropdown-button text-darken-4" href='#' data-activates='dropdown1'>Resources</a></li>
-          <li><a class="waves-effect waves-light text-darken-4" href="https://crazoter.github.io">Go Home</a></li>
-          <li><a class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_about">About</a></li>
-          <li><a id="btn_login_mobile" class="hidden waves-effect waves-light modal-trigger text-darken-4" href="#modal_login">Login</a></li>
-          <li><a id="btn_logout_mobile" class="hidden" href="#" onclick="btn_logout_onclick();return false;">Log out</a></li>
-        </ul>
+    <a class="brand-logo center" style="background-image: url(assets/bookshelf/foolingaround.png);background-position: center; background-repeat: no-repeat;" title="Aidil Bookshelf"></a>
+    <p id="span_loggedInUser_mobile" class="hidden center-align grey-text text-darken-4"></p>
+    <li><a class="waves-effect waves-light dropdown-button text-darken-4" href='#' data-activates='dropdown1'>Resources</a></li>
+    <li><a class="waves-effect waves-light text-darken-4" href="https://crazoter.github.io">Go Home</a></li>
+    <li><a class="waves-effect waves-light modal-trigger text-darken-4" href="#modal_about">About</a></li>
+    <li><a id="btn_login_mobile" class="hidden waves-effect waves-light modal-trigger text-darken-4" href="#modal_login">Login</a></li>
+    <li><a id="btn_logout_mobile" class="hidden" href="#" onclick="btn_logout_onclick();return false;">Log out</a></li>
+  </ul>
   <!--Side Nav END-->
 
   <!--Top Nav START-->
   <nav class="hide-on-large-only">
-  <div class="nav-wrapper teal lighten-2">
-  <a href="#!" class="brand-logo"><img style="height:50px;" src="assets/bookshelf/foolingaround.png" alt=""></a>
-  <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-  </div>
-</nav>
+    <div class="nav-wrapper teal lighten-2">
+    <a href="#!" class="brand-logo"><img style="height:50px;" src="assets/bookshelf/foolingaround.png" alt=""></a>
+    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+    </div>
+  </nav>
   <!--Top Nav END-->
   
   <!--Floating Buttons START-->
@@ -71,6 +68,34 @@
   </ul>
   <!--Dropdowns END-->
 
+  <div class="overlay">
+    <div class="overlay-content">
+      <h4>Login</h4>
+      <form onSubmit="submit_login();return false;">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="txt_username" type="text" class="validate" required>
+            <label for="txt_username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="txt_password" type="password" class="validate" required>
+            <label for="txt_password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div id="progress_login" class="hidden progress">
+            <div class="indeterminate"></div>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
+            <i class="mdi-content-send right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!--Modals START-->
   <!--Login START-->
   <div id="modal_login" class="modal">
@@ -89,16 +114,16 @@
             <label for="txt_password">Password</label>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div id="progress_login" class="hidden progress">
-          <div class="indeterminate"></div>
+        <div class="modal-footer">
+          <div id="progress_login" class="hidden progress">
+            <div class="indeterminate"></div>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
+            <i class="mdi-content-send right"></i>
+          </button>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
-          <i class="mdi-content-send right"></i>
-        </button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
   <!--Login END-->
 
@@ -144,12 +169,13 @@
   <!--About START-->
   <div id="modal_about" class="modal">
     <div class="modal-content">
-    <div><i class="mdi-action-face-unlock"></i> Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a>.</div>
-        <p>
-          This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online. 
-        </p>
-        <p>Version 1.4.7</p>
-        <div class="modal-footer">
+      <div><i class="mdi-action-face-unlock"></i> Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a>.
+      </div>
+      <p>
+        This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online. 
+      </p>
+      <p>Version 1.4.7</p>
+      <div class="modal-footer">
         <a class="modal-action modal-close waves-teal btn-flat">Close</a>
       </div>
     </div>

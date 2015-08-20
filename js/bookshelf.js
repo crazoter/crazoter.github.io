@@ -94,7 +94,7 @@
 		var SHOWSPEED = 50;
 		var TOAST_SHOWDURATION = 4000;
 		var SCROLL_SPEED = 200;
-		//
+		var MODAL_ANIM_SPEED = 500;
 		var lastScrollPosition = 0;
 	//Date
 		var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
@@ -120,7 +120,6 @@
 		}
 		var calculatedTags = {};//cache tags we have calculated so we don't have to recalculate
 	//Mobile
-		var overrideAccordionAnimation = true;
 		//var isComputer = true;
 		//touch events
 		var MAIN_SWIPE_WIDTH = 200;
@@ -529,32 +528,30 @@
 			//li.style.display = "none";
 			$ul_searches.append(li);
 			var $li = $(li);
-			if(overrideAccordionAnimation) {
-				$li.click(function(){
-					//http://stackoverflow.com/questions/10390010/jquery-click-is-triggering-when-selecting-highlighting-text
-					var sel = getSelection().toString();
-    				if(!sel){//is real click
-						//remove previous 
-						var wasThis = $("li.article.selected")[0] == this;
-						//hide previous body and rescale
-						$("li.article.selected").children().eq(1).removeClass("shown");
-						$("li.article.selected").removeClass("selected");
-						if(!wasThis) {
-							lastScrollPosition = $(document).scrollTop();//cache current position
-							var $this = $(this);
-							//show body and rescale
-							$this.children().eq(1).addClass("shown");
-							$this.addClass("selected");
-							//scroll to object
-							//$('html, body').scrollTop($this.offset().top);
-							$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
-						} else {
-							$('html, body').scrollTop(lastScrollPosition);
-							//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
-						}
+			$li.click(function(){
+				//http://stackoverflow.com/questions/10390010/jquery-click-is-triggering-when-selecting-highlighting-text
+				var sel = getSelection().toString();
+				if(!sel){//is real click
+					//remove previous 
+					var wasThis = $("li.article.selected")[0] == this;
+					//hide previous body and rescale
+					$("li.article.selected").children().eq(1).removeClass("shown");
+					$("li.article.selected").removeClass("selected");
+					if(!wasThis) {
+						lastScrollPosition = $(document).scrollTop();//cache current position
+						var $this = $(this);
+						//show body and rescale
+						$this.children().eq(1).addClass("shown");
+						$this.addClass("selected");
+						//scroll to object
+						//$('html, body').scrollTop($this.offset().top);
+						$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
+					} else {
+						$('html, body').scrollTop(lastScrollPosition);
+						//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
 					}
-				});
-			}
+				}
+			});
 			searchDoms.push(new SearchDomJQ($li,
 					$("#search_ref"+i),
 					$("#search_title"+i),
@@ -660,10 +657,6 @@
 		show($("li.article:nth-child(-n+"+length+")"));
 		if(!searchDomsInitialized) {
 			//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
-			if(!overrideAccordionAnimation) {
-				//tablet or computer, has the power for collapsible
-				$('.collapsible').collapsible();//init collapsibles for the newly created collapsibles
-			}
 			$('.modal-trigger').leanModal();//init Modals for the delete buttons
 			searchDomsInitialized = true;
 		}
@@ -719,11 +712,6 @@
 	  var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 	  return (a < 0.5);
 	}
-
-//IFRAME
-	// function iframe_back () {
-	// 	iframe_res.contentWindow.history.back();
-	// }
 
 //CLICK EVENTS
 	function submit_login () {
@@ -781,6 +769,7 @@
 	exports.btn_add_onclick = btn_add_onclick;
 	exports.btn_delete_onclick = btn_delete_onclick;
 	exports.btn_logout_onclick = btn_logout_onclick;
+	exports.showModal = showModal;
 
 //Initialization
 	function initDateMap () {
@@ -807,12 +796,41 @@
 				HARD_CODED_COMMANDS[">back"]();
 		});
 	}
+	function showModal ($dom) {
+		//position modal
+		$dom[0].style['top'] = $(document).scrollTop()+"px";
+		//prevent scrolling in bg
+		document.body.style["overflow"] = 'hidden';
+		//show
+		$dom.fadeIn(MODAL_ANIM_SPEED);
+	}
+	function hideModal ($dom) {
+		document.body.style["overflow"] = 'auto';
+		$dom.fadeOut(MODAL_ANIM_SPEED);
+	}
+	function initModalTriggers () {
+		$(".overlay-trigger").each(function(){
+			var ev = $._data(this, 'events');
+	        if(!(ev && ev.click)){//click not bound
+	        	$(this).click(function(){
+	        		showModal($(this.href));
+	        	});
+	        }
+	    });
+	}
+	function initModals () {
+		$(".overlay").click(function(event){//hide
+			hideModal($(this));
+		});
+		$(".overlay-content").click(function(event){ 
+			event.stopPropagation();//clicked content, don't hide
+		});
+	}
 
 	initDateMap();
 
 	Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
 	$(document).ready(function(){
-		//overrideAccordionAnimation = $(document).width() < 640;
 		//isComputer = $(document).width() >= 640;
 		//Initialize Modals
 		$('.modal-trigger').leanModal();
@@ -830,7 +848,7 @@
 		initPagination();
 		initSwipeMenu();
 		initPopulateByURL();
-		//colorTags();
+		initModals();
 	});
 	$(".fat").height($(document).height()-140);
 
