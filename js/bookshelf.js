@@ -94,6 +94,7 @@
 		var SHOWSPEED = 50;
 		var TOAST_SHOWDURATION = 4000;
 		//
+		var lastScrollPosition = 0;
 	//Date
 		var DATEFORMAT_ARTICLE = 'yyyy/MM/dd HH:mm';
 		var DATEFORMAT_SEARCH = 'yyyy/MM/dd';
@@ -117,7 +118,7 @@
 			this.bgIsLight = isLight;
 		}
 		var calculatedTags = {};//cache tags we have calculated so we don't have to recalculate
-	//Responsive?
+	//Mobile
 		var overrideAccordionAnimation = true;
 		//var isComputer = true;
 		//touch events
@@ -501,14 +502,19 @@
 				$li.click(function(){
 					//remove previous 
 					var wasThis = $("li.article.selected")[0] == this;
-					$("li.article.selected").children().eq(1).removeClass("shown");//hide previous body
+					//hide previous body and rescale
+					$("li.article.selected").children().eq(1).removeClass("shown");
 					$("li.article.selected").removeClass("selected");
 					if(!wasThis) {
+						lastScrollPosition = $(document).scrollTop();//cache current position
 						var $this = $(this);
-						$this.children().eq(1).addClass("shown");//hide previous body
+						//show body and rescale
+						$this.children().eq(1).addClass("shown");
 						$this.addClass("selected");
+						//scroll to object
 						$('html, body').animate({scrollTop: $this.offset().top}, 200);
-						//this.scrollIntoView();
+					} else {
+						$('html, body').animate({scrollTop: lastScrollPosition}, 200);
 					}
 				});
 			}
