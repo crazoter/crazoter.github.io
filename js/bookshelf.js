@@ -688,14 +688,23 @@
 
 //TOUCH EVENTS
 	function initSwipeMenu () {
-		$("body").touchwipe({
+		$(".main").touchwipe({
 		    wipeLeft: function() { alert("left"); },
 		    wipeRight: function() { alert("right"); },
 		    wipeUp: function() { alert("up"); },
 		    wipeDown: function() { alert("down"); },
-		    min_move_x: 40,
-		    min_move_y: 40,
-		    preventDefaultEvents: true
+		    min_move_x: 150,
+		    min_move_y: 150,
+		    preventDefaultEvents: false
+		});
+		$("#mobile-demo").touchwipe({
+		    wipeLeft: function() { alert("left"); },
+		    wipeRight: function() { alert("right"); },
+		    wipeUp: function() { alert("up"); },
+		    wipeDown: function() { alert("down"); },
+		    min_move_x: 150,
+		    min_move_y: 150,
+		    preventDefaultEvents: false
 		});
 	}
 
