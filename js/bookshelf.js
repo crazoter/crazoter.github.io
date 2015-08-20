@@ -776,7 +776,7 @@
 
 	Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
 	$(document).ready(function(){
-		overrideAccordionAnimation = $(document).width() < 640;
+		//overrideAccordionAnimation = $(document).width() < 640;
 		//isComputer = $(document).width() >= 640;
 		//Initialize Modals
 		$('.modal-trigger').leanModal();
