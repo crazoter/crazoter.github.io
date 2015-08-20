@@ -63,7 +63,7 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
    background: rgba(0, 0, 0, 0.5); 
    animation-duration: 0.5s;
 }
-.overlay:hover {/*fix laggy scrolling(?)*/
+.overlay-content:hover {/*fix laggy scrolling(?)*/
   -webkit-transform: translateZ(0);
   -webkit-backface-visibility: hidden;
 }
