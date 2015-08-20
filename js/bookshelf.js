@@ -638,7 +638,7 @@
 		      refreshArticle(i,article);
 		    }
 		    colorTags();
-		    postDisplayArticles();
+		    postDisplayArticles(l);
 		    //cascadingDisplayArticles(0,l);
 	  	}
 	}
@@ -656,8 +656,8 @@
 		enablePaging($page_back,enable);
 	}
 	//Animate the cascading article effect
-	function postDisplayArticles () {
-		show($("li.article"));
+	function postDisplayArticles (length) {
+		show($("li.article:nth-child(-n+"+length+")"));
 		if(!searchDomsInitialized) {
 			//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
 			if(!overrideAccordionAnimation) {
