@@ -93,6 +93,7 @@
 	//Animations
 		var SHOWSPEED = 50;
 		var TOAST_SHOWDURATION = 4000;
+		var SCROLL_SPEED = 200;
 		//
 		var lastScrollPosition = 0;
 	//Date
@@ -512,9 +513,11 @@
 						$this.children().eq(1).addClass("shown");
 						$this.addClass("selected");
 						//scroll to object
-						$('html, body').animate({scrollTop: $this.offset().top}, 200);
+						//$('html, body').scrollTop($this.offset().top);
+						$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
 					} else {
-						$('html, body').animate({scrollTop: lastScrollPosition}, 200);
+						$('html, body').scrollTop(lastScrollPosition);
+						//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
 					}
 				});
 			}
@@ -773,6 +776,7 @@
 
 	Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
 	$(document).ready(function(){
+		overrideAccordionAnimation = $(document).width() < 640;
 		//isComputer = $(document).width() >= 640;
 		//Initialize Modals
 		$('.modal-trigger').leanModal();
