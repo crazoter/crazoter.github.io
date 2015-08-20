@@ -686,6 +686,19 @@
 		return false;
 	}
 
+//TOUCH EVENTS
+	function initSwipeMenu () {
+		$("body").touchwipe({
+		    wipeLeft: function() { alert("left"); },
+		    wipeRight: function() { alert("right"); },
+		    wipeUp: function() { alert("up"); },
+		    wipeDown: function() { alert("down"); },
+		    min_move_x: 40,
+		    min_move_y: 40,
+		    preventDefaultEvents: true
+		});
+	}
+
 //EXPORTS
 	exports.colorTags = colorTags;
 	exports.search = search;
@@ -740,6 +753,7 @@
 		}
 		initializeArticles();
 		initPagination();
+		initSwipeMenu();
 		//colorTags();
 	});
 	$(".fat").height($(document).height()-140);
