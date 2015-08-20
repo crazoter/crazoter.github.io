@@ -838,7 +838,6 @@
 		if(animationEvent) {//animated hide
 			$dom.addClass("fade-out");
 			$dom.one(animationEvent, function (event) {
-				console.log('fired');
 			    $(this).removeClass("fade-out");
 			});
 		}
