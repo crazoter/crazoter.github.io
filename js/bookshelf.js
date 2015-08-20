@@ -691,7 +691,7 @@
 		var swipeWidth = $('document').width() * 3/5;
 		$(".main").touchwipe({
 		    wipeLeft: function() {},
-		    wipeRight: function() { $('#mobile-demo').sideNav('show'); },
+		    wipeRight: function() { $('.button-collapse').sideNav('show'); },
 		    wipeUp: function() {},
 		    wipeDown: function() {},
 		    min_move_x: swipeWidth,
@@ -699,7 +699,7 @@
 		    preventDefaultEvents: false
 		});
 		$("#mobile-demo").touchwipe({
-		    wipeLeft: function() { $('#mobile-demo').sideNav('hide'); },
+		    wipeLeft: function() { $('.button-collapse').sideNav('hide'); },
 		    wipeRight: function() {},
 		    wipeUp: function() {},
 		    wipeDown: function() {},
