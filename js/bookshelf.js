@@ -122,8 +122,8 @@
 	//Mobile
 		//var isComputer = true;
 		//touch events
-		var MAIN_SWIPE_WIDTH = 200;
-		var MENU_SWIPE_WIDTH = 150;
+		var MAIN_SWIPE_WIDTH = 160;
+		var MENU_SWIPE_WIDTH = 100;
 
 //LOGIN / LOGOUT
 	//Display functions
