@@ -118,7 +118,8 @@
 		}
 		var calculatedTags = {};//cache tags we have calculated so we don't have to recalculate
 	//Responsive?
-		var isComputer = true;
+		var overrideAccordionAnimation = true;
+		//var isComputer = true;
 		//touch events
 		var MAIN_SWIPE_WIDTH = 200;
 		var MENU_SWIPE_WIDTH = 150;
@@ -495,7 +496,23 @@
 			li.className = "article hidden";
 			//li.style.display = "none";
 			$ul_searches.append(li);
-			searchDoms.push(new SearchDomJQ($(li),
+			var $li = $(li);
+			if(overrideAccordionAnimation) {
+				$li.click(function(){
+					//remove previous 
+					var wasThis = $("li.article.selected")[0] == this;
+					$("li.article.selected").children().eq(1).removeClass("shown");//hide previous body
+					$("li.article.selected").removeClass("selected");
+					if(!wasThis) {
+						var $this = $(this);
+						$this.children().eq(1).addClass("shown");//hide previous body
+						$this.addClass("selected");
+						$('html, body').animate({scrollTop: $this.offset().top}, 200);
+						//this.scrollIntoView();
+					}
+				});
+			}
+			searchDoms.push(new SearchDomJQ($li,
 					$("#search_ref"+i),
 					$("#search_title"+i),
 					$("#search_tags"+i),
@@ -598,11 +615,11 @@
 		show($("li.article"));
 		if(!searchDomsInitialized) {
 			//Put here because the Modals couldn't init when the anchor tags were not in yet (I tried putting immediately after, didn't work)
-			if(true || isComputer) {
-				//tablet or computer, has the power
-				$('.collapsible').collapsible();//init collapsibles
-				$('.modal-trigger').leanModal();//init Modals
+			if(!overrideAccordionAnimation) {
+				//tablet or computer, has the power for collapsible
+				$('.collapsible').collapsible();//init collapsibles for the newly created collapsibles
 			}
+			$('.modal-trigger').leanModal();//init Modals for the delete buttons
 			searchDomsInitialized = true;
 		}
 	}
@@ -750,7 +767,7 @@
 
 	Parse.initialize("WfzcQHZPt7egsWB3xae2wNlS2HxzcBI1of5aDnAX", "9hkM1JPqeCoJhYKtxsVnTKI7QWmqgYm3t4sSclBR");
 	$(document).ready(function(){
-		isComputer = $(document).width() >= 640;
+		//isComputer = $(document).width() >= 640;
 		//Initialize Modals
 		$('.modal-trigger').leanModal();
 		//Initialize Mobile Collapse Nav
