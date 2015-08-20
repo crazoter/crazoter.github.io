@@ -247,6 +247,36 @@
 		    addingArticle = false;
 		    $modal_add.closeModal();
 		}
+		function validateURL(textval) {
+		    var urlregex = new RegExp(
+		    	"^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
+		    return urlregex.test(textval);
+	    }
+	    function initPopulateByURL () {
+	    	$txt_ref.bind("paste keyup", function() {
+	    		var url = $(this).val();
+	    		if($txt_title.val() === "" || $txtarea_description.val() === "") {//there is something to populate
+		    		if(validateURL(url)) {//valid url
+		    			show($(progress_add));
+		    			xget(url,{
+		    				done: function(title,description,keywords) {
+		    					$('.lbl_add_article').addClass("active");
+		    					if($txt_title.val() === "")
+		    						$txt_title.val(title);
+		    					if($txtarea_description.val() === "")
+		    						$txtarea_description.val(description);
+		    					if($txt_tags.val() === "")
+		    						$txt_tags.val(description);
+		    					hide($(progress_add));
+		    				},
+		    				fail: function() {
+		    					hide($(progress_add));
+		    				}
+		    			});
+		    		}
+		    	}
+	    	});
+	    }
 	function deleteArticle () {
 		if(searchDomToDelete.article !== null)
 		{
@@ -799,6 +829,7 @@
 		initializeArticles();
 		initPagination();
 		initSwipeMenu();
+		initPopulateByURL();
 		//colorTags();
 	});
 	$(".fat").height($(document).height()-140);
