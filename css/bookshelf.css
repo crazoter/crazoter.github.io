@@ -64,7 +64,7 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
    animation-duration: 0.5s;
 }
 
-.overlay.active {
+.overlay.shown,.overlay.fade-out {
   display:block;
 }
 
@@ -146,6 +146,9 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
 .mdi-navigation-menu {padding: 0px 0px 0px 10px;}
 
 /*Animations*/
+.fade-out {
+  animation: fade_out 0.2s linear forwards;
+}
 .shown {
   animation: show 0.2s linear forwards;
 }
@@ -168,6 +171,14 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes fade_out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 

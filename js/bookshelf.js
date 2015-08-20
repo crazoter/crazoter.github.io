@@ -305,7 +305,6 @@
 		$txt_tags.val(editingParseObject.get("tags").join(" "));
 		//display modal
 		$('.lbl_add_article').addClass("active");
-		debugger;
 		showModal($modal_add);
 		//$('#modal_add').openModal();
 	}
@@ -776,6 +775,30 @@
 	exports.btn_logout_onclick = btn_logout_onclick;
 	exports.showModal = showModal;
 
+//FEATURE CHECKS
+	//http://stackoverflow.com/questions/19635986/easy-way-to-detect-support-for-transitionend-event-without-frameworks-like-jquer
+	//https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/
+	function whichAnimationEvent(){
+	  var t,
+	      el = document.createElement("fakeelement");
+
+	  var animations = {
+	    "animation"      : "animationend",
+	    "OAnimation"     : "oAnimationEnd",
+	    "MozAnimation"   : "animationend",
+	    "WebkitAnimation": "webkitAnimationEnd"
+	  }
+
+	  for (t in animations){
+	    if (el.style[t] !== undefined){
+	      return animations[t];
+	    }
+	  }
+	  return null;
+	}
+
+	var animationEvent = whichAnimationEvent();
+
 //Initialization
 	function initDateMap () {
 		//DATE_MAP.yda.setDate(DATE_MAP.now.getDate() - 1);
@@ -807,11 +830,19 @@
 		//prevent scrolling in bg
 		document.body.style["overflow"] = 'hidden';
 		//show
-		$dom.fadeIn(MODAL_ANIM_SPEED);
+		$dom.addClass("shown");
 	}
 	function hideModal ($dom) {
 		document.body.style["overflow"] = 'auto';
-		$dom.fadeOut(MODAL_ANIM_SPEED);
+		$dom.removeClass("shown");
+		if(animationEvent) {//animated hide
+			$dom.addClass("fade-out");
+			$dom.one(animationEvent, function (event) {
+				console.log('fired');
+			    $(this).removeClass("fade-out");
+			});
+		}
+		//$dom.fadeOut(MODAL_ANIM_SPEED);
 	}
 	function initModalTriggers () {
 		$(".modal-action.modal-close").each(function(){
@@ -828,7 +859,6 @@
 	        if(!(ev && ev.click)){//click not bound
 	        	$(this).click(function(event){
 	        		event.preventDefault();
-	        		debugger;
 	        		showModal($(this.getAttribute("href")));
 	        	});
 	        }
@@ -838,15 +868,11 @@
 		$(".overlay").click(function(event){//hide
 			hideModal($(this));
 		});
-		/*
-		$(".overlay").each(function(){
-			this.openModal = function() {showModal($(this));}
-			this.closeModal = function() {hideModal($(this));}
-		});*/
 		$(".overlay-content").click(function(event){ 
 			event.stopPropagation();//clicked content, don't hide
 		});
 	}
+
 
 	initDateMap();
 
