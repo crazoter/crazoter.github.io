@@ -119,6 +119,9 @@
 		var calculatedTags = {};//cache tags we have calculated so we don't have to recalculate
 	//Responsive?
 		var isComputer = true;
+		//touch events
+		var MAIN_SWIPE_WIDTH = 200;
+		var MENU_SWIPE_WIDTH = 150;
 
 //LOGIN / LOGOUT
 	//Display functions
@@ -688,14 +691,13 @@
 
 //TOUCH EVENTS
 	function initSwipeMenu () {
-		var swipeWidth = 200;
 		$(".main").touchwipe({
 		    wipeLeft: function() {},
 		    wipeRight: function() { $('.button-collapse').sideNav('show'); },
 		    wipeUp: function() {},
 		    wipeDown: function() {},
-		    min_move_x: swipeWidth,
-		    min_move_y: swipeWidth,
+		    min_move_x: MAIN_SWIPE_WIDTH,
+		    min_move_y: MAIN_SWIPE_WIDTH,
 		    preventDefaultEvents: false
 		});
 		$("#mobile-demo").touchwipe({
@@ -703,8 +705,8 @@
 		    wipeRight: function() {},
 		    wipeUp: function() {},
 		    wipeDown: function() {},
-		    min_move_x: swipeWidth,
-		    min_move_y: swipeWidth,
+		    min_move_x: MENU_SWIPE_WIDTH,
+		    min_move_y: MENU_SWIPE_WIDTH,
 		    preventDefaultEvents: false
 		});
 	}
