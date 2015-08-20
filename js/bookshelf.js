@@ -391,11 +391,11 @@
 			//var tempArr;
 			while ((tempArr = myRegex.exec(searchStuff)) !== null) {
 				if(tempArr[1] != null)
-					wordsWithSpace.push(tempArr[1]);
+					wordsWithSpace.push(tempArr[1].toLowerCase());
 				else if(tempArr[2] != null)
-					tags.push(tempArr[2]);
+					tags.push(tempArr[2].toUpperCase());
 				else if(tempArr[3] != null)
-					tags.push(tempArr[3]);
+					tags.push(tempArr[3].toUpperCase());
 				else if(tempArr[4] != null || tempArr[5] != null)
 				{//dates that come as a pair
 					dates.push(new FromToDate(tempArr[4],tempArr[5]));
@@ -405,9 +405,9 @@
 					dates.push(new FromToDate(tempArr[6]));
 				}
 				else if(tempArr[7] != null)
-					words.push(tempArr[7]);
+					words.push(tempArr[7].toLowerCase());
 				else if(tempArr[8] != null)
-					words.push(tempArr[8]);
+					words.push(tempArr[8].toLowerCase());
 			}
 			var query_title = new Parse.Query("Article");
 			var query_desc = new Parse.Query("Article");
