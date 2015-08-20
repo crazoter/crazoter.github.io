@@ -21,15 +21,17 @@ function xget (url,callbacks) {
 	    var metasCleared = "00";//keywords & description
 	    for (i = 0; i < metas.length; i++) {
 	        name = metas[i].getAttribute("name");
-	        if(name === "keywords") {
-	        	keywords = metas[i].getAttribute("content").replace(" ", "_").replace(",", " ");
-	        	metasCleared = metasCleared|"10";
-	        } else if (name.indexOf("description") !== -1) {//most likely a description
-	            description = metas[i].getAttribute("content");
-	            metasCleared = metasCleared|"01";
-	        }
-	        if(metasCleared=="11")
-	        	break;
+	        if(name != null) {
+		        if(name === "keywords") {
+		        	keywords = metas[i].getAttribute("content").replace(" ", "_").replace(",", " ");
+		        	metasCleared = metasCleared|"10";
+		        } else if (name.indexOf("description") !== -1) {//most likely a description
+		            description = metas[i].getAttribute("content");
+		            metasCleared = metasCleared|"01";
+		        }
+		        if(metasCleared=="11")
+		        	break;
+		    }
 	    }
 	    if(callbacks["done"])
 	    	callbacks["done"](title,description,keywords);

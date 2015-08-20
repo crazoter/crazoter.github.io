@@ -160,7 +160,7 @@
 		    Materialize.toast("Logged in! Welcome, "+user.attributes.username+"!", TOAST_SHOWDURATION);
 		    showLogout(user.attributes.username);//display the username :)
 			hide($progress_login);
-			$('#modal_login').closeModal();
+			hideModal($('#modal_login'));//.closeModal();
 			configAllArticleACL();
 		  },
 		  error: function(user, error) {
@@ -244,7 +244,8 @@
 		function postAddArticle () {
 		    hide($(progress_add));
 		    addingArticle = false;
-		    $modal_add.closeModal();
+		    hideModal($modal_add);
+		    //$modal_add.closeModal();
 		}
 		function validateURL(textval) {
 		    var urlregex = new RegExp(
@@ -304,7 +305,9 @@
 		$txt_tags.val(editingParseObject.get("tags").join(" "));
 		//display modal
 		$('.lbl_add_article').addClass("active");
-		$('#modal_add').openModal();
+		debugger;
+		showModal($modal_add);
+		//$('#modal_add').openModal();
 	}
 
 //Retrieval of Articles & Pagination
@@ -521,7 +524,7 @@
 						+' by <span id="search_user'+i+'"></span></span>'//username
 						+'<p id="search_desc'+i+'"></p>'//descript
 						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
-						+'<a id="search_edit'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
+						+'<a id="search_edit'+i+'" class="waves-effect waves-teal deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'</div>';
 			li.innerHTML = inner;
 			li.className = "article hidden";
@@ -728,7 +731,8 @@
 			editingArticleIndex = null;
 			clearAddArticleForm();
 		}
-		$modal_add.openModal();
+		showModal($modal_add);
+		//$modal_add.openModal();
 		return false;
 	}
 	function btn_delete_onclick () {
@@ -810,10 +814,21 @@
 		$dom.fadeOut(MODAL_ANIM_SPEED);
 	}
 	function initModalTriggers () {
+		$(".modal-action.modal-close").each(function(){
+			var ev = $._data(this, 'events');
+	        if(!(ev && ev.click)){//click not bound
+	        	$(this).click(function(event){
+	        		event.preventDefault();
+	        		hideModal($(this.getAttribute("href")));
+	        	});
+	        }
+	    });
 		$(".modal-trigger").each(function(){
 			var ev = $._data(this, 'events');
 	        if(!(ev && ev.click)){//click not bound
-	        	$(this).click(function(){
+	        	$(this).click(function(event){
+	        		event.preventDefault();
+	        		debugger;
 	        		showModal($(this.getAttribute("href")));
 	        	});
 	        }
@@ -823,6 +838,11 @@
 		$(".overlay").click(function(event){//hide
 			hideModal($(this));
 		});
+		/*
+		$(".overlay").each(function(){
+			this.openModal = function() {showModal($(this));}
+			this.closeModal = function() {hideModal($(this));}
+		});*/
 		$(".overlay-content").click(function(event){ 
 			event.stopPropagation();//clicked content, don't hide
 		});

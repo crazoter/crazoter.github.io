@@ -68,38 +68,10 @@
   </ul>
   <!--Dropdowns END-->
 
-  <div id="modal_login" class="overlay">
-    <div class="overlay-content">
-      <h4>Login</h4>
-      <form onSubmit="submit_login();return false;">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="txt_username" type="text" class="validate" required>
-            <label for="txt_username">Username</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="txt_password" type="password" class="validate" required>
-            <label for="txt_password">Password</label>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div id="progress_login" class="hidden progress">
-            <div class="indeterminate"></div>
-          </div>
-          <button class="btn waves-effect waves-light" type="submit" value="Submit">Login
-            <i class="mdi-content-send right"></i>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!--Modals START-->
   <!--Login START-->
-  <div id="modal_login" class="modal">
-    <div class="modal-content">
+  <div id="modal_login" class="overlay">
+    <div class="overlay-content">
       <h4>Login</h4>
       <form onSubmit="submit_login();return false;">
         <div class="row">
@@ -128,8 +100,8 @@
   <!--Login END-->
 
   <!--Search Instructions START-->
-  <div id="modal_sInstruct" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">
-    <div class="modal-content">
+  <div id="modal_sInstruct" class="overlay bottom-sheet">
+    <div class="overlay-content">
       <h4>Search Instructions</h4>
       <p>Searching the Bookshelf is as easy as ABC! Type your query into the search box and hit enter. Related articles will pop right up.<br/>
         <h5>Advanced syntax:</h5><hr>
@@ -154,27 +126,27 @@
   <!--Search Instructions END-->
 
   <!--Confirm Delete START-->
-  <div id="modal_deleteArticle" class="modal bottom-sheet" style="display: block; opacity: 0; bottom: -100%;">
-    <div class="modal-content">
+  <div id="modal_deleteArticle" class="overlay">
+    <div class="overlay-content">
       <h4>Confirm Removal?</h4>
       <p>Are you sure you want this article gone? Forever?</p>
       <div class="modal-footer">
-      <a href="#!" onclick="btn_delete_onclick();return false;" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">No</a>
+      <a href="#modal_deleteArticle" onclick="btn_delete_onclick();return false;" class="modal-action modal-close waves-effect waves-green btn-flat">Yes</a>
+      <a href="#modal_deleteArticle" class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
     </div>
     </div>
   </div>
   <!--Confirm Delete END-->
 
   <!--About START-->
-  <div id="modal_about" class="modal">
-    <div class="modal-content">
+  <div id="modal_about" class="overlay">
+    <div class="overlay-content">
       <div><i class="mdi-action-face-unlock"></i> Made by Crazoter. Powered by <a href="http://materializecss.com/" target="_blank">Materialize</a> & <a href="https://www.parse.com/" target="_blank">Parse</a>.
       </div>
       <p>
         This web app was created for users to keep track of their reading material. By indexing and making summaries of what they read, they are better able to remember the finer points of important / useful articles online. 
       </p>
-      <p>Version 1.4.7</p>
+      <p>Version 1.5.8</p>
       <div class="modal-footer">
         <a class="modal-action modal-close waves-teal btn-flat">Close</a>
       </div>
@@ -183,8 +155,8 @@
   <!--About END-->
 
   <!--Add Article START-->
-  <div id="modal_add" class="modal">
-    <div class="modal-content">
+  <div id="modal_add" class="overlay">
+    <div class="overlay-content">
       <div class="vert-align-mid"><i class="vert-align-mid small mdi-av-my-library-add"></i><span class="vert-align-mid">Add Article</span></div>
       <label>Pasting your URL into the reference field automatically generates the title, description and tags (if available). </label>
       <form onSubmit="submit_addArticle();return false;">

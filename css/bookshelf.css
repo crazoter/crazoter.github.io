@@ -52,7 +52,7 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
 }
 
 .overlay {
-  display:block;
+  display:none;
    position: absolute;
    left: 0px;
    top: 0px;
@@ -64,9 +64,13 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
    animation-duration: 0.5s;
 }
 
+.overlay.active {
+  display:block;
+}
+
 .overlay-content {
      width:80%;
-     height:20%;
+     max-height:70%;
      overflow-y: auto;
      margin: 100px auto;
      background-color: #FAFAFA;
@@ -110,6 +114,10 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
 
 .indicator {
   background-color: #00796b !important;
+}
+
+.modal-footer {
+  float: right;
 }
 
 #txt_search::-webkit-input-placeholder {color: #FFF;}
