@@ -501,23 +501,27 @@
 			var $li = $(li);
 			if(overrideAccordionAnimation) {
 				$li.click(function(){
-					//remove previous 
-					var wasThis = $("li.article.selected")[0] == this;
-					//hide previous body and rescale
-					$("li.article.selected").children().eq(1).removeClass("shown");
-					$("li.article.selected").removeClass("selected");
-					if(!wasThis) {
-						lastScrollPosition = $(document).scrollTop();//cache current position
-						var $this = $(this);
-						//show body and rescale
-						$this.children().eq(1).addClass("shown");
-						$this.addClass("selected");
-						//scroll to object
-						//$('html, body').scrollTop($this.offset().top);
-						$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
-					} else {
-						$('html, body').scrollTop(lastScrollPosition);
-						//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
+					//http://stackoverflow.com/questions/10390010/jquery-click-is-triggering-when-selecting-highlighting-text
+					var sel = getSelection().toString();
+    				if(!sel){//is real click
+						//remove previous 
+						var wasThis = $("li.article.selected")[0] == this;
+						//hide previous body and rescale
+						$("li.article.selected").children().eq(1).removeClass("shown");
+						$("li.article.selected").removeClass("selected");
+						if(!wasThis) {
+							lastScrollPosition = $(document).scrollTop();//cache current position
+							var $this = $(this);
+							//show body and rescale
+							$this.children().eq(1).addClass("shown");
+							$this.addClass("selected");
+							//scroll to object
+							//$('html, body').scrollTop($this.offset().top);
+							$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
+						} else {
+							$('html, body').scrollTop(lastScrollPosition);
+							//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
+						}
 					}
 				});
 			}
@@ -557,10 +561,12 @@
 		var deleteBtn = $(searchDom.delete);
 		//deleteBtn.unbind('click');
 		var editBtn = $(searchDom.edit);
-		editBtn.click(function(){ 
+		editBtn.click(function(event){ 
+			event.stopPropagation();
 			editArticle(this);
 		});
-		deleteBtn.click(function(){ 
+		deleteBtn.click(function(event){ 
+			event.stopPropagation();
 			searchDomToDelete = searchDoms[$(deleteBtn).data(DELETE_KEY)];
 		});
 		configArticleACL(index,searchDom);
