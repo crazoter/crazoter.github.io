@@ -568,21 +568,27 @@
 	}
 	function refreshArticle (index,article) {
 		var searchDom = searchDoms[index];//document.createElement("li");
-		searchDom.reference.attr("href",he.encode(article.get("reference")));
+		searchDom.reference.attr("href","<script>alert('fuck')</script>"+encodeURI(article.get("reference")));
 		searchDom.title.text(article.get("title"));
 		var tags = article.get('tags');
 		if(tags != null) {
-			var inner = "";
+			searchDom.tags.empty();
 			for(var i=0,l=tags.length;i<l;++i) {
-				inner += '<span class=\"tag\">';
-				inner += he.encode(tags[i]);
-				inner += '</span>';
-			}
-			if(inner !== "") {
-				searchDom.tags.html(inner);
+				var tag = document.createElement('span');
+				tag.className = "tag";
+				$(tag).text(tags[i]);
+				searchDom.tags.append(tag);
 			}
 		}
-		searchDom.description.html(he.encode(article.get("description")).replace(/\n/g,"<br/>"));
+		//http://stackoverflow.com/questions/4535888/jquery-text-and-newlines
+		//https://css-tricks.com/almanac/properties/w/whitespace/
+		var tmpDiv = jQuery(document.createElement('div'));
+		var htmls = [];
+    	var lines = article.get("description").split(/\n/);
+	    for (var i = 0 ; i < lines.length ; i++) {
+	        htmls.push(tmpDiv.text(lines[i]).html());
+	    }
+		searchDom.description.html(htmls.join("<br>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
 		searchDom.username.text(article.get("uploadedBy").attributes.username);
 		searchDom.article = article;
