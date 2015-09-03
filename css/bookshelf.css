@@ -5,8 +5,8 @@ html,body {
   padding:0;
 }
 a.deleteBtn {
-  margin-left: 22px;
-  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 14px;
 }
 .tagholder {
   position: absolute;

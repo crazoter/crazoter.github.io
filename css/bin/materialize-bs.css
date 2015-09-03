@@ -72,6 +72,15 @@
 .transparent-text {
   color: transparent !important; }
 
+.red {
+  background-color: #F44336 !important; }
+
+.yellow {
+  background-color: #ffeb3b !important; }
+  
+.blue {
+  background-color: #2196F3 !important; }
+
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 /**
  * 1. Set default font family to sans-serif.

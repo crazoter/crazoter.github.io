@@ -525,11 +525,11 @@
 						+'" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="search_title'+i+'"></span>'//insert title
 						+'<span id="search_tags'+i+'" class="tagholder right"></span></div>'//tags html
 						+'<div class="collapsible-body">'
-												+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
-						+'<a id="search_edit'+i+'" class="waves-effect waves-teal deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'<span class="timeholder right"><span id="search_time'+i+'" class="grey-text text-darken-1"></span>'//insert timestamp
 						+' by <span id="search_user'+i+'"></span></span>'//username
 						+'<p id="search_desc'+i+'"></p>'//descript
+						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
+						+'<a id="search_edit'+i+'" class="waves-effect waves-teal deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'</div>';
 			li.innerHTML = inner;
 			li.className = "article hidden";
