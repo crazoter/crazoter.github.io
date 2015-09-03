@@ -92,6 +92,21 @@ li.article {
   -webkit-font-smoothing: antialiased;
 }
 
+p.markdown p {
+  padding: 3px 0px 3px 0px;
+}
+p.markdown p strong {
+  font-weight: bold;
+}
+p.markdown ul {
+  padding-left: 40px;
+}
+p.markdown ul li {
+  list-style-type: circle;
+}
+p.markdown ol li {
+  list-style-type: decimal;
+}
 
 /*http://stackoverflow.com/questions/1695175/how-to-horizontally-center-an-unordered-list-of-unknown-width*/
 .pagination_container {

@@ -591,17 +591,18 @@
 		var tmpDiv = jQuery(document.createElement('div'));
 		var htmls = [];
     	var lines = article.get("description").split(/\n/);
+    	var joinText = "";
     	if(article.get("markdown")) {
-		    for (var i = 0 ; i < lines.length ; i++) {
-		        htmls.push(micromarkdown.parse(tmpDiv.text(lines[i]).html()));
-		    }
+    		searchDom.description.addClass("markdown");
+		    searchDom.description.html(marked(article.get("description")));
 		} else {
+			joinText = "<br>";
 			for (var i = 0 ; i < lines.length ; i++) {
 		    	htmls.push(tmpDiv.text(lines[i]).html());
 		    }
+		    searchDom.description.html(htmls.join(joinText));
 		}
 	    //marked(article.get("description"))
-		searchDom.description.html(htmls.join("<br>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
 		searchDom.username.text(article.get("uploadedBy").attributes.username);
 		searchDom.article = article;
