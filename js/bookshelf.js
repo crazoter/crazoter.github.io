@@ -22,6 +22,7 @@
 			var $txtarea_description = $("#txtarea_description");
 			var $txt_ref = $("#txt_ref");
 			var $txt_tags = $("#txt_tags");
+			var $use_markdown = $("#use_markdown");
 			var $progress_add = $("#progress_add");
 			var $modal_add = $("#modal_add");
 			var editingArticleIndex = null;
@@ -204,6 +205,7 @@
 				article.set("description",$txtarea_description.val());
 				article.set("reference",$txt_ref.val());
 				article.set("tags",$txt_tags.val().toUpperCase().split(/\s+/g));
+				article.set("markdown",$use_markdown[0].checked);
 				article.set("uploadedBy",currentUser);
 
 				article.save(null, {
@@ -303,6 +305,10 @@
 		$txtarea_description.val(editingParseObject.get("description"));
 		$txt_ref.val(editingParseObject.get("reference"));
 		$txt_tags.val(editingParseObject.get("tags").join(" "));
+		if(editingParseObject.get("markdown"))
+			$use_markdown.attr('checked',true);
+		else 
+			$use_markdown.attr('checked',false);
 		//display modal
 		$('.lbl_add_article').addClass("active");
 		showModal($modal_add);
@@ -519,11 +525,11 @@
 						+'" target="_blank"><i class="mdi-action-open-in-new"></a></i><span id="search_title'+i+'"></span>'//insert title
 						+'<span id="search_tags'+i+'" class="tagholder right"></span></div>'//tags html
 						+'<div class="collapsible-body">'
+												+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
+						+'<a id="search_edit'+i+'" class="waves-effect waves-teal deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'<span class="timeholder right"><span id="search_time'+i+'" class="grey-text text-darken-1"></span>'//insert timestamp
 						+' by <span id="search_user'+i+'"></span></span>'//username
 						+'<p id="search_desc'+i+'"></p>'//descript
-						+'<a id="search_delete'+i+'" class="waves-effect waves-teal modal-trigger deleteBtn" href="#modal_deleteArticle"><i class="mdi-action-delete"></i>Remove Article</a>'
-						+'<a id="search_edit'+i+'" class="waves-effect waves-teal deleteBtn"><i class="mdi-content-create"></i>Edit Article</a>'
 						+'</div>';
 			li.innerHTML = inner;
 			li.className = "article hidden";
@@ -568,7 +574,7 @@
 	}
 	function refreshArticle (index,article) {
 		var searchDom = searchDoms[index];//document.createElement("li");
-		searchDom.reference.attr("href","<script>alert('fuck')</script>"+encodeURI(article.get("reference")));
+		searchDom.reference.attr("href",encodeURI(article.get("reference")));
 		searchDom.title.text(article.get("title"));
 		var tags = article.get('tags');
 		if(tags != null) {
@@ -585,9 +591,16 @@
 		var tmpDiv = jQuery(document.createElement('div'));
 		var htmls = [];
     	var lines = article.get("description").split(/\n/);
-	    for (var i = 0 ; i < lines.length ; i++) {
-	        htmls.push(tmpDiv.text(lines[i]).html());
-	    }
+    	if(article.get("markdown")) {
+		    for (var i = 0 ; i < lines.length ; i++) {
+		        htmls.push(micromarkdown.parse(tmpDiv.text(lines[i]).html()));
+		    }
+		} else {
+			for (var i = 0 ; i < lines.length ; i++) {
+		    	htmls.push(tmpDiv.text(lines[i]).html());
+		    }
+		}
+	    //marked(article.get("description"))
 		searchDom.description.html(htmls.join("<br>"));
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
 		searchDom.username.text(article.get("uploadedBy").attributes.username);

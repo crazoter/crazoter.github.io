@@ -5,17 +5,16 @@ html,body {
   padding:0;
 }
 a.deleteBtn {
-  margin-left: 20px;
-  margin-bottom: 14px;
+  margin-left: 22px;
+  margin-top: 20px;
 }
 .tagholder {
   position: absolute;
-  bottom: -14px;
+  margin-top: 13px;
   right: 15px;
 }
 .timeholder {
   position: absolute;
-  top: 0px;
   right: 15px;
   font-size: 12px;
 }
@@ -80,6 +79,17 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
      padding:15px;
      /*http://weblog.west-wind.com/posts/2013/Jun/01/Smoothing-out-div-scrolling-in-Mobile-WebKit-Browsers*/
      /*-webkit-overflow-scrolling: touch;*/
+}
+
+.bg-image {
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+li.article {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
 }
 
 
@@ -189,22 +199,14 @@ img.vert-align-mid,i.vert-align-mid,span.vert-align-mid {
     transform: scaleY(0.1);
   }
   40% {
-    transform: scaleY(1.02);
+    transform: scaleY(1);
   }
   60% {
     transform: scaleY(0.98);
   }
-  80% {
-    transform: scaleY(1.01);
-  }
-  100% {
-    transform: scaleY(0.98);
-  }       
-  80% {
-    transform: scaleY(1.01);
-  }
   100% {
     transform: scaleY(1);
+    -webkit-transform: translate3d(0,0,0);
   }             
 }
 
