@@ -46,9 +46,9 @@
     <a class="btn-floating btn-large teal waves-effect waves-light" href="#" onclick="btn_add_onclick();return false;">
       <i class="large mdi-av-my-library-add"></i>
     </a>
-    <ul class="hidden">
-      <li><a class="btn-floating red"><i class="mdi-action-delete"></i></i></a></li>
-      <li><a class="btn-floating blue"><i class="mdi-content-create"></i></a></li>
+    <ul id="floating_sub_btns" class="hidden">
+      <li><a id="floating_delete_btn" class="btn-floating red"><i class="mdi-action-delete"></i></i></a></li>
+      <li><a id="floating_edit_btn" class="btn-floating blue"><i class="mdi-content-create"></i></a></li>
     </ul>
   </div>
   <!--Floating Buttons END-->
@@ -257,7 +257,7 @@
   </div>
 
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="node_modules/materialize-css/bin/materialize.js"></script>
+  <script src="js/materialize.min.js"></script>
   <script src="https://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
   <script src="js/jquery-dateFormat.min.js"></script>
   <script src="js/netcu/jquery.touchwipe.min.js"></script>

@@ -17,6 +17,7 @@
 	//Add Article Form
 		//CONSTANTS
 			var EDIT_KEY = "article";
+			var ARTICLE_INDEX_KEY = "index";
 		//RUNTIME
 			var $txt_title = $("#txt_title");
 			var $txtarea_description = $("#txtarea_description");
@@ -27,6 +28,8 @@
 			var $modal_add = $("#modal_add");
 			var editingArticleIndex = null;
 			var addingArticle = false;
+			var currentEditButton = null;
+			var currentDeleteButton = null;
 	//Remove Article
 		//CONSTANTS
 			var DELETE_KEY = "delete";
@@ -538,6 +541,7 @@
 			//li.style.display = "none";
 			$ul_searches.append(li);
 			var $li = $(li);
+			$li.data(ARTICLE_INDEX_KEY,i);
 			$li.click(function(){
 				//http://stackoverflow.com/questions/10390010/jquery-click-is-triggering-when-selecting-highlighting-text
 				var sel = getSelection().toString();
@@ -547,7 +551,12 @@
 					//hide previous body and rescale
 					$("li.article.selected").children().eq(1).removeClass("shown");
 					$("li.article.selected").removeClass("selected");
-					if(!wasThis) {
+					if(!wasThis) {//opening
+						var index = $(this).data(ARTICLE_INDEX_KEY);
+						currentDeleteButton = $("#search_delete"+index);
+						currentEditButton = $("#search_edit"+index);
+						$("#floating_sub_btns").removeClass("hidden");
+						$('.fixed-action-btn').openFAB();
 						lastScrollPosition = $(document).scrollTop();//cache current position
 						var $this = $(this);
 						//show body and rescale
@@ -556,7 +565,11 @@
 						//scroll to object
 						//$('html, body').scrollTop($this.offset().top);
 						$('html, body').animate({scrollTop: $this.offset().top}, SCROLL_SPEED);
-					} else {
+					} else {//closing
+						currentDeleteButton = null;
+						currentEditButton = null;
+						$('.fixed-action-btn').closeFAB();
+						$("#floating_sub_btns").addClass("hidden");
 						$('html, body').scrollTop(lastScrollPosition);
 						//$('html, body').animate({scrollTop: lastScrollPosition}, SCROLL_SPEED);
 					}
@@ -751,7 +764,6 @@
 			clearAddArticleForm();
 		}
 		showModal($modal_add);
-		$('a.active').click();
 		//$modal_add.openModal();
 		return false;
 	}
@@ -852,6 +864,9 @@
 		document.body.style["overflow"] = 'hidden';
 		//show
 		$dom.addClass("shown");
+
+		if($dom === $modal_add)//fix tab issue
+			$('a.active').click();
 	}
 	function hideModal ($dom) {
 		document.body.style["overflow"] = 'auto';
@@ -862,6 +877,10 @@
 			    $(this).removeClass("fade-out");
 			});
 		}
+
+		//if still showing
+		if(currentDeleteButton)
+			$('.fixed-action-btn').openFAB();
 		//$dom.fadeOut(MODAL_ANIM_SPEED);
 	}
 	function initModalTriggers () {
@@ -919,6 +938,17 @@
 			    	htmls.push(tmpDiv.text(lines[i]).html());
 			    }
 			    $('#tab_preview').html(htmls.join("<br>"));
+			}
+		});
+		//Initialize floating buttons
+		$("#floating_delete_btn").click(function(){
+			if(currentDeleteButton) {
+				currentDeleteButton.click();
+			}
+		});
+		$("#floating_edit_btn").click(function(){
+			if(currentEditButton) {
+				currentEditButton.click();
 			}
 		});
 		//Display login/logout
