@@ -303,6 +303,8 @@
 		//populate modal data
 		$txt_title.val(editingParseObject.get("title"));
 		$txtarea_description.val(editingParseObject.get("description"));
+		//make it resize to fit text
+		window.setTimeout(function(){$txtarea_description.trigger('keyup');},200);
 		$txt_ref.val(editingParseObject.get("reference"));
 		$txt_tags.val(editingParseObject.get("tags").join(" "));
 		if(editingParseObject.get("markdown"))
@@ -588,19 +590,17 @@
 		}
 		//http://stackoverflow.com/questions/4535888/jquery-text-and-newlines
 		//https://css-tricks.com/almanac/properties/w/whitespace/
-		var tmpDiv = jQuery(document.createElement('div'));
-		var htmls = [];
-    	var lines = article.get("description").split(/\n/);
-    	var joinText = "";
     	if(article.get("markdown")) {
     		searchDom.description.addClass("markdown");
 		    searchDom.description.html(marked(article.get("description")));
 		} else {
-			joinText = "<br>";
+			var tmpDiv = jQuery(document.createElement('div'));
+			var htmls = [];
+	    	var lines = article.get("description").split(/\n/);
 			for (var i = 0 ; i < lines.length ; i++) {
 		    	htmls.push(tmpDiv.text(lines[i]).html());
 		    }
-		    searchDom.description.html(htmls.join(joinText));
+		    searchDom.description.html(htmls.join("<br>"));
 		}
 	    //marked(article.get("description"))
 		searchDom.timestamp.text(jQuery.format.date(article.updatedAt,DATEFORMAT_ARTICLE));
@@ -751,6 +751,7 @@
 			clearAddArticleForm();
 		}
 		showModal($modal_add);
+		$('a.active').click();
 		//$modal_add.openModal();
 		return false;
 	}
@@ -904,6 +905,22 @@
 		$(".button-collapse").sideNav();
 		//Initialize Tabs
 		$('ul.tabs').tabs();
+		//Initialize Preview Tab
+		$('#preview_btn').click(function(){
+			if($use_markdown[0].checked) {
+	    		$('#tab_preview').addClass("markdown");
+			    $('#tab_preview').html(marked($txtarea_description.val()));
+			} else {
+				$('#tab_preview').removeClass("markdown");
+				var tmpDiv = jQuery(document.createElement('div'));
+				var htmls = [];
+		    	var lines = $txtarea_description.val().split(/\n/);
+				for (var i = 0 ; i < lines.length ; i++) {
+			    	htmls.push(tmpDiv.text(lines[i]).html());
+			    }
+			    $('#tab_preview').html(htmls.join("<br>"));
+			}
+		});
 		//Display login/logout
 		if(Parse.User.current() === null){
 		  showLogin();

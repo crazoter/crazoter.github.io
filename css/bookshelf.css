@@ -112,6 +112,12 @@ p.markdown ol li {
   list-style-type: decimal;
 }
 
+.grey.lighten-5 {
+  background-color: #FAFAFA;
+}
+.row .col.tab-content {
+  padding-top: 20px;
+}
 /*http://stackoverflow.com/questions/1695175/how-to-horizontally-center-an-unordered-list-of-unknown-width*/
 .pagination_container {
   width: 100%; overflow: hidden;

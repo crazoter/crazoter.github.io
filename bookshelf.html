@@ -170,13 +170,23 @@
             <label for="txt_title" class="lbl_add_article">Title</label>
           </div>
         </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="mdi-editor-mode-edit prefix"></i>
-            <textarea id="txtarea_description" class="materialize-textarea" length="150" class="validate" required></textarea>
-            <label for="txtarea_description" class="lbl_add_article">Description</label>
+          <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s12"><a class="active teal-text grey lighten-5" href="#tab_1">Edit</a></li>
+                <li class="tab col s12"><a id="preview_btn" class="teal-text grey lighten-5" href="#tab_preview">Preview</a></li>
+              </ul>
+            </div>
+            <div id="tab_1" class="col s12 tab-content">
+            <div class="input-field">
+              <i class="mdi-editor-mode-edit prefix"></i>
+              <textarea id="txtarea_description" class="materialize-textarea" length="150" class="validate" required></textarea>
+              <label for="txtarea_description" class="lbl_add_article">Description</label>
+            </div>
+            </div>
+            <div id="tab_preview" class="col s12 tab-content"></div>
           </div>
-        </div>
+      
         <div class="row">
           <div class="input-field col s12 m6">
             <i class="mdi-action-language prefix"></i>
@@ -188,13 +198,13 @@
             <input id="txt_tags" type="text" length="50" class="validate" required>
             <label for="txt_tags" class="lbl_add_article">Tag(s) - delimit with space</label>
           </div>
+          <div id="progress_add" class="input-field col s12 hidden progress">
+            <div class="indeterminate"></div>
+          </div>
           <div class="input-field col s12">
             <input type="checkbox" id="use_markdown" />
             <label for="use_markdown">Use <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown</a> for description</label>
           </div>
-        </div>
-        <div id="progress_add" class="hidden progress">
-          <div class="indeterminate"></div>
         </div>
         <div class="row">
           <button class="btn waves-effect waves-light" type="submit" name="action">Submit
