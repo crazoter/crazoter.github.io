@@ -967,8 +967,7 @@ span.badge {
 
 .truncate {
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; }
+  overflow: hidden; }
 
 .no-padding {
   padding: 0 !important; }
