@@ -1433,8 +1433,8 @@ h6 {
 em {
   font-style: italic; }
 
-strong {
-  font-weight: 500; }
+/*strong {
+  font-weight: 500; }*/
 
 small {
   font-size: 75%; }
@@ -1767,7 +1767,7 @@ a.waves-effect .waves-ripple {
 .collapsible-header {
   display: block;
   cursor: pointer;
-  height: 3rem;
+  height: auto;/*3rem;*/
   line-height: 3rem;
   padding: 0 1rem;
   background-color: #fff;
