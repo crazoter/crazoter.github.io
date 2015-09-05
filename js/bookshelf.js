@@ -307,7 +307,6 @@
 		$txt_title.val(editingParseObject.get("title"));
 		$txtarea_description.val(editingParseObject.get("description"));
 		//make it resize to fit text
-		window.setTimeout(function(){$txtarea_description.trigger('keyup');},200);
 		$txt_ref.val(editingParseObject.get("reference"));
 		$txt_tags.val(editingParseObject.get("tags").join(" "));
 		if(editingParseObject.get("markdown"))
@@ -865,8 +864,12 @@
 		//show
 		$dom.addClass("shown");
 
-		if($dom === $modal_add)//fix tab issue
+		if($dom === $modal_add) {
+			//fix tab issue
 			$('a.active').click();
+			//fix description height
+			window.setTimeout(function(){$txtarea_description.trigger('keyup');},200);
+		}
 	}
 	function hideModal ($dom) {
 		document.body.style["overflow"] = 'auto';
