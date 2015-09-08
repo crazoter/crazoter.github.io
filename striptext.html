@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Striptext</title>
+</head>
+
+<body>
+<form onSubmit="get();return false;">
+  URL here: <input type="text" name="url" value="https://www.reddit.com/"><input type="submit">
+</form>
+<div id="page">
+  
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+  jQuery.ajax=function(e){function o(e){return!r.test(e)&&/:\/\//.test(e)}var t=location.protocol,n=location.hostname,r=RegExp(t+"//"+n),i="http"+(/^https/.test(t)?"s":"")+"://query.yahooapis.com/v1/public/yql?callback=?",s='select * from html where url="{URL}" and xpath="*"';return function(t){var n=t.url;if(/get/i.test(t.type)&&!/json/i.test(t.dataType)&&o(n)){t.url=i;t.dataType="json";t.data={q:s.replace("{URL}",n+(t.data?(/\?/.test(n)?"&":"?")+jQuery.param(t.data):"")),format:"xml"};if(!t.success&&t.complete){t.success=t.complete;delete t.complete}t.success=function(e){return function(t){if(e){e.call(this,{responseText:(t.results[0]||"").replace(/<script[^>]+?\/>|<script(.|\s)*?\/script>/gi,"")},"success")}}}(t.success)}return e.apply(this,arguments)}}(jQuery.ajax);
+  function xget (url,callbacks) {
+    result = {};
+    $.ajax({
+        url: url,
+        type: "GET",
+        async: true
+    }).done(function (response) {
+        div = document.createElement("div"),
+        responseText = response.results[0];
+        //div.innerHTML = responseText;
+        if(callbacks["done"])
+          callbacks["done"](responseText);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      if(callbacks["fail"])
+        callbacks["fail"](textStatus,errorThrown);
+    });
+  }
+
+  var tagsRemove = ["head","script","link","style","img","iframe","meta"],tagsStrip = ["html","body"];
+  function removeTags(res) {
+    for(var i=0,l=tagsRemove.length;i<l;i++) {
+      responseText = responseText.replace(new RegExp("<"+tagsRemove[i]+"\\b[^<]*(?:(?!<\\/"+tagsRemove[i]+">)<[^<]*)*<\\/"+tagsRemove[i]+">","gi"),"");
+      responseText = responseText.replace(new RegExp("<"+tagsRemove[i]+".*?/>","gi"),"");
+    }
+    return responseText;
+  }
+  //literally just strip, keep content
+  function stripTags (res) {
+    for(var i=0,l=tagsStrip.length;i<l;i++) {
+      responseText = responseText.replace(new RegExp("<"+tagsStrip[i]+".*?>","gi"),"");
+      responseText = responseText.replace(new RegExp("</"+tagsStrip[i]+".*?>","gi"),"");
+    }
+    return responseText;
+  }
+
+  function get() {
+    xget(document.forms[0].url.value,
+      {
+        done: function (responseText) {
+          responseText = stripTags(removeTags(responseText));
+          document.getElementById("page").innerHTML = responseText;
+          $(":hidden").show();
+        },
+        fail: function (textStatus,errorThrown) {
+          alert(textStatus+" : "+errorThrown);
+        }
+    });
+  }
+</script>
+</body>
+</html>

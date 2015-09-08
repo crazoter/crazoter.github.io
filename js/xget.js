@@ -6,6 +6,7 @@ jQuery.ajax=function(e){function o(e){return!r.test(e)&&/:\/\//.test(e)}var t=lo
 *	callbacks: {done: function(), fail: function()}
 */
 function xget (url,callbacks) {
+	result = {};
 	$.ajax({
 	    url: url,
 	    type: "GET",
@@ -23,7 +24,7 @@ function xget (url,callbacks) {
 	        name = metas[i].getAttribute("name");
 	        if(name != null) {
 		        if(name === "keywords") {
-		        	keywords = metas[i].getAttribute("content").replace(" ", "_").replace(",", " ");
+		        	keywords = metas[i].getAttribute("tags").replace(" ", "_").replace(",", " ");
 		        	metasCleared = metasCleared|"10";
 		        } else if (name.indexOf("description") !== -1) {//most likely a description
 		            description = metas[i].getAttribute("content");
@@ -35,11 +36,25 @@ function xget (url,callbacks) {
 	    }
 	    if(callbacks["done"])
 	    	callbacks["done"](title,description,keywords);
-	    //console.log("Title:", title);
-	    //console.log("Description:", description);
 	}).fail(function (jqXHR, textStatus, errorThrown) {
 		if(callbacks["fail"])
 			callbacks["fail"](textStatus,errorThrown);
-	    //console.log("AJAX ERROR:", textStatus, errorThrown);
 	});
+}
+
+function stripTags(html,tag) {
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    var scripts = div.getElementsByTagName(tag);
+    var i = scripts.length;
+    while (i--) {
+      scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    return div.innerHTML;
+}
+function stripScripts(html) {
+	stripTags(html,"script");
+}
+function stripCSS(html) {
+	stripTags(html,"link");
 }
