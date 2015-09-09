@@ -6,7 +6,7 @@
   <meta name="author" content="Matthew Lee Wei Ren">
   <meta name="copyright" content="Copyright . 2015 . Matthew Lee Wei Ren . All Rights Reserved">
   <meta name="description" content="Matthew Lee Wei Ren, an IT student passionate about software design & development.">
-  
+
   <!--schema.org: Person-->
   <script type="application/ld+json">
   {
@@ -22,6 +22,7 @@
   "email" : "crazoter@gmail.com"
   }
   </script>
+
   <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Matthew Lee">
@@ -38,31 +39,105 @@
   <meta property="og:site_name" content="Matthew Lee" />
   <meta property="article:author" content="https://www.facebook.com/1776564236" />
 
+  <!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
+  <!--https://code.google.com/p/html5shiv-printshiv/-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
   <!--Cinzel x Raleway Font-->
   <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative|Raleway' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="assets/favicon2.ico"/>
   <style>
-    h1,h2,h3,h4,h5,h6 {
-      font-family: 'Cinzel Decorative', cursive;
-    }
+    /*Better Mofo website recommendations*/
     body {
       font-family: 'Raleway', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
     }
+
+    /*Header*/
+    header,footer { text-align: center; }
+    header>span { 
+      font-size: 48px;
+      display:inline-block; 
+    }
+    h1:first-letter, h1::first-letter, header>span::first-letter { font-family: 'Cinzel Decorative', cursive; } 
+    .subtitle {
+      color:#9e9e9e;
+    }
+    nav{ font-size: 16px; }
+    nav>a{ margin-left: 5px; margin-right: 5px; }
+
+    @media (max-width: 480px) {
+      body { font-size: 16px; }
+      header>span { font-size: 32px; }
+      nav{ font-size: 14px; }
+      nav>a{ margin-left: 0px; margin-right: 0px; }
+    }
+
+    /*Blue (Primary) & Yellow (Accent)*/
+    .dark-pry { color:#303F9F; }
+    .pry { color:#3F51B5; }
+    .light-pry { color:#C5CAE9; }
+    .accent { color:#FFC107; }
+    .dark-accent { color:#ff6f00;}
+    .txt-pry { color:#212121;}
+    .txt-sec { color:#9e9e9e; }
+    /*Dark mode*/
+    .night.txt-pry { color:#FFF;}
+    .night.txt-sec { color:#616161;}
+    
+    /*Anchor Tags*/
+    a { text-decoration: none !important; }
+    a:link { color:#ff6f00; }
+    a:visited { color:#303F9F;}
+    a:hover { color:#3F51B5;}
+    /*Icons (Social Media)*/
+    a>img.icon:hover {
+      opacity:0.7;
+      filter: alpha(opacity=70);
+    }
+    .icon { max-height:40px; }
   </style>
 </head>
-<body>
+<body class="txt-pry">
+<header>
+    <span>Matthew</span> <span>Lee</span>
+    <div class="subtitle">Software Designer & Developer</div>
+    <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
+</header>
 <h1>h1</h1>
 <h2>h2</h2>
 <h3>h3</h3>
-<h4>h4</h4>
-<h5>h5</h5>
-<div>body</div>
-<a href="https://plus.google.com/112487818396549194086" rel="me">Google+</a>
+<h4>Software Designer & Developer</h4>
+<h5>Software Designer & Developer</h5>
+<div>body
+</div>
+<footer>
+    <!--http://cdnjs.com/libraries/foundicons-->
+    <a target="_blank" href="https://www.facebook.com/1776564236" title="Facebook" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-facebook.svg" alt="Facebook" /></a>
+    <a target="_blank" href="https://news.ycombinator.com/user?id=crazoter" title="Hacker News" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-hacker-news.svg" alt="Hacker News" /></a>
+    <a target="_blank" href="http://stackoverflow.com/users/3555307/crazoter" title="Stack Overflow" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-stack-overflow.svg" alt="Stack Overflow" /></a>
+    <a target="_blank" href="https://github.com/crazoter" title="GitHub" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-github.svg" alt="GitHub" /></a>
+    <a href="https://plus.google.com/112487818396549194086" title="Google+" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-google-plus.svg" alt="Google+" /></a>
+    <a target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAA8cB2AB253U_3EhEoplFNfF_TwoWHEq7t8" title="Linkedin" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-linkedin.svg" alt="Linkedin" /></a>
+    <div><a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">Please provide feedback. I love feedback.</a></div>
+    
+</footer>
 <!--CDNs-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!--http://cdnjs.com/libraries/respond.js/-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <!--http://cdnjs.com/libraries/prefixfree-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-<!---->
+<!--Google Analytics-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-59980071-1', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 </html>
