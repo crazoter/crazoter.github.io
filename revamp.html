@@ -39,10 +39,6 @@
   <meta property="og:site_name" content="Matthew Lee" />
   <meta property="article:author" content="https://www.facebook.com/1776564236" />
 
-  <!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
-  <!--https://code.google.com/p/html5shiv-printshiv/-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-
   <!--Cinzel x Raleway Font-->
   <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative|Raleway' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" href="assets/favicon2.ico"/>
@@ -55,14 +51,25 @@
     }
 
     /*Header*/
-    header,footer { text-align: center; }
-    header>span { 
-      font-size: 48px;
-      display:inline-block; 
-    }
-    h1:first-letter, h1::first-letter, header>span::first-letter { font-family: 'Cinzel Decorative', cursive; } 
+    h1,h2,header,footer { 
+      text-align: center;
+      font-weight: 400;
+       }
+    header>span { font-size: 48px; }
+    h1>span, h2>span, header>span { display:inline-block; }
+    h1:first-letter, h1::first-letter,h1>span::first-letter,
+    h2:first-letter, h2::first-letter,h2>span::first-letter,
+    header>span::first-letter { font-family: 'Cinzel Decorative', serif; } 
     .subtitle {
+      display:inline-block;
       color:#9e9e9e;
+    }
+    .tech-gimmick {
+      display: inline-block;
+      overflow: hidden;
+    }
+    .tech-gimmick.title > a {
+      transition: width 300ms ease 0.1s;
     }
     nav{ font-size: 16px; }
     nav>a{ margin-left: 5px; margin-right: 5px; }
@@ -87,37 +94,52 @@
     .night.txt-sec { color:#616161;}
     
     /*Anchor Tags*/
-    a { text-decoration: none !important; }
+    a { 
+      text-decoration: none !important;
+      transition: color 300ms ease 0.1s;
+     }
     a:link { color:#ff6f00; }
-    a:visited { color:#303F9F;}
-    a:hover { color:#3F51B5;}
+    a:visited { color:#303F9F; }
+    a:hover { color:#3F51B5; }
     /*Icons (Social Media)*/
+    a>img { transition: opacity 300ms ease 0s; }
     a>img.icon:hover {
       opacity:0.7;
       filter: alpha(opacity=70);
     }
     .icon { max-height:40px; }
+
+    /*Content*/
+    div.content { 
+      margin: 10px auto;
+      max-width: 650px;
+    }
   </style>
+
+  <!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
+  <!--https://code.google.com/p/html5shiv-printshiv/-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
 <body class="txt-pry">
 <header>
     <span>Matthew</span> <span>Lee</span>
-    <div class="subtitle">Software Designer & Developer</div>
+    <div class="subtitle"><span class="tech-gimmick title word"><a class="tech-gimmick word" href="#" onClick="word_change();return false;">Technology</a></span> <span class="tech-gimmick">Designer & Developer</span></div>
     <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
 </header>
-<h1>h1</h1>
-<h2>h2</h2>
-<h3>h3</h3>
-<h4>Software Designer & Developer</h4>
-<h5>Software Designer & Developer</h5>
-<div>body
+<div class="content">
+  <h1>Portfolio</h1>
+  <h1>About</h1>
+  <h1>Gamification</h1>
+  <h1><span>Contact</span> <span>Me</span></h1>
+  <div>body
+  </div>
 </div>
 <footer>
     <!--http://cdnjs.com/libraries/foundicons-->
     <a target="_blank" href="https://www.facebook.com/1776564236" title="Facebook" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-facebook.svg" alt="Facebook" /></a>
+    <a target="_blank" href="https://github.com/crazoter" title="GitHub" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-github.svg" alt="GitHub" /></a>
     <a target="_blank" href="https://news.ycombinator.com/user?id=crazoter" title="Hacker News" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-hacker-news.svg" alt="Hacker News" /></a>
     <a target="_blank" href="http://stackoverflow.com/users/3555307/crazoter" title="Stack Overflow" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-stack-overflow.svg" alt="Stack Overflow" /></a>
-    <a target="_blank" href="https://github.com/crazoter" title="GitHub" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-github.svg" alt="GitHub" /></a>
     <a href="https://plus.google.com/112487818396549194086" title="Google+" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-google-plus.svg" alt="Google+" /></a>
     <a target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAA8cB2AB253U_3EhEoplFNfF_TwoWHEq7t8" title="Linkedin" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-linkedin.svg" alt="Linkedin" /></a>
     <div><a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">Please provide feedback. I love feedback.</a></div>
@@ -135,9 +157,53 @@
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-59980071-1', 'auto');
   ga('send', 'pageview');
+</script>
+<!--Others-->
+<script src="js/scrollspy.min.js"></script>
+<script>
+
+  //Word changing magic
+  //Because of how this is implemented, always put the largest word first.
+  var spiffy_words = ["Technology","Software","Website","Game"], 
+    spiffy_index = 0,
+    $spiffy_word = $("a.tech-gimmick.word"),
+    spiffy_word_width = 88;
+  //Loop through spiffy words and set timeout for reappearance. Transition CSS handles animation.
+  function word_change () {
+    ++spiffy_index;
+    if(spiffy_index>=spiffy_words.length) { spiffy_index = 0; }
+    $spiffy_word.css("width","0px");
+    window.setTimeout(function(){
+      $spiffy_word.text(spiffy_words[spiffy_index]);
+      $spiffy_word.width(spiffy_word_width);
+    },600);
+  }
+
+  $(function() {
+    //Setup spiffy_words
+    $spiffy_word.text(spiffy_words[0]);
+    //spiffy_word_width = $(".tech-gimmick.title").outerWidth();//issue, decided to hardcode
+    $(".tech-gimmick.word").width(spiffy_word_width);
+  });
+
+  $(".tech-gimmick.word")
+
+  $('[href="#work"]').on('scrollSpy:enter', function() {
+      console.log('enter:', $(this).attr('id'));
+  });
+
+  $('[href="#work"]').on('scrollSpy:exit', function() {
+      console.log('exit:', $(this).attr('id'));
+  });
+
+  $('[href="#work"]').scrollSpy();
+
+  $.winSizeSpy().on('scrollSpy:winSize', function () {
+    console.log('x');
+  })
 </script>
 </body>
 </html>
