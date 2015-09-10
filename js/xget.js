@@ -6,7 +6,6 @@ jQuery.ajax=function(e){function o(e){return!r.test(e)&&/:\/\//.test(e)}var t=lo
 *	callbacks: {done: function(), fail: function()}
 */
 function xget (url,callbacks) {
-	result = {};
 	$.ajax({
 	    url: url,
 	    type: "GET",
@@ -40,21 +39,4 @@ function xget (url,callbacks) {
 		if(callbacks["fail"])
 			callbacks["fail"](textStatus,errorThrown);
 	});
-}
-
-function stripTags(html,tag) {
-    var div = document.createElement('div');
-    div.innerHTML = html;
-    var scripts = div.getElementsByTagName(tag);
-    var i = scripts.length;
-    while (i--) {
-      scripts[i].parentNode.removeChild(scripts[i]);
-    }
-    return div.innerHTML;
-}
-function stripScripts(html) {
-	stripTags(html,"script");
-}
-function stripCSS(html) {
-	stripTags(html,"link");
 }

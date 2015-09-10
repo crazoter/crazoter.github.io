@@ -1,8 +1,43 @@
+/*Blue (Primary) & Yellow (Accent)*/
+.dark-pry { color:#303F9F; }
+.pry { color:#3F51B5; }
+.light-pry { color:#C5CAE9; }
+.accent { color:#FFC107; }
+.dark-accent { color:#ff6f00;}
+.txt-pry { color:#212121; }
+.txt-sec { color:#9e9e9e; }
+/*Dark mode*/
+.night.txt-pry { color:#FFF;}
+.night.txt-sec { color:#616161;}
+.lightbulb { 
+  width:50px; height:50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+ }
+.lightbulb img { 
+    cursor: pointer; cursor: hand;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -16px 0 0 -16px;
+    opacity: 1;
+    transition: opacity 300ms ease 0.1s;
+ }
+ .invisible,.lightbulb img.invisible { opacity:0;filter: alpha(opacity=0); }
+
 /*Better Mofo website recommendations*/
 body {
+  color:#212121;
+  background-color: #FFF;
   font-family: 'Raleway', sans-serif;
   font-size: 18px;
   line-height: 1.6;
+  transition: color 300ms ease 0.1s,background-color 300ms ease 0.1s;
+}
+body.night {
+  color: #FFF;
+  background-color: #000;
 }
 
 /*Header & footer*/
@@ -40,26 +75,17 @@ nav>a{ margin-left: 5px; margin-right: 5px; }
   nav>a{ margin-left: 0px; margin-right: 0px; }
 }
 
-/*Blue (Primary) & Yellow (Accent)*/
-.dark-pry { color:#303F9F; }
-.pry { color:#3F51B5; }
-.light-pry { color:#C5CAE9; }
-.accent { color:#FFC107; }
-.dark-accent { color:#ff6f00;}
-.txt-pry { color:#212121;}
-.txt-sec { color:#9e9e9e; }
-/*Dark mode*/
-.night.txt-pry { color:#FFF;}
-.night.txt-sec { color:#616161;}
-
 /*Anchor Tags*/
 a { 
   text-decoration: none !important;
   transition: color 300ms ease 0.1s;
  }
 a:link { color:#ff6f00; }
+.night a:link { color:#FFC107;}
 a:visited { color:#303F9F; }
+.night a:visited { color:#C5CAE9; }
 a:hover { color:#3F51B5; }
+.night a:hover { color:#ff6f00; }
 /*Icons (Social Media)*/
 a>img { transition: opacity 300ms ease 0s; }
 a>img.icon:hover {
@@ -67,6 +93,10 @@ a>img.icon:hover {
   filter: alpha(opacity=70);
 }
 .icon { max-height:40px; }
+.night .icon {
+  background-color: #FFF;
+  box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+}
 
 /*Content*/
 div.content { 
@@ -75,13 +105,27 @@ div.content {
 }
 
 /*Wheel*/
+text {
+  fill: #212121;
+  transition: fill 300ms ease 0.1s;
+}
+.night text{
+  fill: #FFF;
+}
 text:hover {
   cursor: pointer; cursor: hand;
   text-shadow:
-    -0.2px -0.2px 0 #000,  
-    0.2px -0.2px 0 #000,
-    -0.2px 0.2px 0 #000,
-    0.2px 0.2px 0 #000;
+    -0.2px -0.2px 0 #222,  
+    0.2px -0.2px 0 #222,
+    -0.2px 0.2px 0 #222,
+    0.2px 0.2px 0 #222;
+}
+.night text:hover {
+  text-shadow:
+    -0.2px -0.2px 0 #DDD,  
+    0.2px -0.2px 0 #DDD,
+    -0.2px 0.2px 0 #DDD,
+    0.2px 0.2px 0 #DDD;
 }
 .svg-icon {
   display: none;
