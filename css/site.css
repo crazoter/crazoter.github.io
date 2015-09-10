@@ -5,11 +5,14 @@ body {
   line-height: 1.6;
 }
 
-/*Header*/
+/*Header & footer*/
 h1,h2,header,footer,div.wheel { 
   text-align: center;
   font-weight: 400;
   }
+.icon-credit {
+  font-size: 11px;
+}
 header>span { font-size: 48px; }
 h1>span, h2>span, header>span { display:inline-block; }
 h1:first-letter, h1::first-letter,h1>span::first-letter,
