@@ -1,0 +1,142 @@
+/*Better Mofo website recommendations*/
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/*Header*/
+h1,h2,header,footer,div.wheel { 
+  text-align: center;
+  font-weight: 400;
+  }
+header>span { font-size: 48px; }
+h1>span, h2>span, header>span { display:inline-block; }
+h1:first-letter, h1::first-letter,h1>span::first-letter,
+h2:first-letter, h2::first-letter,h2>span::first-letter,
+header>span::first-letter { font-family: 'Cinzel Decorative', serif; } 
+.subtitle {
+  display:inline-block;
+  color:#9e9e9e;
+}
+.spiffy-word {
+  display: inline-block;
+  overflow: hidden;
+}
+.spiffy-word.title > a {
+  transition: color 300ms ease 0.1s, width 300ms ease 0.1s;
+  text-align: right;
+}
+nav{ font-size: 16px; }
+nav>a{ margin-left: 5px; margin-right: 5px; }
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  header>span { font-size: 32px; }
+  nav{ font-size: 14px; }
+  nav>a{ margin-left: 0px; margin-right: 0px; }
+}
+
+/*Blue (Primary) & Yellow (Accent)*/
+.dark-pry { color:#303F9F; }
+.pry { color:#3F51B5; }
+.light-pry { color:#C5CAE9; }
+.accent { color:#FFC107; }
+.dark-accent { color:#ff6f00;}
+.txt-pry { color:#212121;}
+.txt-sec { color:#9e9e9e; }
+/*Dark mode*/
+.night.txt-pry { color:#FFF;}
+.night.txt-sec { color:#616161;}
+
+/*Anchor Tags*/
+a { 
+  text-decoration: none !important;
+  transition: color 300ms ease 0.1s;
+ }
+a:link { color:#ff6f00; }
+a:visited { color:#303F9F; }
+a:hover { color:#3F51B5; }
+/*Icons (Social Media)*/
+a>img { transition: opacity 300ms ease 0s; }
+a>img.icon:hover {
+  opacity:0.7;
+  filter: alpha(opacity=70);
+}
+.icon { max-height:40px; }
+
+/*Content*/
+div.content { 
+  margin: 10px auto;
+  max-width: 650px;
+}
+
+/*Wheel*/
+text:hover {
+  cursor: pointer; cursor: hand;
+  text-shadow:
+    -0.2px -0.2px 0 #000,  
+    0.2px -0.2px 0 #000,
+    -0.2px 0.2px 0 #000,
+    0.2px 0.2px 0 #000;
+}
+.svg-icon {
+  display: none;
+}
+.svg-icon.selected {
+  display: inline;
+}
+#svg-selector {
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+#svg-selector.svg-contact {
+ -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+  -webkit-transform-origin: 200px 200px;
+  -moz-transform-origin: 200px 200px;
+  -o-transform-origin: 200px 200px;
+  -ms-transform-origin: 200px 200px;
+  transform-origin: 200px 200px;
+}
+#svg-selector.svg-about {
+ -webkit-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  transform: rotate(225deg);
+    -webkit-transform-origin: 200px 200px;
+  -moz-transform-origin: 200px 200px;
+  -o-transform-origin: 200px 200px;
+  -ms-transform-origin: 200px 200px;
+  transform-origin: 200px 200px;
+}
+#svg-selector.svg-game {
+ -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+    -webkit-transform-origin: 200px 200px;
+  -moz-transform-origin: 200px 200px;
+  -o-transform-origin: 200px 200px;
+  -ms-transform-origin: 200px 200px;
+  transform-origin: 200px 200px;
+}
+#svg-selector.svg-work {
+ -webkit-transform: rotate(315deg);
+  -moz-transform: rotate(315deg);
+  -o-transform: rotate(315deg);
+  -ms-transform: rotate(315deg);
+  transform: rotate(315deg);
+    -webkit-transform-origin: 200px 200px;
+  -moz-transform-origin: 200px 200px;
+  -o-transform-origin: 200px 200px;
+  -ms-transform-origin: 200px 200px;
+  transform-origin: 200px 200px;
+}
