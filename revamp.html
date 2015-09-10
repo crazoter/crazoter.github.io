@@ -64,12 +64,13 @@
       display:inline-block;
       color:#9e9e9e;
     }
-    .tech-gimmick {
+    .spiffy-word {
       display: inline-block;
       overflow: hidden;
     }
-    .tech-gimmick.title > a {
-      transition: width 300ms ease 0.1s;
+    .spiffy-word.title > a {
+      transition: color 300ms ease 0.1s, width 300ms ease 0.1s;
+      text-align: right;
     }
     nav{ font-size: 16px; }
     nav>a{ margin-left: 5px; margin-right: 5px; }
@@ -123,7 +124,7 @@
 <body class="txt-pry">
 <header>
     <span>Matthew</span> <span>Lee</span>
-    <div class="subtitle"><span class="tech-gimmick title word"><a class="tech-gimmick word" href="#" onClick="word_change();return false;">Technology</a></span> <span class="tech-gimmick">Designer & Developer</span></div>
+    <div class="subtitle"><span class="spiffy-word title word"><a class="spiffy-word word" href="#" onClick="word_change();return false;">Technology</a></span> <span class="spiffy-word">Designer & Developer</span></div>
     <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
 </header>
 <div class="content">
@@ -169,7 +170,7 @@
   //Because of how this is implemented, always put the largest word first.
   var spiffy_words = ["Technology","Software","Website","Game"], 
     spiffy_index = 0,
-    $spiffy_word = $("a.tech-gimmick.word"),
+    $spiffy_word = $("a.spiffy-word.word"),
     spiffy_word_width = 100;
   //Loop through spiffy words and set timeout for reappearance. Transition CSS handles animation.
   function word_change () {
@@ -185,11 +186,11 @@
   $(function() {
     //Setup spiffy_words
     $spiffy_word.text(spiffy_words[0]);
-    //spiffy_word_width = $(".tech-gimmick.title").outerWidth();//issue, decided to hardcode
-    $(".tech-gimmick.word").width(spiffy_word_width);
+    //spiffy_word_width = $(".spiffy-word.title").outerWidth();//issue, decided to hardcode
+    $(".spiffy-word.word").width(spiffy_word_width);
   });
 
-  $(".tech-gimmick.word")
+  $(".spiffy-word.word")
 
   $('[href="#work"]').on('scrollSpy:enter', function() {
       console.log('enter:', $(this).attr('id'));
