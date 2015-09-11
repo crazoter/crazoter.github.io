@@ -61,10 +61,10 @@
 		++ticks;
 
 		// viewport rectangle
-		var top = jWindow.scrollTop(),
+		var top = jWindow.scrollTop() + jWindow.height()/1.8,
 			left = jWindow.scrollLeft(),
 			right = left + jWindow.width(),
-			bottom = top + jWindow.height();
+			bottom = top;
 
 		// determine which elements are in view
 		var intersections = findElements(top+offset.top, right+offset.right, bottom+offset.bottom, left+offset.left);

@@ -11,7 +11,7 @@
 .night.txt-sec { color:#616161;}
 .lightbulb { 
   width:50px; height:50px;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
  }
@@ -27,6 +27,7 @@
  .invisible,.lightbulb img.invisible { opacity:0;filter: alpha(opacity=0); }
 
 /*Better Mofo website recommendations*/
+html, body { width: 100%; height: 100%;}
 body {
   color:#212121;
   background-color: #FFF;
@@ -46,11 +47,11 @@ h1,h2,header,footer,div.wheel {
   text-align: center;
   font-weight: 400;
   }
-.icon-credit {
-  font-size: 11px;
-}
+.icon-credit { font-size: 11px; }
 header { height: 100%; }
+footer { height: 50%; }
 header>span { font-size: 48px; }
+h1 { margin-top:5%}
 h1>span, h2>span, header>span { display:inline-block; }
 h1:first-letter, h1::first-letter,h1>span::first-letter,
 h2:first-letter, h2::first-letter,h2>span::first-letter,
@@ -63,6 +64,7 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; }
   display: inline-block;
   overflow: hidden;
 }
+.spiffy-word.title { height: 28px; }
 .spiffy-word.title > a {
   transition: color 300ms ease 0.1s, width 300ms ease 0.1s;
   text-align: right;
@@ -195,7 +197,7 @@ g.svg-bg {
   transition: 0.3s ease-in-out;
 }
 g.svg-bg.selected { opacity: 0.08; }
-.night g.svg-bg.selected { opacity: 0.09; }
+.night g.svg-bg.selected { opacity: 0.15; }
 
 /*Tablet*/
 @media (max-width: 768px) and (min-width: 480px) {
