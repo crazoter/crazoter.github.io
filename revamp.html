@@ -264,6 +264,7 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
 <script>
 //APP WIDE VARIABLES
   var $root = $('html,body');
+  var $html = $('html');
   //var $body = $('body');
 //SPIFFY-TEXT
   //VARIABLES
@@ -388,13 +389,13 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
   //F(X)
   function onload_nightmode () {
     //if night was enabled by instant exec
-    if($root.hasClass("night")) {
+    if($html.hasClass("night")) {
       //react appropriately
       $('.lightbulb>img').toggleClass("invisible");
     }
     $('.lightbulb').click(function () {
       $('.lightbulb>img').toggleClass("invisible");
-      $root.toggleClass("night");
+      $html.toggleClass("night");
     });
   }
 
