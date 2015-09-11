@@ -201,7 +201,7 @@ g.svg-bg {
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
-  g.svg-bg.selected { opacity: 0.19; }
+  g.svg-bg.selected { opacity: 0.17; }
   .night g.svg-bg.selected { opacity: 0.40; }
 
 /*Elevator*/
@@ -241,6 +241,6 @@ g.svg-bg {
   nav>a{ margin-left: 0px; margin-right: 0px; }
   /*Background: center & lower opacity*/
   div.svg-bg { right: 0%; }
-  g.svg-bg.selected { opacity: 0.19; }
+  g.svg-bg.selected { opacity: 0.17; }
   .night g.svg-bg.selected { opacity: 0.40; }
 }
