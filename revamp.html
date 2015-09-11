@@ -50,7 +50,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
   <script>
   //NIGHTMODE - INSTANT EXEC
-  var DAY_BOUNDS = [9,19];//7-7
+  var DAY_BOUNDS = [7,19];//7-7
   function instant_exec_nightmode () {
     //to prevent browser reflow
     var hours = (new Date()).getHours();
@@ -285,6 +285,29 @@
       svg_rotate_animation = $("#defs").children()[0],
       use_svg_transform = !Modernizr.csstransforms || !Modernizr.csstransitions;
   //F(X)
+  function wheel_mouseenter (dom) {
+      //animate rotation
+      if(use_svg_transform) {
+        $svg_selector.attr("transform","rotate("+WHEEL_ROTATION[dom.id]+" 200 200)");
+      } else {
+        $svg_selector.attr("class",dom.id);
+      }
+      if(svg_currentSelectedId) {//if has previous
+        //hide previous icon (if shown): http://stackoverflow.com/questions/8638621/jquery-svg-why-cant-i-addclass
+        $(".svg-icon.selected").attr('class','svg-icon');
+      }
+      //popup icon
+      $(WHEEL_ICON[dom.id]).attr('class','svg-icon selected');
+      //rig color to icon
+      var color = $(WHEEL_ICON[dom.id]).children().attr('stroke');
+      $svg_selector.children().attr('stroke',color);
+      $svg_fill.children().attr('fill',color);
+
+      svg_currentSelectedId = dom.id;
+  }
+  function wheel_click (dom) {
+    smooth_scroll_to($(dom).data("href"));
+  }
   function onload_wheel () {
     //wheel - get svg if supported
     /*if(Modernizr.svg) {
@@ -294,28 +317,23 @@
     }*/
     //setup wheel hover
     $(".wheel-text").mouseenter(function(){
-      //animate rotation
-      if(use_svg_transform) {
-        $svg_selector.attr("transform","rotate("+WHEEL_ROTATION[this.id]+" 200 200)");
-      } else {
-        $svg_selector.attr("class",this.id);
-      }
-      if(svg_currentSelectedId) {//if has previous
-        //hide previous icon (if shown): http://stackoverflow.com/questions/8638621/jquery-svg-why-cant-i-addclass
-        $(".svg-icon.selected").attr('class','svg-icon');
-      }
-      //popup icon
-      $(WHEEL_ICON[this.id]).attr('class','svg-icon selected');
-      //rig color to icon
-      var color = $(WHEEL_ICON[this.id]).children().attr('stroke');
-      $svg_selector.children().attr('stroke',color);
-      $svg_fill.children().attr('fill',color);
-
-      svg_currentSelectedId = this.id;
+      wheel_mouseenter(this);
     }).click(function(){
-      smooth_scroll_to($(this).data("href"));
+      if(svg_currentSelectedId !== this.id) {
+        //clicked but mouseenter wasn't triggered; probably mobile
+        wheel_mouseenter(this);
+        setTimeout(function () {
+          wheel_click("#"+svg_currentSelectedId);
+        },700);
+      } else {
+        wheel_click(this);
+      }
     });
-    $("#svg-about").trigger("mouseenter");
+    //shifted to instant_exec
+    //$("#svg-about").trigger("mouseenter");
+  }
+  function instant_exec_wheel () {
+    wheel_mouseenter(document.getElementById("svg-about"));
   }
 
   //NIGHTMODE
@@ -339,6 +357,9 @@
     onload_smoothAnchors();//smooth scrolling for all anchor tags
     onload_nightmode();    //night mode
   });
+  //instant_exec
+                            //night mode is just below modernizr
+  instant_exec_wheel();     //wheel
 
   $('[href="#work"]').on('scrollSpy:enter', function() {
       console.log('enter:', $(this).attr('id'));
