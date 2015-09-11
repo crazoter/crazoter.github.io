@@ -265,7 +265,6 @@
 		    			show($(progress_add));
 		    			xget(url,{
 		    				done: function(title,description,keywords) {
-		    					debugger;
 		    					$('.lbl_add_article').addClass("active");
 		    					if($txt_title.val() === "")
 		    						$txt_title.val(title);

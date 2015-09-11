@@ -50,7 +50,7 @@ h1,h2,header,footer,div.wheel {
   padding: 0px 10px 0px 10px;
   }
 .credit { font-size: 11px; }
-header { height: 100%; }
+html.svg header { height: 100%; }
 footer { height: 50%; }
 header>span { font-size: 48px; }
 h1 { margin-top:5% }
