@@ -48,7 +48,7 @@ h1,h2,header,footer,div.wheel {
   font-weight: 400;
   padding: 0px 10px 0px 10px;
   }
-.icon-credit { font-size: 11px; }
+.credit { font-size: 11px; }
 header { height: 100%; }
 footer { height: 50%; }
 header>span { font-size: 48px; }
