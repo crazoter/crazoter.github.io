@@ -68,13 +68,6 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; }
 nav{ font-size: 16px; }
 nav>a{ margin-left: 5px; margin-right: 5px; }
 
-@media (max-width: 480px) {
-  body { font-size: 16px; }
-  header>span { font-size: 32px; }
-  nav{ font-size: 14px; }
-  nav>a{ margin-left: 0px; margin-right: 0px; }
-}
-
 /*Anchor Tags*/
 a { 
   text-decoration: none !important;
@@ -127,12 +120,8 @@ text:hover {
     -0.2px 0.2px 0 #DDD,
     0.2px 0.2px 0 #DDD;
 }
-.svg-icon {
-  display: none;
-}
-.svg-icon.selected {
-  display: inline;
-}
+.svg-icon { display: none; }
+.svg-icon.selected { display: inline; }
 #svg-selector {
   -webkit-transition: 0.3s ease-in-out;
   -moz-transition: 0.3s ease-in-out;
@@ -186,4 +175,39 @@ text:hover {
   -o-transform-origin: 200px 200px;
   -ms-transform-origin: 200px 200px;
   transform-origin: 200px 200px;
+}
+div.svg-bg {
+  z-index: -1;
+  position: fixed;
+  right: -35%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+div.svg-bg path { stroke: #000; }
+div.svg-bg circle { fill: #000; }
+.night div.svg-bg path { stroke: #FFF; }
+.night div.svg-bg circle { fill: #FFF; }
+g.svg-bg {
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+}
+g.svg-bg.selected { opacity: 0.08; }
+.night g.svg-bg.selected { opacity: 0.09; }
+
+/*Tablet*/
+@media (max-width: 768px) and (min-width: 480px) {
+  div.svg-bg { 
+    width: 80%;
+  }
+}
+/*Mobile*/
+@media (max-width: 480px) {
+  /*Body: Smaller font & no margin*/
+  body { font-size: 16px; }
+  header>span { font-size: 32px; }
+  nav{ font-size: 14px; }
+  nav>a{ margin-left: 0px; margin-right: 0px; }
+  /*Background: center & lower opacity*/
+  div.svg-bg { right: 0%; }
 }
