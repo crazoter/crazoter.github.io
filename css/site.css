@@ -34,6 +34,7 @@ body {
   font-size: 18px;
   line-height: 1.6;
   transition: color 300ms ease 0.1s,background-color 300ms ease 0.1s;
+  margin: 0px;
 }
 .night body {
   color: #FFF;
@@ -48,6 +49,7 @@ h1,h2,header,footer,div.wheel {
 .icon-credit {
   font-size: 11px;
 }
+header { height: 100%; }
 header>span { font-size: 48px; }
 h1>span, h2>span, header>span { display:inline-block; }
 h1:first-letter, h1::first-letter,h1>span::first-letter,
@@ -195,11 +197,6 @@ g.svg-bg {
 g.svg-bg.selected { opacity: 0.08; }
 .night g.svg-bg.selected { opacity: 0.09; }
 
-/*PC*/
-@media (min-width: 960px){
-  g.svg-bg.selected { opacity: 0.15; }
-  .night g.svg-bg.selected { opacity: 0.20; }
-}
 /*Tablet*/
 @media (max-width: 768px) and (min-width: 480px) {
   div.svg-bg { 
