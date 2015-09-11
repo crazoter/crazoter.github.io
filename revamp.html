@@ -44,9 +44,21 @@
   <link rel="shortcut icon" href="assets/favicon3.ico"/>
   <link href='css/site.css' rel='stylesheet' type='text/css'>
 
+  <!--"Instant Executes-->
   <!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
   <!--https://code.google.com/p/html5shiv-printshiv/-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script>
+  //NIGHTMODE - INSTANT EXEC
+  var DAY_BOUNDS = [9,19];//7-7
+  function instant_exec_nightmode () {
+    //to prevent browser reflow
+    var hours = (new Date()).getHours();
+    var html = document.documentElement;
+    if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
+  }
+  instant_exec_nightmode();
+  </script>
 </head>
 <body>
 <header>
@@ -213,11 +225,11 @@
 <script>
 //APP WIDE VARIABLES
   var $root = $('html,body');
-  var $body = $('body');
+  //var $body = $('body');
 //SPIFFY-TEXT
   //VARIABLES
   //Because of how this is implemented, always put the largest word first.
-  var spiffy_words = ["Technology","Software","Website","Game"], 
+  var SPIFFY_WORDS = ["Technology","Software","Website","Game"], 
     spiffy_index = 0,
     $spiffy_word = $("a.spiffy-word.word"),
     spiffy_word_width = 100;
@@ -225,16 +237,16 @@
     //Loop through spiffy words and set timeout for reappearance. Transition CSS handles animation.
     function word_change () {
       ++spiffy_index;
-      if(spiffy_index>=spiffy_words.length) { spiffy_index = 0; }
+      if(spiffy_index>=SPIFFY_WORDS.length) { spiffy_index = 0; }
       $spiffy_word.css("width","0px");
       window.setTimeout(function(){
-        $spiffy_word.text(spiffy_words[spiffy_index]);
+        $spiffy_word.text(SPIFFY_WORDS[spiffy_index]);
         $spiffy_word.width(spiffy_word_width);
       },600);
     }
     function onload_spiffyWords () {
       //Setup spiffy_words
-      $spiffy_word.text(spiffy_words[0]);
+      $spiffy_word.text(SPIFFY_WORDS[0]);
       //spiffy_word_width = $(".spiffy-word.title").outerWidth();//issue, decided to hardcode
       $(".spiffy-word.word").width(spiffy_word_width);
     }
@@ -255,13 +267,13 @@
 
 //WHEEL
   //VARIABLES
-  var wheelRotation = {
+  var WHEEL_ROTATION = {
     "svg-contact":135,
     "svg-about":225,
     "svg-game":270,
     "svg-work":315
   }
-  var wheelIcon = {
+  var WHEEL_ICON = {
     "svg-contact":"#svg-head",
     "svg-about":"#svg-bird",
     "svg-game":"#svg-mask",
@@ -284,7 +296,7 @@
     $(".wheel-text").mouseenter(function(){
       //animate rotation
       if(use_svg_transform) {
-        $svg_selector.attr("transform","rotate("+wheelRotation[this.id]+" 200 200)");
+        $svg_selector.attr("transform","rotate("+WHEEL_ROTATION[this.id]+" 200 200)");
       } else {
         $svg_selector.attr("class",this.id);
       }
@@ -293,9 +305,9 @@
         $(".svg-icon.selected").attr('class','svg-icon');
       }
       //popup icon
-      $(wheelIcon[this.id]).attr('class','svg-icon selected');
+      $(WHEEL_ICON[this.id]).attr('class','svg-icon selected');
       //rig color to icon
-      var color = $(wheelIcon[this.id]).children().attr('stroke');
+      var color = $(WHEEL_ICON[this.id]).children().attr('stroke');
       $svg_selector.children().attr('stroke',color);
       $svg_fill.children().attr('fill',color);
 
@@ -307,10 +319,16 @@
   }
 
   //NIGHTMODE
+  //F(X)
   function onload_nightmode () {
+    //if night was enabled by instant exec
+    if($root.hasClass("night")) {
+      //react appropriately
+      $('.lightbulb>img').toggleClass("invisible");
+    }
     $('.lightbulb').click(function () {
       $('.lightbulb>img').toggleClass("invisible");
-      $("body").toggleClass("night");
+      $root.toggleClass("night");
     });
   }
 

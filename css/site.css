@@ -35,7 +35,7 @@ body {
   line-height: 1.6;
   transition: color 300ms ease 0.1s,background-color 300ms ease 0.1s;
 }
-body.night {
+.night body {
   color: #FFF;
   background-color: #000;
 }
