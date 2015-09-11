@@ -195,6 +195,11 @@ g.svg-bg {
 g.svg-bg.selected { opacity: 0.08; }
 .night g.svg-bg.selected { opacity: 0.09; }
 
+/*PC*/
+@media (min-width: 960px){
+  g.svg-bg.selected { opacity: 0.15; }
+  .night g.svg-bg.selected { opacity: 0.20; }
+}
 /*Tablet*/
 @media (max-width: 768px) and (min-width: 480px) {
   div.svg-bg { 
