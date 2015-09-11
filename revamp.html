@@ -294,7 +294,7 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
 //SMOOTH SCROLL
   //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
   function smooth_scroll_to (selector) {
-    $root.animate({scrollTop:$(selector).offset().top}, 500).promise().done(function () {
+    $root.animate({scrollTop:$(selector).offset().top}, 800).promise().done(function () {
       window.location.hash = selector;
     });
   }
