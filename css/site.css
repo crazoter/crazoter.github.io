@@ -34,6 +34,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 18px;
   line-height: 1.6;
+  font-weight: 500;
   transition: color 300ms ease 0.1s,background-color 300ms ease 0.1s;
   margin: 0px;
 }
@@ -45,14 +46,14 @@ body {
 /*Header & footer*/
 h1,h2,header,footer,div.wheel { 
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
   padding: 0px 10px 0px 10px;
   }
 .credit { font-size: 11px; }
 header { height: 100%; }
 footer { height: 50%; }
 header>span { font-size: 48px; }
-h1 { margin-top:5%}
+h1 { margin-top:5% }
 h1>span, h2>span, header>span { display:inline-block; }
 h1:first-letter, h1::first-letter,h1>span::first-letter,
 h2:first-letter, h2::first-letter,h2>span::first-letter,
@@ -200,8 +201,8 @@ g.svg-bg {
   opacity: 0;
   transition: 0.3s ease-in-out;
 }
-g.svg-bg.selected { opacity: 0.08; }
-.night g.svg-bg.selected { opacity: 0.15; }
+  g.svg-bg.selected { opacity: 0.19; }
+  .night g.svg-bg.selected { opacity: 0.40; }
 
 /*Elevator*/
 .elevator {
@@ -234,11 +235,12 @@ g.svg-bg.selected { opacity: 0.08; }
 @media (max-width: 480px) {
   /*Body: Smaller font & no margin*/
   body { font-size: 16px; }
+  .spiffy-word.title { height: 25px; }
   header>span { font-size: 32px; }
   nav{ font-size: 14px; }
   nav>a{ margin-left: 0px; margin-right: 0px; }
   /*Background: center & lower opacity*/
   div.svg-bg { right: 0%; }
-  g.svg-bg.selected { opacity: 0.15; }
-  .night g.svg-bg.selected { opacity: 0.18; }
+  g.svg-bg.selected { opacity: 0.19; }
+  .night g.svg-bg.selected { opacity: 0.40; }
 }
