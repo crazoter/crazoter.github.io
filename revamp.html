@@ -53,8 +53,7 @@
   var DAY_BOUNDS = [7,19];//7-7
   function instant_exec_nightmode () {
     //to prevent browser reflow
-    var hours = (new Date()).getHours();
-    var html = document.documentElement;
+    var hours = (new Date()).getHours(),html = document.documentElement;
     if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
   }
   instant_exec_nightmode();
@@ -283,7 +282,9 @@
       $svg_selector = $("#svg-selector"), 
       $svg_fill = $("#svg-fill"),
       svg_rotate_animation = $("#defs").children()[0],
-      use_svg_transform = !Modernizr.csstransforms || !Modernizr.csstransitions;
+      use_svg_transform = !Modernizr.csstransforms || !Modernizr.csstransitions,
+      svg_mouseenter_timestamp = null,
+      svg_mouseenter_timedur = 75;
   //F(X)
   function wheel_mouseenter (dom) {
       //animate rotation
@@ -304,6 +305,7 @@
       $svg_fill.children().attr('fill',color);
 
       svg_currentSelectedId = dom.id;
+      svg_mouseenter_timestamp = (new Date()).getTime();
   }
   function wheel_click (dom) {
     smooth_scroll_to($(dom).data("href"));
@@ -319,8 +321,9 @@
     $(".wheel-text").mouseenter(function(){
       wheel_mouseenter(this);
     }).click(function(){
-      if(svg_currentSelectedId !== this.id) {
-        //clicked but mouseenter wasn't triggered; probably mobile
+      console.log((new Date()).getTime() - svg_mouseenter_timestamp);
+      if(svg_mouseenter_timestamp && (new Date()).getTime() - svg_mouseenter_timestamp < svg_mouseenter_timedur) {
+        //clicked but mouseenter was triggered immediately after; probably mobile
         wheel_mouseenter(this);
         setTimeout(function () {
           wheel_click("#"+svg_currentSelectedId);
