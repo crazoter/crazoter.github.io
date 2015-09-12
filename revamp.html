@@ -61,15 +61,14 @@
   </script>
 </head>
 <body>
-<header class="scroll-spy elevator-toggle">
+<header id="top" class="scroll-spy">
     <span>Matthew</span> <span>Lee</span>
     <div class="subtitle"><span class="spiffy-word title word"><a class="spiffy-word word" href="#" onClick="word_change();return false;">Technology</a></span> <span class="spiffy-word">Designer & Developer</span></div>
     <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
     <div class="lightbulb"><img class="invisible" src="assets/png/lightbulb_white.png" alt="light"><img src="assets/png/lightbulb_black.png" alt=""></div>
-
 <div class="wheel">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%"
-   height="700px" viewBox="0 0 400 600" xml:space="preserve">
+   height="300px" viewBox="0 0 400 300" xml:space="preserve">
 <g id="svg-fill">
   <g fill="#0d47a1" opacity="0.3">
     <circle cx="200" cy="200" r="40"/>
@@ -164,29 +163,35 @@
     c0.734-0.859,2.28-2.329,4.184-1.943c0.298,0.065,0.547,0.2,0.754,0.371c0.101,0.09,0.206,0.183,0.292,0.289
     C195.274,190.052,195.303,190.098,195.337,190.144z"/>
 </g>
-<g id="svg-selector" transform="rotate(225 200 200)" class="svg-about">
+<g id="svg-selector" transform="rotate(225 200 200)" class="bird">
   <path stroke="#303F9F" d="M240,200.334c0,8.237-2.269,17.206-9.646,25.707
     c-2.218,2.556-4.701,5.041-7.268,7.386c-10.557,9.644-22.505,16.906-23.086,16.906c-0.325,0-12.025-7.395-22.411-16.529
     c-2.735-2.406-5.38-4.933-7.701-7.477c-8.179-8.964-9.888-17.174-9.888-25.993c0-22.091,17.909-40,40-40
     C222.092,160.334,240,178.243,240,200.334z M200,164c-19.882,0-36,16.118-36,36c0,19.883,16.118,36,36,36c19.883,0,36-16.117,36-36
     C236,180.118,219.883,164,200,164z"/>
 </g>
-<g class="wheel-text" id="svg-work" data-href="#work">
+<g class="wheel-text" data-wheel-select="#svg-hammer" data-href="#work">
   <text transform="matrix(1.1 0 0 1.1 240 250)">View his portfolio.</text>
 </g>
-<g class="wheel-text" id="svg-game" data-href="#game">
+<g class="wheel-text" data-wheel-select="#svg-mask" data-href="#game">
   <text transform="matrix(1.1 0 0 1.1 254 207)">Play a game!</text>
 </g>
-<g class="wheel-text" id="svg-about" data-href="#about">
+<g class="wheel-text" data-wheel-select="#svg-bird" data-href="#about">
   <text transform="matrix(1.1 0 0 1.1 240 165)">About him.</text>
 </g>
-<g class="wheel-text" id="svg-contact" data-href="#contact">
+<g class="wheel-text" data-wheel-select="#svg-head" data-href="#contact">
   <text transform="matrix(1.1 0 0 1.1 53 165)">Contact him.</text>
 </g>
 </svg>
 </div>
 </header>
-
+<ul class="side-nav">
+  <li class="side-nav-li top selected"><a href="#top">Dialogue Wheel</a></li>
+  <li class="side-nav-li hammer"><a href="#work">Portfolio</a></li>
+  <li class="side-nav-li bird"><a href="#about">About</a></li>
+  <li class="side-nav-li mask"><a href="#game">Gamification</a></li>
+  <li class="side-nav-li head"><a href="#contact">Contact Me</a></li>
+</ul>
 <div class="svg-bg">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-25 -25 450 450">
 <g id="svg-mask-bg" class="svg-bg">
@@ -209,21 +214,21 @@
 </svg>
 </div>
 <div class="content">
-  <div id="work" class="scroll-spy bg-changer" data-mouseenter-id="#svg-work">
+  <div id="work" class="scroll-spy bg-changer" data-wheel-select="#svg-hammer">
   <h1>Portfolio</h1>
    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nisl libero. Mauris tincidunt lacus vitae quam lacinia, ut egestas magna dictum. Pellentesque ullamcorper mauris in viverra pellentesque. Nulla fringilla orci at aliquam maximus. Duis fermentum tincidunt felis quis suscipit. Proin a risus sit amet augue ornare pulvinar nec ut arcu. Etiam dapibus magna est, at eleifend sapien elementum eu. Aenean lacus ante, tempor vitae mattis eu, efficitur ut ligula. Nullam efficitur pulvinar est, vitae lobortis arcu. Nulla tincidunt id velit a pulvinar. Nam luctus quam ac arcu consequat iaculis. Nullam a risus iaculis, posuere arcu vitae, bibendum felis. Vivamus dictum mi leo, id hendrerit est fermentum sed. Suspendisse fringilla vestibulum suscipit.
 
 Donec eget cursus dui. Proin egestas consectetur ex, eu sodales enim rhoncus sed. Aliquam erat volutpat. Donec et diam eget libero vulputate pulvinar. Maecenas id nibh sed sapien rutrum ultrices. Etiam eu auctor nunc. Etiam tincidunt urna at sollicitudin semper. Aliquam convallis mi id lacus ultrices, quis convallis eros sodales. Etiam sit amet metus lobortis, aliquet nibh eget, malesuada dui. Morbi porttitor dui mi, et cursus felis pretium in. Donec id rhoncus augue, quis molestie felis.
 
 Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, mollis quis ex at, pharetra efficitur ante. In efficitur, dui molestie tincidunt porta, dui libero ornare eros, in convallis arcu quam sit amet enim. Vestibulum at lectus mattis, dapibus augue quis, convallis felis. Donec pretium, diam ut porttitor malesuada, tellus elit dignissim mauris, sit amet varius eros eros non elit. Cras dapibus eleifend tellus, quis vestibulum est faucibus eget. Integer tellus sapien, lobortis at lectus ut, consequat congue quam. Duis semper condimentum turpis vitae varius. Aliquam non egestas sem, ac pulvinar nulla. Integer augue nisl, posuere eget tristique a, euismod ac elit. Nullam nec auctor sem. Mauris at iaculis mi. Aenean iaculis, ipsum ac semper tincidunt, sapien nunc luctus leo, et blandit quam risus ut eros. Pellentesque sit amet ultrices sem. Donec interdum lacus eget lacus mollis egestas. </div>
-  <div id="about" class="scroll-spy bg-changer" data-mouseenter-id="#svg-about">
+  <div id="about" class="scroll-spy bg-changer" data-wheel-select="#svg-bird">
   <h1>About</h1>
    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nisl libero. Mauris tincidunt lacus vitae quam lacinia, ut egestas magna dictum. Pellentesque ullamcorper mauris in viverra pellentesque. Nulla fringilla orci at aliquam maximus. Duis fermentum tincidunt felis quis suscipit. Proin a risus sit amet augue ornare pulvinar nec ut arcu. Etiam dapibus magna est, at eleifend sapien elementum eu. Aenean lacus ante, tempor vitae mattis eu, efficitur ut ligula. Nullam efficitur pulvinar est, vitae lobortis arcu. Nulla tincidunt id velit a pulvinar. Nam luctus quam ac arcu consequat iaculis. Nullam a risus iaculis, posuere arcu vitae, bibendum felis. Vivamus dictum mi leo, id hendrerit est fermentum sed. Suspendisse fringilla vestibulum suscipit.
 
 Donec eget cursus dui. Proin egestas consectetur ex, eu sodales enim rhoncus sed. Aliquam erat volutpat. Donec et diam eget libero vulputate pulvinar. Maecenas id nibh sed sapien rutrum ultrices. Etiam eu auctor nunc. Etiam tincidunt urna at sollicitudin semper. Aliquam convallis mi id lacus ultrices, quis convallis eros sodales. Etiam sit amet metus lobortis, aliquet nibh eget, malesuada dui. Morbi porttitor dui mi, et cursus felis pretium in. Donec id rhoncus augue, quis molestie felis.
 
 Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, mollis quis ex at, pharetra efficitur ante. In efficitur, dui molestie tincidunt porta, dui libero ornare eros, in convallis arcu quam sit amet enim. Vestibulum at lectus mattis, dapibus augue quis, convallis felis. Donec pretium, diam ut porttitor malesuada, tellus elit dignissim mauris, sit amet varius eros eros non elit. Cras dapibus eleifend tellus, quis vestibulum est faucibus eget. Integer tellus sapien, lobortis at lectus ut, consequat congue quam. Duis semper condimentum turpis vitae varius. Aliquam non egestas sem, ac pulvinar nulla. Integer augue nisl, posuere eget tristique a, euismod ac elit. Nullam nec auctor sem. Mauris at iaculis mi. Aenean iaculis, ipsum ac semper tincidunt, sapien nunc luctus leo, et blandit quam risus ut eros. Pellentesque sit amet ultrices sem. Donec interdum lacus eget lacus mollis egestas. </div>
-  <div id="game" class="scroll-spy bg-changer" data-mouseenter-id="#svg-game">
+  <div id="game" class="scroll-spy bg-changer" data-wheel-select="#svg-mask">
   <h1>Gamification</h1>
    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean quis nisl libero. Mauris tincidunt lacus vitae quam lacinia, ut egestas magna dictum. Pellentesque ullamcorper mauris in viverra pellentesque. Nulla fringilla orci at aliquam maximus. Duis fermentum tincidunt felis quis suscipit. Proin a risus sit amet augue ornare pulvinar nec ut arcu. Etiam dapibus magna est, at eleifend sapien elementum eu. Aenean lacus ante, tempor vitae mattis eu, efficitur ut ligula. Nullam efficitur pulvinar est, vitae lobortis arcu. Nulla tincidunt id velit a pulvinar. Nam luctus quam ac arcu consequat iaculis. Nullam a risus iaculis, posuere arcu vitae, bibendum felis. Vivamus dictum mi leo, id hendrerit est fermentum sed. Suspendisse fringilla vestibulum suscipit.
 
@@ -231,7 +236,7 @@ Donec eget cursus dui. Proin egestas consectetur ex, eu sodales enim rhoncus sed
 
 Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, mollis quis ex at, pharetra efficitur ante. In efficitur, dui molestie tincidunt porta, dui libero ornare eros, in convallis arcu quam sit amet enim. Vestibulum at lectus mattis, dapibus augue quis, convallis felis. Donec pretium, diam ut porttitor malesuada, tellus elit dignissim mauris, sit amet varius eros eros non elit. Cras dapibus eleifend tellus, quis vestibulum est faucibus eget. Integer tellus sapien, lobortis at lectus ut, consequat congue quam. Duis semper condimentum turpis vitae varius. Aliquam non egestas sem, ac pulvinar nulla. Integer augue nisl, posuere eget tristique a, euismod ac elit. Nullam nec auctor sem. Mauris at iaculis mi. Aenean iaculis, ipsum ac semper tincidunt, sapien nunc luctus leo, et blandit quam risus ut eros. Pellentesque sit amet ultrices sem. Donec interdum lacus eget lacus mollis egestas. </div>
 </div>
-<footer id="contact" class="scroll-spy bg-changer" data-mouseenter-id="#svg-contact">
+<footer id="contact" class="scroll-spy bg-changer" data-wheel-select="#svg-head">
     <h1><span>Contact</span> <span>Me</span></h1>
     <!--http://cdnjs.com/libraries/foundicons-->
     <a target="_blank" href="https://www.facebook.com/1776564236" title="Facebook" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-facebook.svg" alt="Facebook" /></a>
@@ -292,6 +297,12 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
     }
 
 //SMOOTH SCROLL
+  function fade_scroll_to (selector) {
+    $root.fadeOut(400, function () {
+      $root.scrollTop($(selector).offset().top);
+      $root.hide().fadeIn(400, function () {});
+    });
+  }
   //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
   function smooth_scroll_to (selector) {
     $root.animate({scrollTop:$(selector).offset().top}, 800).promise().done(function () {
@@ -302,7 +313,13 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
     $('a[href*=#]').on('click', function(event){
         if(this.hash !== "") {//linked to something
           event.preventDefault();
-          smooth_scroll_to(this.hash);
+          console.log(this.hash);
+          if(this.hash === "#top" || this.hash === "top") {
+            fade_scroll_to(this.hash);
+            window.location.hash = "";
+          }
+          else
+            smooth_scroll_to(this.hash);
         }
     });
   }
@@ -310,17 +327,12 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
 //WHEEL
   //VARIABLES
   var WHEEL_ROTATION = {
-    "svg-contact":135,
-    "svg-about":225,
-    "svg-game":270,
-    "svg-work":315
+    "#svg-head":135,
+    "#svg-bird":225,
+    "#svg-mask":270,
+    "#svg-hammer":315
   }
-  var WHEEL_ICON = {
-    "svg-contact":"#svg-head",
-    "svg-about":"#svg-bird",
-    "svg-game":"#svg-mask",
-    "svg-work":"#svg-hammer"
-  }
+  var WHEEL_SELECTOR_TRIM = "#svg-".length;
   var svg_currentSelectedId = null,
       $svg_selector = $("#svg-selector"), 
       $svg_fill = $("#svg-fill"),
@@ -329,12 +341,12 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
       svg_mouseenter_timestamp = null,
       svg_mouseenter_timedur = 75;
   //F(X)
-  function wheel_mouseenter (dom) {
+  function wheel_mouseenter (dom_id) {
       //animate rotation
       if(use_svg_transform) {
-        $svg_selector.attr("transform","rotate("+WHEEL_ROTATION[dom.id]+" 200 200)");
+        $svg_selector.attr("transform","rotate("+WHEEL_ROTATION[dom_id]+" 200 200)");
       } else {
-        $svg_selector.attr("class",dom.id);
+        $svg_selector.attr("class",dom_id.substring(WHEEL_SELECTOR_TRIM));
       }
       if(svg_currentSelectedId) {//if has previous
         //hide previous icon (if shown): http://stackoverflow.com/questions/8638621/jquery-svg-why-cant-i-addclass
@@ -342,14 +354,14 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
         $(".svg-bg.selected").attr('class','svg-bg');
       }
       //popup icon
-      $(WHEEL_ICON[dom.id]).attr('class','svg-icon selected');
-      $(WHEEL_ICON[dom.id]+"-bg").attr('class','svg-bg selected');
+      $(dom_id).attr('class','svg-icon selected');
+      $(dom_id+"-bg").attr('class','svg-bg selected');
       //rig color to icon
-      var color = $(WHEEL_ICON[dom.id]).children().attr('stroke');
+      var color = $(dom_id).children().attr('stroke');
       $svg_selector.children().attr('stroke',color);
       $svg_fill.children().attr('fill',color);
 
-      svg_currentSelectedId = dom.id;
+      svg_currentSelectedId = dom_id;
       svg_mouseenter_timestamp = (new Date()).getTime();
   }
   function wheel_click (dom) {
@@ -365,11 +377,11 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
       });*/
       //setup wheel hover
       $(".wheel-text").mouseenter(function(){
-        wheel_mouseenter(this);
+        wheel_mouseenter($(this).data('wheel-select'));
       }).click(function(){
         if(svg_mouseenter_timestamp && (new Date()).getTime() - svg_mouseenter_timestamp < svg_mouseenter_timedur) {
           //clicked but mouseenter was triggered immediately after; probably mobile
-          wheel_mouseenter(this);
+          wheel_mouseenter($(this).data('wheel-select'));
           setTimeout(function () {
             wheel_click("#"+svg_currentSelectedId);
           },700);
@@ -381,7 +393,7 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
     }
   }
   function instant_exec_wheel () {
-    wheel_mouseenter(document.getElementById("svg-about"));
+    wheel_mouseenter("#svg-bird");
   }
 
   //NIGHTMODE
@@ -399,22 +411,32 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
   }
 
   //SCROLL-SPY
-  function instant_exec_scrollspy () {
+  function scrollspy_top_toggle () {
+    $('.elevator').toggleClass('invisible');
     if(Modernizr.svg) {
-      $('.scroll-spy.bg-changer').on('scrollSpy:enter', function() {
-        //console.log("enter: "+this.id);
-        wheel_mouseenter(document.querySelector($(this).data('mouseenter-id')));
-        //$(".svg-bg.selected").attr('class','svg-bg');
-        //$($(this).data('bg-id')).attr('class','svg-bg selected');
-      });
+      $('.side-nav').toggleClass('invisible');
     }
-    $('.scroll-spy.elevator-toggle').on('scrollSpy:enter scrollSpy:exit', function () {
-      $('.elevator').toggleClass('invisible');
+  }
+  function instant_exec_scrollspy () {
+    $('.scroll-spy.bg-changer').on('scrollSpy:enter', function() {
+      var wheelSelect = $(this).data('wheel-select');
+      //svg-bg
+      if(Modernizr.svg) {
+        wheel_mouseenter(wheelSelect);
+      }
+      //side-nav
+      $('.side-nav-li.selected').removeClass('selected');
+      $('.side-nav-li.'+wheelSelect.substring(WHEEL_SELECTOR_TRIM)).addClass('selected');
+    });
+    $('#top.scroll-spy').on('scrollSpy:enter', function () {
+      scrollspy_top_toggle();
+      $('.side-nav-li.selected').removeClass('selected');
+      $('.side-nav-li.top').addClass('selected');
+    });
+    $('#top.scroll-spy').on('scrollSpy:exit', function () {
+      scrollspy_top_toggle();
     });
     /*$('.scroll-spy').on('scrollSpy:exit', function() {
-      console.log("exit: "+this.id);
-      //$(".svg-bg.selected").attr('class','svg-bg');
-      //$($(this).data('bg-id')).attr('class','svg-bg selected');
     });*/
     $('.scroll-spy').scrollSpy();
   }
@@ -428,6 +450,13 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
     });
   }
 
+  //SIDE-NAV
+  function instant_exec_sideNav () {
+    if(!Modernizr.svg) {//don't have to hide it like elevator
+      $('.side-nav').removeClass('invisible');
+    }
+  }
+
   //onload
   $(function() {
     onload_spiffyWords();  //Spiffy words!
@@ -438,8 +467,9 @@ Curabitur maximus congue auctor. In nec suscipit nisi. Quisque nulla diam, molli
   });
   //instant_exec
                             //night mode is just below modernizr
-  //instant_exec_wheel();     //wheel
+  //instant_exec_wheel();    //wheel
   instant_exec_scrollspy(); //scrollspy
+  instant_exec_sideNav();   //sidenav
 
 
   /*$.winSizeSpy().on('scrollSpy:winSize', function () {

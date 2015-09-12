@@ -18,16 +18,16 @@
 .lightbulb img { 
     cursor: pointer; cursor: hand;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -16px 0 0 -16px;
+    top: 0;
+    right: 0;
+    margin: 5px;
     opacity: 1;
     transition: opacity 300ms ease 0.1s;
  }
  .invisible,.lightbulb img.invisible { opacity:0;filter: alpha(opacity=0); }
 
 /*Better Mofo website recommendations*/
-html, body { width: 100%; height: 100%;}
+html, body { width: 100%; height: 100%; }
 body {
   color:#212121;
   background-color: #FFF;
@@ -68,11 +68,37 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; }
 }
 .spiffy-word.title { height: 28px; }
 .spiffy-word.title > a {
-  transition: color 300ms ease 0.1s, width 300ms ease 0.1s;
+  transition: 300ms ease 0.1s;
   text-align: right;
 }
-nav{ font-size: 16px; }
+nav,ul.side-nav{ font-size: 16px; }
 nav>a{ margin-left: 5px; margin-right: 5px; }
+ul.side-nav {
+  position: absolute;
+  position: fixed;
+  list-style-type: none;
+  text-align: left;
+  right: 50%;
+  margin-right: 33%;
+  padding-left: 1%;
+  top: 10%;
+  left: 0;
+  transition: 300ms ease 0.1s;
+}
+.side-nav li {
+  padding-left: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-left: 0px solid #3F51B5;
+  transition: 500ms ease 0s;
+}
+.side-nav li.selected {
+  padding-left: 8px;
+  border-left: 5px solid #3F51B5;
+}
+.side-nav li.selected>a { color: #3F51B5; }
+.night .side-nav li.selected { border-color: 5px solid #3F51B5; }
+.night .side-nav li.selected>a { color: #C5CAE9; }
 
 /*Anchor Tags*/
 a { 
@@ -84,7 +110,7 @@ a:link { color:#ff6f00; }
 a:visited { color:#303F9F; }
 .night a:visited { color:#C5CAE9; }
 a:hover { color:#3F51B5; }
-.night a:hover { color:#ff6f00; }
+.night a:hover { color:#C5CAE9; }
 /*Icons (Social Media)*/
 a>img { transition: opacity 300ms ease 0s; }
 a>img.icon:hover {
@@ -109,9 +135,7 @@ text {
   fill: #212121;
   transition: fill 300ms ease 0.1s;
 }
-.night text{
-  fill: #FFF;
-}
+.night text{ fill: #FFF; }
 text:hover {
   cursor: pointer; cursor: hand;
   text-shadow:
@@ -135,7 +159,7 @@ text:hover {
   -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
 }
-#svg-selector.svg-contact {
+#svg-selector.head {
  -webkit-transform: rotate(135deg);
   -moz-transform: rotate(135deg);
   -o-transform: rotate(135deg);
@@ -147,7 +171,7 @@ text:hover {
   -ms-transform-origin: 200px 200px;
   transform-origin: 200px 200px;
 }
-#svg-selector.svg-about {
+#svg-selector.bird {
  -webkit-transform: rotate(225deg);
   -moz-transform: rotate(225deg);
   -o-transform: rotate(225deg);
@@ -159,7 +183,7 @@ text:hover {
   -ms-transform-origin: 200px 200px;
   transform-origin: 200px 200px;
 }
-#svg-selector.svg-game {
+#svg-selector.mask {
  -webkit-transform: rotate(270deg);
   -moz-transform: rotate(270deg);
   -o-transform: rotate(270deg);
@@ -171,7 +195,7 @@ text:hover {
   -ms-transform-origin: 200px 200px;
   transform-origin: 200px 200px;
 }
-#svg-selector.svg-work {
+#svg-selector.hammer {
  -webkit-transform: rotate(315deg);
   -moz-transform: rotate(315deg);
   -o-transform: rotate(315deg);
@@ -187,6 +211,7 @@ text:hover {
 /*Background*/
 div.svg-bg {
   z-index: -1;
+  position: absolute;
   position: fixed;
   right: -35%;
   top: 0;
@@ -206,16 +231,15 @@ g.svg-bg {
 
 /*Elevator*/
 .elevator {
-  position: fixed;
+  text-align: center;
   bottom: 0; right: 0;
   cursor: pointer;
   margin: auto;
   transition: 0.3s ease-in-out;
 }
 .elevator img {
-  width: 40px;
   height: 40px;
-  position:absolute;
+  position:fixed;
   bottom: 0px;
   right: 0px;
   margin: auto auto 5px;
@@ -223,8 +247,26 @@ g.svg-bg {
 }
 .night .for-day,.for-night { opacity: 0; }
 .night .for-night { opacity: 1; }
+.night .elevator img.for-day,.elevator img.for-night { width: 0; }
+.night .elevator img.for-night { width: 40px; }
+
 
 /*Media*/
+/*Wheel*/
+@media (max-height: 350px) {
+  header { margin-bottom: 300px; }
+}
+/*Side-nav*/
+@media (min-width: 1100px) {
+  ul.side-nav { left: auto; }
+  .side-nav li { padding-left: 20px; }
+  .side-nav li.selected { padding-left: 15px; } 
+}
+@media (max-width:975px) {
+  ul.side-nav {
+    display: none;
+  }
+}
 /*Tablet*/
 @media (max-width: 768px) and (min-width: 480px) {
   div.svg-bg { 
@@ -237,7 +279,7 @@ g.svg-bg {
   body { font-size: 16px; }
   .spiffy-word.title { height: 25px; }
   header>span { font-size: 32px; }
-  nav{ font-size: 14px; }
+  nav,ul.side-nav{ font-size: 14px; }
   nav>a{ margin-left: 0px; margin-right: 0px; }
   /*Background: center & lower opacity*/
   div.svg-bg { right: 0%; }
