@@ -301,16 +301,18 @@ div.work-tag {
   color: #FFF;
   padding: 0px 5px 0px 5px;
 }
-div.work.filter { z-index: 2; }
+img.work.filter { z-index: 2; position: absolute; }
 div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
-div.work.text.bg { 
-  left: 0;
+.work.text.bg { 
+  position: absolute;
+  bottom: 0; left: 0;
   padding: 0;
   z-index: -1;
   }
 .grd-blk { background: #000; background: linear-gradient(rgba(0,0,0,0),black); }
 .a8 { filter: alpha(opacity=80); opacity: 0.8; zoom: 1; }
 .a5 { filter: alpha(opacity=50); opacity: 0.5; zoom: 1; }
+img.img { position: absolute; z-index: 1; }
 /*Content*/
 
 /*Media*/
