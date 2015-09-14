@@ -281,39 +281,40 @@ div.work-holder {
   position:relative;
   float: left;
   z-index: 1;
-  width: 300px; height: 300px;
   margin: 5px;
-  transition: 300ms ease 0.1s;
   font-size: 0px;
-  text-align: left;
+  transition: 300ms ease 0.1s;
+  width: 300px; height: 300px;
 }
 .work.fill { width: 100%; height: 100%; }
-div.work { position: absolute; }
-div.work.text { bottom: 0; z-index: 4; color: #FFF; line-height: 1.3; padding: 10px; }
+.work { position: absolute; }
+div.work.text { 
+  bottom: 0;
+  z-index: 4;
+  color: #FFF;
+  line-height: 1.3;
+  padding: 10px;
+  text-align: left;
+}
 div.work-remark { font-size: 18px; }/*24*/
 div.work-remark.small { font-size: 15px; }/*24*/
 div.work-title { font-size: 32px; }/*48*/
 div.work-descript { padding-top: 5px; color: #EFEFEF; }
-div.work-tag { 
-  position: absolute;
+div.work.tag { 
+  filter: alpha(opacity=80); opacity: 0.8; zoom: 1;
   top: 0; right: 0;
   background: #000;
   color: #FFF;
   padding: 0px 5px 0px 5px;
   z-index: 5;
 }
-img.work.filter { z-index: 2; position: absolute; }
+img.work.filter { z-index: 2; }
 div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
 .work.text.bg { 
-  position: absolute;
   bottom: 0; left: 0;
   padding: 0;
   z-index: -1;
-  }
-.grd-blk { background: #000; background: linear-gradient(rgba(0,0,0,0),black); }
-.a8 { filter: alpha(opacity=80); opacity: 0.8; zoom: 1; }
-.a5 { filter: alpha(opacity=50); opacity: 0.5; zoom: 1; }
-img.img { position: absolute; z-index: 1; }
+}
 /*Content*/
 
 /*Media*/
