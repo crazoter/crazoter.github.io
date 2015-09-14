@@ -283,36 +283,28 @@ span.helper {
 div.work-holder { position:relative; width: 300px; height: 300px; transition: 300ms ease 0.1s; z-index: 1; font-size: 0px; }
 .work.fill { width: 100%; height: 100%; }
 div.work { position: absolute; }
-div.work.text { bottom: 0; z-index: 3; color: #FFF; line-height: 1.3; padding: 10px; }
+div.work.text { bottom: 0; z-index: 4; color: #FFF; line-height: 1.3; padding: 10px; }
 div.work-remark { font-size: 18px; }/*24*/
 div.work-remark.small { font-size: 15px; }/*24*/
-div.work-title { font-size: 32px; font-weight: 600; }/*48*/
-div.work-descript { padding-top: 5px; color: #E6E6E6; }
+div.work-title { font-size: 32px; }/*48*/
+div.work-descript { padding-top: 5px; color: #EFEFEF; }
 div.work-tag { 
   position: absolute; 
-  z-index: 1;
-  top: 0;
-  right: 0;
+  top: 0; right: 0;
   background: #000;
   color: #FFF;
-  padding-left: 5px; padding-right: 5px;
-  opacity: 0.8; filter: alpha(opacity=80);
+  padding: 0px 5px 0px 5px;
 }
-div.work.filter { 
-  background: #000; background: linear-gradient(rgba(0,0,0,0),black);
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-  z-index: 2;
-}
+div.work.filter { z-index: 2; }
 div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
 div.work.text.bg { 
-  background: #000; background: linear-gradient(rgba(0,0,0,0),black);
-  opacity: 0.3; 
-  filter: alpha(opacity=30); 
   left: 0;
   padding: 0;
   z-index: -1; 
   }
+.grd-blk { background: #000; background: linear-gradient(rgba(0,0,0,0),black); }
+.a8 { opacity: 0.8; filter: alpha(opacity=80); }
+.a5 { opacity: 0.5; filter: alpha(opacity=50); }
 /*Content*/
 
 /*Media*/
