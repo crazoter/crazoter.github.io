@@ -1,0 +1,16 @@
+.center-outer {
+	top: 0;
+	display: inline-block;
+}
+
+.center-middle {
+	display: inline-block;
+	top: 50%;
+	position: relative;
+}
+
+.center-inner {
+	display: inline-block;
+	top: -50%;
+	position: relative;
+}

@@ -62,6 +62,7 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; }
   display:inline-block;
   color:#9e9e9e;
 }
+.no-wrap { white-space: nowrap; }
 .spiffy-word {
   display: inline-block;
   overflow: hidden;
@@ -77,24 +78,26 @@ ul.side-nav {
   position: absolute;
   position: fixed;
   list-style-type: none;
-  text-align: left;
-  right: 50%;
-  margin-right: 33%;
-  padding-left: 1%;
+  text-align: right;
+  left: 50%;
+  margin-left: 33%;
+  padding-right: 1%;
   top: 10%;
-  left: 0;
+  right: 0;
   transition: 300ms ease 0.1s;
+  background-color:rgba(255,255,255,0.3);
 }
+.night ul.side-nav { background-color:rgba(0,0,0,0.3); }
 .side-nav li {
-  padding-left: 13px;
+  padding-right: 13px;
   margin-top: 5px;
   margin-bottom: 5px;
-  border-left: 0px solid #3F51B5;
+  border-right: 0px solid #3F51B5;
   transition: 500ms ease 0s;
 }
 .side-nav li.selected {
-  padding-left: 8px;
-  border-left: 5px solid #3F51B5;
+  padding-right: 8px;
+  border-right: 5px solid #3F51B5;
 }
 .side-nav li.selected>a { color: #3F51B5; }
 .night .side-nav li.selected { border-color: 5px solid #3F51B5; }
@@ -250,6 +253,67 @@ g.svg-bg {
 .night .elevator img.for-day,.elevator img.for-night { width: 0; }
 .night .elevator img.for-night { width: 40px; }
 
+/*Game*/
+.game-holder { 
+  text-align: center;
+  background-color: #F0F;
+  width: 180px;
+  height: 180px;
+}
+.game-obj {
+  margin: 10px;
+  display: inline-block;
+}
+.game-lock {
+  vertical-align: middle;
+  max-height: 180px;
+  max-width: 180px;
+}
+span.helper {
+  display:inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.game-holder .game-lock-2 {
+  width: 100%;
+  height: 100%;
+}
+/*Work*/
+div.work-holder { position:relative; width: 300px; height: 300px; transition: 300ms ease 0.1s; z-index: 1; font-size: 0px; }
+.work.fill { width: 100%; height: 100%; }
+div.work { position: absolute; }
+div.work.text { bottom: 0; z-index: 3; color: #FFF; line-height: 1.3; padding: 10px; }
+div.work-remark { font-size: 18px; }/*24*/
+div.work-remark.small { font-size: 15px; }/*24*/
+div.work-title { font-size: 32px; font-weight: 600; }/*48*/
+div.work-descript { padding-top: 5px; color: #E6E6E6; }
+div.work-tag { 
+  position: absolute; 
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background: #000;
+  color: #FFF;
+  padding-left: 5px; padding-right: 5px;
+  opacity: 0.8; filter: alpha(opacity=80);
+}
+div.work.filter { 
+  background: #000; background: linear-gradient(rgba(0,0,0,0),black);
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  z-index: 2;
+}
+div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
+div.work.text.bg { 
+  background: #000; background: linear-gradient(rgba(0,0,0,0),black);
+  opacity: 0.3; 
+  filter: alpha(opacity=30); 
+  left: 0;
+  padding: 0;
+  z-index: -1; 
+  }
+/*Content*/
 
 /*Media*/
 /*Wheel*/
@@ -258,20 +322,27 @@ g.svg-bg {
 }
 /*Side-nav*/
 @media (min-width: 1100px) {
-  ul.side-nav { left: auto; }
-  .side-nav li { padding-left: 20px; }
-  .side-nav li.selected { padding-left: 15px; } 
+  ul.side-nav { right: auto; }
+  .side-nav li { padding-right: 20px; }
+  .side-nav li.selected { padding-right: 15px; } 
 }
 @media (max-width:975px) {
   ul.side-nav {
     display: none;
   }
 }
-/*Tablet*/
+/*Tablet only*/
 @media (max-width: 768px) and (min-width: 480px) {
   div.svg-bg { 
     width: 80%;
   }
+}
+/*Bigger than Mobile*/
+@media (min-width: 480px) {
+  .left-side,.right-side { margin: 10px; }
+  .left-side { float: left; }
+  .right-side { float: right; }
+}
 }
 /*Mobile*/
 @media (max-width: 480px) {
@@ -285,4 +356,32 @@ g.svg-bg {
   div.svg-bg { right: 0%; }
   g.svg-bg.selected { opacity: 0.17; }
   .night g.svg-bg.selected { opacity: 0.40; }
+  .left-side,.right-side {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*Misc*/
+.clickable { cursor: pointer; cursor: hand; }
+
+/*Center*/
+/*http://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers*/
+.center-outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.center-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.center-inner {
+    margin-left: auto;
+    margin-right: auto; 
+    width: /*whatever width you want*/;
 }
