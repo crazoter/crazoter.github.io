@@ -308,8 +308,8 @@ div.work.text.bg {
   z-index: -1;
   }
 .grd-blk { background: #000; background: linear-gradient(rgba(0,0,0,0),black); }
-.a8 { zoom: 1; filter: alpha(opacity=80); opacity: 0.8; }
-.a5 { zoom: 1; filter: alpha(opacity=50); opacity: 0.5; }
+.a8 { width: 100%; filter: alpha(opacity=80); opacity: 0.8; }
+.a5 { width: 100%; filter: alpha(opacity=50); opacity: 0.5; }
 /*Content*/
 
 /*Media*/
