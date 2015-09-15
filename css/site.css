@@ -35,7 +35,7 @@ body {
   font-size: 18px;
   line-height: 1.6;
   font-weight: 500;
-  transition: color 300ms ease 0.1s,background-color 300ms ease 0.1s;
+  transition: 300ms ease 0.1s;
   margin: 0px;
 }
 .night body {
@@ -53,11 +53,11 @@ h1,h2,header,footer,div.wheel {
 html.svg header { height: 100%; }
 footer { height: 50%; }
 header>span { font-size: 48px; }
-h1 { margin-top:5% }
+h1 { margin-top:5%; clear: both; }
 h1>span, h2>span, header>span { display:inline-block; }
 h1:first-letter, h1::first-letter,h1>span::first-letter,
 h2:first-letter, h2::first-letter,h2>span::first-letter,
-header>span::first-letter { font-family: 'Cinzel Decorative', serif; } 
+header>span::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 120%; } 
 .subtitle {
   display:inline-block;
   color:#9e9e9e;
@@ -75,17 +75,18 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; }
 nav,ul.side-nav{ font-size: 16px; }
 nav>a{ margin-left: 5px; margin-right: 5px; }
 ul.side-nav {
+  z-index: 10;
   position: absolute;
   position: fixed;
   list-style-type: none;
   text-align: right;
   left: 50%;
-  margin-left: 33%;
+  margin-left: 31%;
   padding-right: 1%;
   top: 10%;
   right: 0;
   transition: 300ms ease 0.1s;
-  background-color:rgba(255,255,255,0.3);
+  background-color:rgba(255,255,255,0.4);
 }
 .night ul.side-nav { background-color:rgba(0,0,0,0.3); }
 .side-nav li {
@@ -95,14 +96,29 @@ ul.side-nav {
   border-right: 0px solid #3F51B5;
   transition: 500ms ease 0s;
 }
-.side-nav li.selected {
+.side-nav>li.selected {
   padding-right: 8px;
   border-right: 5px solid #3F51B5;
 }
-.side-nav li.selected>a { color: #3F51B5; }
-.night .side-nav li.selected { border-color: 5px solid #3F51B5; }
-.night .side-nav li.selected>a { color: #C5CAE9; }
-
+.side-nav>li.selected>a { color: #3F51B5; }
+.night .side-nav>li.selected { border-color: 5px solid #3F51B5; }
+.night .side-nav>li.selected>a { color: #C5CAE9; }
+.footer-nav {
+  z-index: 10;
+  position: fixed;
+  list-style-type: none;
+  text-align: center;
+  bottom: 0;
+  background-color: #FFF;
+  margin: 0;
+  padding: 0px;
+  width: 100%;
+  transition: background-color 300ms ease 0.1s;
+  display: none;
+}
+.night .footer-nav { background-color: #000; }
+.footer-nav>li { width: 20%; display: block; float: left; margin: 0; font-size: 14px; padding-top: 10px; height: 27px; transition: 300ms ease 0.1s; }
+.footer-nav>li.selected { background-color: #303F9F; border-bottom: 3px solid #3F51B5; }
 /*Anchor Tags*/
 a { 
   text-decoration: none !important;
@@ -127,8 +143,9 @@ a>img.icon:hover { zoom: 1; filter: alpha(opacity=70); opacity:0.7; }
 div.content { 
   margin: 10px auto;
   padding: 0px 10px 0px 10px;
-  max-width: 650px;
+  max-width: 1000px;
 }
+div.text-content { padding: 0px 10px 0px 10px; margin: 0 auto; max-width: 650px; }
 
 /*Wheel*/
 text {
@@ -240,7 +257,7 @@ g.svg-bg {
 .elevator img {
   height: 40px;
   position:fixed;
-  bottom: 0px;
+  bottom: 45px;
   right: 0px;
   margin: auto auto 5px;
   transition: 0.3s ease-in-out;
@@ -279,12 +296,12 @@ span.helper {
 /*Work*/
 div.work-holder { 
   position:relative;
-  float: left;
+  display:inline-block;
   z-index: 1;
   margin: 5px;
   font-size: 0px;
   transition: 300ms ease 0.1s;
-  width: 300px; height: 300px;
+  width: 220px; height: 220px;
 }
 .work.fill { width: 100%; height: 100%; }
 .work { position: absolute; }
@@ -295,12 +312,15 @@ div.work.text {
   line-height: 1.3;
   padding: 10px;
   text-align: left;
+  width: 200px;
 }
 div.work-remark { font-size: 18px; }/*24*/
 div.work-remark.small { font-size: 15px; }/*24*/
 div.work-title { font-size: 32px; }/*48*/
-div.work-descript { padding-top: 5px; color: #EFEFEF; }
-div.work.tag { 
+div.work-summary { padding-top: 5px; color: #EFEFEF; }
+div.work.tag.hide, .selected div.work.tag.show { display: none; }
+div.work.tag.show, .selected div.work.tag.hide { 
+  display: inherit;
   filter: alpha(opacity=80); opacity: 0.8; zoom: 1;
   top: 0; right: 0;
   background: #000;
@@ -309,12 +329,18 @@ div.work.tag {
   z-index: 5;
 }
 img.work.filter { z-index: 2; }
-div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
+div.work-holder:hover,div.work-holder.selected { z-index: 2; transform: scale(1.1); font-size: 14px; }
 .work.text.bg { 
   bottom: 0; left: 0;
   padding: 0;
   z-index: -1;
 }
+div.work-descript { display: none; opacity: 0; clear: both; transition: 300ms ease 0.1s; max-width: 650px; margin: 0 auto; padding: 10px; }
+div.work-descript.selected { display: block; }
+div.work-descript.fade-in { opacity: 1; }
+
+.ongoing-selection div.work-holder.unselected { width: 50px; height: 50px; }
+.ongoing-selection .unselected div.work.text { width: 36px; display: none; }
 /*Content*/
 
 /*Media*/
@@ -325,19 +351,28 @@ div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
 /*Side-nav*/
 @media (min-width: 1100px) {
   ul.side-nav { right: auto; }
-  .side-nav li { padding-right: 20px; }
+  .side-nav li { padding-right: 20px; white-space: nowrap; }
   .side-nav li.selected { padding-right: 15px; } 
 }
 @media (max-width:975px) {
   ul.side-nav {
     display: none;
   }
+  .footer-nav {
+    display: inherit;
+  }
 }
 /*Tablet only*/
-@media (max-width: 768px) and (min-width: 480px) {
+@media (min-width: 480px) and (max-width: 768px) {
   div.svg-bg { 
     width: 80%;
   }
+  div.work.text { padding: 5px; width: 140px; }
+  div.work-holder { width: 150px; height: 150px; margin: 2px; }
+  div.work-remark { font-size: 13px; }
+  div.work-remark.small { font-size: 11px; }  
+  div.work-holder:hover,div.work-holder.selected { font-size: 10px; }
+  div.work-title { font-size: 20px; }
 }
 /*Bigger than Mobile*/
 @media (min-width: 480px) {
@@ -345,7 +380,7 @@ div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
   .left-side { float: left; }
   .right-side { float: right; }
 }
-}
+
 /*Mobile*/
 @media (max-width: 480px) {
   /*Body: Smaller font & no margin*/
@@ -363,6 +398,14 @@ div.work-holder:hover { transform: scale(1.1); font-size: 14px; }
     margin-left: auto;
     margin-right: auto;
   }
+
+  div.work.text { padding: 5px; width: 120px; }
+  div.work-holder { width: 130px; height: 130px; margin: 2px; }
+  div.work-remark { font-size: 13px; }
+  div.work-remark.small { font-size: 11px; }
+  div.work-holder:hover,div.work-holder.selected { font-size: 10px; }
+  div.work-title { font-size: 20px; }
+  div.work-summary { font-size: 0px; }
 }
 
 /*Misc*/
