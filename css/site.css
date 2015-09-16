@@ -298,7 +298,7 @@ span.helper {
 /*Work*/
 div.work-holder { 
   color: #000;
-  font-weight: 600;
+  font-weight: 700;
   position:relative;
   display:inline-block;
   z-index: 1;
@@ -368,6 +368,7 @@ div.work-descript.fade-in { opacity: 1; }
 .night .w-icon.tool { background: url("../assets/png/tool_wht.png") no-repeat 0 0; }
 
 #work-fix-for-bg { clear:both; text-align: center; }
+img.work-content { width: 100%; }
 .caption { font-size: 80%; color: gray; }
 /*Content*/
 
