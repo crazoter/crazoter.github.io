@@ -31,7 +31,7 @@ html, body { width: 100%; height: 100%; }
 body {
   color:#212121;
   background-color: #FFF;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Arimo', sans-serif;
   font-size: 18px;
   line-height: 1.6;
   font-weight: 500;
@@ -355,6 +355,7 @@ div.work-descript.fade-in { opacity: 1; }
 .night .w-icon.ppl { background: url("../assets/png/group_wht.png") no-repeat 0 0; }
 .night .w-icon.tool { background: url("../assets/png/tool_wht.png") no-repeat 0 0; }
 
+#work-fix-for-bg { clear:both; text-align: center; }
 .caption { font-size: 80%; color: gray; }
 /*Content*/
 
