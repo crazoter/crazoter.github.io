@@ -173,9 +173,6 @@ text:hover {
 .svg-icon { display: none; }
 .svg-icon.selected { display: inline; }
 #svg-selector {
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
 }
 #svg-selector.head {
@@ -357,7 +354,8 @@ div.work-descript.fade-in { opacity: 1; }
 .ongoing-selection div.work-holder.unselected { width: 50px; height: 50px; margin: 3px; }
 .ongoing-selection .unselected div.work.text { width: 36px; display: none; }
 
-.w-icon { padding-left: 30px; }
+.w-icon.pad { padding-left: 30px; }
+.w-icon.holder { position: absolute; left: 0; top: 0; width: 30px; height: 30px; }
 .w-icon.medal { background: url("../assets/png/medal_blk.png") no-repeat 0 0; }
 .w-icon.time { background: url("../assets/png/time_blk.png") no-repeat 0 0; }
 .w-icon.ppl { background: url("../assets/png/group_blk.png") no-repeat 0 0; }
