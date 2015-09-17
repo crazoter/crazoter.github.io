@@ -41,34 +41,49 @@
   <meta property="article:author" content="https://www.facebook.com/1776564236" />
 
   <!--Cinzel x Raleway Font-->
-  <link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative|Arimo:400,700' rel='stylesheet' type='text/css'><!--Arimo is nice too-->
+  <!--<link href='https://fonts.googleapis.com/css?family=Cinzel+Decorative|Arimo:400,700' rel='stylesheet' type='text/css'>-->
+  <style>
+    @font-face {
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Arimo'), url(https://fonts.gstatic.com/s/arimo/v9/HNu4Nzh6q8Es60EMNZhs9w.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Arimo Bold'), local('Arimo-Bold'), url(https://fonts.gstatic.com/s/arimo/v9/27rE5lMk9EHpLbxiIuGd0PesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+    }
+    @font-face {
+      font-family: 'Cinzel Decorative';
+      font-style: normal;
+      font-weight: 400;
+      src: local('CinzelDecorative-Regular'), url(https://fonts.gstatic.com/s/cinzeldecorative/v4/fmgK7oaJJIXAkhd9798yQl4jZHmtnl4mfN0ClpLnj0E.woff2) format('woff2');
+    }
+  </style>
   <link rel="shortcut icon" href="assets/favicon3.ico"/>
   <link href='css/site.css' rel='stylesheet' type='text/css'>
   <!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="screen,print" href="css/valignIE.css" /><![endif]-->
   <!--[if lte IE 8]><link rel="stylesheet" type="text/css" media="screen,print" href="css/svgdel.css" /><![endif]-->
-
-  <!--"Instant Executes-->
-  <!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
-  <!--https://code.google.com/p/html5shiv-printshiv/-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-  <script>
-  //NIGHTMODE - INSTANT EXEC
-  var DAY_BOUNDS = [7,18];//7-7
-  function instant_exec_nightmode () {
-    //to prevent browser reflow
-    var hours = (new Date()).getHours(),html = document.documentElement;
-    if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
-  }
-  instant_exec_nightmode();
-  </script>
   <base target="_blank">
+  <script>
+    //NIGHTMODE - INSTANT EXEC
+    var DAY_BOUNDS = [7,18];//7-7
+    function instant_exec_nightmode () {
+      //to prevent browser reflow
+      var hours = (new Date()).getHours(),html = document.documentElement;
+      if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
+    }
+    instant_exec_nightmode();
+  </script>
 </head>
 <body>
 <header id="top" class="scroll-spy">
     <span>Matthew</span> <span>Lee</span>
     <div class="subtitle"><span class="spiffy-word title word"><a class="spiffy-word word no-wrap" href="#" onClick="word_change();return false;">Technology</a></span> <span class="spiffy-word">Designer & Developer</span></div>
     <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
-    <div class="lightbulb"><img class="invisible" src="assets/png/lightbulb_white.png" alt="Change to Day"><img src="assets/png/lightbulb_black.png" alt="Change to Night"></div>
+    <div class="lightbulb-holder"><img class="lightbulb invisible" src="assets/png/lightbulb_white.png" alt="Change to Day"><img class="lightbulb" src="assets/png/lightbulb_black.png" alt="Change to Night"></div>
 <div class="svg wheel">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%"
    height="300px" viewBox="0 0 400 300" xml:space="preserve">
@@ -322,7 +337,7 @@
     </div>
     <div id="w-pp" class="work-descript">
       <div class="w-icon pad tool">Photoshop</div><br>
-      During web development class, me and a few friends discovered a security vulnerability in a website belonging to our lecturer which he was using as an example. This vulnerability allowed us to change the image on the website and we thought it was a great idea to photoshop our lecturer's face into a movie poster and put it on the website.<br><br> This snowballed into an entire photoshop portfolio featuring him, Mr. Anand Ravi Deshpande. The full portfolio can be found at <a target="_blank" href="http://tinyurl.com/photos-of-mr-anand">http://tinyurl.com/photos-of-mr-anand</a>.<br><br>Note: This was a harmless prank on a website used for purely educational purposes; Mr. Anand was greatly amused and not insulted by the prank. On our graduation, we gifted him a collage poster of these photoshopped images with our signatures, much to his and our amusement.
+      During web development class, me and a few friends discovered a security vulnerability in a website belonging to our lecturer which he was using as an example. This vulnerability allowed us to change the image on the website and we thought it was a great idea to photoshop our lecturer's face into a movie poster and put it on the website.<br><br> This snowballed into an entire photoshop portfolio featuring him, Mr. Anand Ravi Deshpande. The full portfolio can be found at <a target="_blank" href="http://tinyurl.com/photos-of-mr-anand">http://tinyurl.com/photos-of-mr-anand</a>.<br><br>Note: This was a harmless prank on a website used for purely educational purposes; Mr. Anand was greatly amused and not insulted by the prank. On our graduation day, we gifted him a collage poster of these photoshopped images with our signatures, much to his and our amusement.
     </div>
     <div id="w-smn" class="work-descript">
       <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">C++, VLC, VB Cable</div><br>
@@ -396,8 +411,9 @@
   <div class="text-content">
     <img class="right-side" src="assets/portrait.png">
     It is a passion of mine to design, create and refine software applications be it for research, for improving quality of life, or entertainment purposes. <br><br>
-    I am a Ngee Ann Polytechnic graduate with a Diploma with Merit in Information Technology, Solutions Architect specialization.<br><br>
-    My mantra in life is to always improve myself, to learn from others, to be gracious and to keep it simple. <br><br>
+    I graduated from Ngee Ann Polytechnic with a Diploma with Merit in Information Technology, Solutions Architect specialization.<br><br>
+    My mantra in life is to always improve myself, to learn from others and to be gracious. <br><br>
+    In my free time, I like to read books, articles &  webcomics. I also watch anime.<br><div class="caption">On top of playing games and dreaming up game concepts, of course ;)</div><br><br>
     I am currently serving National Service.
   </div>
   </div>
@@ -437,6 +453,11 @@
   <img class="for-day" src="assets/png/elevator.png" alt="back to top">
   <img class="for-night" src="assets/png/elevator-white.png">
 </div>
+
+<!--"Instant Executes-->
+<!--http://cdnjs.com/libraries/modernizr : Modernizr x html5shiv-->
+<!--https://code.google.com/p/html5shiv-printshiv/-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <!--CDNs-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!--http://cdnjs.com/libraries/respond.js/-->
@@ -585,10 +606,10 @@
     //if night was enabled by instant exec
     if($html.hasClass("night")) {
       //react appropriately
-      $('.lightbulb>img').toggleClass("invisible");
+      $('.lightbulb').toggleClass("invisible");
     }
-    $('.lightbulb').click(function () {
-      $('.lightbulb>img').toggleClass("invisible");
+    $('.lightbulb-holder').click(function () {
+      $('.lightbulb').toggleClass("invisible");
       $html.toggleClass("night");
     });
   }
