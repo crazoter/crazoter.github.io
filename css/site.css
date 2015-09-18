@@ -47,9 +47,9 @@ h1,h2,header,footer,div.wheel {
   font-weight: 500;
   padding: 0px 10px 0px 10px;
 }
-.credit { font-size: 11px; }
+.credit { font-size: 11px; margin-top: 20px; margin-bottom: 20px; }
 html.svg header { height: 100%; }/*full height if wheel is working*/
-footer { height: 50%; }
+footer { height: 50%; margin-bottom: 80px; }
 header>span { font-size: 48px; }
 h1 { margin-top:5%; clear: both; }
 h1>span, h2>span, header>span { display:inline-block; }
@@ -294,7 +294,7 @@ div.work-holder {
   z-index: 1;
   margin: 5px;
   font-size: 0px;
-  transition: font-size 0.3s, height 0.3s, width 0.3s, transform 0.3s;
+  transition: font-size 0.3s, height 0.2s, width 0.2s, transform 0.3s;
   width: 220px; height: 220px;
 }
 .night div.work-holder {
@@ -314,6 +314,7 @@ div.work.text {
 }
 div.work-remark { font-size: 18px; }/*24*/
 div.work-remark.small { font-size: 15px; }/*24*/
+div.work-remark.v-small { font-size: 13px; }/*24*/
 div.work-title { font-weight: 500; font-size: 32px; }/*48*/
 div.work-title.small { font-size: 24px; }/*24*/
 div.work-summary { padding-top: 5px; }
@@ -352,10 +353,15 @@ div.work-descript.selected { display: block; }
 .w-icon.time { background: url("../assets/png/time_blk.png") no-repeat 0 0; }
 .w-icon.ppl { background: url("../assets/png/group_blk.png") no-repeat 0 0; }
 .w-icon.tool { background: url("../assets/png/tool_blk.png") no-repeat 0 0; }
+.w-icon.paint { background: url("../assets/png/paint_blk.png") no-repeat 0 0; }
+.w-icon.case { background: url("../assets/png/work_blk.png") no-repeat 0 0; }
+.night .w-icon.case { background: url("../assets/png/work_blk.png") no-repeat 0 0; }
 .night .w-icon.medal { background: url("../assets/png/medal_wht.png") no-repeat 0 0; }
 .night .w-icon.time { background: url("../assets/png/time_wht.png") no-repeat 0 0; }
 .night .w-icon.ppl { background: url("../assets/png/group_wht.png") no-repeat 0 0; }
 .night .w-icon.tool { background: url("../assets/png/tool_wht.png") no-repeat 0 0; }
+.night .w-icon.paint { background: url("../assets/png/paint_wht.png") no-repeat 0 0; }
+.night .w-icon.case { background: url("../assets/png/work_wht.png") no-repeat 0 0; }
 
 #work-fix-for-bg { clear:both; text-align: center; }
 img.work-content { width: 100%; }
@@ -390,6 +396,7 @@ img.work-content { width: 100%; }
   div.work-holder { width: 150px; height: 150px; margin: 2px; }
   div.work-remark { font-size: 13px; }
   div.work-remark.small { font-size: 11px; }  
+  div.work-remark.v-small { font-size: 9px; }  
   div.work-holder:hover,div.work-holder.selected { font-size: 10px; }
   div.work-title { font-size: 20px; }
   div.work-title.small { font-size: 18px; }
@@ -423,6 +430,7 @@ img.work-content { width: 100%; }
   div.work-holder { width: 130px; height: 130px; margin: 2px; }
   div.work-remark { font-size: 13px; }
   div.work-remark.small { font-size: 11px; }
+  div.work-remark.v-small { font-size: 9px; }
   div.work-holder:hover,div.work-holder.selected { font-size: 10px; }
   div.work-title { font-size: 20px; }
   div.work-title.small { font-size: 18px; }
