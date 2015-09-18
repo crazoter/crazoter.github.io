@@ -348,7 +348,7 @@ div.work-descript.selected { display: block; }
 .ongoing-selection .unselected div.work.text { width: 36px; display: none; }
 
 .w-icon.pad { padding-left: 30px; }
-.w-icon.holder { position: absolute; left: 0; top: 0; width: 30px; height: 30px; }
+/*.w-icon.holder { position: absolute; left: 0; top: 0; width: 30px; height: 30px; }*/
 .w-icon.medal { background: url("../assets/png/medal_blk.png") no-repeat 0 0; }
 .w-icon.time { background: url("../assets/png/time_blk.png") no-repeat 0 0; }
 .w-icon.ppl { background: url("../assets/png/group_blk.png") no-repeat 0 0; }
