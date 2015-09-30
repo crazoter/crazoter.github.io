@@ -28,7 +28,7 @@
  .invisible { zoom: 1; filter: alpha(opacity=0); opacity:0; }
 
 /*Better Mofo website recommendations*/
-html, body { width: 100%; height: 100%; }
+html, body, #div-body { width: 100%; height: 100%; }
 body {
   color:#212121;
   background-color: #FFF;
@@ -39,6 +39,7 @@ body {
   transition: background-color 0.3s;
   margin: 0px;
 }
+#div-body { padding: 0px; margin: 0px; }
 .night body { color: #FFF; background-color: #000; }
 
 /*Header & footer*/
@@ -126,8 +127,8 @@ a {
  }
 a:link { color:#ff6f00; }
 .night a:link { color:#FFC107;}
-a:visited { color:#303F9F; }
-.night a:visited { color:#C5CAE9; }
+a:visited { color:#ff6f00; /*color:#303F9F;*/ }
+.night a:visited { color:#FFC107;/*color:#C5CAE9;*/ }
 a:hover { color:#3F51B5; }
 .night a:hover { color:#C5CAE9; }
 /*Icons (Social Media)*/
@@ -364,7 +365,7 @@ div.work-descript.selected { display: block; }
 .night .w-icon.case { background: url("../assets/png/work_wht.png") no-repeat 0 0; }
 
 #work-fix-for-bg { clear:both; text-align: center; }
-img.work-content { width: 100%; }
+img.work-content { max-width: 100%; }
 .caption { font-size: 80%; color: gray; }
 /*Content*/
 
@@ -442,20 +443,3 @@ img.work-content { width: 100%; }
 
 /*Center*/
 /*http://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers*/
-.center-outer {
-    display: table;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-.center-middle {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.center-inner {
-    margin-left: auto;
-    margin-right: auto; 
-    width: /*whatever width you want*/;
-}
