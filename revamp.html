@@ -603,6 +603,7 @@
           //clicked but mouseenter was triggered immediately after; probably mobile
           wheel_mouseenter($(this).data('wheel-select'));
           window.setTimeout(function () {
+            alert(svg_currentSelector);
             wheel_click(svg_currentSelector);
           },700);
         } else {
