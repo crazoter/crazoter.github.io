@@ -599,10 +599,8 @@
       $(".wheel-text").mouseenter(function(){
         wheel_mouseenter($(this).data('wheel-select'));
       }).click(function(){
-        alert('clicked');
         if(svg_mouseenter_timestamp && (new Date()).getTime() - svg_mouseenter_timestamp < svg_mouseenter_timedur) {
           //clicked but mouseenter was triggered immediately after; probably mobile
-          alert('enter');
           wheel_mouseenter($(this).data('wheel-select'));
           window.setTimeout(function () {
             wheel_click("#"+svg_currentSelectedId);
