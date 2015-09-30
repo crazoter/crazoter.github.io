@@ -553,7 +553,7 @@
     "#svg-hammer":315
   }
   var WHEEL_SELECTOR_TRIM = "#svg-".length;
-  var svg_currentSelectedId = null,
+  var svg_currentSelector = null,
       $svg_selector = $("#svg-selector"), 
       $svg_fill = $("#svg-fill"),
       svg_rotate_animation = $("#defs").children()[0],
@@ -568,7 +568,7 @@
       } else {
         $svg_selector.attr("class",dom_id.substring(WHEEL_SELECTOR_TRIM));
       }
-      if(svg_currentSelectedId) {//if has previous
+      if(svg_currentSelector) {//if has previous
         //hide previous icon (if shown): http://stackoverflow.com/questions/8638621/jquery-svg-why-cant-i-addclass
         $(".svg-icon.selected").attr('class','svg-icon');
         $(".svg-bg.selected").attr('class','svg-bg');
@@ -581,7 +581,7 @@
       $svg_selector.children().attr('stroke',color);
       $svg_fill.children().attr('fill',color);
 
-      svg_currentSelectedId = dom_id;
+      svg_currentSelector = dom_id;
       svg_mouseenter_timestamp = (new Date()).getTime();
   }
   function wheel_click (dom) {
@@ -603,8 +603,7 @@
           //clicked but mouseenter was triggered immediately after; probably mobile
           wheel_mouseenter($(this).data('wheel-select'));
           window.setTimeout(function () {
-            alert("#"+svg_currentSelectedId);
-            wheel_click("#"+svg_currentSelectedId);
+            wheel_click(svg_currentSelector);
           },700);
         } else {
           wheel_click(this);
