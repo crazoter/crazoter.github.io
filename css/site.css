@@ -229,6 +229,7 @@ div.svg-bg {
   top: 0;
   width: 100%;
   height: 100%;
+  transition: height 999999s;
 }
 div.svg-bg path { stroke: #000; }
 div.svg-bg circle { fill: #000; }
