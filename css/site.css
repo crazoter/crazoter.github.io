@@ -49,6 +49,7 @@ h1,h2,header,footer,div.wheel {
   padding: 0px 10px 0px 10px;
 }
 .credit { font-size: 11px; margin-top: 20px; margin-bottom: 20px; }
+.version { font-size: 7px; position: absolute; top: 0px; left: 0px; }
 html.svg header { height: 100%; transition: height 999999s; }/*full height if wheel is working, http://stackoverflow.com/questions/24944925/background-image-jumps-when-address-bar-hides-ios-android-mobile-chrome*/
 footer { height: 50%; margin-bottom: 80px; }
 header>span { font-size: 48px; }
