@@ -595,16 +595,17 @@
       /*$.get( "assets/svg/wheel2.svg", function(data) {
         $( "div.wheel" ).html(data);
       });*/
+      var $this = $(this);
       //setup wheel hover
       $(".wheel-text").mouseenter(function(){
-        wheel_mouseenter($(this).data('wheel-select'));
+        wheel_mouseenter($this.data('wheel-select'));
       }).click(function(){
         if(svg_mouseenter_timestamp && (new Date()).getTime() - svg_mouseenter_timestamp < svg_mouseenter_timedur) {
           //clicked but mouseenter was triggered immediately after; probably mobile
-          wheel_mouseenter($(this).data('wheel-select'));
+          wheel_mouseenter($this.data('wheel-select'));
           window.setTimeout(function () {
-            alert(svg_currentSelector);
-            wheel_click(svg_currentSelector);
+            alert($this[0]);
+            wheel_click($this[0]);
           },700);
         } else {
           wheel_click(this);
