@@ -438,6 +438,9 @@ img.work-content { max-width: 100%; }
   div.work-title { font-size: 20px; }
   div.work-title.small { font-size: 18px; }
   div.work-summary { font-size: 0px; }
+
+  .ongoing-selection { white-space: nowrap; overflow: auto; padding-top: 15px; }
+  .ongoing-selection div { white-space: normal; }
 }
 
 /*Misc*/
