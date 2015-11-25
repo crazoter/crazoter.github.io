@@ -687,8 +687,10 @@
       //clear previous
       $('.work-holder.selected').addClass('unselected').removeClass('selected');
       prevDescript.removeClass('selected fade-in');
-      var $scroller = $('.ongoing-selection');
-      $scroller.scrollLeft($scroller.scrollLeft()+$this.offset().left - $root.width()/2);
+      setTimeout(function(){
+        var $scroller = $('.ongoing-selection');
+        $scroller.animate({scrollLeft: $scroller.scrollLeft()+$this.offset().left - $root.width()/2 + $this.width()/2}, 200);
+      },200);
       if(prevDescript.length < 1 || "#"+prevDescript[0].id !== new_id) {
         if(prevDescript.length < 1)//reposition if undergoing major resizing
           $root.scrollTop($("#work").offset().top);
