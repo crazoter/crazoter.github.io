@@ -259,19 +259,21 @@
 	    }
 	    function initPopulateByURL () {
 	    	$txt_ref.bind("paste keyup", function() {
+	    		debugger;
 	    		var url = $(this).val();
 	    		if($txt_title.val() === "" || $txtarea_description.val() === "") {//there is something to populate
 		    		if(validateURL(url)) {//valid url
 		    			show($(progress_add));
 		    			xget(url,{
 		    				done: function(title,description,keywords) {
+		    					debugger;
 		    					$('.lbl_add_article').addClass("active");
 		    					if($txt_title.val() === "")
 		    						$txt_title.val(title);
 		    					if($txtarea_description.val() === "")
 		    						$txtarea_description.val(description);
 		    					if($txt_tags.val() === "")
-		    						$txt_tags.val(description);
+		    						$txt_tags.val(keywords);
 		    					hide($(progress_add));
 		    				},
 		    				fail: function() {

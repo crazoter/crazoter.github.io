@@ -11,6 +11,7 @@ function xget (url,callbacks) {
 	    type: "GET",
 	    async: true
 	}).done(function (response) {
+		debugger;
 	    var div = document.createElement("div"),
 	        responseText = response.results[0],
 	        title, metas, meta, name, description, keywords, i;
@@ -36,6 +37,7 @@ function xget (url,callbacks) {
 	    if(callbacks["done"])
 	    	callbacks["done"](title,description,keywords);
 	}).fail(function (jqXHR, textStatus, errorThrown) {
+		debugger;
 		if(callbacks["fail"])
 			callbacks["fail"](textStatus,errorThrown);
 	});
