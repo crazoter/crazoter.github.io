@@ -66,11 +66,12 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 
 .spiffy-word {
   display: inline-block;
   overflow: hidden;
+  margin-right: 4px;
 }
 .spiffy-word.title { height: 28px; }
 .spiffy-word.title > a {
-  transition: width 300ms ease 0.1s;
-  text-align: right;
+  transition: 300ms ease 0.1s;
+  transform-origin: 0% 50%;
 }
 nav,ul.side-nav{ font-size: 16px; }
 nav>a{ margin-left: 5px; margin-right: 5px; }
@@ -120,7 +121,7 @@ ul.side-nav {
 .night .footer-nav { background-color: #000; }
 .footer-nav-li { width: 20%; display: block; float: left; margin: 0; font-size: 14px; padding-top: 10px; height: 27px; transition: border-bottom 0.3s,  }
 .footer-nav-li.selected { background-color: #C5CAE9; border-bottom: 3px solid #3F51B5; }
-.night .footer-nav-li.selected { background-color: #303F9F; border-bottom: 3px solid #3F51B5; }
+.night .footer-nav-li.selected { background-color: #007BFF; border-bottom: 3px solid #3F51B5; }
 /*Anchor Tags*/
 a { 
   text-decoration: none !important;
@@ -445,6 +446,7 @@ img.work-content { max-width: 100%; }
 
 /*Misc*/
 .clickable { cursor: pointer; cursor: hand; }
+.v-small { font-size: 9px; }
 
 /*Center*/
 /*http://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers*/

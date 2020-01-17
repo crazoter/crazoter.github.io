@@ -63,17 +63,18 @@
     }
   </style>
   <link rel="shortcut icon" href="assets/favicon3.ico"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href='css/site.css' rel='stylesheet' type='text/css'>
   <!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="screen,print" href="css/valignIE.css" /><![endif]-->
   <!--[if lte IE 8]><link rel="stylesheet" type="text/css" media="screen,print" href="css/svgdel.css" /><script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script><![endif]-->
   <base target="_blank">
   <script>
     //NIGHTMODE - INSTANT EXEC
-    var DAY_BOUNDS = [7,18];//7-7
+    var DAY_BOUNDS = [7,18];
     function instant_exec_nightmode () {
-      //to prevent browser reflow
+      //To prevent browser reflow
       var hours = (new Date()).getHours(),html = document.documentElement;
-      if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
+      if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className + " night"; }
     }
     instant_exec_nightmode();
   </script>
@@ -81,11 +82,11 @@
 <body>
 <div id="div-body">
   <header id="top" class="scroll-spy">
-      <span>Matthew</span> <span>Lee</span>
-      <div class="subtitle"><span class="spiffy-word title word"><a class="spiffy-word word no-wrap" href="#" onClick="word_change();return false;">Technology</a></span> <span class="spiffy-word">Designer & Developer</span></div>
-      <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
+      <span>Matthew</span> <span>Lee</span><br>
+      <div class="subtitle"><span class="spiffy-word title word"><span class="spiffy-word">I am a </span><a class="spiffy-word word no-wrap" href="#" onClick="word_change();return false;"></a></span></div>
+      <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#contact">Contact Me</a></nav>
       <div class="lightbulb-holder"><img class="lightbulb invisible" src="assets/png/lightbulb_white.png" alt="Change to Day"><img class="lightbulb" src="assets/png/lightbulb_black.png" alt="Change to Night"></div>
-    <div class="svg wheel">
+    
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%"
          height="300px" viewBox="0 0 400 300" xml:space="preserve">
       <g id="svg-fill">
@@ -104,7 +105,7 @@
             c4.831-1.988,9.262-4.945,12.966-8.636c3.705-3.689,6.683-8.111,8.693-12.942C238.952,210.47,239.991,205.236,240,200z"/>
         </g>
       </g>
-      <g id="svg-mask" class="svg-icon" data-href="#game">
+      <g id="svg-mask" class="svg-icon" data-href="#top">
         <path stroke="#9c27b0" fill="#040305" d="M222.145,179.813c-1.664,0-4.075,1.166-6.866,2.515c-4.239,2.047-9.515,4.597-15.272,4.631l-0.124,0.001
         h-0.002c-5.713,0-10.976-2.461-15.209-4.439c-2.784-1.302-5.191-2.427-6.853-2.427c-0.685,0-1.19,0.186-1.588,0.586
         c-0.847,0.854-1.248,2.696-1.229,5.636c0.1,15.545,11.917,41.263,25.195,41.266v0.604l0.069-0.604
@@ -190,16 +191,16 @@
           C236,180.118,219.883,164,200,164z"/>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-hammer">
-        <text transform="matrix(1.1 0 0 1.1 240 250)">View his portfolio.</text>
+        <text transform="matrix(1.1 0 0 1.1 240 250)">View my portfolio.</text>
       </g>
-      <g class="wheel-text" data-wheel-select="#svg-mask">
-        <text transform="matrix(1.1 0 0 1.1 254 207)">Play a game!</text>
+      <g class="wheel-text v-small" data-wheel-select="#svg-mask">
+        <text transform="matrix(1.1 0 0 1.1 254 207)">Dialogue Wheel inspired by DA II</text>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-bird">
-        <text transform="matrix(1.1 0 0 1.1 240 165)">About him.</text>
+        <text transform="matrix(1.1 0 0 1.1 240 165)">About me.</text>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-head">
-        <text transform="matrix(1.1 0 0 1.1 53 165)">Contact him.</text>
+        <text transform="matrix(1.1 0 0 1.1 53 165)">Contact me.</text>
       </g>
       </svg>
     </div>
@@ -208,7 +209,6 @@
     <li class="side-nav-li top selected"><a href="#top">Dialogue Wheel</a></li>
     <li class="side-nav-li hammer"><a href="#work">Portfolio</a></li>
     <li class="side-nav-li bird"><a href="#about">About</a></li>
-    <li class="side-nav-li mask"><a href="#game">Gamification</a></li>
     <li class="side-nav-li head"><a href="#contact">Contact Me</a></li>
   </ul>
   <div class="svg svg-bg">
@@ -235,6 +235,21 @@
   <div class="content">
     <div id="work" class="scroll-spy bg-changer" data-wheel-select="#svg-hammer">
       <h1>Portfolio</h1>
+      <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Awards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Work Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Projects</a>
+        </li>
+      </ul>
+      
       <div id="work-container" class="popout">
         <div data-work-id="#w-travel" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
           <div class="work-title">TrAVEl</div>
@@ -350,12 +365,13 @@
         I created this Windows application because I wanted to "talk" to my friends while gaming, yet I did not have a microphone. I thought it would be cool (and funny) to speak to them in Google Translate.<br><br>It was!<br><br>
         More at the GitHub repository for this project:
         <div class="github-widget" data-repo="crazoter/Speak-Me-Not"></div><br>
+        Note: This project has since been rendered obsolete due to lack of updates.
       </div>
       <div id="w-fd" class="work-descript">
         <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
         A suite of scripts to automate the filling of online forms such as Google Forms, SurveyMonkey etc. Allows me to randomize results by regex, set percentages for MCQs etc...<br><br>
         As you may suspect, I am not going to make these scripts public because these scripts have the power to perform Denial Of Service (DOS) attacks on a form and can easily render any form's data useless in a few seconds (especially for SurveyMonkey; a DOS on SurveyMonkey would take less than a second because it enforces a limit of 30 survey results for a free account).<br><br>
-        These scripts were developed for experimental purposes only and have only been used on sample forms.
+        These scripts were developed for experimental purposes only and have only been used on sample forms. They have since been rendered obsolete due to lack of updates.
       </div>
       <div id="w-ess" class="work-descript">
         <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
@@ -402,7 +418,7 @@
           <li>Other little usability nuggets like automatically populating the add article input fields upon pasting in the article URL (e.g. filling in the title & description with the page's meta tags), Markdown for description/summary etc.</li>
         </ul>
 
-        Bookshelf is currently not made readily available to the public because of it still relies on Parse as its CMS, which has a limit on the number of responses per second (even if it is just the retrieval of data); I am unwilling to risk the probability of a Denial Of Service (DOS) attack. It is also not public because of possible copyright issues such as summaries of articles from Harvard Business Review. This web application may have a GitHub repository for it in the near future for developers to create their own version of it.
+        Bookshelf has been depreciated as it relied on Parse as its CMS which stopped its service on 2017.
         <img class="work-content" src="assets/png/bs-ct.png">
         <div class="caption">Bookshelf landing page with all sorts of tagged articles</div>
         <img class="work-content" src="assets/png/bs-ct2.png">
@@ -421,42 +437,38 @@
     <h1>About</h1>
     <div class="text-content">
       <img class="right-side" src="assets/portrait.png">
-      It is a passion of mine to design, create and refine software applications be it for research, for improving quality of life, or entertainment purposes. <br><br>
+      It is my passion to design, create and refine software applications be it for research, for improving quality of life, or entertainment purposes. <br><br>
       I graduated from Ngee Ann Polytechnic with a Diploma with Merit in Information Technology, Solutions Architect specialization.<br><br>
+      I am currently studying Computer Science at the National University of Singapore.<br><br>
       My mantra in life is to always improve myself, to learn from others and to be gracious. <br><br>
       In my free time, I like to read books, articles &  webcomics. I also watch anime.<br><div class="caption">On top of playing games and dreaming up game concepts, of course ;)</div><br><br>
     </div>
   </div>
-  <div id="game" class="scroll-spy bg-changer" data-wheel-select="#svg-mask">
-    <h1>Gamification</h1>
+  <!--<div id="game" class="scroll-spy bg-changer" data-wheel-select="#svg-mask">
+    <h1>Others</h1>
     <div class="text-content">
-    Currently in development.
     </div>
-  </div>
+  </div>-->
   <footer id="contact" class="scroll-spy bg-changer" data-wheel-select="#svg-head">
     <h1><span>Contact</span> <span>Me</span></h1>
     <!--http://cdnjs.com/libraries/foundicons-->
     <a target="_blank" href="https://www.facebook.com/1776564236" title="Facebook" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-facebook.svg" alt="Facebook" /></a>
     <a target="_blank" href="https://github.com/crazoter" title="GitHub" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-github.svg" alt="GitHub" /></a>
-    <a target="_blank" href="https://news.ycombinator.com/user?id=crazoter" title="Hacker News" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-hacker-news.svg" alt="Hacker News" /></a>
-    <a target="_blank" href="http://stackoverflow.com/users/3555307/crazoter" title="Stack Overflow" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-stack-overflow.svg" alt="Stack Overflow" /></a>
-    <a href="https://plus.google.com/112487818396549194086" title="Google+" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-google-plus.svg" alt="Google+" /></a>
     <a target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAA8cB2AB253U_3EhEoplFNfF_TwoWHEq7t8" title="Linkedin" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-linkedin.svg" alt="Linkedin" /></a>
     <a target="_blank" href="mailto:crazoter@gmail.com" title="Email me maybe? ;)"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-mail.svg" alt="Email me" /></a>
-    <div>Please provide <a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">feedback</a> on this website; I really appreciate it.</div>
+    <div>If you'd like, you can provide <a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">feedback</a> on this website.</div>
     <br>
     <div class="credit">Credit Attribution</div>
     <div class="credit">Icons: <a href="http://www.flaticon.com/authors/freepik" target="_blank" title="Freepik">Freepik</a> and <a href="http://www.flaticon.com/authors/ocha" target="_blank" title="OCHA">OCHA</a> from <a href="http://www.flaticon.com" target="_blank" title="Flaticon">www.flaticon.com</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     <div class="credit">Audio for <a href="https://github.com/tholman/elevator.js" target="_blank" title="elevator.js">Elevator.js</a> (sourced from <a href="www.bensound.com" target="_blank">BenSound</a>) is licenced under <a href="http://www.bensound.com/licensing" target="_blank" title="Creative Commons">Creative Commons.</a></div>
-    <div class="credit">Thank you to Aidil Fitrahadi, Evan Tay, Jeremy Lim for your feedback ;)</div>
+    <div class="credit">Thank you to Aidil Fitrahadi, Evan Tay, Jeremy Lim for your feedback :)</div>
     <div class="credit">Copyright (c) 2015 Crazoter</div>
-    <div class="version">v1.0.6</div>
+    <div class="version">v1.0.7</div>
   </footer>
   <ul class="footer-nav">
     <li class="footer-nav-li top selected"><a href="#top">Top</a></li>
     <li class="footer-nav-li hammer"><a href="#work">Work</a></li>
     <li class="footer-nav-li bird"><a href="#about">About</a></li>
-    <li class="footer-nav-li mask"><a href="#game">Game</a></li>
     <li class="footer-nav-li head"><a href="#contact">Contact</a></li>
   </ul>
   <div class="elevator">
@@ -470,7 +482,9 @@
 <!--https://code.google.com/p/html5shiv-printshiv/-->
 <!--[if gt IE 8]><!--><script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script><!--<![endif]-->
 <!--CDNs-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!--http://cdnjs.com/libraries/respond.js/-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <!--http://cdnjs.com/libraries/prefixfree-->
@@ -484,61 +498,29 @@
   var $root = $('html,body');
   var $html = $('html');
   var $falseroot = $('#div-body');
-  //var $body = $('body');
 //SPIFFY-TEXT
   //VARIABLES
   //Because of how this is implemented, always put the largest word first.
-  var SPIFFY_WORDS = ["Technology","Software","Website","Game","Mobile App"], 
+  var SPIFFY_WORDS = ["programmer.", "full-time student.", "Full Stack Developer.", "Software Developer."],
     spiffy_index = 0,
-    $spiffy_word = $("a.spiffy-word.word"),
-    spiffy_word_width = 100;
+    $spiffy_word = $("a.spiffy-word.word");
+    //spiffy_word_width = ;
   //F(X)
     //Loop through spiffy words and set timeout for reappearance. Transition CSS handles animation.
     function word_change () {
       ++spiffy_index;
       if(spiffy_index>=SPIFFY_WORDS.length) { spiffy_index = 0; }
-      $spiffy_word.css("width","0px");
+      $spiffy_word.css("transform","scaleX(0)");
       window.setTimeout(function(){
         $spiffy_word.text(SPIFFY_WORDS[spiffy_index]);
-        $spiffy_word.width(spiffy_word_width);
+        $spiffy_word.css("transform","scaleX(1)");
       },600);
     }
     function onload_spiffyWords () {
       //Setup spiffy_words
       $spiffy_word.text(SPIFFY_WORDS[0]);
-      //spiffy_word_width = $(".spiffy-word.title").outerWidth();//issue, decided to hardcode
-      $(".spiffy-word.word").width(spiffy_word_width);
+      $spiffy_word.css("transform","scaleX(1)");
     }
-
-//SMOOTH SCROLL
-  function fade_scroll_to (selector) {
-    $falseroot.fadeOut(400, function () {
-      $root.scrollTop(0);
-      if(selector === "#top" || selector === "top") { 
-        $('#top.scroll-spy').trigger('scrollSpy:enter');
-      }
-      $falseroot.hide().fadeIn(400, function () {window.location.hash = "";});
-    });
-  }
-  //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
-  function smooth_scroll_to (selector) {
-    $root.animate({scrollTop:$(selector).offset().top}, 800).promise().done(function () {
-      window.location.hash = selector;
-    });
-  }
-  function onload_smoothAnchors () {
-    $('a[href*=#]').on('click', function(event){
-        if(this.hash !== "") {//linked to something
-          event.preventDefault();
-          console.log(this.hash);
-          if(this.hash === "#top" || this.hash === "top") {
-            fade_scroll_to(this.hash);
-          }
-          else
-            smooth_scroll_to(this.hash);
-        }
-    });
-  }
 
 //WHEEL
   //VARIABLES
@@ -588,9 +570,6 @@
   function onload_wheel () {
     //wheel - get svg if supported
     if(Modernizr.svg) {
-      /*$.get( "assets/svg/wheel2.svg", function(data) {
-        $( "div.wheel" ).html(data);
-      });*/
       //setup wheel hover
       $(".wheel-text").mouseenter(function(){
         wheel_mouseenter($(this).data('wheel-select'));
@@ -657,8 +636,6 @@
         $('.side-nav').removeClass('invisible');
       }
     });
-    /*$('.scroll-spy').on('scrollSpy:exit', function() {
-    });*/
     $('.scroll-spy').scrollSpy();
   }
 
@@ -694,7 +671,6 @@
       if(prevDescript.length < 1 || "#"+prevDescript[0].id !== new_id) {
         if(prevDescript.length < 1)//reposition if undergoing major resizing
           $root.scrollTop($("#work").offset().top);
-          //smooth_scroll_to("#work");
         $("#work-container").addClass("ongoing-selection");
         //select new
         $this.removeClass('unselected').addClass('selected');
@@ -705,27 +681,56 @@
         $("#work-container").removeClass("ongoing-selection");
       }
     });
+
+  //Tabs
+  $('.nav.nav-tabs').on('click', function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    });
+  }
+
+  //SMOOTH SCROLL
+  function fade_scroll_to (selector) {
+    $falseroot.fadeOut(400, function () {
+      $root.scrollTop(0);
+      if(selector === "#top" || selector === "top") { 
+        $('#top.scroll-spy').trigger('scrollSpy:enter');
+      }
+      $falseroot.hide().fadeIn(400, function () {window.location.hash = "";});
+    });
+  }
+  //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
+  function smooth_scroll_to (selector) {
+    $root.animate({scrollTop:$(selector).offset().top}, 800).promise().done(function () {
+      window.location.hash = selector;
+    });
+  }
+  function onload_smoothAnchors () {
+    $('a').on('click', function(event){
+        if(this.hash !== "") {//linked to something
+          event.preventDefault();
+          console.log(this.hash);
+          if(this.hash === "#top" || this.hash === "top") {
+            fade_scroll_to(this.hash);
+          }
+          else
+            smooth_scroll_to(this.hash);
+        }
+    });
   }
 
   //onload
   $(function() {
     onload_spiffyWords();  //Spiffy words!
     onload_wheel();        //init wheel if svg supported
-    onload_smoothAnchors();//smooth scrolling for all anchor tags
     onload_nightmode();    //night mode
+    onload_smoothAnchors();//smooth scrolling for all anchor tags
     onload_elevator();     //elevator
     onload_work();         //setup work clicks
   });
-  //instant_exec
-                            //night mode is just below modernizr
-  //instant_exec_wheel();    //wheel
   instant_exec_scrollspy(); //scrollspy
   instant_exec_sideNav();   //sidenav
 
-
-  /*$.winSizeSpy().on('scrollSpy:winSize', function () {
-    console.log('x');
-  })*/
 </script>
 <script src="js/jquery.githubRepoWidget.min.js"></script>
 <!--Google Analytics-->
