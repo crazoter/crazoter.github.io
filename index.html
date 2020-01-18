@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="author" content="Matthew Lee Wei Ren">
-  <meta name="copyright" content="Copyright . 2015 . Matthew Lee Wei Ren . All Rights Reserved">
+  <meta name="copyright" content="Copyright . 2020 . Matthew Lee Wei Ren . All Rights Reserved">
   <meta name="description" content="Matthew Lee Wei Ren, an IT student passionate about software design & development.">
 
   <!--schema.org: Person-->
@@ -63,17 +63,19 @@
     }
   </style>
   <link rel="shortcut icon" href="assets/favicon3.ico"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link href='css/site.css' rel='stylesheet' type='text/css'>
   <!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="screen,print" href="css/valignIE.css" /><![endif]-->
   <!--[if lte IE 8]><link rel="stylesheet" type="text/css" media="screen,print" href="css/svgdel.css" /><script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script><![endif]-->
   <base target="_blank">
   <script>
     //NIGHTMODE - INSTANT EXEC
-    var DAY_BOUNDS = [7,18];//7-7
+    var DAY_BOUNDS = [7,18];
     function instant_exec_nightmode () {
-      //to prevent browser reflow
+      //To prevent browser reflow
       var hours = (new Date()).getHours(),html = document.documentElement;
-      if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className+" night"; }
+      if(hours < DAY_BOUNDS[0] || hours > DAY_BOUNDS[1]) { html.className = html.className + " night"; }
     }
     instant_exec_nightmode();
   </script>
@@ -81,11 +83,12 @@
 <body>
 <div id="div-body">
   <header id="top" class="scroll-spy">
-      <span>Matthew</span> <span>Lee</span>
-      <div class="subtitle"><span class="spiffy-word title word"><a class="spiffy-word word no-wrap" href="#" onClick="word_change();return false;">Technology</a></span> <span class="spiffy-word">Designer & Developer</span></div>
-      <nav><a href="#work">Portfolio</a> | <a href="#about">About</a> | <a href="#game">Gamification</a> | <a href="#contact">Contact Me</a></nav>
-      <div class="lightbulb-holder"><img class="lightbulb invisible" src="assets/png/lightbulb_white.png" alt="Change to Day"><img class="lightbulb" src="assets/png/lightbulb_black.png" alt="Change to Night"></div>
-    <div class="svg wheel">
+      <span>Matthew</span> <span>Lee</span><br>
+      <div class="subtitle"><span class="spiffy-word title word"><span class="spiffy-word">I am </span><span class="spiffy-container"><a class="spiffy-word word no-wrap" href="#" onClick="word_change();return false;"></a></span></span></div>
+      <br><br>
+      <nav><a href="#work">Portfolio</a> | <a href="#about">About Me</a> | <a href="#contact">Contact Me</a></nav>
+      <div class="lightbulb-holder"><i class="lightbulb far fa-lightbulb fa-lg"></i></div>
+    
       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%"
          height="300px" viewBox="0 0 400 300" xml:space="preserve">
       <g id="svg-fill">
@@ -104,7 +107,7 @@
             c4.831-1.988,9.262-4.945,12.966-8.636c3.705-3.689,6.683-8.111,8.693-12.942C238.952,210.47,239.991,205.236,240,200z"/>
         </g>
       </g>
-      <g id="svg-mask" class="svg-icon" data-href="#game">
+      <g id="svg-mask" class="svg-icon" data-href="#top">
         <path stroke="#9c27b0" fill="#040305" d="M222.145,179.813c-1.664,0-4.075,1.166-6.866,2.515c-4.239,2.047-9.515,4.597-15.272,4.631l-0.124,0.001
         h-0.002c-5.713,0-10.976-2.461-15.209-4.439c-2.784-1.302-5.191-2.427-6.853-2.427c-0.685,0-1.19,0.186-1.588,0.586
         c-0.847,0.854-1.248,2.696-1.229,5.636c0.1,15.545,11.917,41.263,25.195,41.266v0.604l0.069-0.604
@@ -190,16 +193,17 @@
           C236,180.118,219.883,164,200,164z"/>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-hammer">
-        <text transform="matrix(1.1 0 0 1.1 240 250)">View his portfolio.</text>
+        <text transform="matrix(1.1 0 0 1.1 240 250)">View my portfolio.</text>
       </g>
-      <g class="wheel-text" data-wheel-select="#svg-mask">
-        <text transform="matrix(1.1 0 0 1.1 254 207)">Play a game!</text>
+      <g class="wheel-text v-small blend-in" data-wheel-select="#svg-mask">
+        <text transform="matrix(1.1 0 0 1.1 254 198)">Dialogue Wheel inspired by</text>
+        <text transform="matrix(1.1 0 0 1.1 254 211)">Dragon Age II :)</text>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-bird">
-        <text transform="matrix(1.1 0 0 1.1 240 165)">About him.</text>
+        <text transform="matrix(1.1 0 0 1.1 240 165)">About me.</text>
       </g>
       <g class="wheel-text" data-wheel-select="#svg-head">
-        <text transform="matrix(1.1 0 0 1.1 53 165)">Contact him.</text>
+        <text transform="matrix(1.1 0 0 1.1 53 165)">Contact me.</text>
       </g>
       </svg>
     </div>
@@ -208,7 +212,6 @@
     <li class="side-nav-li top selected"><a href="#top">Dialogue Wheel</a></li>
     <li class="side-nav-li hammer"><a href="#work">Portfolio</a></li>
     <li class="side-nav-li bird"><a href="#about">About</a></li>
-    <li class="side-nav-li mask"><a href="#game">Gamification</a></li>
     <li class="side-nav-li head"><a href="#contact">Contact Me</a></li>
   </ul>
   <div class="svg svg-bg">
@@ -235,185 +238,23 @@
   <div class="content">
     <div id="work" class="scroll-spy bg-changer" data-wheel-select="#svg-hammer">
       <h1>Portfolio</h1>
-      <div id="work-container" class="popout">
-        <div data-work-id="#w-travel" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">TrAVEl</div>
-          <div class="work-remark small">Press coverage by The Straits Times</div>
-          <div class="work-summary">My Final Year Project to help the visually impaired and elderly use public transport</div></div><img class="work fill" src="assets/png/travel.png">
-        </div>
-        <div data-work-id="#w-mel" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title small">MeL Pentesting</div>
-          <div class="work-remark small">Blackboard Learn MeL Vulnerability</div>
-          <div class="work-summary">Discovered and recommended countermeasures for vulnerabilities in NP's e-Learning portal as an assignment</div></div><img class="work fill" src="assets/png/mel.png">
-        </div>
-        <div data-work-id="#w-sows" class="work-holder w-icon case clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">SOWS</div>
-          <div class="work-remark small">E-commerce website in 3 weeks (start-up)</div>
-          <div class="work-summary">A brief experience working pro bono at a start-up</div></div><img class="work fill" src="assets/png/sows.png">
-        </div>
-        <div data-work-id="#w-ac" class="work-holder w-icon case clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Also Can!</div>
-          <div class="work-remark v-small">English to Singlish translator (Ngee Ann Polytechnic)</div>
-          <div class="work-summary">Also includes a machine learning module</div></div><img class="work fill" src="assets/png/ac.png">
-        </div>
-        <div data-work-id="#w-pb" class="work-holder w-icon case clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Photobooth</div>
-          <div class="work-remark small">Photo booth software (Ngee Ann Polytechnic)</div>
-          <div class="work-summary">Software include photobooth & display screen for photos taken</div></div><img class="work fill" src="assets/png/pb.png">
-        </div>
-        <div data-work-id="#w-grpg" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">GRPG</div>
-          <div class="work-remark">A Generic RPG</div>
-          <div class="work-summary">An rpg similar to runescape classic developed in 3 weeks</div></div><img class="work fill" src="assets/png/grpg.png">
-        </div>
-        <div data-work-id="#w-tkh" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title small">The King's Hand</div>
-          <div class="work-remark small">A 3D stealth archery game using GameMaker</div>
-          <div class="work-summary">Developed in 2 weeks without prior GML or 3D programming experience in a team of 2</div></div><img class="work fill" src="assets/png/tkh.png">
-        </div>
-        <div data-work-id="#w-ls" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Little Strike</div>
-          <div class="work-remark small">A 2D multiplayer top down shooter</div>
-          <div class="work-summary">Developed in 2 weeks in a team of 2</div></div><img class="work fill" src="assets/png/ls.png">
-        </div>
-        <div data-work-id="#w-sw" class="work-holder w-icon medal clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Splash Wars</div>
-          <div class="work-remark small">2nd runners up in Splash Awards 2012</div>
-          <div class="work-summary">A personal achievement, as the game was developed in 2 weeks without prior C# Silverlight experience</div></div><img class="work fill" src="assets/png/sw.png">
-        </div>
-        <div data-work-id="#w-bs" class="work-holder w-icon paint clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Bookshelf</div>
-          <div class="work-remark small">Web app to keep track of reading material</div>
-          <div class="work-summary">By indexing and summarizing what they read, users are better able to remember the finer points of useful articles.</div></div><img class="work fill" src="assets/png/bs.png">
-        </div>
-        <div data-work-id="#w-ess" class="work-holder w-icon paint clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title small">Scenery Traveller</div>
-          <div class="work-remark small">Travel the world from your home</div>
-          <div class="work-summary">Complete with an editor for your own version</div></div><img class="work fill" src="assets/png/ess.png">
-        </div>
-        <div data-work-id="#w-pp" class="work-holder w-icon paint clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Photoshop</div>
-          <div class="work-remark small">Feat. Mr Anand</div>
-          <div class="work-summary">60+ high res. images of Mr. Anand's face in various movie posters (lol)</div></div><img class="work fill" src="assets/png/pp.png">
-        </div>
-        <div data-work-id="#w-smn" class="work-holder w-icon paint clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title small">Speak Me Not</div>
-          <div class="work-remark small">Virtual Microphone using Google Translate</div>
-          <div class="work-summary">Speak to your friends in Google Translate's voice using text (CLI or GUI, Windows using Google Translate & VLC)</div></div><img class="work fill" src="assets/png/smn.png">
-        </div>
-        <div data-work-id="#w-fd" class="work-holder w-icon paint clickable unselected"><img class="work fill filter n" src="assets/png/g80.png"/><img class="work fill filter d" src="assets/png/g50w.png"/><div class="work tag show">More</div><div class="work tag hide">Less</div><div class="work text"><img class="work fill text bg n" src="assets/png/g80.png"/><img class="work fill text bg d" src="assets/png/g80w.png"/>
-          <div class="work-title">Form Doer</div>
-          <div class="work-remark small">A suite of scripts that automate the filling of online forms</div>
-          <div class="work-summary">Features include randomized input using regex, probabilities for radio buttons/checkboxes etc.</div></div><img class="work fill" src="assets/png/fd.png">
-        </div>
-      </div>
-      <div id="w-mel" class="work-descript">
-        <div class="w-icon pad medal">Discovered vulnerabilities in Ngee Ann Polytechnic’s (NP) e-Learning portal MeL</div><div class="w-icon pad ppl">2 man team</div><div class="w-icon pad time">1 month</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
-        Me and two of my classmates discovered vulnerabilities in Ngee Ann Polytechnic’s (NP) E-learning portal, Blackboard Learn – Mel while working on a school assignment that required us to find vulnerabilities in any software / hardware.<br><br>
-        Together with another classmate, I documented the vulnerabilities, developed proof-of-concept attacks and demonstrated them to our supervisor and NP’s administrative staff while recommending countermeasures. I'm not at liberty to elaborate on the vulnerabilities but they were severe enough such that they can be exploited to obtain the credentials of lecturers and other students easily. <br><br>
-        This project taught me the value of IT security as I observed first-hand how one vulnerability (or a combination of vulnerabilities) can easily cause grievous harm to any organization. All of us definitely learnt not to be complacent; everyone had preconceptions that the system would be infallible before embarking on the assignment and we were shocked (and a little amused) when we discovered the vulnerabilities.
-      </div>
-      <div id="w-travel" class="work-descript">
-        <div class="w-icon pad medal"><a target="_blank" href="http://www.straitstimes.com/singapore/transport/new-bus-app-for-visually-impaired-and-elderly-commuters">Press coverage by The Straits Times</a>, Ngee Ann Polytechnic Outstanding Innovation Team Award (Student Excellence Award 2015)</div><div class="w-icon pad ppl">3 man team</div><div class="w-icon pad time">1 semester (~16 weeks)</div><div class="w-icon pad tool">Android (Java & XML), PHP</div><br>
-        For my final year project, I decided to develop an Android mobile application that improves the lives of the less fortunate in my community. Together with 2 other like-minded individuals, Jeremy Lim and Jian Yu, we embarked on TrAVEl as our final year project.<br><br>
-        TrAVEl is an Android application (app) to help the visually impaired and elderly navigate Singapore using public transport. It automatically plans the best route based on the starting and ending points provided. It provides real-time updates even if there are other apps running to ensure the user is kept updated on where he is, when the next bus is arriving and also informs the user when to board/alight the bus/train through notifications. The route is recalculated if the user missed the stop.<br><br>
-        The user experience (UX) is both visually and aurally designed for the visually impaired and works well with Android accessibility features (e.g. Talkback) if necessary. There is also a help button at the same location on every page to guide users if they are disoriented. Testing was done with the visually impaired guides at Dialogue in the Dark (DID) to ensure satisfactory UX.<br><br>
-        A key feature is the speech-to-text recognition of a large dataset of Singapore places such as Jurong East, Bishan or even Bukit Chandu which makes it a lot easier for visually impaired to use (compared to existing apps). The app is also able to recognise speakers with different accents and pronunciations of most Singapore locations.<br><br>
-        The development of TrAVEl has also led to the creation of spinoff apps, such as a bus timing monitor for the Pebble smartwatch which is also visually impaired-friendly, and a bus location viewer which uses live data from users of TrAVEl to display the locations of buses. It has also been covered by The Straits Times and won our team the Ngee Ann Polytechnic Outstanding Innovation Team Award.<br><br>
-        After our final year project, we have worked with Ngee Ann Polytechnic (NP) and DID to refine the application. Since then, the team has handed over the project to NP publish and provide maintenance.<br><br>
-        I am very thankful to NP, my advisors and last but not least my team of friends who made this project a success. It is my wish that the application would be helpful to the visually impaired and elderly community, especially since I have friends and relatives who fall in either category.
-        <img class="work-content" src="assets/png/travel-team.png" alt="travel team image"><div class="caption">The TrAVEl team & supervisors. From left: Mr. Henry Thet Swe, Matthew, Jeremy Lim, Jian Yu, Mr. Charles Keck. Not in photo: Mr. Andrew Tan, Mr. Ng Weng Choh</div>
-      </div>
-      <div id="w-grpg" class="work-descript">
-        <div class="w-icon pad medal">One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase</div><div class="w-icon pad ppl">3 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">C++ DirectX</div><br>
-        For a games development school assignment, I developed a parody of Runescape Classic with 2 classmates. Features include fishing, cooking, mining, trading, equipment, eating, map generation, mob generation, fighting and quite a number more such as quests.<br><br>The game basically leads the player from one quest to another, ultimately culminating in a boss fight with a dragon.</div>
-      <div id="w-tkh" class="work-descript">
-        <div class="w-icon pad medal">One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase</div><div class="w-icon pad ppl">2 man team</div><div class="w-icon pad time">2 weeks</div><div class="w-icon pad tool">GameMaker:Studio Standard (Free)</div><br>
-        My first exposure to 3D game development, I created a 3D game using GameMaker with a classmate. Features missions, relatively realistic archery (takes wind and heartbeat into account), skills etc.<br><br>This was despite the fact that I had little to no prior experience with either 3D game development nor GameMaker Studio and that we were expected (and advised) to only develop a 2D game.<br><br>I had wanted to develop a 3D game to challenge myself as I had already done various other 2D games previously and also because I also believed that the game idea of archery simulation would be better served with a 3D perspective than a 2D perspective.<br><br>It was tremendously satisfying when we surpassed everyone's expectations with the quality of the game, especially considering we did it so quickly and with all the GameMaker quirks.
-      </div>
-      <div id="w-ls" class="work-descript">
-        <div class="w-icon pad medal">Featured in graduation showcase</div><div class="w-icon pad ppl">2 man team</div><div class="w-icon pad time">2 weeks</div><div class="w-icon pad tool">Windows Form Application (C#)</div><br>
-        Me and one of my classmates decided to take our Windows Application Development assignment to the next level and we created a multiplayer top-down shooter (which can support up to at least 8 players). Has multiple classes (specializations) with different abilities (such as turning invisible) and weapons and various other features like scoreboards, primitive map editor etc. Delta timing was also implemented to ensure smooth gameplay.<br><br>
-        This assignment was especially memorable as we were the only team that conducted a live playtest when we were presenting to the lecturer and the class. Seeing everyone enjoying our creation made all the effort worth it.
-      </div>
-      <div id="w-sw" class="work-descript">
-        <div class="w-icon pad medal">2nd runners up in Splash Awards 2012</div><div class="w-icon pad ppl">3 man team</div><div class="w-icon pad time">2 weeks</div><div class="w-icon pad tool">C# Silverlight</div><br>
-        During my first semester at Ngee Ann Polytechnic, I joined the Splash Awards competition with two classmates. As nobody in the team had any prior C# knowledge (and we only had a bit of coding practice), I had to learn C# and build a game with Silverlight in 2 weeks from scratch on my own. My effort paid off and we clinched the 2nd runners up position.<br><br>
-        In addition to learning C# and winning 3rd place, the experience was unforgettable as it was a personal life lesson on the value of passion, focus and determination. The game is on the Windows App Store <a target="_blank" href="https://www.microsoft.com/en-us/store/games/splashwarsii/9nblggh08w11">here</a>.
-      </div>
-      <div id="w-pp" class="work-descript">
-        <div class="w-icon pad tool">Photoshop</div><br>
-        During web development class, me and a few friends discovered a security vulnerability in a website belonging to our lecturer which he was using as an example. This vulnerability allowed us to change the image on the website and we thought it was a great idea to photoshop our lecturer's face into a movie poster and put it on the website.<br><br> This snowballed into an entire photoshop portfolio featuring him, Mr. Anand Ravi Deshpande. The full portfolio can be found at <a target="_blank" href="http://tinyurl.com/photos-of-mr-anand">http://tinyurl.com/photos-of-mr-anand</a>.<br><br>Note: This was a harmless prank on a website used for purely educational purposes; Mr. Anand was greatly amused and not insulted by the prank. On our graduation day, we gifted him a collage poster of these photoshopped images with our signatures, much to his and our amusement.
-      </div>
-      <div id="w-smn" class="work-descript">
-        <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">C++, VLC, VB Cable</div><br>
-        I created this Windows application because I wanted to "talk" to my friends while gaming, yet I did not have a microphone. I thought it would be cool (and funny) to speak to them in Google Translate.<br><br>It was!<br><br>
-        More at the GitHub repository for this project:
-        <div class="github-widget" data-repo="crazoter/Speak-Me-Not"></div><br>
-      </div>
-      <div id="w-fd" class="work-descript">
-        <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
-        A suite of scripts to automate the filling of online forms such as Google Forms, SurveyMonkey etc. Allows me to randomize results by regex, set percentages for MCQs etc...<br><br>
-        As you may suspect, I am not going to make these scripts public because these scripts have the power to perform Denial Of Service (DOS) attacks on a form and can easily render any form's data useless in a few seconds (especially for SurveyMonkey; a DOS on SurveyMonkey would take less than a second because it enforces a limit of 30 survey results for a free account).<br><br>
-        These scripts were developed for experimental purposes only and have only been used on sample forms.
-      </div>
-      <div id="w-ess" class="work-descript">
-        <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
-        Imagine yourself standing in front of the world's grandest scenery. In front of the grand canyon. In lush forests. Accompanied with music.<br><br>
-        Scenery Traveller teleports you from your home into the beautiful parts of the world, as if you are there amongst the foliage, or at the top of a mountain.<br><br>
-        Demo: <a href="https://crazoter.github.io/Scenery-Traveller/scenery_slideshow.html?id=4ojMLPg">https://crazoter.github.io/Scenery-Traveller/scenery_slideshow.html?id=4ojMLPg</a><br>
-        Editor: <a href="http://crazoter.github.io/Scenery-Traveller-Editor/editor.html">http://crazoter.github.io/Scenery-Traveller-Editor/editor.html</a><br><br>
-        More at the GitHub repository for this project:
-        <div class="github-widget" data-repo="crazoter/Scenery-Traveller"></div><br>
-        An editor for this project is also available at this GitHub repository:
-        <div class="github-widget" data-repo="crazoter/Scenery-Traveller-Editor"></div><br><br>
-        <div class="caption">As you might have guessed, this project was originally a very elaborate joke</div>
-      </div>
-      <div id="w-sows" class="work-descript">
-        <div class="w-icon pad ppl">2 man team</div><div class="w-icon pad time">3 weeks</div><div class="w-icon pad tool">Javascript & HTML/CSS (Bootstrap), PHP & MySQL (Laravel)</div><div class="w-icon pad case">Save Our World Services</div><br>
-        Save Our World Services, or SOWS for short, is an online portal for services and products by companies in Singapore.<br><br>
-        Together with another technology developer, we revamped their existing website and content management system (CMS) using Bootstrap as our front-end framework and Laravel as the back-end framework.<br><br>
-        Because the start-up company was undergoing a business overhaul, much of their existing website and CMS had to be scrapped; everything had to be redesigned and recreated from scratch.<br><br>
-        The project was fraught with scope creep and changes, so much so that the founder of SOWS personally apologized for it. Fortunately, me and my colleague managed to pull through. We had delivered:
-        <ul>
-          <li>
-            A relatively clean and responsive online portal that acts as a listing for services. Users can login to rate / favourite services, while companies can update their profile as listed services are linked to an existing company in the system.
+      <ul class="nav nav-pills mb-3 d-flex justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
           </li>
-          <li>
-            A content management system for the business' employees to be used for managing the services listed on the portal.
-          </li>
-        </ul>
-        We had also created an online messaging system similar to Web Telegram within 2 days and implemented an API for a mobile version of the portal but these features was removed due to scope change.<br><br>I am proud to say that the founder of SOWS was very satisfied with our work and astounded by our work ethic considering that we were unlikely to (and did not) get paid for our efforts.<br><br>
-        All in all, it was a very tough experience because we had to rush so much work out in so little time but I learnt a lot through the process and from my colleague on both front-end and back-end development.
-      </div>
-      <div id="w-ac" class="work-descript">
-        <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad time">1 month</div><div class="w-icon pad tool">Android (Java & XML)</div><div class="w-icon pad case">Ngee Ann Polytechnic</div><br>
-        Also Can! is a English to Singlish translator mobile application developed for Ngee Ann Polytechnic. This application syncs the Singlish dictionary with a server so that when a translation is corrected by one user, other users also get the improvement. There is a versioning system which allows the admin easily remove/ignore entries that they believe are spam. <br><br>
-        It can be downloaded <a target="_blank" href="https://play.google.com/store/apps/details?id=np.alsocan">here</a> on the Google Play Store.
-      </div>
-      <div id="w-bs" class="work-descript">
-        <div class="w-icon pad ppl">1 man team</div><div class="w-icon pad tool">Javascript, HTML/CSS</div><br>
-        Bookshelf is a responsive web application created for users to keep track of what they read, or to take notes. What it does is it allows the user to summarize their reading material and tag them for future reference. Or they can just tag them for future reading. The main idea is to provide a platform for the user to keep track of what he reads and allow him to make notes / summarize if he wishes so that he can remember the more important points better.<br><br>
-        Bookshelf has various features:
-        <ul>
-          <li>CMS for articles; add, edit, delete, search by tag/date/title/content, pagination etc</li>
-          <li>Uses Material Design (by Materializecss, but animations are changed to use CSS to provide smoother animation on mobile)</li>
-          <li>Responsive</li>
-          <li>Other little usability nuggets like automatically populating the add article input fields upon pasting in the article URL (e.g. filling in the title & description with the page's meta tags), Markdown for description/summary etc.</li>
-        </ul>
-
-        Bookshelf is currently not made readily available to the public because of it still relies on Parse as its CMS, which has a limit on the number of responses per second (even if it is just the retrieval of data); I am unwilling to risk the probability of a Denial Of Service (DOS) attack. It is also not public because of possible copyright issues such as summaries of articles from Harvard Business Review. This web application may have a GitHub repository for it in the near future for developers to create their own version of it.
-        <img class="work-content" src="assets/png/bs-ct.png">
-        <div class="caption">Bookshelf landing page with all sorts of tagged articles</div>
-        <img class="work-content" src="assets/png/bs-ct2.png">
-        <div class="caption">An example of an article's summary, complemented with the use of Markdown</div>
-      </div>
-      <div id="w-pb" class="work-descript">
-        <div class="w-icon pad ppl">4 man team</div><div class="w-icon pad time">4 weeks</div><div class="w-icon pad tool">Javascript, HTML/CSS, PHP (Laravel)</div><div class="w-icon pad case">Ngee Ann Polytechnic</div><br>
-        I was hired by Ngee Ann Polytechnic (NP) with a group of other students to develop Photobooth, a web application that allows the user to take a photo of himself, frame it (from a wide range of frames) and give it a caption (which can be dragged to position it). The web application is usable on a computer, tablet or a mobile phone. The photo taken will then be displayed on a large screen for everyone to see.
-        <br><br>
-        Photobooth was used by NP School of ICT for Open House 2015. It was very satisfying to see the software run without a hitch on the day itself and to see everyone using it without complaints. To see their faces light up in amusement as their faces appeared on the screen was very fulfilling.
-      </div>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-awards-tab" data-toggle="pill" href="#pills-awards" role="tab" aria-controls="pills-awards" aria-selected="true">Awards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-exp-tab" data-toggle="pill" href="#pills-exp" role="tab" aria-controls="pills-exp" aria-selected="false">Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-projects-tab" data-toggle="pill" href="#pills-projects" role="tab" aria-controls="pills-projects" aria-selected="false">Projects</a>
+        </li>
+      </ul>
+      
+      <div id="work-container" class="popout"></div>
+      <div id="work-popup-container"></div>
     </div>
     <div id="work-fix-for-bg"><a href="#work">Back to top of portfolio</a></div>
   </div>
@@ -421,43 +262,40 @@
     <h1>About</h1>
     <div class="text-content">
       <img class="right-side" src="assets/portrait.png">
-      It is a passion of mine to design, create and refine software applications be it for research, for improving quality of life, or entertainment purposes. <br><br>
+      It is my passion to design, create and refine software applications be it for research, for improving quality of life, or entertainment purposes. <br><br>
       I graduated from Ngee Ann Polytechnic with a Diploma with Merit in Information Technology, Solutions Architect specialization.<br><br>
+      I am currently studying Computer Science at the National University of Singapore.<br><br>
       My mantra in life is to always improve myself, to learn from others and to be gracious. <br><br>
       In my free time, I like to read books, articles &  webcomics. I also watch anime.<br><div class="caption">On top of playing games and dreaming up game concepts, of course ;)</div><br><br>
     </div>
   </div>
-  <div id="game" class="scroll-spy bg-changer" data-wheel-select="#svg-mask">
-    <h1>Gamification</h1>
+  <!--<div id="game" class="scroll-spy bg-changer" data-wheel-select="#svg-mask">
+    <h1>Others</h1>
     <div class="text-content">
-    Currently in development.
     </div>
-  </div>
+  </div>-->
   <footer id="contact" class="scroll-spy bg-changer" data-wheel-select="#svg-head">
     <h1><span>Contact</span> <span>Me</span></h1>
     <!--http://cdnjs.com/libraries/foundicons-->
     <a target="_blank" href="https://www.facebook.com/1776564236" title="Facebook" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-facebook.svg" alt="Facebook" /></a>
     <a target="_blank" href="https://github.com/crazoter" title="GitHub" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-github.svg" alt="GitHub" /></a>
-    <a target="_blank" href="https://news.ycombinator.com/user?id=crazoter" title="Hacker News" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-hacker-news.svg" alt="Hacker News" /></a>
-    <a target="_blank" href="http://stackoverflow.com/users/3555307/crazoter" title="Stack Overflow" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-stack-overflow.svg" alt="Stack Overflow" /></a>
-    <a href="https://plus.google.com/112487818396549194086" title="Google+" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-google-plus.svg" alt="Google+" /></a>
     <a target="_blank" href="https://www.linkedin.com/profile/view?id=AAIAAA8cB2AB253U_3EhEoplFNfF_TwoWHEq7t8" title="Linkedin" rel="me"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-social-linkedin.svg" alt="Linkedin" /></a>
     <a target="_blank" href="mailto:crazoter@gmail.com" title="Email me maybe? ;)"><img class="icon" src="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/svgs/fi-mail.svg" alt="Email me" /></a>
-    <div>Please provide <a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">feedback</a> on this website; I really appreciate it.</div>
+    <br>
+    <div>If you'd like, you can provide <a target="_blank" href="https://docs.google.com/forms/d/1kouIV4nC-txBHW_KEEies32Unj5RqjtaChuA6e5hNZ8/viewform">feedback</a> on this website.</div>
     <br>
     <div class="credit">Credit Attribution</div>
     <div class="credit">Icons: <a href="http://www.flaticon.com/authors/freepik" target="_blank" title="Freepik">Freepik</a> and <a href="http://www.flaticon.com/authors/ocha" target="_blank" title="OCHA">OCHA</a> from <a href="http://www.flaticon.com" target="_blank" title="Flaticon">www.flaticon.com</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     <div class="credit">Audio for <a href="https://github.com/tholman/elevator.js" target="_blank" title="elevator.js">Elevator.js</a> (sourced from <a href="www.bensound.com" target="_blank">BenSound</a>) is licenced under <a href="http://www.bensound.com/licensing" target="_blank" title="Creative Commons">Creative Commons.</a></div>
-    <div class="credit">Thank you to Aidil Fitrahadi, Evan Tay, Jeremy Lim for your feedback ;)</div>
-    <div class="credit">Copyright (c) 2015 Crazoter</div>
-    <div class="version">v1.0.6</div>
+    <div class="credit">Thank you to Aidil Fitrahadi, Evan Tay, Jeremy Lim for your feedback :)</div>
+    <div class="credit">Copyright (c) 2020 Crazoter</div>
+    <div class="version">v1.0.7</div>
   </footer>
   <ul class="footer-nav">
     <li class="footer-nav-li top selected"><a href="#top">Top</a></li>
-    <li class="footer-nav-li hammer"><a href="#work">Work</a></li>
-    <li class="footer-nav-li bird"><a href="#about">About</a></li>
-    <li class="footer-nav-li mask"><a href="#game">Game</a></li>
-    <li class="footer-nav-li head"><a href="#contact">Contact</a></li>
+    <li class="footer-nav-li hammer"><a href="#work">Portfolio</a></li>
+    <li class="footer-nav-li bird"><a href="#about">About Me</a></li>
+    <li class="footer-nav-li head"><a href="#contact">Contact Me</a></li>
   </ul>
   <div class="elevator">
     <img class="for-day" src="assets/png/elevator.png" alt="back to top">
@@ -470,7 +308,9 @@
 <!--https://code.google.com/p/html5shiv-printshiv/-->
 <!--[if gt IE 8]><!--><script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script><!--<![endif]-->
 <!--CDNs-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!--http://cdnjs.com/libraries/respond.js/-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <!--http://cdnjs.com/libraries/prefixfree-->
@@ -484,61 +324,59 @@
   var $root = $('html,body');
   var $html = $('html');
   var $falseroot = $('#div-body');
-  //var $body = $('body');
 //SPIFFY-TEXT
   //VARIABLES
   //Because of how this is implemented, always put the largest word first.
-  var SPIFFY_WORDS = ["Technology","Software","Website","Game","Mobile App"], 
+  var SPIFFY_WORDS = ["a programmer.", 
+      "a full-time student.", 
+      "a Full Stack Developer.", 
+      "...wait, you're still reading this?", 
+      "impressed at your dedication!", 
+      "surprised you are still clicking!",
+      "amused. Have a riddle on me!",
+      "tall when I’m young, and...",
+      "short when I’m old. What am I?", 
+      "a candle or pencil!",
+      "wondering if you got that answer.",
+      "hoping you would like another riddle!",
+      "pleased to know that you are!",
+      "wet when drying. What am I?",
+      "a towel.",
+      "curious if you got that one.",
+      "...going to stop...I mean, my purpose-",
+      "supposed to be displaying serious things!",
+      "...okay, just one more riddle.",
+      "the beginning of the end,",
+      "the end of time and space.",
+      "essential to creation,",
+      "in every place. What am I?",
+      "the letter e. End, timE, spacE, placE.",
+      "sorry to say that was the last one.",
+      "grateful that you stayed for so long :)",
+      "going to say goodbye now.",
+      "Matthew. Thanks for clicking :)"
+    ],
     spiffy_index = 0,
-    $spiffy_word = $("a.spiffy-word.word"),
-    spiffy_word_width = 100;
+    $spiffy_word = $("a.spiffy-word.word");
+    $spiffy_container = $(".spiffy-container");
+    //spiffy_word_width = ;
   //F(X)
     //Loop through spiffy words and set timeout for reappearance. Transition CSS handles animation.
     function word_change () {
-      ++spiffy_index;
-      if(spiffy_index>=SPIFFY_WORDS.length) { spiffy_index = 0; }
-      $spiffy_word.css("width","0px");
-      window.setTimeout(function(){
+      spiffy_index = ++spiffy_index % SPIFFY_WORDS.length;
+      $spiffy_word.animate(400, function(){
+        $spiffy_container.animate({width: $(this).innerWidth()});
+      })
+      .fadeOut(400, function() {
         $spiffy_word.text(SPIFFY_WORDS[spiffy_index]);
-        $spiffy_word.width(spiffy_word_width);
-      },600);
+        $spiffy_container.animate({width: $(this).innerWidth()});
+      })
+      .fadeIn(400);
     }
     function onload_spiffyWords () {
       //Setup spiffy_words
       $spiffy_word.text(SPIFFY_WORDS[0]);
-      //spiffy_word_width = $(".spiffy-word.title").outerWidth();//issue, decided to hardcode
-      $(".spiffy-word.word").width(spiffy_word_width);
     }
-
-//SMOOTH SCROLL
-  function fade_scroll_to (selector) {
-    $falseroot.fadeOut(400, function () {
-      $root.scrollTop(0);
-      if(selector === "#top" || selector === "top") { 
-        $('#top.scroll-spy').trigger('scrollSpy:enter');
-      }
-      $falseroot.hide().fadeIn(400, function () {window.location.hash = "";});
-    });
-  }
-  //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
-  function smooth_scroll_to (selector) {
-    $root.animate({scrollTop:$(selector).offset().top}, 800).promise().done(function () {
-      window.location.hash = selector;
-    });
-  }
-  function onload_smoothAnchors () {
-    $('a[href*=#]').on('click', function(event){
-        if(this.hash !== "") {//linked to something
-          event.preventDefault();
-          console.log(this.hash);
-          if(this.hash === "#top" || this.hash === "top") {
-            fade_scroll_to(this.hash);
-          }
-          else
-            smooth_scroll_to(this.hash);
-        }
-    });
-  }
 
 //WHEEL
   //VARIABLES
@@ -588,9 +426,6 @@
   function onload_wheel () {
     //wheel - get svg if supported
     if(Modernizr.svg) {
-      /*$.get( "assets/svg/wheel2.svg", function(data) {
-        $( "div.wheel" ).html(data);
-      });*/
       //setup wheel hover
       $(".wheel-text").mouseenter(function(){
         wheel_mouseenter($(this).data('wheel-select'));
@@ -615,13 +450,7 @@
   //NIGHTMODE
   //F(X)
   function onload_nightmode () {
-    //if night was enabled by instant exec
-    if($html.hasClass("night")) {
-      //react appropriately
-      $('.lightbulb').toggleClass("invisible");
-    }
     $('.lightbulb-holder').click(function () {
-      $('.lightbulb').toggleClass("invisible");
       $html.toggleClass("night");
     });
   }
@@ -657,8 +486,6 @@
         $('.side-nav').removeClass('invisible');
       }
     });
-    /*$('.scroll-spy').on('scrollSpy:exit', function() {
-    });*/
     $('.scroll-spy').scrollSpy();
   }
 
@@ -694,7 +521,6 @@
       if(prevDescript.length < 1 || "#"+prevDescript[0].id !== new_id) {
         if(prevDescript.length < 1)//reposition if undergoing major resizing
           $root.scrollTop($("#work").offset().top);
-          //smooth_scroll_to("#work");
         $("#work-container").addClass("ongoing-selection");
         //select new
         $this.removeClass('unselected').addClass('selected');
@@ -707,25 +533,146 @@
     });
   }
 
+  //SMOOTH SCROLL
+  function fade_scroll_to (selector) {
+    $falseroot.fadeOut(400, function () {
+      $root.scrollTop(0);
+      if(selector === "#top" || selector === "top") { 
+        $('#top.scroll-spy').trigger('scrollSpy:enter');
+      }
+      $falseroot.hide().fadeIn(400, function () {window.location.hash = "";});
+    });
+  }
+  //http://stackoverflow.com/questions/7717527/jquery-smooth-scrolling-when-clicking-an-anchor-link
+  function smooth_scroll_to (selector) {
+    if ($(selector).offset()) {
+      $root.animate({scrollTop: $(selector).offset().top}, 800).promise().done(function () {
+        window.location.hash = selector;
+      });
+    }
+  }
+  function onload_smoothAnchors () {
+    $('a').on('click', function(event){
+        if(this.hash !== "") {//linked to something
+          event.preventDefault();
+          console.log(this.hash);
+          if(this.hash === "#top" || this.hash === "top") {
+            fade_scroll_to(this.hash);
+          }
+          else
+            smooth_scroll_to(this.hash);
+        }
+    });
+  }
+
+  //TABS
+  /**
+   * Initialize tabs based on portfolio data.
+   */
+  function onload_tabs(arrAward, arrExp, arrProject) {
+    $('a[data-toggle="pill"]').on('show.bs.tab', function (e) {
+      //Remove description if showing
+      $('.work-holder.selected').click();
+
+      //Hide all. No need for optimization for such a small amt of elems
+
+      let hideAllFx = ($elem) => { $elem.hide(200); },
+      showAllFx = ($elem) => { $elem.show(200); };
+
+      arrAward.forEach(hideAllFx);
+      arrExp.forEach(hideAllFx);
+      arrProject.forEach(hideAllFx);
+      
+      //Delay it a little (but not too much or the About us section will flicker) s.t. it will fade nicely
+      window.setTimeout(() => {
+        switch (e.target.id) {
+          case "pills-all-tab":
+            arrAward.forEach(showAllFx);
+            arrExp.forEach(showAllFx);
+            arrProject.forEach(showAllFx);
+            break;
+          case "pills-awards-tab":
+            arrAward.forEach(showAllFx);
+            break;
+          case "pills-exp-tab":
+            arrExp.forEach(showAllFx);
+            break;
+          case "pills-projects-tab":
+            arrProject.forEach(showAllFx);
+            break;
+        }
+      }, 100);
+    });
+  }
+
+  //PORTFOLIO
+  /**
+   * Load portfolio data into DOM arrays.
+   */
+  function onload_portfolio() {
+    $.ajax({
+      url: "assets/json/portfolio.json"
+    }).done(function(data) {
+      let json = JSON.parse(data);
+      arrAward = [];
+      arrExp = [];
+      arrProject = [];
+      json.forEach((item, i) => {
+        //Insert thumbnails
+        let $thumbnail = $("<div />", {"data-work-id": `#w-${i}`, class: `work-holder w-icon ${item.main_icon} clickable unselected`});
+        $thumbnail.append($("<img />", {class: "work fill filter n", src:"assets/png/g80.png"}))
+          .append($("<img />", {class: "work fill filter d", src:"assets/png/g50w.png"}))
+          .append($("<div />", {class: "work tag show", text: "More" }))
+          .append($("<div />", {class: "work tag hide", text: "Less" }));
+        
+        let $thumbnail_body = $("<div />", {class: 'work text'});
+        $thumbnail_body.append($("<div />", {class: "work-title small", text: item.title}))
+          .append($("<div />", {class: "work-remark small", text: item.remark}))
+          .append($("<div />", {class: "work-summary small", text: item.summary}));
+
+        $thumbnail.append($thumbnail_body)
+          .append($("<img />", {class: "work fill", src: item.img}));
+
+        let $item_body = $("<div />", {id:`w-${i}`, class:"work-descript"});
+        item.divs.forEach((div) => {
+          if (div.icon) {
+            $item_body.append(`<div class="w-icon pad ${div.icon}">${div.html}</div>`);
+          } else {
+            $item_body.append(`<div>${div.html}</div>`);
+          }
+        });
+
+        //Sort divs by their category
+        switch (item.main_icon) {
+          case "medal": arrAward.push($thumbnail);
+            break;
+          case "case": arrExp.push($thumbnail);
+            break;
+          case "paint": arrProject.push($thumbnail);
+            break;
+        }
+
+        //Append divs into the DOM
+        $("#work-container").append($thumbnail);
+        $("#work-popup-container").append($item_body);
+      });
+      onload_tabs(arrAward, arrExp, arrProject);
+      onload_work();         //setup work clicks
+    });
+  }
+
   //onload
   $(function() {
     onload_spiffyWords();  //Spiffy words!
     onload_wheel();        //init wheel if svg supported
-    onload_smoothAnchors();//smooth scrolling for all anchor tags
     onload_nightmode();    //night mode
+    onload_smoothAnchors();//smooth scrolling for all anchor tags
     onload_elevator();     //elevator
-    onload_work();         //setup work clicks
+    onload_portfolio();    //setup portfolio
   });
-  //instant_exec
-                            //night mode is just below modernizr
-  //instant_exec_wheel();    //wheel
   instant_exec_scrollspy(); //scrollspy
   instant_exec_sideNav();   //sidenav
 
-
-  /*$.winSizeSpy().on('scrollSpy:winSize', function () {
-    console.log('x');
-  })*/
 </script>
 <script src="js/jquery.githubRepoWidget.min.js"></script>
 <!--Google Analytics-->

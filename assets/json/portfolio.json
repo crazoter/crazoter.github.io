@@ -1,0 +1,207 @@
+[
+    {
+        "main_icon": "medal",
+        "title": "TrAVEl",
+        "remark": "Press coverage by The Straits Times",
+        "summary": "Polytechnic Final Year Project to help the visually impaired and elderly use public transport",
+        "img": "assets/png/travel.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "<a target='_blank' href='http://www.straitstimes.com/singapore/transport/new-bus-app-for-visually-impaired-and-elderly-commuters'>Press coverage by The Straits Times</a>, Ngee Ann Polytechnic Outstanding Innovation Team Award (Student Excellence Award 2015)"
+            },
+            { "icon": "ppl", "html": "3 man team" },
+            { "icon": "time", "html": "1 semester (~16 weeks)"},
+            { "icon": "tool", "html": "Android (Java & XML), PHP"},
+            { "html": "For my final year project, I decided to develop an Android mobile application that improves the lives of the less fortunate in my community. Together with 2 other like-minded individuals, Jeremy Lim and Jian Yu, we embarked on TrAVEl as our final year project.<br><br>TrAVEl is an Android application (app) to help the visually impaired and elderly navigate Singapore using public transport. It automatically plans the best route based on the starting and ending points provided. It provides real-time updates even if there are other apps running to ensure the user is kept updated on where he is, when the next bus is arriving and also informs the user when to board/alight the bus/train through notifications. The route is recalculated if the user missed the stop.<br><br>The user experience (UX) is both visually and aurally designed for the visually impaired and works well with Android accessibility features (e.g. Talkback) if necessary. There is also a help button at the same location on every page to guide users if they are disoriented. Testing was done with the visually impaired guides at Dialogue in the Dark (DID) to ensure satisfactory UX.<br><br>A key feature is the speech-to-text recognition of a large dataset of Singapore places such as Jurong East, Bishan or even Bukit Chandu which makes it a lot easier for visually impaired to use (compared to existing apps). The app is also able to recognise speakers with different accents and pronunciations of most Singapore locations.<br><br>The development of TrAVEl has also led to the creation of spinoff apps, such as a bus timing monitor for the Pebble smartwatch which is also visually impaired-friendly, and a bus location viewer which uses live data from users of TrAVEl to display the locations of buses. It has also been covered by The Straits Times and won our team the Ngee Ann Polytechnic Outstanding Innovation Team Award.<br><br>After our final year project, we have worked with Ngee Ann Polytechnic (NP) and DID to refine the application. Since then, the team has handed over the project to NP publish and provide maintenance.<br><br>I am very thankful to NP, my advisors and last but not least my team of friends who made this project a success. It is my wish that the application would be helpful to the visually impaired and elderly community, especially since I have friends and relatives who fall under these categories.<img class='work-content' src='assets/png/travel-team.png' alt='travel team image'><div class='caption'>The TrAVEl team & supervisors. From left: Mr. Henry Thet Swe, Matthew, Jeremy Lim, Jian Yu, Mr. Charles Keck. Not in photo: Mr. Andrew Tan, Mr. Ng Weng Choh</div>" }
+        ]
+    },
+    {
+        "main_icon": "medal",
+        "title": "MeL Pentesting",
+        "remark": "Blackboard Learn MeL Vulnerability",
+        "summary": "Discovered and recommended countermeasures for vulnerabilities in NP's e-Learning portal as an assignment",
+        "img": "assets/png/mel.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase"
+            },
+            { "icon": "ppl", "html": "3 man team" },
+            { "icon": "time", "html": "3 weeks"},
+            { "icon": "tool", "html": "C++ DirectX"},
+            { "html": "For a games development school assignment, I developed a parody of Runescape Classic with 2 classmates. Features include fishing, cooking, mining, trading, equipment, eating, map generation, mob generation, fighting and quite a number more such as quests.<br><br>The game basically leads the player from one quest to another, ultimately culminating in a boss fight with a dragon." }
+        ]
+    },
+    {
+        "main_icon": "case",
+        "title": "SOWS",
+        "remark": "E-commerce website in 3 weeks (start-up)",
+        "summary": "A brief experience working pro bono at a start-up",
+        "img": "assets/png/sows.png",
+        "divs": [
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "time", "html": "3 weeks"},
+            { "icon": "tool", "html": "Javascript & HTML/CSS (Bootstrap), PHP & MySQL (Laravel)"},
+            { "icon": "case", "html": "Save Our World Services" },
+            { "html": "Save Our World Services, or SOWS for short, is an online portal for services and products by companies in Singapore.<br><br>Together with another full stack developer, we revamped their existing website and content management system (CMS) using Bootstrap as our front-end framework and Laravel as the back-end framework.<br><br>Because the start-up company was undergoing a business overhaul, much of their existing website and CMS had to be scrapped; everything had to be redesigned and recreated from scratch.<br><br>The project was fraught with scope creep and changes, so much so that the founder of SOWS personally apologized for it. Fortunately, me and my colleague managed to pull through. We had delivered:<ul>  <li>    A relatively clean and responsive online portal that acts as a listing for services. Users can login to rate / favourite services, while companies can update their profile as listed services are linked to an existing company in the system.  </li>  <li>    A content management system for the business' employees to be used for managing the services listed on the portal.  </li></ul>We had also created an online messaging system similar to Web Telegram within 2 days and implemented an API for a mobile version of the portal but these features was removed due to scope change.<br><br>I am proud to say that the founder of SOWS was very satisfied with our work and astounded by our work ethic considering that we were unlikely to (and did not) get paid for our efforts.<br><br>All in all, it was a very tough experience because we had to rush so much work out in so little time but I learnt a lot through the process and from my colleague on both front-end and back-end development." }
+        ]
+    },
+    {
+        "main_icon": "case",
+        "title": "Also Can!",
+        "remark": "English to Singlish translator (Ngee Ann Polytechnic)",
+        "summary": "Crowdsourced machine learning to parse vocal Singlish",
+        "img": "assets/png/ac.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "time", "html": "1 month"},
+            { "icon": "tool", "html": "Android (Java & XML)"},
+            { "icon": "case", "html": "Ngee Ann Polytechnic" },
+            { "html": "Also Can! is a English to Singlish translator mobile application developed for Ngee Ann Polytechnic. This application syncs the Singlish dictionary with a server so that when a translation is corrected by one user, other users also get the improvement. There is a versioning system which allows the admin easily remove/ignore entries that they believe are spam. <br><br>It could be downloaded <a target='_blank' href='https://play.google.com/store/apps/details?id=np.alsocan'>here</a> on the Google Play Store.', but it has since been taken down after so many years." }
+        ]
+    },
+    {
+        "main_icon": "case",
+        "title": "Photobooth",
+        "remark": "Photo booth software (Ngee Ann Polytechnic)",
+        "summary": "Software include photobooth & display screen for photos taken",
+        "img": "assets/png/pb.png",
+        "divs": [
+            { "icon": "ppl", "html": "4 man team" },
+            { "icon": "time", "html": "4 weeks"},
+            { "icon": "tool", "html": "Javascript, HTML/CSS, PHP (laravel)"},
+            { "icon": "case", "html": "Ngee Ann Polytechnic" },
+            { "html": "I was hired by Ngee Ann Polytechnic (NP) with a group of other students to develop Photobooth, a web application that allows the user to take a photo of himself, frame it (from a wide range of frames) and give it a caption (which can be dragged to position it). The web application is usable on a computer, tablet or a mobile phone. The photo taken will then be displayed on a large screen for everyone to see.<br><br>Photobooth was used by NP School of ICT for Open House 2015. It was very satisfying to see the software run without a hitch on the day itself and to see everyone using it without complaints. To see their faces light up in amusement as their faces appeared on the screen was very fulfilling." }
+        ]
+    },
+    {
+        "main_icon": "medal",
+        "title": "GRPG",
+        "remark": "A Generic RPG",
+        "summary": "An rpg similar to runescape classic developed in 3 weeks",
+        "img": "assets/png/grpg.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase"
+            },
+            { "icon": "ppl", "html": "3 man team" },
+            { "icon": "time", "html": "3 weeks"},
+            { "icon": "tool", "html": "C++ DirectX"},
+            { "html": "For a games development school assignment, I developed a parody of Runescape Classic with 2 classmates. Features include fishing, cooking, mining, trading, equipment, eating, map generation, mob generation, fighting and quite a number more such as quests.<br><br>The game basically leads the player from one quest to another, ultimately culminating in a boss fight with a dragon." }
+        ]
+    },
+    {
+        "main_icon": "medal",
+        "title": "The King's Hand",
+        "remark": "A 3D stealth archery game using GameMaker",
+        "summary": "Developed in 2 weeks without prior GML or 3D programming experience in a team of 2",
+        "img": "assets/png/tkh.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase"
+            },
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "time", "html": "2 weeks"},
+            { "icon": "tool", "html": "GameMaker:Studio Standard (Java)"},
+            { "html": "My first exposure to 3D game development, I created a 3D game using GameMaker with a classmate. Features missions, relatively realistic archery (takes wind and heartbeat into account), skills etc.<br><br>This was despite the fact that I had little to no prior experience with either 3D game development nor GameMaker Studio and that we were expected (and advised) to only develop a 2D game.<br><br>I had wanted to develop a 3D game to challenge myself as I had already done various other 2D games previously and also because I also believed that the game idea of archery simulation would be better served with a 3D perspective than a 2D perspective.<br><br>It was tremendously satisfying when we surpassed everyone's expectations with the quality of the game, especially considering we did it so quickly and with all the GameMaker quirks." }
+        ]
+    },
+    {
+        "main_icon": "medal",
+        "title": "Little Strike",
+        "remark": "A 2D multiplayer top down shooter",
+        "summary": "Developed in 2 weeks in a team of 2",
+        "img": "assets/png/ls.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "Featured in graduation showcase"
+            },
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "time", "html": "2 weeks"},
+            { "icon": "tool", "html": "Windows Form Application (C#)"},
+            { "html": "Me and one of my classmates decided to take our Windows Application Development assignment to the next level and we created a multiplayer top-down shooter (which can support up to at least 8 players). It has multiple classes (specializations) with different abilities (such as turning invisible) and weapons and various other features like scoreboards, primitive map editor etc. Delta timing was also implemented to ensure smooth gameplay.<br><br>This assignment was especially memorable as we were the only team that conducted a live playtest when we were presenting to the lecturer and the class. Seeing everyone enjoying our creation made all the effort worth it." }
+        ]
+    },
+    {
+        "main_icon": "medal",
+        "title": "Splash Wars",
+        "remark": "2nd runners up in Splash Awards 2012",
+        "summary": "A personal achievement, as the game was developed in 2 weeks without prior C# Silverlight experience",
+        "img": "assets/png/sw.png",
+        "divs": [
+            {
+                "icon": "medal",
+                "html": "2nd runners up in Splash Awards 2012"
+            },
+            { "icon": "ppl", "html": "3 man team" },
+            { "icon": "time", "html": "2 weeks"},
+            { "icon": "tool", "html": "Silverlight (C#)"},
+            { "html": "During my first semester at Ngee Ann Polytechnic, I joined the Splash Awards competition with two classmates. As nobody in the team had any prior C# knowledge (and we only had a bit of coding practice), I had to learn C# and build a game with Silverlight in 2 weeks from scratch on my own. My effort paid off and we clinched the 2nd runners up position.<br><br>In addition to learning C# and winning 3rd place, the experience was unforgettable as it was a personal life lesson on the value of passion, focus and determination. The game was on the Windows App Store <a target='_blank' href='https://www.microsoft.com/en-us/store/games/splashwarsii/9nblggh08w11'>here</a>, but has since been taken down after so many years have passed." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Bookshelf",
+        "remark": "Web app to keep track of reading material",
+        "summary": "By indexing and summarizing what they read, users are better able to remember the finer points of useful articles.",
+        "img": "assets/png/bs.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "tool", "html": "Javascript, HTML/CSS" },
+            { "html": "Bookshelf is a responsive web application created for users to keep track of what they read, or to take notes. What it does is it allows the user to summarize their reading material and tag them for future reference. Or they can just tag them for future reading. The main idea is to provide a platform for the user to keep track of what he reads and allow him to make notes / summarize if he wishes so that he can remember the more important points better.<br><br>Bookshelf has various features:<ul>  <li>CMS for articles; add, edit, delete, search by tag/date/title/content, pagination etc</li>  <li>Uses Material Design (by Materializecss, but animations are changed to use CSS to provide smoother animation on mobile)</li>  <li>Responsive</li>  <li>Other little usability nuggets like automatically populating the add article input fields upon pasting in the article URL (e.g. filling in the title & description with the page's meta tags), Markdown for description/summary etc.</li></ul>Bookshelf is now defunct as it relied on Parse as its CMS which stopped its service on 2017.<img class='work-content' src='assets/png/bs-ct.png'><div class='caption'>Bookshelf landing page with all sorts of tagged articles</div><img class='work-content' src='assets/png/bs-ct2.png'><div class='caption'>An example of an article's summary, complemented with the use of Markdown</div>" }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Scenery Traveller",
+        "remark": "Travel the world from your home",
+        "summary": "Complete with an editor",
+        "img": "assets/png/ess.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "time", "html": "3 weeks"},
+            { "icon": "tool", "html": "Javascript, HTML/CSS" },
+            { "html": "Imagine yourself standing in front of the world's grandest scenery. In front of the grand canyon. In lush forests. Accompanied with music.<br><br>Scenery Traveller teleports you from your home into the beautiful parts of the world, as if you are there amongst the foliage, or at the top of a mountain. This application allowed you to edit an image of a person online, choose a music video and grabbed sceneries from r/earthporn for the backdrop. The editor used Imgur as a backend: the edited image of the person would be uploaded as the image and metadata was uploaded as the description. However, as the Imgur API may have changed somewhat since, it is unlikely the project is still functioning. <br><br>Demo: <a href='https://crazoter.github.io/Scenery-Traveller/scenery_slideshow.html?id=4ojMLPg'>https://crazoter.github.io/Scenery-Traveller/scenery_slideshow.html?id=4ojMLPg</a><br>Editor: <a href='http://crazoter.github.io/Scenery-Traveller-Editor/editor.html'>http://crazoter.github.io/Scenery-Traveller-Editor/editor.html</a><br><br>More at the GitHub repository for this project:<div class='github-widget' data-repo='crazoter/Scenery-Traveller'></div><br>An editor for this project is also available at this GitHub repository:<div class='github-widget' data-repo='crazoter/Scenery-Traveller-Editor'></div><br><br><div class='caption'>As you might have guessed, this project was originally a very elaborate joke</div>" }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Photoshop Work",
+        "remark": "Feat. Mr Anand",
+        "summary": "60+ high res. images of Mr. Anand's face in various movie posters (lol)",
+        "img": "assets/png/pp.png",
+        "divs": [
+            { "icon": "tool", "html": "Photoshop" },
+            { "html": "During web development class, me and a few friends discovered a security vulnerability in a website belonging to our lecturer which he was using as an example. This vulnerability allowed us to change the image on the website and we thought it was a great idea to photoshop our lecturer's face into a movie poster and put it on the website.<br><br> I started photoshopping his face onto various movie posters, and this snowballed into an entire photoshop portfolio of 60+ posters featuring him, Mr. Anand Ravi Deshpande. The full portfolio can be found at <a target='_blank' href='http://tinyurl.com/photos-of-mr-anand'>http://tinyurl.com/photos-of-mr-anand</a>.<br><br>Note: This was a harmless prank on a website used for purely educational purposes; Mr. Anand was greatly amused and not insulted by the prank. On our graduation day, we gifted him a collage poster of these photoshopped images with our signatures, much to his and our amusement." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Speak Me Not",
+        "remark": "Virtual Microphone using Google Translate",
+        "summary": "Speak to your friends in Google Translate's voice using text (CLI or GUI, Windows using Google Translate & VLC)",
+        "img": "assets/png/smn.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "time", "html": "3 weeks"},
+            { "icon": "tool", "html": "C++, VLC, VB Cable"},
+            { "html": "I created this Windows application because I wanted to \"talk\" to my friends while playing CS:GO, yet I did not have a microphone. I thought it would be cool (and funny) to speak to them in Google Translate; just hit a hotkey, type my message and play a voice sound file obtained from Google's Speech-to-Text API through a virtual mic using VLC. <br><br>More at the GitHub repository for this project:<div class=\"github-widget\" data-repo=\"crazoter/Speak-Me-Not\"></div><br>Note: This project is now defunct due to lack of updates and changes to the Google Speech-to-Text API." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Form Doer",
+        "remark": "A suite of scripts that automate the filling of online forms",
+        "summary": "Features include randomized input using regex, probabilities for radio buttons/checkboxes etc.",
+        "img": "assets/png/fd.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "tool", "html": "Javascript, HTML/CSS"},
+            { "html": "A suite of scripts to automate the filling of online forms such as Google Forms, SurveyMonkey etc. Allows me to randomize results by regex, set percentages for MCQs etc...<br><br>As you may suspect, these scripts were not made public because these scripts have the power to perform Denial Of Service (DOS) attacks on a form and can easily render any form's data useless in a few seconds (especially for SurveyMonkey; a DOS on SurveyMonkey would take less than a second because it enforces a limit of 30 survey results for a free account).<br><br>These scripts were developed for experimental purposes only and have only been used on sample forms. They have since been rendered defunct due to lack of updates and changes to the websites." }
+        ]
+    }
+]

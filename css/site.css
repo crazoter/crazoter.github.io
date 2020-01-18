@@ -9,8 +9,8 @@
 .txt-pry { color:#212121; }
 .txt-sec { color:#9e9e9e; }
 /*Dark mode*/
-.night.txt-pry { color:#FFF;}
-.night.txt-sec { color:#616161;}
+.night.txt-pry { color:#FFF; }
+.night.txt-sec { color:#616161; }
 .lightbulb-holder { 
   width:50px; height:50px;
   position: fixed;
@@ -20,12 +20,12 @@
 .lightbulb { 
     cursor: pointer; cursor: hand;
     position: absolute;
-    top: 0;
-    right: 0;
-    margin: 5px;
+    top: 17px;
+    right: 17px;
+    padding: 4px;
     transition: opacity 0.3s;
  }
- .invisible { zoom: 1; filter: alpha(opacity=0); opacity:0; }
+
 
 /*Better Mofo website recommendations*/
 html, body, #div-body { width: 100%; height: 100%; }
@@ -66,12 +66,13 @@ header>span::first-letter { font-family: 'Cinzel Decorative', serif; font-size: 
 .spiffy-word {
   display: inline-block;
   overflow: hidden;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.spiffy-container {
+  vertical-align: middle;
 }
 .spiffy-word.title { height: 28px; }
-.spiffy-word.title > a {
-  transition: width 300ms ease 0.1s;
-  text-align: right;
-}
 nav,ul.side-nav{ font-size: 16px; }
 nav>a{ margin-left: 5px; margin-right: 5px; }
 ul.side-nav {
@@ -118,9 +119,9 @@ ul.side-nav {
 }
 .footer-nav-li>a { width: 100%; height: 100%; display: block; }
 .night .footer-nav { background-color: #000; }
-.footer-nav-li { width: 20%; display: block; float: left; margin: 0; font-size: 14px; padding-top: 10px; height: 27px; transition: border-bottom 0.3s,  }
+.footer-nav-li { width: 25%; display: block; float: left; margin: 0; font-size: 14px; padding-top: 10px; transition: border-bottom 0.3s,  }
 .footer-nav-li.selected { background-color: #C5CAE9; border-bottom: 3px solid #3F51B5; }
-.night .footer-nav-li.selected { background-color: #303F9F; border-bottom: 3px solid #3F51B5; }
+.night .footer-nav-li.selected { background-color: #007BFF; border-bottom: 3px solid #3F51B5; }
 /*Anchor Tags*/
 a { 
   text-decoration: none !important;
@@ -151,7 +152,14 @@ div.text-content { padding: 0px 10px 0px 10px; margin: 0 auto; max-width: 650px;
 /*Wheel*/
 text { fill: #212121; }
 .night text{ fill: #FFF; }
-text:hover {
+.blend-in text { fill:#FFF; }
+.night .blend-in text { fill:#000; }
+
+g.blend-in:hover text { fill: #212121; }
+
+.night g.blend-in:hover text { fill: #FFF; }
+
+g:hover {
   cursor: pointer; cursor: hand;
   text-shadow:
     -0.2px -0.2px 0 #222,  
@@ -159,7 +167,7 @@ text:hover {
     -0.2px 0.2px 0 #222,
     0.2px 0.2px 0 #222;
 }
-.night text:hover {
+.night g:hover {
   text-shadow:
     -0.2px -0.2px 0 #DDD,  
     0.2px -0.2px 0 #DDD,
@@ -309,11 +317,15 @@ div.work-holder {
 div.work.text { 
   bottom: 0;
   z-index: 4;
-  /*color: #FFF;*/
   line-height: 1.3;
   padding: 10px;
   text-align: left;
-  width: 200px;
+  width: 100%;
+  background: linear-gradient(to top, #FFFF 0%, #FFF, #FFF0 90% 100%);
+  transition: 300ms ease 0.1s;
+}
+.night div.work.text { 
+  background: linear-gradient(to top, #000F 0%, #000, #0000 90% 100%);
 }
 div.work-remark { font-size: 18px; }/*24*/
 div.work-remark.small { font-size: 15px; }/*24*/
@@ -343,28 +355,32 @@ div.work-holder:hover,div.work-holder.selected { z-index: 2; transform: scale(1.
 .work.text.bg.n { display: none; }
 .night .work.text.bg.d { display: none; }
 .night .work.text.bg.n { display: inherit; }
-div.work-descript { display: none; clear: both; /*opacity: 0; transition: 300ms ease 0.1s;*/ max-width: 650px; margin: 0 auto; padding: 10px; }
+div.work-descript { display: none; clear: both; max-width: 650px; margin: 0 auto; padding: 10px; }
 div.work-descript.selected { display: block; }
-/*div.work-descript.fade-in { opacity: 1; }*/
 
 .ongoing-selection div.work-holder.unselected { width: 50px; height: 50px; margin: 3px; }
 .ongoing-selection .unselected div.work.text { width: 36px; display: none; }
 
+.w-icon {
+  background-position: 0% 0%;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+.work-descript .w-icon { background-position: 0% 50%; }
 .w-icon.pad { padding-left: 30px; }
-/*.w-icon.holder { position: absolute; left: 0; top: 0; width: 30px; height: 30px; }*/
-.w-icon.medal { background: url("../assets/png/medal_blk.png") no-repeat 0 0; }
-.w-icon.time { background: url("../assets/png/time_blk.png") no-repeat 0 0; }
-.w-icon.ppl { background: url("../assets/png/group_blk.png") no-repeat 0 0; }
-.w-icon.tool { background: url("../assets/png/tool_blk.png") no-repeat 0 0; }
-.w-icon.paint { background: url("../assets/png/paint_blk.png") no-repeat 0 0; }
-.w-icon.case { background: url("../assets/png/work_blk.png") no-repeat 0 0; }
-.night .w-icon.case { background: url("../assets/png/work_blk.png") no-repeat 0 0; }
-.night .w-icon.medal { background: url("../assets/png/medal_wht.png") no-repeat 0 0; }
-.night .w-icon.time { background: url("../assets/png/time_wht.png") no-repeat 0 0; }
-.night .w-icon.ppl { background: url("../assets/png/group_wht.png") no-repeat 0 0; }
-.night .w-icon.tool { background: url("../assets/png/tool_wht.png") no-repeat 0 0; }
-.night .w-icon.paint { background: url("../assets/png/paint_wht.png") no-repeat 0 0; }
-.night .w-icon.case { background: url("../assets/png/work_wht.png") no-repeat 0 0; }
+.w-icon.medal { background-image: url("../assets/png/medal_blk.png"); }
+.w-icon.time { background-image: url("../assets/png/time_blk.png"); }
+.w-icon.ppl { background-image: url("../assets/png/group_blk.png"); }
+.w-icon.tool { background-image: url("../assets/png/tool_blk.png"); }
+.w-icon.paint { background-image: url("../assets/png/paint_blk.png"); }
+.w-icon.case { background-image: url("../assets/png/work_blk.png"); }
+.night .w-icon.case { background-image: url("../assets/png/work_blk.png"); }
+.night .w-icon.medal { background-image: url("../assets/png/medal_wht.png"); }
+.night .w-icon.time { background-image: url("../assets/png/time_wht.png"); }
+.night .w-icon.ppl { background-image: url("../assets/png/group_wht.png"); }
+.night .w-icon.tool { background-image: url("../assets/png/tool_wht.png"); }
+.night .w-icon.paint { background-image: url("../assets/png/paint_wht.png"); }
+.night .w-icon.case { background-image: url("../assets/png/work_wht.png"); }
 
 #work-fix-for-bg { clear:both; text-align: center; }
 img.work-content { max-width: 100%; }
@@ -395,7 +411,7 @@ img.work-content { max-width: 100%; }
   div.svg-bg { 
     width: 80%;
   }
-  div.work.text { padding: 5px; width: 140px; }
+  div.work.text { padding: 5px; }
   div.work-holder { width: 150px; height: 150px; margin: 2px; }
   div.work-remark { font-size: 13px; }
   div.work-remark.small { font-size: 11px; }  
@@ -429,7 +445,7 @@ img.work-content { max-width: 100%; }
     margin-right: auto;
   }
 
-  div.work.text { padding: 5px; width: 120px; }
+  div.work.text { padding: 5px; }
   div.work-holder { width: 130px; height: 130px; margin: 2px; }
   div.work-remark { font-size: 13px; }
   div.work-remark.small { font-size: 11px; }
@@ -445,6 +461,7 @@ img.work-content { max-width: 100%; }
 
 /*Misc*/
 .clickable { cursor: pointer; cursor: hand; }
+.v-small { font-size: 9px; }
 
 /*Center*/
 /*http://stackoverflow.com/questions/396145/how-to-vertically-center-a-div-for-all-browsers*/
