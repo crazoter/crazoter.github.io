@@ -611,7 +611,7 @@
    */
   function onload_portfolio() {
     $.ajax({
-      url: "assets/json/portfolio.json"
+      url: "./assets/json/portfolio.json"
     }).done(function(data) {
       let json = JSON.parse(data);
       arrAward = [];
