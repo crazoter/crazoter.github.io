@@ -613,11 +613,13 @@
     $.ajax({
       url: "./assets/json/portfolio.json"
     }).done(function(data) {
-      let json = JSON.parse(data);
+      if (!Array.isArray(data)) {
+        data = JSON.parse(data);
+      }
       arrAward = [];
       arrExp = [];
       arrProject = [];
-      json.forEach((item, i) => {
+      data.forEach((item, i) => {
         //Insert thumbnails
         let $thumbnail = $("<div />", {"data-work-id": `#w-${i}`, class: `work-holder w-icon ${item.main_icon} clickable unselected`});
         $thumbnail.append($("<img />", {class: "work fill filter n", src:"assets/png/g80.png"}))
