@@ -1,5 +1,18 @@
 [
     {
+        "main_icon": "paint",
+        "title": "Panopto Plus",
+        "remark": "Chrome Extension to optimize NUS webcasts",
+        "summary": "Improves webcasts hosted on Panopto for NUS students",
+        "img": "assets/png/panp.png",
+        "divs": [
+            { "icon": "ppl", "html": "1 man team" },
+            { "icon": "time", "html": "1 summer break (~12 weeks)"},
+            { "icon": "tool", "html": "Javascript, HTML/CSS" },
+            { "html": "I participated in NUS Orbital, a programme where students had to propose, implement and complete a project. I decided to create Panopto Plus, a Chrome Extension that improved the UI of NUS webcasts, added transcripts and subtitles, silence trimming, volume boosting functionality and white noise reduction for these webcasts. These were performed without the use of an external server to ensure that the project will persist even without server support. <br><br> I used <a target='blank' href='https://preactjs.com/'>PreactJS</a> to speed up some parts of the UI implementation. I implemented the subtitles and transcripts by leveraging on Panopto's own servers (cached upon retrieval to minimize load). The silence trimming was implemented with <a target='blank' href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4142156/'> Double-Combined Fourier Transform</a> using Web Audio API & Web Workers to decode and process the TS files (Audio Worklets caused memory leaks for my use case). There were also various other features implemented to improve the webcasting experience.<br><br> Panopto Plus is free and it can be downloaded <a target='blank' href='https://chrome.google.com/webstore/detail/panopto-plus/akbikmmpkifiidiegdmhaancnfoeokbh'>here</a>. The project is open source, so you can also find it on GitHub <a target='blank' href='https://github.com/crazoter/panplus'>here</a>. Implementation / testing details can be found <a target='blank' href='https://docs.google.com/document/d/1SSKt7AarU6Eq0sDjX5Z_V_kLHgVvYx65-W42pP7GObI/edit'>here</a> and the project code is documented using JSDoc.<br><br>At the point of writing this extension has 150 users even though it was not really publicly promoted due to the difficulty of promoting it. The extension's silence trimming is extremely useful as it has regularly trimmed off a significant portion of lecture time (probably around 10-20%) without affecting my learning. I'm pretty happy that a small project I developed over the holidays is this useful to so many." }
+        ]
+    },
+    {
         "main_icon": "medal",
         "title": "TrAVEl",
         "remark": "Press coverage by The Straits Times",
@@ -35,6 +48,33 @@
     },
     {
         "main_icon": "case",
+        "title": "Worked at PIXELSQUAD",
+        "remark": "as a Full-Stack Developer",
+        "summary": "Worked on Moter MegaMall & other projects",
+        "img": "assets/png/pxs.png",
+        "divs": [
+            { "icon": "time", "html": "~5 months"},
+            { "icon": "tool", "html": "Javascript & HTML/CSS (Vue.js, Sass, Angular 2), Typescript (Ionic & Cordova for Android & iOS), LAMP (CakePHP)"},
+            { "icon": "case", "html": "<a target='blank' href='https://www.pixelsquad.com.sg/'>PIXELSQUAD</a>" },
+            { "html": "Immediately after National Service (NS), I decided to work at PIXELSQUAD, a web development agency, as a full-stack developer. I worked on various projects that required me to develop the website and mobile applications. One such project was Motor MegaMall (MMM) which was an online portal for buying and selling cars (like sgCarMart). On top of helping to develop the front-end and backend as well as the mobile application for Android and iOS, I also developed an online image editor for users to hide their car plate numbers. MMM also had a service that allowed users to apply for car loans to various banks, but each of these banks had their own forms for applying for a loan. To combat this issue, I had to develop a system that automated the population of PDF fields of these forms, as well as automated the signing & stamping of these documents using signatures and stamps provided by the user.<br><br>I had learnt a lot during my time at PIXELSQUAD and I am grateful for the opportunity to work there." }
+        ]
+    },
+    {
+        "main_icon": "case",
+        "title": "Six",
+        "remark": "App that combines Tinder with LinkedIn (start-up)",
+        "summary": "Developed a high fidelity prototype on iOS with Swift 2.0 & Objective-C and MEAN stack with features like 2FA auth",
+        "img": "assets/png/six.png",
+        "divs": [
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "time", "html": "~1 year"},
+            { "icon": "tool", "html": "iOS (Swift, Objective-C), MEAN, 2FA (Twilio)"},
+            { "icon": "case", "html": "Six" },
+            { "html": "As I was serving National Service (NS) as a clerk, I wanted to do something with my free time. That was when I met Sean, a like-minded individual who also wanted to make good use of his free time during NS. It was then that the two of us founded a start-up; our goal was to create an application that would combine Tinder and LinkedIn together such that you could meet and connect with other talented people for projects and work. I handled the technical aspects of the start-up while he managed the business aspect. The two of us designed the application together and I created the mobile application and setup the server from scratch. We managed to produce a high-fidelity prototype, but I had become too busy with new NS duties after up pes and decided drop the project after experiencing burnout." }
+        ]
+    },
+    {
+        "main_icon": "case",
         "title": "SOWS",
         "remark": "E-commerce website in 3 weeks (start-up)",
         "summary": "A brief experience working pro bono at a start-up",
@@ -58,7 +98,31 @@
             { "icon": "time", "html": "1 month"},
             { "icon": "tool", "html": "Android (Java & XML)"},
             { "icon": "case", "html": "Ngee Ann Polytechnic" },
-            { "html": "Also Can! is a English to Singlish translator mobile application developed for Ngee Ann Polytechnic. This application syncs the Singlish dictionary with a server so that when a translation is corrected by one user, other users also get the improvement. There is a versioning system which allows the admin easily remove/ignore entries that they believe are spam. <br><br>It could be downloaded <a target='_blank' href='https://play.google.com/store/apps/details?id=np.alsocan'>here</a> on the Google Play Store.', but it has since been taken down after so many years." }
+            { "html": "Also Can! is a English to Singlish translator mobile application developed for Ngee Ann Polytechnic. This application syncs the Singlish dictionary with a server so that when a translation is corrected by one user, other users also get the improvement. There is a versioning system which allows the admin easily remove/ignore entries that they believe are spam. <br><br>A few years ago it could be downloaded <a target='_blank' href='https://play.google.com/store/apps/details?id=np.alsocan'>here</a> on the Google Play Store, but it has since been removed after it has become defunct." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Dynalite",
+        "remark": "IoT project to visualize & analyse room vacancy",
+        "summary": "",
+        "img": "assets/png/dyn.png",
+        "divs": [
+            { "icon": "ppl", "html": "4 man team" },
+            { "icon": "tool", "html": "Python 3, CoAP, MEAN with PostgreSQL, React" },
+            { "html": "Together with a few other teamates from NUS, I developed a web-app that dynamic visualisation of room occupancy using IoT devices.<br><br>Dynalite was built using 3 Docker containers and Raspberry Pi (RPi) GPIO for my CS3103 Computer Networks Practice module. The RPi reads light data, encrypts the information and then sends it via CoAP to the first Docker container containing a backend NodeJS-ExpressJS web server.<br><br>The backend server verifies the information and stores the measurements into a PostgreSQL database. This information is then displayed on a website detailing when the room is available and for how long using React.<br><br>I contributed to the IoT portion of the project which involved programming in Python 3 and managing the encryption between Python & Node.js.<br><br>The project can be found <a target='blank' href='https://github.com/DigiPie/dynalite'>here</a>." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "CarParkour",
+        "remark": "Carpark vacancy mobile app",
+        "summary": "One of the first mobile applications for finding vacant carparks in Singapore",
+        "img": "assets/png/cpkr.png",
+        "divs": [
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "tool", "html": "Android, PHP" },
+            { "html": "Inspired by a friend's complaint that it was hard to find vacant carpark lots, I created CarParkour with my friend Jeremy Lim. CarParkour helped Singaporean drivers find carpark lots in Orchard and the CBD, wherever data is available. In tandem with data from government APIs, it uses a predictive algorithm to estimate the number of lots 10 minutes into the future and colour-codes carparks, saving drivers the effort of rerouting to another carpark if their destination is full. Additionally, it displays all HDB carparks and some commercial carparks, along with parking fees for selected locations. This app was made with Jeremy Lim under the Collab 08 banner. After official apps were released, CarParkour was no longer needed and has since been sunseted." }
         ]
     },
     {
