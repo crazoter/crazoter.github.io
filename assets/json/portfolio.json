@@ -53,10 +53,10 @@
                 "icon": "medal",
                 "html": "One of the two games that won me the Unity Technologies Prize, Featured in graduation showcase"
             },
-            { "icon": "ppl", "html": "3 man team" },
-            { "icon": "time", "html": "3 weeks"},
-            { "icon": "tool", "html": "C++ DirectX"},
-            { "html": "For a games development school assignment, I developed a parody of Runescape Classic with 2 classmates. Features include fishing, cooking, mining, trading, equipment, eating, map generation, mob generation, fighting and quite a number more such as quests.<br><br>The game basically leads the player from one quest to another, ultimately culminating in a boss fight with a dragon." }
+            { "icon": "ppl", "html": "2 man team" },
+            { "icon": "time", "html": "1 month"},
+            { "icon": "tool", "html": "JS, HTML/CSS, XSS"},
+            { "html": "Me and two of my classmates discovered vulnerabilities in Ngee Ann Polytechnic’s (NP) E-learning portal, Blackboard Learn – Mel while working on a school assignment that required us to find vulnerabilities in any software / hardware.<br><br>Together with another classmate, I documented the vulnerabilities, developed proof-of-concept attacks and demonstrated them to our supervisor and NP’s administrative staff while recommending countermeasures. I'm not at liberty to elaborate on the vulnerabilities but they were severe enough such that they can be exploited to obtain the credentials of lecturers and other students easily. <br><br>This project taught me the value of IT security as I observed first-hand how one vulnerability (or a combination of vulnerabilities) can easily cause grievous harm to any organization. All of us definitely learnt not to be complacent; everyone had preconceptions that the system would be infallible before embarking on the assignment and we were shocked (and a little amused) when we discovered the vulnerabilities." }
         ]
     },
     {
