@@ -1,0 +1,17 @@
+//
+// file: Template.adoc
+//
+= Main Title
+:sectnums:
+:toc: left
+:toclevels: 3
+
+:toc!:
+
+== Header
+
+*Subheader*
+
+URL: https://www.google.com[link]
+
+Embedded video::rPQoq7ThGAU[youtube]

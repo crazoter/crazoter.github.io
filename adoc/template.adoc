@@ -1,0 +1,72 @@
+//
+// file: template.adoc
+//
+= Main Title
+:sectnums:
+:toc: left
+:toclevels: 3
+
+:toc!:
+:stem: asciimath
+
+== Header
+
+*Subheader*
+
+// URL
+URL: https://www.google.com[link]
+
+// Code
+```
+Code
+```
+
+latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
+
+Water (stem:[H_2O])
+
+A matrix can be written as stem:[[[a,b\],[c,d\]\]((n),(k))].
+
+[latexmath]
+++++
+\begin{bmatrix} 
+a & b & c \\
+c & d & d\\
+e & f & g \\
+\end{bmatrix}
+++++
+
+[asciimath]
+++++
+sqrt(4) = C
+++++
+
+.UML Diagram Example
+[uml,file="uml-example.png"]
+--
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+  Object[] elementData
+  size()
+}
+
+enum TimeUnit {
+  DAYS
+  HOURS
+  MINUTES
+}
+
+annotation SuppressWarnings
+--
+

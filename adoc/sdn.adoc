@@ -1,0 +1,23 @@
+//
+// file: sdn.adoc
+//
+= Mininet
+:sectnums:
+:toc: left
+:toclevels: 3
+
+:toc!:
+:stem: asciimath
+
+== Setup
+
+. Download Mininet VM
+. Add VM to VirtualBox, 
+.. https://github.com/mininet/openflow-tutorial/wiki/VirtualBox-specific-Instructions[Add host-only network adapter]
+.. Login to VM (login & pass: `mininet`)
+. Setup POX using WSL on your main computer
+.. `git clone https://github.com/noxrepo/pox`
+.. Follow instructions on this https://github.com/MurphyMc/poxdesk/wiki/Getting-Started[Getting Started page]. If `./generate.py` fails https://github.com/MurphyMc/poxdesk/issues/1[it's okay]
+.. You can access the page at 127.0.0.1:8000/poxdesk
+. Run Mininet on your vm by calling `sudo mn`. See http://mininet.org/walkthrough/[walkthrough].
+. Once you're done with the VM don't forget to use `sudo poweroff` to save the settings
