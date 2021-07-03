@@ -1,7 +1,42 @@
 [
     {
+        "main_icon": "medal",
+        "title": "3 Certifications in 2021",
+        "remark": "AI4I, NUS Focus Areas",
+        "summary": "",
+        "img": "assets/png/aisg.png",
+        "divs": [
+            { "html": "In 2021 I completed the AI4I course by AI Singapore and received the Foundations in AI certificate. I had also received a <a target='blank' href='https://credentials.nus.edu.sg/63beec3b-f93f-4cfd-88a0-30cb08d08b37'>Certificate of Merit in the Artificial Intelligence Focus Area</a>, as well as a <a target='blank' href='https://credentials.nus.edu.sg/b75c215b-ec7e-41fd-8c83-80b15d9668b3'>Certificate of Merit in the Networking and Distributed Systems Focus Area</a>." }
+        ]
+    },
+    {
         "main_icon": "case",
-        "title": "Interned at SpeQtral",
+        "title": "NLP Research Intern (DSTA)",
+        "remark": "",
+        "summary": "",
+        "img": "assets/png/dsta.png",
+        "divs": [
+            { "icon": "time", "html": "~3 months"},
+            { "icon": "tool", "html": "Python, Tensorflow, Keras, Sci-kit learn"},
+            { "icon": "case", "html": "<a target='blank' href='https://www.dsta.gov.sg/programme-centres/information-pc'>DSTA (Information Programme Centre)</a>" },
+            { "html": "Research on improving baselines set by existing SotA synthetic text detection models (e.g. RoBERTa, GROVER, GPT-2). During the internship, I had to build upon available literature to improve the SotA while working within the boundaries of hardware limitations. In the process, I had also explored and implemented other areas of ML such as image classification with EfficientNet." }
+        ]
+    },
+    {
+        "main_icon": "paint",
+        "title": "Genshin Lyre Overlay",
+        "remark": "Keypress image detection, visualization and scoring system",
+        "summary": "",
+        "img": "assets/png/gil.png",
+        "divs": [
+            { "icon": "time", "html": "~1 month on/off"},
+            { "icon": "tool", "html": "Python 3" },
+            { "html": "This was just a project I developed for fun as I was fascinated with the idea of making the lyre device in Genshin Impact accessible to more players. The project 'write-up' can be found <a target='blank' href='https://www.hoyolab.com/genshin/article/322007'>here</a>." }
+        ]
+    },
+    {
+        "main_icon": "case",
+        "title": "SWE Intern (SpeQtral)",
         "remark": "under SGInnovate Summation Programme",
         "summary": "Worked on SpeQtral's QKD software stack",
         "img": "assets/png/spq.png",
